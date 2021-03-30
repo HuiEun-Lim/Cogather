@@ -75,11 +75,17 @@
 	<!-- Interceptor 등록/설정 -->
 <!-- 	<interceptors> -->
 <!-- 		<interceptor> -->
+<<<<<<< HEAD
 <!-- 			<mapping path="/board/list.do"/> --> 
 <!-- 			<mapping path="/board/write.do"/> --> 
 <!-- 				<mapping path="/**"/> 컨텍스트 패스 이후 모든 경로에 대해 요청이 들어오면 수행 --> 
 <!-- 		<mapping path="/board/write.do"/> -->
 <!-- 				<mapping path="/**"/> 컨텍스트 패스 이후 모든 경로에 대해 요청이 들어오면 수행 -->
+=======
+<!-- 			<mapping path="/board/list.do"/>  -->
+<!--  			<mapping path="/board/write.do"/> --> 
+<!--  				<mapping path="/**"/> 컨텍스트 패스 이후 모든 경로에 대해 요청이 들어오면 수행 --> 
+>>>>>>> 5b297643d44f3d2049d27f18be9dbc0aeb3752b1
 <!-- 				<mapping path="/board/*.do"/> -->
 <!-- 				<exclude-mapping path="/board/list.do"/> -->
 <!-- 			<beans:ref bean="loginInterceptor"/> -->
