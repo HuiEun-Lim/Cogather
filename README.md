@@ -32,4 +32,4 @@
 안수빈 - 수정 다시
 안수빈 - 브랜치 다시다시
 >>>>>>> origin/subny
->>>>>>> origin/hini 
+>>>>>>> origin/hini ㄹㅇㅎㅇㅀㅇㅀ
