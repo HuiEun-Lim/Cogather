@@ -76,13 +76,10 @@
 <!-- 	<interceptors> -->
 <!-- 		<interceptor> -->
 <!-- 			<mapping path="/board/list.do"/> --> 
-<<<<<<< HEAD
 <!-- 			<mapping path="/board/write.do"/> --> 
 <!-- 				<mapping path="/**"/> 컨텍스트 패스 이후 모든 경로에 대해 요청이 들어오면 수행 --> 
-=======
 <!-- 		<mapping path="/board/write.do"/> -->
 <!-- 				<mapping path="/**"/> 컨텍스트 패스 이후 모든 경로에 대해 요청이 들어오면 수행 -->
->>>>>>> 178035ea55987dfa292a0b8f88cc41de36d1f6ac
 <!-- 				<mapping path="/board/*.do"/> -->
 <!-- 				<exclude-mapping path="/board/list.do"/> -->
 <!-- 			<beans:ref bean="loginInterceptor"/> -->
