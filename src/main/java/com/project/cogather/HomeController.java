@@ -36,4 +36,10 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String test() {
+		System.out.println("test");
+		return "test";
+	}
+	
 }
