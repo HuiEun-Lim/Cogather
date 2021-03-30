@@ -31,8 +31,8 @@
 			value="oracle.jdbc.driver.OracleDriver"></beans:property>
 		<beans:property name="url"
 			value="jdbc:oracle:thin:@localhost:1521:XE"></beans:property>
-		<beans:property name="username" value="scott26"></beans:property>
-		<beans:property name="password" value="tiger26"></beans:property>
+		<beans:property name="username" value="cogather"></beans:property>
+		<beans:property name="password" value="1234"></beans:property>
 	</beans:bean>
 
 	<!-- PlatformTransactionManger 빈객체 -->
@@ -72,9 +72,9 @@
 	<!-- Interceptor 등록/설정 -->
 <!-- 	<interceptors> -->
 <!-- 		<interceptor> -->
-<!-- <!-- 			<mapping path="/board/list.do"/> --> -->
-<!-- <!-- 			<mapping path="/board/write.do"/> --> -->
-<!-- <!-- 				<mapping path="/**"/> 컨텍스트 패스 이후 모든 경로에 대해 요청이 들어오면 수행 --> -->
+<!-- 			<mapping path="/board/list.do"/> --> 
+<!-- 			<mapping path="/board/write.do"/> --> 
+<!-- 				<mapping path="/**"/> 컨텍스트 패스 이후 모든 경로에 대해 요청이 들어오면 수행 --> 
 <!-- 				<mapping path="/board/*.do"/> -->
 <!-- 				<exclude-mapping path="/board/list.do"/> -->
 <!-- 			<beans:ref bean="loginInterceptor"/> -->
