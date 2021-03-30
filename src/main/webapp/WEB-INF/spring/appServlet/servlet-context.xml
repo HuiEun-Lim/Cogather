@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -22,6 +24,63 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.project.cogather" />
+	
+	<beans:bean name="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName"
+			value="oracle.jdbc.driver.OracleDriver"></beans:property>
+		<beans:property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:XE"></beans:property>
+		<beans:property name="username" value="scott26"></beans:property>
+		<beans:property name="password" value="tiger26"></beans:property>
+	</beans:bean>
+
+	<!-- PlatformTransactionManger 빈객체 -->
+	<beans:bean name="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+
+	<!--TransactionTemplate 객체 -->
+	<beans:bean name="transactionTemplate"
+		class="org.springframework.transaction.support.TransactionTemplate">
+		<beans:property name="transactionManager"
+			ref="transactionManager" />
+	</beans:bean>
+
+	<!-- @Transactional 사용 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<!-- MyBatis 설정 -->
+	<beans:bean name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource"></beans:property>
+<!-- 		<beans:property name="mapperLocations"> -->
+<!-- 			<beans:list> -->
+<!-- 				<beans:value>classpath:mapper/*.xml</beans:value> -->
+<!-- 				<beans:value>classpath:com/lec/sts16_interceptor/**/*.xml</beans:value> -->
+<!-- 			</beans:list> -->
+<!-- 		</beans:property> -->
+	</beans:bean>
+<!-- 	xml 파일이 여러개 일 수 있다는 것이고, 서버 시작시 mapper 폴더 밑의 모든 xml 파일들을 찾아 매핑해둠 -->
+	<beans:bean name="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
+	</beans:bean>
+	
+<!-- 	Interceptor 빈 생성 -->
+<!-- 	<beans:bean name="loginInterceptor" class="com.lec.sts16_interceptor.controller.LoginInterceptor"></beans:bean> -->
+	
+	<!-- Interceptor 등록/설정 -->
+<!-- 	<interceptors> -->
+<!-- 		<interceptor> -->
+<!-- <!-- 			<mapping path="/board/list.do"/> --> -->
+<!-- <!-- 			<mapping path="/board/write.do"/> --> -->
+<!-- <!-- 				<mapping path="/**"/> 컨텍스트 패스 이후 모든 경로에 대해 요청이 들어오면 수행 --> -->
+<!-- 				<mapping path="/board/*.do"/> -->
+<!-- 				<exclude-mapping path="/board/list.do"/> -->
+<!-- 			<beans:ref bean="loginInterceptor"/> -->
+<!-- 		</interceptor> -->
+<!-- 	</interceptors> -->
+	
 	
 	
 	
