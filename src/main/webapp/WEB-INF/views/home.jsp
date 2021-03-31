@@ -17,18 +17,18 @@
       <i class="fa fa-bars"></i>
     </a>
     <a href="#home" class="w3-bar-item w3-button">HOME</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small">메뉴1</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small">메뉴2</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small">메뉴3</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small">ë©ë´1</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small">ë©ë´2</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small">ë©ë´3</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">ë¡ê·¸ì¸</a>
   </div>
 
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
-    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">메뉴1</a>
-    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">메뉴2</a>
-    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">메뉴3</a>
-    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
+    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">ë©ë´1</a>
+    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">ë©ë´2</a>
+    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">ë©ë´3</a>
+    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">ë¡ê·¸ì¸</a>
   </div>
 </div>
 
