@@ -45,10 +45,11 @@ CREATE TABLE content
 	PRIMARY KEY (ct_uid)
 );
 
+SELECT * FROM CONTENT;
 
 CREATE TABLE members
 (
-	ID varchar2(20) NOT NULL ON DELETE SET NULL,
+	ID varchar2(20) NOT NULL,
 	name varchar2(20) NOT NULL,
 	pw varchar2(40) NOT NULL,
 	phone varchar2(15) NOT NULL,
@@ -56,7 +57,7 @@ CREATE TABLE members
 	pimg_url varchar2(30),
 	tag varchar2(50),
 	PRIMARY KEY (ID)
-);
+); 
 
 
 CREATE TABLE memberstudy
@@ -102,7 +103,7 @@ CREATE TABLE studygroup
 	kko_url varchar2(40),
 	PRIMARY KEY (sg_id)
 );
-
+SELECT * FROM studygroup;
 
 
 /* Create Foreign Keys */
@@ -115,13 +116,13 @@ ALTER TABLE comments
 
 ALTER TABLE authority
 	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID)
+	REFERENCES members (ID) ON DELETE SET NULL
 ;
 
 
 ALTER TABLE comments
 	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID)
+	REFERENCES members (ID) ON DELETE SET NULL
 ;
 
 

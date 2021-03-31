@@ -1,15 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
-<<<<<<< HEAD
 <%@taglib  prefix="spring" uri="http://www.springframework.org/tags" %>   
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <html lang="ko">
-=======
 <%@taglib  prefix="spring" uri="http://www.springframework.org/tags" %>    
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
->>>>>>> 634fe34bf3d7a09d824e627bdf7b962ddfeedbbf
+
 <head>
 	<title>Home</title>
 	<meta charset="UTF-8">
