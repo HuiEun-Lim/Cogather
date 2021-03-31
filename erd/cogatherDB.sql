@@ -86,9 +86,9 @@ CREATE TABLE reservation
 	res_id number NOT NULL,/*예약번호*/
 	ID varchar2(20) NOT NULL,/*회원id*/
 	seat_id varchar2(20) NOT NULL,/*시설번호*/
-	start_date date NOT NULL,
-	end_date date NOT NULL,
-	payment varchar2(30),
+	start_date date NOT NULL,/*예약시작날짜*/
+	end_date date NOT NULL,/*예약종료날짜*/
+	payment varchar2(30),/*결제방법*/
 	PRIMARY KEY (res_id)
 );
 
@@ -97,8 +97,8 @@ SELECT * FROM reservation;
 /*좌석*/
 CREATE TABLE seats
 (
-	seat_id varchar2(20) NOT NULL,
-	seat_price number DEFAULT 0,
+	seat_id varchar2(20) NOT NULL,/*시설명*/
+	seat_price number DEFAULT 0,/*시설가격*/
 	PRIMARY KEY (seat_id)
 );
 
@@ -107,13 +107,13 @@ SELECT * FROM  seats;
 /*스터디 그룹*/
 CREATE TABLE studygroup
 (
-	sg_id number NOT NULL,
-	sg_name varchar2(50) NOT NULL,
-	sg_info clob,
-	sg_max number,
-	sg_regdate date DEFAULT SYSDATE,
-	sg_tag varchar2(50),
-	kko_url varchar2(40),
+	sg_id number NOT NULL,/*스터디그룹고유번호*/
+	sg_name varchar2(50) NOT NULL,/*스터디그룹이름*/
+	sg_info clob,/*스터디그룹정보*/
+	sg_max number,/*스터디그룹제한인원수*/
+	sg_regdate date DEFAULT SYSDATE,/*스터디그룹생성날짜*/
+	sg_tag varchar2(50),/*스터디주제*/
+	kko_url varchar2(40),/*카톡방 주소*/
 	PRIMARY KEY (sg_id)
 );
 SELECT * FROM studygroup;
