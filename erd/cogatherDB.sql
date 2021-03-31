@@ -20,73 +20,72 @@ CREATE SEQUENCE studygroup_seq;
 
 
 /* Create Tables */
-
+/*권한*/
 CREATE TABLE authority
 (
-	auth varchar2(20) NOT NULL,
-	ID varchar2(20) NOT NULL,
+	auth varchar2(20) NOT NULL, /*권한명*/
+	ID varchar2(20) NOT NULL,/*회원ID*/
 	PRIMARY KEY (auth, ID)
 );
 
-
+/*댓글*/
 CREATE TABLE comments
 (
-	cm_uid number NOT NULL,
-	ID varchar2(20) NOT NULL,
-	ct_uid number NOT NULL,
-	reply clob NOT NULL,
-	regdate date DEFAULT SYSDATE,
+	cm_uid number NOT NULL,/*댓글고유번호*/
+	ID varchar2(20) NOT NULL,/*회원ID*/
+	ct_uid number NOT NULL,/*게시글 고유번호*/
+	reply clob NOT NULL,/*댓글 내용*/
+	regdate date DEFAULT SYSDATE,/*등록날짜*/
 	PRIMARY KEY (cm_uid)
 );
 
-
+/*스터디 그룹 게시글*/
 CREATE TABLE content
 (
-	ct_uid number NOT NULL,
-	ID varchar2(20) NOT NULL,
-	sg_id number NOT NULL,
-	ct_title varchar2(40) NOT NULL,
-	ct_content clob,
-	regdate date DEFAULT SYSDATE,
+	ct_uid number NOT NULL, /*게시글 고유번호*/
+	ID varchar2(20) NOT NULL,/*게시글 제목*/
+	sg_id number NOT NULL,/*회원ID*/
+	ct_title varchar2(40) NOT NULL,/*게시글 제목*/
+	ct_content clob,/*게시글 내용*/
+	regdate date DEFAULT SYSDATE,/*둥록날짜*/
 	PRIMARY KEY (ct_uid)
 );
 
 SELECT * FROM CONTENT;
-
+/*회원*/
 CREATE TABLE members
 (
-	ID varchar2(20) NOT NULL,
-	name varchar2(20) NOT NULL,
-	pw varchar2(40) NOT NULL,
-	phone varchar2(15) NOT NULL,
-	email varchar2(40),
-	pimg_url varchar2(30),
-	tag varchar2(50),
+	ID varchar2(20) NOT NULL,/*회원id*/
+	name varchar2(20) NOT NULL,/*이름*/
+	pw varchar2(40) NOT NULL,/*비밀번호*/
+	phone varchar2(15) NOT NULL,/*전화번호*/
+	email varchar2(40),/*이메일*/
+	pimg_url varchar2(30),/*프로필 이미지*/
+	tag varchar2(50),/*관심주제*/
 	PRIMARY KEY (ID)
 ); 
 
 SELECT * FROM members;
 
-
+/*개인 스터디 관리*/
 CREATE TABLE memberstudy
 (
-	ID varchar2(20) NOT NULL,
-	sg_id number NOT NULL,
-	acctime date DEFAULT SYSDATE,
-	curtime date DEFAULT SYSDATE,
-	g_auth varchar2(20) NOT NULL,
-	att_date date DEFAULT SYSDATE,
+	ID varchar2(20) NOT NULL,/*회원id*/
+	sg_id number NOT NULL,/*스터디그룹 고유번호*/
+	acctime date DEFAULT SYSDATE,/*오늘 공부시간*/
+	curtime date DEFAULT SYSDATE,/*누적공부시간*/
+	g_auth varchar2(20) NOT NULL,/*게시글 고유번호*/
+	att_date date DEFAULT SYSDATE,/*참여날짜*/
 	PRIMARY KEY (ID, sg_id)
 );
 
 SELECT * FROM memberstudy;
-
-
+/*예약*/
 CREATE TABLE reservation
 (
-	res_id number NOT NULL,
-	ID varchar2(20) NOT NULL,
-	seat_id varchar2(20) NOT NULL,
+	res_id number NOT NULL,/*예약번호*/
+	ID varchar2(20) NOT NULL,/*회원id*/
+	seat_id varchar2(20) NOT NULL,/*시설번호*/
 	start_date date NOT NULL,
 	end_date date NOT NULL,
 	payment varchar2(30),
@@ -95,7 +94,7 @@ CREATE TABLE reservation
 
 SELECT * FROM reservation;
 
-
+/*좌석*/
 CREATE TABLE seats
 (
 	seat_id varchar2(20) NOT NULL,
@@ -105,7 +104,7 @@ CREATE TABLE seats
 
 SELECT * FROM  seats;
 
-
+/*스터디 그룹*/
 CREATE TABLE studygroup
 (
 	sg_id number NOT NULL,
