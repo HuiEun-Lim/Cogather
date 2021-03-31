@@ -10,7 +10,13 @@ DROP TABLE members CASCADE CONSTRAINTS;
 DROP TABLE seats CASCADE CONSTRAINTS;
 DROP TABLE studygroup CASCADE CONSTRAINTS;
 
+DROP SEQUENCE authority_seq;
 
+
+CREATE SEQUENCE comments_seq;
+CREATE SEQUENCE content_seq;
+CREATE SEQUENCE reservation_seq;
+CREATE SEQUENCE studygroup_seq;
 
 
 /* Create Tables */
@@ -59,6 +65,8 @@ CREATE TABLE members
 	PRIMARY KEY (ID)
 ); 
 
+SELECT * FROM members;
+
 
 CREATE TABLE memberstudy
 (
@@ -70,6 +78,8 @@ CREATE TABLE memberstudy
 	att_date date DEFAULT SYSDATE,
 	PRIMARY KEY (ID, sg_id)
 );
+
+SELECT * FROM memberstudy;
 
 
 CREATE TABLE reservation
@@ -83,6 +93,8 @@ CREATE TABLE reservation
 	PRIMARY KEY (res_id)
 );
 
+SELECT * FROM reservation;
+
 
 CREATE TABLE seats
 (
@@ -91,10 +103,12 @@ CREATE TABLE seats
 	PRIMARY KEY (seat_id)
 );
 
+SELECT * FROM  seats;
+
 
 CREATE TABLE studygroup
 (
-	sg_id number NOT NULL ON DELETE SET NULL,
+	sg_id number NOT NULL,
 	sg_name varchar2(50) NOT NULL,
 	sg_info clob,
 	sg_max number,
@@ -128,19 +142,19 @@ ALTER TABLE comments
 
 ALTER TABLE content
 	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID)
+	REFERENCES members (ID) ON DELETE SET NULL
 ;
 
 
 ALTER TABLE memberstudy
 	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID)
+	REFERENCES members (ID) ON DELETE SET NULL
 ;
 
 
 ALTER TABLE reservation
 	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID)
+	REFERENCES members (ID) ON DELETE SET NULL
 ;
 
 
@@ -152,13 +166,13 @@ ALTER TABLE reservation
 
 ALTER TABLE content
 	ADD FOREIGN KEY (sg_id)
-	REFERENCES studygroup (sg_id)
+	REFERENCES studygroup (sg_id) ON DELETE SET NULL
 ;
 
 
 ALTER TABLE memberstudy
 	ADD FOREIGN KEY (sg_id)
-	REFERENCES studygroup (sg_id)
+	REFERENCES studygroup (sg_id) ON DELETE SET NULL
 ;
 
 
