@@ -10,7 +10,13 @@ DROP TABLE members CASCADE CONSTRAINTS;
 DROP TABLE seats CASCADE CONSTRAINTS;
 DROP TABLE studygroup CASCADE CONSTRAINTS;
 
+DROP SEQUENCE authority_seq;
 
+
+CREATE SEQUENCE comments_seq;
+CREATE SEQUENCE content_seq;
+CREATE SEQUENCE reservation_seq;
+CREATE SEQUENCE studygroup_seq;
 
 
 /* Create Tables */
@@ -45,10 +51,11 @@ CREATE TABLE content
 	PRIMARY KEY (ct_uid)
 );
 
+SELECT * FROM CONTENT;
 
 CREATE TABLE members
 (
-	ID varchar2(20) NOT NULL ON DELETE SET NULL,
+	ID varchar2(20) NOT NULL,
 	name varchar2(20) NOT NULL,
 	pw varchar2(40) NOT NULL,
 	phone varchar2(15) NOT NULL,
@@ -56,7 +63,9 @@ CREATE TABLE members
 	pimg_url varchar2(30),
 	tag varchar2(50),
 	PRIMARY KEY (ID)
-);
+); 
+
+SELECT * FROM members;
 
 
 CREATE TABLE memberstudy
@@ -70,6 +79,8 @@ CREATE TABLE memberstudy
 	PRIMARY KEY (ID, sg_id)
 );
 
+SELECT * FROM memberstudy;
+
 
 CREATE TABLE reservation
 (
@@ -82,6 +93,8 @@ CREATE TABLE reservation
 	PRIMARY KEY (res_id)
 );
 
+SELECT * FROM reservation;
+
 
 CREATE TABLE seats
 (
@@ -90,10 +103,12 @@ CREATE TABLE seats
 	PRIMARY KEY (seat_id)
 );
 
+SELECT * FROM  seats;
+
 
 CREATE TABLE studygroup
 (
-	sg_id number NOT NULL ON DELETE SET NULL,
+	sg_id number NOT NULL,
 	sg_name varchar2(50) NOT NULL,
 	sg_info clob,
 	sg_max number,
@@ -102,7 +117,7 @@ CREATE TABLE studygroup
 	kko_url varchar2(40),
 	PRIMARY KEY (sg_id)
 );
-
+SELECT * FROM studygroup;
 
 
 /* Create Foreign Keys */
@@ -115,31 +130,31 @@ ALTER TABLE comments
 
 ALTER TABLE authority
 	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID)
+	REFERENCES members (ID) ON DELETE SET NULL
 ;
 
 
 ALTER TABLE comments
 	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID)
+	REFERENCES members (ID) ON DELETE SET NULL
 ;
 
 
 ALTER TABLE content
 	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID)
+	REFERENCES members (ID) ON DELETE SET NULL
 ;
 
 
 ALTER TABLE memberstudy
 	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID)
+	REFERENCES members (ID) ON DELETE SET NULL
 ;
 
 
 ALTER TABLE reservation
 	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID)
+	REFERENCES members (ID) ON DELETE SET NULL
 ;
 
 
@@ -151,13 +166,13 @@ ALTER TABLE reservation
 
 ALTER TABLE content
 	ADD FOREIGN KEY (sg_id)
-	REFERENCES studygroup (sg_id)
+	REFERENCES studygroup (sg_id) ON DELETE SET NULL
 ;
 
 
 ALTER TABLE memberstudy
 	ADD FOREIGN KEY (sg_id)
-	REFERENCES studygroup (sg_id)
+	REFERENCES studygroup (sg_id) ON DELETE SET NULL
 ;
 
 
