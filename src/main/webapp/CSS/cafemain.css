@@ -1,0 +1,33 @@
+@font-face {
+	font-family: "a시네마L.ttf";
+	src:url("/cogather/CSS/a시네마L.ttf")format("truetype");
+}
+
+
+.bgimg {
+	
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('/cogather/img/cafe/mainback.png');
+    min-height: 370px;
+}
+
+#myNavbar{
+	color: white;
+	font-size:20px;
+	margin-top:4px;
+}
+
+img.logo{
+	width: 80px;
+	margin-left:10px;	
+}
+
+.choice{
+	padding-top:6px;
+}
+
+#home {
+	font-family: a시네마L;
+}
