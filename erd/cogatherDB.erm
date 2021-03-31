@@ -11,8 +11,8 @@
 	</page_setting>
 	<category_index>0</category_index>
 	<zoom>1.0</zoom>
-	<x>-192</x>
-	<y>-120</y>
+	<x>170</x>
+	<y>114</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -41,27 +41,27 @@
 		<suspend_validator>false</suspend_validator>
 		<export_setting>
 			<export_ddl_setting>
-				<output_path></output_path>
-				<encoding></encoding>
-				<line_feed></line_feed>
+				<output_path>erd\cogatherDB.sql</output_path>
+				<encoding>UTF-8</encoding>
+				<line_feed>CR+LF</line_feed>
 				<is_open_after_saved>true</is_open_after_saved>
-				<environment_id>null</environment_id>
+				<environment_id>0</environment_id>
 				<category_id>null</category_id>
 				<ddl_target>
-					<create_comment>true</create_comment>
+					<create_comment>false</create_comment>
 					<create_foreignKey>true</create_foreignKey>
-					<create_index>true</create_index>
-					<create_sequence>true</create_sequence>
+					<create_index>false</create_index>
+					<create_sequence>false</create_sequence>
 					<create_table>true</create_table>
-					<create_tablespace>true</create_tablespace>
-					<create_trigger>true</create_trigger>
-					<create_view>true</create_view>
-					<drop_index>true</drop_index>
-					<drop_sequence>true</drop_sequence>
+					<create_tablespace>false</create_tablespace>
+					<create_trigger>false</create_trigger>
+					<create_view>false</create_view>
+					<drop_index>false</drop_index>
+					<drop_sequence>false</drop_sequence>
 					<drop_table>true</drop_table>
-					<drop_tablespace>true</drop_tablespace>
-					<drop_trigger>true</drop_trigger>
-					<drop_view>true</drop_view>
+					<drop_tablespace>false</drop_tablespace>
+					<drop_trigger>false</drop_trigger>
+					<drop_view>false</drop_view>
 					<inline_column_comment>true</inline_column_comment>
 					<inline_table_comment>true</inline_table_comment>
 					<comment_value_description>true</comment_value_description>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2021-03-30 20:27:12</creation_date>
-			<updated_date>2021-03-30 21:11:29</updated_date>
+			<updated_date>2021-03-30 21:19:13</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -2266,7 +2266,7 @@
 			<connections>
 				<relation>
 					<id>7</id>
-					<source>4</source>
+					<source>6</source>
 					<target>7</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2288,7 +2288,7 @@
 				</relation>
 				<relation>
 					<id>8</id>
-					<source>6</source>
+					<source>4</source>
 					<target>7</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2352,7 +2352,7 @@
 				<normal_column>
 					<id>37</id>
 					<referenced_column>16</referenced_column>
-					<relation>7</relation>
+					<relation>8</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2386,7 +2386,7 @@
 				<normal_column>
 					<id>38</id>
 					<referenced_column>30</referenced_column>
-					<relation>8</relation>
+					<relation>7</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
