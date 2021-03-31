@@ -16,7 +16,6 @@
 #myNavbar{
 	color: white;
 	font-size:20px;
-	margin-top:4px;
 }
 
 img.logo{
@@ -28,6 +27,10 @@ img.logo{
 	padding-top:6px;
 }
 
-#home {
+.tgbar {
+	margin-top:50px;
+}
+
+#home, #navDemo {
 	font-family: a시네마L;
 }
