@@ -11,7 +11,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="/cogather/CSS/common.css">
-	<script src="https://kit.fontawesome.com/65311e5b1a.js" crossorigin="anonymous"></script>
+	
 </head>
 <body>
 <!-- Navbar (sit on top) -->
@@ -42,11 +42,9 @@
 
 
 <img src="/cogather/img/group/studygroupmain.jpg" width="100%" height="300px" >
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br>
 
+<button onclick="href.location='/cogather/group/studygroup'">스터디 화면</button>
 
 <script>
 	//Change style of navbar on scroll

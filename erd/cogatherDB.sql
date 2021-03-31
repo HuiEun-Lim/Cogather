@@ -17,6 +17,7 @@ CREATE SEQUENCE comments_seq;
 CREATE SEQUENCE content_seq;
 CREATE SEQUENCE reservation_seq;
 CREATE SEQUENCE studygroup_seq;
+DROP SEQUENCE studygroup_seq;
 
 
 /* Create Tables */
@@ -63,7 +64,11 @@ CREATE TABLE members
 	pimg_url varchar2(30),/*프로필 이미지*/
 	tag varchar2(50),/*관심주제*/
 	PRIMARY KEY (ID)
-); 
+);
+
+INSERT INTO members (ID, NAME, PW, PHONE, EMAIL, PIMG_URL, TAG)
+VALUES 
+('id1', 'name1', 'pw1','010-xxxx-xxxx','oooooooo@naver.com', 'img/member/img1','1,2,4');
 
 SELECT * FROM members;
 
@@ -74,10 +79,38 @@ CREATE TABLE memberstudy
 	sg_id number NOT NULL,/*스터디그룹 고유번호*/
 	acctime date DEFAULT SYSDATE,/*오늘 공부시간*/
 	curtime date DEFAULT SYSDATE,/*누적공부시간*/
-	g_auth varchar2(20) NOT NULL,/*게시글 고유번호*/
+	g_auth varchar2(20) DEFAULT 'common',/*스터디 권한*/
 	att_date date DEFAULT SYSDATE,/*참여날짜*/
-	PRIMARY KEY (ID, sg_id)
+	PRIMARY KEY (ID, sg_id),
+	CONSTRAINT GAUTH_CHECK CHECK(g_auth IN ('captain', 'crew', 'common'))
 );
+-- 방생성자 방 생성
+INSERT INTO memberstudy (ID, sg_id, g_auth)
+VALUES 
+('id1', 1, 'captain');
+INSERT INTO memberstudy (ID, sg_id, g_auth)
+VALUES 
+('id1', 2, 'captain');
+INSERT INTO memberstudy (ID, sg_id, g_auth)
+VALUES 
+('id1', 3, 'captain');
+INSERT INTO memberstudy (ID, sg_id, g_auth)
+VALUES 
+('id1', 4, 'captain');
+
+-- 참가자 참여 허락
+INSERT INTO memberstudy (ID, sg_id, g_auth)
+VALUES 
+('id2', 1, 'crew');
+INSERT INTO memberstudy (ID, sg_id, g_auth)
+VALUES 
+('id3', 2, 'crew');
+INSERT INTO memberstudy (ID, sg_id, g_auth)
+VALUES 
+('id4', 3, 'crew');
+INSERT INTO memberstudy (ID, sg_id, g_auth)
+VALUES 
+('id5', 4, 'crew');
 
 SELECT * FROM memberstudy;
 /*예약*/
@@ -116,6 +149,20 @@ CREATE TABLE studygroup
 	kko_url varchar2(40),/*카톡방 주소*/
 	PRIMARY KEY (sg_id)
 );
+-- study group dummy insert test
+INSERT INTO STUDYGROUP (SG_ID, SG_NAME, SG_INFO, SG_MAX, SG_TAG, KKO_URL)
+VALUES 
+(studygroup_seq.nextval, 'test1', 'test', 4,'1,2,3', 'url1');
+INSERT INTO STUDYGROUP (SG_ID, SG_NAME, SG_INFO, SG_MAX, SG_TAG, KKO_URL)
+VALUES 
+(studygroup_seq.nextval, 'test2', 'test', 4,'1,2,3', 'url2');
+INSERT INTO STUDYGROUP (SG_ID, SG_NAME, SG_INFO, SG_MAX, SG_TAG, KKO_URL)
+VALUES 
+(studygroup_seq.nextval, 'test3', 'test', 4,'1,2,3', 'url3');
+INSERT INTO STUDYGROUP (SG_ID, SG_NAME, SG_INFO, SG_MAX, SG_TAG, KKO_URL)
+VALUES 
+(studygroup_seq.nextval, 'test4', 'test', 4,'1,2,3', 'url4');
+
 SELECT * FROM studygroup;
 
 

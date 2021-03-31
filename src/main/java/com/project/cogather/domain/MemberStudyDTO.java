@@ -1,5 +1,5 @@
 package com.project.cogather.domain;
 
-public interface StudyGroupDAO {
+public class MemberStudyDTO {
 
 }
