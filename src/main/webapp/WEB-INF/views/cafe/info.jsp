@@ -29,15 +29,15 @@
 		      <a href="main" class="w3-bar-item w3-button">HOME</a>
 		      <a href="info" class="w3-bar-item w3-button w3-hide-small w3-border-bottom w3-border-amber">시설소개</a>
 		      <a href="#" class="w3-bar-item w3-button w3-hide-small">예약하기</a>
-		      <a href="#" class="w3-bar-item w3-button w3-hide-small">오시는 길</a>
+		      <a href="map" class="w3-bar-item w3-button w3-hide-small">오시는 길</a>
 		      <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
 		   </div>
 	    </div>	  
 	    <!-- Navbar on small screens -->
 	    <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium">
-	      <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">시설소개</a>
+	      <a href="info" class="w3-bar-item w3-button" onclick="toggleFunction()">시설소개</a>
 	      <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">예약하기</a>
-	          <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">오시는 길</a>
+	      <a href="map" class="w3-bar-item w3-button" onclick="toggleFunction()">오시는 길</a>
 	      <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
 	    </div>
     </div>
@@ -46,7 +46,7 @@
     	<div class="w3-padding-64" style="margin-top:90px">
     	<h3>이용요금 안내 </h3>
 		<div class="w3-light-grey" style="height:2px; margin-bottom: 70px" >
-    		<div  style="width:10%; height:2px; background-color:#FDBF26"></div>
+    		<div style="width:10%; height:2px; background-color:#FDBF26"></div>
 		</div>
 		    <p>각 시설별로 1시간당 이용요금이 다르니 예약 전에 확인해주세요</p>
         <table class="w3-table w3-bordered w3-centered w3-large w3-card-4">
@@ -70,7 +70,7 @@
         <div class="w3-padding-64" style="margin-top:40px">
     	<h3>이용시설 안내 </h3>
 		<div class="w3-light-grey" style="height:2px; margin-bottom: 20px" >
-    		<div  style="width:10%; height:2px; background-color:#FDBF26"></div>
+    		<div style="width:10%; height:2px; background-color:#FDBF26"></div>
 		</div>
 		각 시설의 자세한 사진은 사진 위에 있는 돋보기로 확대해서 보실 수 있습니다.
 		</div>
