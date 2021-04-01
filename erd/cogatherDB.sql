@@ -23,9 +23,10 @@ CREATE SEQUENCE studygroup_seq;
 /*권한*/
 CREATE TABLE authority
 (
-	auth varchar2(20) NOT NULL, /*권한명*/
+	auth varchar2(20) NOT NULL DEFAULT 'ROLE_USER', /*권한명*/
 	ID varchar2(20) NOT NULL,/*회원ID*/
-	PRIMARY KEY (auth, ID)
+	PRIMARY KEY (auth, ID),
+	CONSTRAINT ROLECK CHECK(auth IN ('ROLE_USER' , 'ROLE_ADMIN')) 
 );
 
 /*댓글*/

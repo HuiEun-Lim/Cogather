@@ -47,6 +47,55 @@
 	<span class="w3-padding-large w3-xxlarge w3-text-white w3-wide w3-animate-opacity" >함께 꿈을 모으는 곳</span>
 	</div>
 </div>
+	<div class="w3-row-padding w3-padding-top-64">
+	     <div class="w3-col s2 w3-center"><p></p></div>
+	     <div class="w3-col s2 w3-center"><p><img src="/cogather/img/cafe/24.png" style="width: 80px"><br>노트북, 핸드폰 충전기 그외 편의물품</p></div>
+	          <div class="w3-col s1 w3-center"><p></p></div>    
+	     <div class="w3-col s2 w3-center"><p><img src="/cogather/img/cafe/muted.png" style="width: 80px"></p></div>
+	          <div class="w3-col s1 w3-center"><p></p></div>
+	     <div class="w3-col s2 w3-center"><p><img src="/cogather/img/cafe/charger.png" style="width: 80px"></p></div>
+	     <div class="w3-col s2 w3-center"><p></p></div>
+	</div>
+<div id="wrap">
+	
+	dnkadna
+	ksnak
+	ksnakc
+	knknksan
+	
+</div>
+<!-- Slideshow container -->
+<div class="slideshow-container">
+
+  <!-- Full-width images with number and caption text -->
+  <div class="mySlides fade">
+    <div class="numbertext">1 / 3</div>
+    <img src="/cogather/img/cafe/mainback.png" style="width:100%">
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">2 / 3</div>
+    <img src="/cogather/img/cafe/mainback.png" style="width:100%">
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">3 / 3</div>
+    <img src="/cogather/img/cafe/mainback.png" style="width:100%">
+  </div>
+
+  <!-- Next and previous buttons -->
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+<br>
+
+<!-- The dots/circles -->
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span>
+  <span class="dot" onclick="currentSlide(2)"></span>
+  <span class="dot" onclick="currentSlide(3)"></span>
+</div>
+
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -73,6 +122,35 @@
 	    } else {
 	        x.className = x.className.replace(" w3-show", "");
 	    }
+	}
+	
+	var slideIndex = 1;
+	showSlides(slideIndex);
+
+	// Next/previous controls
+	function plusSlides(n) {
+	  showSlides(slideIndex += n);
+	}
+
+	// Thumbnail image controls
+	function currentSlide(n) {
+	  showSlides(slideIndex = n);
+	}
+
+	function showSlides(n) {
+	  var i;
+	  var slides = document.getElementsByClassName("mySlides");
+	  var dots = document.getElementsByClassName("dot");
+	  if (n > slides.length) {slideIndex = 1}
+	  if (n < 1) {slideIndex = slides.length}
+	  for (i = 0; i < slides.length; i++) {
+	      slides[i].style.display = "none";
+	  }
+	  for (i = 0; i < dots.length; i++) {
+	      dots[i].className = dots[i].className.replace(" active", "");
+	  }
+	  slides[slideIndex-1].style.display = "block";
+	  dots[slideIndex-1].className += " active";
 	}
 </script>
 
