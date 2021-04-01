@@ -1,5 +1,7 @@
 package com.project.cogather.domain;
 
-public interface MembersDAO {
+import java.util.List;
 
+public interface MembersDAO {
+	public List<MembersDTO> selectAll();
 }

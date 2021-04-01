@@ -57,12 +57,12 @@
 	<!-- MyBatis 설정 -->
 	<beans:bean name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource"></beans:property>
-<!-- 		<beans:property name="mapperLocations"> -->
-<!-- 			<beans:list> -->
-<!-- 				<beans:value>classpath:mapper/*.xml</beans:value> -->
-<!-- 				<beans:value>classpath:com/lec/sts16_interceptor/**/*.xml</beans:value> -->
-<!-- 			</beans:list> -->
-<!-- 		</beans:property> -->
+		<beans:property name="mapperLocations">
+			<beans:list>
+				<beans:value>classpath:mapper/*.xml</beans:value>
+				<beans:value>classpath:com/project/cogather/**/*.xml</beans:value>
+			</beans:list>
+		</beans:property>
 	</beans:bean>
 <!-- 	xml 파일이 여러개 일 수 있다는 것이고, 서버 시작시 mapper 폴더 밑의 모든 xml 파일들을 찾아 매핑해둠 -->
 	<beans:bean name="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">

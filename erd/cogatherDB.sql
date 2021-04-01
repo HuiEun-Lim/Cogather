@@ -71,18 +71,22 @@ VALUES
 ('id1', 'name1', 'pw1','010-xxxx-xxxx','oooooooo@naver.com', 'img/member/img1','1,2,4');
 
 SELECT * FROM members;
-
+SELECT id "id", name name, pw pw, phone phone, email email, pimg_url pimg_url, tag tag
+FROM members;
 /*개인 스터디 관리*/
 CREATE TABLE memberstudy
 (
 	ID varchar2(20) NOT NULL,/*회원id*/
 	sg_id number NOT NULL,/*스터디그룹 고유번호*/
-	acctime date DEFAULT SYSDATE,/*오늘 공부시간*/
-	curtime date DEFAULT SYSDATE,/*누적공부시간*/
+	acctime date,/*오늘 공부시간*/
+	curtime date,/*누적공부시간*/
 	g_auth varchar2(20) DEFAULT 'common',/*스터디 권한*/
-	att_date date DEFAULT SYSDATE,/*참여날짜*/
+	att_date date DEFAULT SYSDATE,/*스터디참여날짜*/
+	entime date, /*방 입장 시간*/
+	enstatus varchar(10) DEFAULT 'out', /* 방 입장 여부 */
 	PRIMARY KEY (ID, sg_id),
-	CONSTRAINT GAUTH_CHECK CHECK(g_auth IN ('captain', 'crew', 'common'))
+	CONSTRAINT GAUTH_CHECK CHECK(g_auth IN ('captain', 'crew', 'common')),
+	CONSTRAINT ENSTATUS_CHECK CHECK(enstatus IN ('in', 'out'))
 );
 -- 방생성자 방 생성
 INSERT INTO memberstudy (ID, sg_id, g_auth)
@@ -113,6 +117,19 @@ VALUES
 ('id5', 4, 'crew');
 
 SELECT * FROM memberstudy;
+SELECT ID id, SG_ID sg_id, ACCTIME acctime, CURTIME curtime, G_AUTH g_auth, ATT_DATE att_date
+FROM MEMBERSTUDY
+WHERE SG_ID = 1
+; 
+SELECT m.ID ,m.EMAIL, m.NAME, m.PIMG_URL, m.TAG , ms.ENSTATUS
+	FROM MEMBERSTUDY ms JOIN MEMBERS m ON ms.ID = m.ID 
+	WHERE SG_ID = 1 and (g_auth = 'captain' or g_auth = 'crew')
+	;
+
+UPDATE MEMBERSTUDY SET ENSTATUS = 'in', ENTIME = SYSDATE 
+	WHERE SG_ID = 1 AND ID = 'id2' AND (G_AUTH = 'crew' OR G_AUTH = 'captain')
+
+
 /*예약*/
 CREATE TABLE reservation
 (

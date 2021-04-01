@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib  prefix="spring" uri="http://www.springframework.org/tags" %>  
+<%@taglib  prefix="spring" uri="http://www.springframework.org/tags" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <!DOCTYPE html>
 <html lang="ko">
 <html>
@@ -44,7 +46,9 @@
 <img src="/cogather/img/group/studygroupmain.jpg" width="100%" height="300px" >
 <br><br><br>
 
-<button onclick="href.location='/cogather/group/studygroup'">스터디 화면</button>
+<button onclick="location.href='roomenterOk?sg_id=1&id=id1'">스터디 화면 테스트(id1,sg1)</button>
+<button onclick="location.href='roomenterOk?sg_id=1&id=id2'">스터디 화면 테스트(id2,sg1)</button>
+
 
 <script>
 	//Change style of navbar on scroll
