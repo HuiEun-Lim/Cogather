@@ -47,40 +47,35 @@
 	<span class="w3-padding-large w3-xxlarge w3-text-white w3-wide w3-animate-opacity" >함께 꿈을 모으는 곳</span>
 	</div>
 </div>
-	<div class="w3-row-padding w3-padding-top-64">
-	     <div class="w3-col s2 w3-center"><p></p></div>
-	     <div class="w3-col s2 w3-center"><p><img src="/cogather/img/cafe/24.png" style="width: 80px"><br>노트북, 핸드폰 충전기 그외 편의물품</p></div>
-	          <div class="w3-col s1 w3-center"><p></p></div>    
-	     <div class="w3-col s2 w3-center"><p><img src="/cogather/img/cafe/muted.png" style="width: 80px"></p></div>
-	          <div class="w3-col s1 w3-center"><p></p></div>
-	     <div class="w3-col s2 w3-center"><p><img src="/cogather/img/cafe/charger.png" style="width: 80px"></p></div>
-	     <div class="w3-col s2 w3-center"><p></p></div>
-	</div>
 <div id="wrap">
+	<div class="w3-row-padding w3-padding-top-64">
+	     <div class="w3-col s4 w3-center"><p class="info"><img src="/cogather/img/cafe/24.png" class="infoimg"><br>24시간 영업<br>언제나 이용 가능</p></div>   
+	     <div class="w3-col s4 w3-center"><p class="info"><img src="/cogather/img/cafe/muted.png" class="infoimg"><br>조용한 공간<br>집중하기 좋은 장소</p></div>
+	     <div class="w3-col s4 w3-center"><p class="info"><img src="/cogather/img/cafe/charger.png" class="infoimg"><br>충전기, 독서대 등<br>편의물품 무료제공</p></div>
+	</div>
 	
-	dnkadna
-	ksnak
-	ksnakc
-	knknksan
-	
+
+<div class="w3-paddig-64" style="margin-top:90px" >
+<h3> 매장 둘러보기 </h3>
+<div class="w3-light-grey" style="height:2px" >
+    <div  style="width:10%; height:2px; background-color:#FDBF26"></div>
 </div>
+</div>
+
 <!-- Slideshow container -->
-<div class="slideshow-container">
+<div class="slideshow-container w3-padding-top-64">
 
   <!-- Full-width images with number and caption text -->
   <div class="mySlides fade">
-    <div class="numbertext">1 / 3</div>
-    <img src="/cogather/img/cafe/mainback.png" style="width:100%">
+    <img src="/cogather/img/cafe/mainback.png" class="slimg">
   </div>
 
   <div class="mySlides fade">
-    <div class="numbertext">2 / 3</div>
-    <img src="/cogather/img/cafe/mainback.png" style="width:100%">
+    <img src="/cogather/img/cafe/charger.png" class="slimg">
   </div>
 
   <div class="mySlides fade">
-    <div class="numbertext">3 / 3</div>
-    <img src="/cogather/img/cafe/mainback.png" style="width:100%">
+    <img src="/cogather/img/cafe/muted.png" class="slimg">
   </div>
 
   <!-- Next and previous buttons -->
@@ -95,12 +90,38 @@
   <span class="dot" onclick="currentSlide(2)"></span>
   <span class="dot" onclick="currentSlide(3)"></span>
 </div>
+</div>
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br>
 
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64">
+  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+  <div class="w3-xlarge w3-section w3-center">
+    <table style="color:white">
+    <tr>
+    <th>대표자 정보</th>
+    <th style="width:10px"></th>
+    <th>코게더 정보</th>
+    </tr>
+    <tr>
+    <td>코게더팀장</td>
+    <td></td>
+    <td>코게더 스터디카페</td>
+    </tr>
+    <tr>
+    <td>p.h. 010-1234-5678</td>
+    <td></td>
+    <td>서울특별시 강남구 역삼로?</td>
+    </tr>
+    <td>cogather@gmail.com</td>
+    <td></td>
+    <td>스터디그룹 http:.....</td>
+    </tr>
+    </table>
+  </div>
+</footer>
 
 <script>
 	//Change style of navbar on scroll
