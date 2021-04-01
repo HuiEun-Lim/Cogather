@@ -1,4 +1,4 @@
-	function magnify(imgID, zoom) {
+function magnify(imgID, zoom) {
   var img, glass, w, h, bw;
   img = document.getElementById(imgID);
 
