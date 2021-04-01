@@ -12,5 +12,9 @@ public class CafeController {
 	public String studymain(Model model) {
 		return "cafe/main";
 	}
-
+	
+	@RequestMapping("/info")
+	public String studyinfo(Model model) {
+		return "cafe/info";
+	}
 }
