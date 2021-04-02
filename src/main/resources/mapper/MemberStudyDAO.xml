@@ -43,4 +43,17 @@
 	UPDATE MEMBERSTUDY SET ENSTATUS = 'out', ENTIME = SYSDATE 
 	WHERE SG_ID = #{param1} AND ID = #{param2} AND (G_AUTH = 'crew' OR G_AUTH = 'captain')
 </update>
+
+<!-- 누적시간 가져오기 -->
+<select id="getAcctime" resultType="com.project.cogather.domain.MemberStudyDTO">
+SELECT ID id, SG_ID sg_id, ACCTIME
+FROM MEMBERSTUDY
+WHERE SG_ID = #{param1} AND ID = #{param2} AND (g_auth = 'captain' or g_auth = 'crew')
+</select>
+
+<!-- 누적시간 업데이트 -->
+<update id="updateAcctime" flushCache="true">
+UPDATE MEMBERSTUDY SET ACCTIME = #{param3} 
+WHERE SG_ID = #{param1} and ID = #{param2} AND (g_auth = 'captain' or g_auth = 'crew')
+</update>
 </mapper>

@@ -120,11 +120,18 @@ SELECT * FROM memberstudy;
 SELECT ID id, SG_ID sg_id, ACCTIME acctime, CURTIME curtime, G_AUTH g_auth, ATT_DATE att_date
 FROM MEMBERSTUDY
 WHERE SG_ID = 1
-; 
+;
+UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'id1';
+
 SELECT m.ID ,m.EMAIL, m.NAME, m.PIMG_URL, m.TAG , ms.ENSTATUS
 	FROM MEMBERSTUDY ms JOIN MEMBERS m ON ms.ID = m.ID 
 	WHERE SG_ID = 1 and (g_auth = 'captain' or g_auth = 'crew')
 	;
+
+SELECT ACCTIME 
+FROM MEMBERSTUDY
+WHERE SG_ID = 1 AND ID = 'id1' AND (g_auth = 'captain' or g_auth = 'crew')
+;
 
 UPDATE MEMBERSTUDY SET ENSTATUS = 'in', ENTIME = SYSDATE 
 	WHERE SG_ID = 1 AND ID = 'id2' AND (G_AUTH = 'crew' OR G_AUTH = 'captain')

@@ -1,5 +1,6 @@
 package com.project.cogather.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -36,5 +37,17 @@ public class MemberStudyService {
 	public int outStatus(int sg_id, String id) {
 		memberStudyDAO = sqlsession.getMapper(MemberStudyDAO.class);
 		return memberStudyDAO.outEnstatus(sg_id, id);
+	}
+	
+	// 누적시간 가져오기
+	public List<MemberStudyDTO> getAcctime(int sg_id, String id){
+		memberStudyDAO = sqlsession.getMapper(MemberStudyDAO.class);
+		return memberStudyDAO.getAcctime(sg_id, id);
+	}
+	
+	// 누적 시간 업데이트
+	public int updateAcctime(int sg_id, String id, LocalDateTime acctime) {
+		memberStudyDAO = sqlsession.getMapper(MemberStudyDAO.class);
+		return memberStudyDAO.updateAcctime(sg_id, id, acctime);
 	}
 }

@@ -1,5 +1,6 @@
 package com.project.cogather.domain;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface MemberStudyDAO {
@@ -19,5 +20,8 @@ public interface MemberStudyDAO {
 	// 방 퇴장 상태로 변경
 	public int outEnstatus(int sg_id, String id);
 	
-	
+	// 유저 id, 스터디 그룹 id를 통해 누적시간을 가져오는 쿼리
+	public List<MemberStudyDTO> getAcctime(int sg_id, String id);
+	// 유저 id, 스터디 그룹 id를 통해 누적시간 갱신하는 쿼리
+	public int updateAcctime(int sg_id, String id, LocalDateTime acctime);
 }
