@@ -1,0 +1,60 @@
+@font-face {
+	font-family: "a시네마L.ttf";
+	src:url("/cogather/CSS/a시네마L.ttf")format("truetype");
+}
+
+
+#myNavbar{
+	color: #595959;
+	font-size:20px;
+
+}
+
+img.logo{
+	width: 80px;
+	margin-left:10px;	
+}
+
+.choice{
+	padding-top:6px;
+}
+
+.tgbar {
+	margin-top:50px;
+}
+
+#home, #navDemo {
+	font-family: a시네마L;
+}
+
+
+#wrap {
+    width: 1000px;
+    margin: 0;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: left;
+}
+
+#wraptitle{
+	margin-top:90px;
+	margin-bottom:90px
+}
+
+#tname{
+	font-size: 20px;
+}
+
+.tabledata{
+	width: 150px;
+}
+
+.timg{
+	width: 20px;
+	margin-right: 10px;
+}
+
+.tinfo{
+	margin-bottom: 30px;
+	font-size: 14px;
+}

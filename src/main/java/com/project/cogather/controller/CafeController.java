@@ -17,4 +17,9 @@ public class CafeController {
 	public String studyinfo(Model model) {
 		return "cafe/info";
 	}
+	
+	@RequestMapping("/map")
+	public String studymap(Model model) {
+		return "cafe/map";
+	}
 }
