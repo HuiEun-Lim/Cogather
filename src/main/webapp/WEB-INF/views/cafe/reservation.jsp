@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="/cogather/CSS/cafersv.css">
 	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+	
 	<script src="https://kit.fontawesome.com/65311e5b1a.js" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="/cogather/JS/cafersv.js"></script>
 	<title>예약하기</title>
@@ -70,7 +70,7 @@ function chkSubmit(){
 			<div class="w3-light-grey" style="height:2px; margin-bottom: 70px" >
 	    		<div style="width:10%; height:2px; background-color:#FDBF26"></div>
 			</div>
-			<!--  
+			
 			<form name="frm" action="writeOk.do" method="post" onsubmit="return chkSubmit()">
 				<input type="text" id="ID" name="ID" value="ttest">
 				<label>시설선택</label>
@@ -78,16 +78,16 @@ function chkSubmit(){
 					  <option value="room01">단체룸</option>
 					  <option value="person01">개인좌석</option>
 					</select>
-				
+				<!--  
 				<h3>날짜선택</h3>
 				<label>시작 날짜</label>
 				<input type="date" id="startdate" name="start_date">
 				<label>종료 날짜</label>
 				<input type="date" id="startdate" name="end_date">
 				<label>결제방법선택</label>
-				<input type="text" id="payment" name="payment" value="네이버페이">
+				<input type="text" id="payment" name="payment" value="네이버페이">-->
 					<input type="submit" value="Submit">
-			</form>-->
+			</form>
 			<div class="w3-button" id="apibtn">카카오페이</div>
 	     </div>
 	        

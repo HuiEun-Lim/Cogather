@@ -5,15 +5,25 @@
 <c:choose>
 	<c:when test="${result == 0 }">
 		<script>
-			alert("등록 실패!!!!!!");
+			alert("예약 실패!!!!!!");
 			history.back();
 		</script>
 	</c:when>
 	<c:otherwise>
-		<script>
-			alert("등록 성공, 리스트 출력합니다");
-			location.href = "test.do";
-		</script>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>예약확인</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/cogather/JS/cafersv.js"></script>
+
+</head>
+<body>
+			<div class="w3-button" id="apibtn">카카오페이</div>
+
+</body>
+</html>
 	</c:otherwise>
 </c:choose>
 

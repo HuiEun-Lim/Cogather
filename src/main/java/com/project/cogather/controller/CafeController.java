@@ -10,6 +10,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -90,7 +92,7 @@ public class CafeController {
 	}
 	
 	@RequestMapping("/writeOk.do")
-	public String writeOk(CafeDTO dto, Model model) {
+	public String writeOk(CafeDTO dto, Model model, HttpServletRequest request) {
 		model.addAttribute("result", cafeService.write(dto));
 		return "cafe/writeOk";
 	}
