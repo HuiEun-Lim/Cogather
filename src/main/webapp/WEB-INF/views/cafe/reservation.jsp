@@ -74,7 +74,7 @@ function chkSubmit(){
 			<form name="frm" action="writeOk.do" method="post" onsubmit="return chkSubmit()">
 				<input type="text" id="ID" name="ID" value="ttest">
 				<label>시설선택</label>
-					<select id="seats" name="seat_id">
+					<select id="seat_id" name="seat_id">
 					  <option value="room01">단체룸</option>
 					  <option value="person01">개인좌석</option>
 					</select>
@@ -83,9 +83,9 @@ function chkSubmit(){
 				<label>시작 날짜</label>
 				<input type="date" id="startdate" name="start_date">
 				<label>종료 날짜</label>
-				<input type="date" id="startdate" name="end_date">
+				<input type="date" id="startdate" name="end_date">-->
 				<label>결제방법선택</label>
-				<input type="text" id="payment" name="payment" value="네이버페이">-->
+				<input type="text" id="payment" name="payment" value="네이버페이">
 					<input type="submit" value="Submit">
 			</form>
 			<div class="w3-button" id="apibtn">카카오페이</div>

@@ -26,6 +26,9 @@ import com.project.cogather.service.CafeService;
 public class CafeController {
 	
 	private CafeService cafeService;
+	String ID;
+	String seat_id;
+	String payment;
 	
 	@Autowired
 	public void setCafeService(CafeService cafeService) {
@@ -91,9 +94,14 @@ public class CafeController {
 		return "{\"result\":\"NO\"}";
 	}
 	
-	@RequestMapping("/writeOk.do")
-	public String writeOk(CafeDTO dto, Model model, HttpServletRequest request) {
-		model.addAttribute("result", cafeService.write(dto));
+	@RequestMapping("/writeOk")
+	public String writeOk(Model model, HttpServletRequest request) {
+		//model.addAttribute("result", cafeService.write(dto));
+		ID = request.getParameter("ID");
+		seat_id = request.getParameter("seat_id");
+		payment = request.getParameter("payment");
+		System.out.println(ID + "|" + seat_id + "|" + payment);
+		
 		return "cafe/writeOk";
 	}
 	
