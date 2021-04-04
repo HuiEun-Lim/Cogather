@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>방입장 권한 확인</title>
+<script src="${pageContext.request.contextPath }/JS/chat.js"></script>
 </head>
 <body>
 <c:choose>
@@ -19,6 +20,7 @@
 	<c:otherwise>
 		<script>
 			alert("방에 입장합니다");
+			
 			location.href="studyroom?sg_id=${sg_id}&id=${id}";
 		</script>
 	</c:otherwise>

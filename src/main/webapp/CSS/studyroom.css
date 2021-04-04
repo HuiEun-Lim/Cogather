@@ -3,3 +3,54 @@
 .pimg {
 	width:80px;
 }
+
+
+.chatbox {
+	
+	height: 500px;
+}
+.chatting-section{
+	
+	height: 500px;
+	overflow: auto;
+	border: solid black 1px;
+}
+#sg_id, #contextPath, #id{
+	display: none;
+}
+.left {
+	width:20%;
+	height: 500px;
+	overflow: auto;
+}
+.right {
+	width:40%;
+	height: 500px;
+}
+.left, .center, .right{
+	float:left;
+}
+#message-input{
+	width:50%;
+}
+
+.chat{
+	list-style: none;
+	display:block;
+}
+
+.chat-center{
+	
+}
+.chat-left{
+	float:left;
+	max-width: 70%;
+}
+.chat-right{
+	float:right;
+	margin-right: 10px;
+	max-width: 70%;
+}
+.clear-both{
+	clear:both;
+}
