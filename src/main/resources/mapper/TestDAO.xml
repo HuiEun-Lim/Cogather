@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.cogather.domain.TestDAO">
+	<insert id="insert" flushCache="true"
+		parameterType="com.project.cogather.domain.CafeDTO"
+		keyProperty="res_id" useGeneratedKeys="true" keyColumn="res_id">
+		INSERT INTO reservation 
+			(res_id, ID, seat_id, start_date, end_date, payment) 
+		VALUES
+			(reservation_seq.nextval, #{ID}, #{seat_id}, SYSDATE, SYSDATE, #{payment})
+	</insert>
+	
+	<select id="select" resultType="com.project.cogather.domain.TestDAO">
+		SELECT 
+			res_id, 
+			ID, 
+			seat_id, 
+			start_date, 
+			end_date, 
+			payment 
+		FROM 
+			reservation 
+		ORDER BY 
+			res_id DESC
+	</select>
+	
+	<delete id="deleteByUid" flushCache="true">
+		DELETE FROM reservation WHERE res_id = #{res_id}
+	</delete>
+	
+	<select id="searchBySubject"
+		resultType="com.project.cogather.domain.CafeDTO">
+	</select>
+	
+</mapper>

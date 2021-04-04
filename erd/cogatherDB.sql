@@ -11,7 +11,10 @@ DROP TABLE seats CASCADE CONSTRAINTS;
 DROP TABLE studygroup CASCADE CONSTRAINTS;
 
 DROP SEQUENCE authority_seq;
-
+DROP SEQUENCE comments_seq;
+DROP SEQUENCE content_seq;
+DROP SEQUENCE reservation_seq;
+DROP SEQUENCE studygroup_seq;
 
 CREATE SEQUENCE comments_seq;
 CREATE SEQUENCE content_seq;
@@ -23,7 +26,7 @@ CREATE SEQUENCE studygroup_seq;
 /*권한*/
 CREATE TABLE authority
 (
-	auth varchar2(20) NOT NULL DEFAULT 'ROLE_USER', /*권한명*/
+	auth varchar2(20) DEFAULT 'ROLE_USER' NOT NULL, /*권한명*/
 	ID varchar2(20) NOT NULL,/*회원ID*/
 	PRIMARY KEY (auth, ID),
 	CONSTRAINT ROLECK CHECK(auth IN ('ROLE_USER' , 'ROLE_ADMIN')) 
