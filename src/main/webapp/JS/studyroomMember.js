@@ -62,7 +62,7 @@ function updateMembers(jsonObj) {
 			}
 		}
 
-		$("div.left").html(result);
+		$("div.left .user-list").html(result);
 		return true;
 	} else {
 		alert("아무도 방에 들어오지 않았음");
