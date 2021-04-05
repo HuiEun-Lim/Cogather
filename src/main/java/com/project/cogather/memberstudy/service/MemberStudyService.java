@@ -1,4 +1,4 @@
-package com.project.cogather.service;
+package com.project.cogather.memberstudy.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -7,10 +7,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.cogather.domain.MemberStudyDAO;
-import com.project.cogather.domain.MemberStudyDTO;
-import com.project.cogather.domain.MembersDAO;
-import com.project.cogather.domain.MembersDTO;
+import com.project.cogather.members.model.MembersDAO;
+import com.project.cogather.members.model.MembersDTO;
+import com.project.cogather.memberstudy.model.MemberStudyDAO;
+import com.project.cogather.memberstudy.model.MemberStudyDTO;
 
 @Service
 public class MemberStudyService {

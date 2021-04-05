@@ -1,4 +1,4 @@
-package com.project.cogather.controller;
+package com.project.cogather.memberstudy.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.cogather.domain.AjaxResult;
-import com.project.cogather.domain.MemberStudyDTO;
-import com.project.cogather.domain.MemberStudyResult;
-import com.project.cogather.domain.MembersDTO;
-import com.project.cogather.service.MemberStudyService;
+import com.project.cogather.common.AjaxResult;
+import com.project.cogather.members.model.MembersDTO;
+import com.project.cogather.memberstudy.model.MemberStudyDTO;
+import com.project.cogather.memberstudy.model.MemberStudyResult;
+import com.project.cogather.memberstudy.service.MemberStudyService;
 
 @RestController
 @RequestMapping("/group/MemberStudyRest")
@@ -50,7 +50,7 @@ public class RestMemberStudyController {
 		return result;
 	}
 	
-	
+	// 방번호와 유저 아이디를 통해 누적시간 저장
 	@PutMapping("/ms/acctime")
 	public AjaxResult updateAcctime(int sg_id, String id, String acctime) {
 		AjaxResult result = new AjaxResult();

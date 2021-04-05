@@ -1,7 +1,9 @@
-package com.project.cogather.domain;
+package com.project.cogather.memberstudy.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import com.project.cogather.members.model.MembersDTO;
 
 public interface MemberStudyDAO {
 	// 스터디그룹id를 통해 특정 스터디그룹과 연관된 memberstudy 항목을 가져오는 쿼리

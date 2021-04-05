@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.cogather.domain.MemberStudyDAO">
+<mapper namespace="com.project.cogather.domain.memberstudy.model.MemberStudyDAO">
 <!-- // 스터디그룹id를 통해 특정 스터디그룹과 연관된 memberstudy 항목을 가져오는 쿼리 -->
-<select id="selectBySGId" resultType="com.project.cogather.domain.MemberStudyDTO">
+<select id="selectBySGId" resultType="com.project.cogather.memberstudy.model.MemberStudyDTO">
 	SELECT ID id, SG_ID sg_id, ACCTIME acctime, CURTIME curtime, G_AUTH g_auth, ATT_DATE att_date, ENTIME entime, ENSTATUS enstatus
 	FROM MEMBERSTUDY
 	WHERE SG_ID = #{sg_id} and (g_auth = 'captain' or g_auth = 'crew') and ENSTATUS = 'in'
 </select>
 <!-- 스터디그룹id를 통해 특정 스터디그룹과 연관된 members 항목을 가져오는 쿼리 -->
-<select id="selectMemberBySGId" resultType="com.project.cogather.domain.MembersDTO">
+<select id="selectMemberBySGId" resultType="com.project.cogather.members.model.MembersDTO">
 	SELECT m.ID id ,m.EMAIL email, m.NAME name, m.PIMG_URL pimg_url, m.TAG tag 
 	FROM MEMBERSTUDY ms JOIN MEMBERS m ON ms.ID = m.ID 
 	WHERE SG_ID = #{sg_id} and (g_auth = 'captain' or g_auth = 'crew') and ENSTATUS = 'in'
 </select>
 <!-- // 스터디그룹id를 통해 특정 스터디그룹과 연관된 memberstudy 항목 중 권한이 captain인 항목을 가져오는 쿼리 -->
-<select id="selectCaptainBySGId" resultType="com.project.cogather.domain.MemberStudyDTO">
+<select id="selectCaptainBySGId" resultType="com.project.cogather.memberstudy.model.MemberStudyDTO">
 	SELECT ID id, SG_ID sg_id, ACCTIME acctime, CURTIME curtime, G_AUTH g_auth, ATT_DATE att_date
 	FROM MEMBERSTUDY
 	WHERE SG_ID = #{sg_id} and g_auth = 'captain'
 </select>
 <!-- // 스터디그룹id를 통해 특정 스터디그룹과 연관된 memberstudy 항목 중 권한이 crew인 항목을 가져오는 쿼리 -->
-<select id="selectCrewBySGId" resultType="com.project.cogather.domain.MemberStudyDTO">
+<select id="selectCrewBySGId" resultType="com.project.cogather.memberstudy.model.MemberStudyDTO">
 	SELECT ID id, SG_ID sg_id, ACCTIME acctime, CURTIME curtime, G_AUTH g_auth, ATT_DATE att_date
 	FROM MEMBERSTUDY
 	WHERE SG_ID = #{sg_id} and g_auth = 'crew'
 </select>
 <!-- // 스터디그룹id를 통해 특정 스터디그룹과 연관된 memberstudy 항목 중 권한이 common인 항목을 가져오는 쿼리 -->
-<select id="selectCommonBySGId" resultType="com.project.cogather.domain.MemberStudyDTO">
+<select id="selectCommonBySGId" resultType="com.project.cogather.memberstudy.model.MemberStudyDTO">
 	SELECT ID id, SG_ID sg_id, ACCTIME acctime, CURTIME curtime, G_AUTH g_auth, ATT_DATE att_date
 	FROM MEMBERSTUDY
 	WHERE SG_ID = #{sg_id} and g_auth = 'common'
@@ -45,7 +45,7 @@
 </update>
 
 <!-- 누적시간 가져오기 -->
-<select id="getAcctime" resultType="com.project.cogather.domain.MemberStudyDTO">
+<select id="getAcctime" resultType="com.project.cogather.memberstudy.model.MemberStudyDTO">
 SELECT ID id, SG_ID sg_id, ACCTIME
 FROM MEMBERSTUDY
 WHERE SG_ID = #{param1} AND ID = #{param2} AND (g_auth = 'captain' or g_auth = 'crew')

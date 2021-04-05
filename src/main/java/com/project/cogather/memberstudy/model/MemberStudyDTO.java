@@ -1,4 +1,4 @@
-package com.project.cogather.domain;
+package com.project.cogather.memberstudy.model;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package com.project.cogather.domain;
+package com.project.cogather.members.model;
 
 import java.util.List;
 

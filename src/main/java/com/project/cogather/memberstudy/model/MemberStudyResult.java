@@ -1,6 +1,9 @@
-package com.project.cogather.domain;
+package com.project.cogather.memberstudy.model;
 
 import java.util.List;
+
+import com.project.cogather.common.AjaxResult;
+import com.project.cogather.members.model.MembersDTO;
 
 import lombok.Getter;
 import lombok.Setter;

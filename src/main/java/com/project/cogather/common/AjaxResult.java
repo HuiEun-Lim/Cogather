@@ -1,4 +1,4 @@
-package com.project.cogather.domain;
+package com.project.cogather.common;
 
 import lombok.Getter;
 import lombok.Setter;
