@@ -10,8 +10,6 @@ DROP TABLE members CASCADE CONSTRAINTS;
 DROP TABLE seats CASCADE CONSTRAINTS;
 DROP TABLE studygroup CASCADE CONSTRAINTS;
 
-DROP SEQUENCE authority_seq;
-
 
 CREATE SEQUENCE comments_seq;
 CREATE SEQUENCE content_seq;
@@ -23,11 +21,13 @@ CREATE SEQUENCE studygroup_seq;
 /*권한*/
 CREATE TABLE authority
 (
-	auth varchar2(20) NOT NULL DEFAULT 'ROLE_USER', /*권한명*/
+	auth varchar2(20) DEFAULT 'ROLE_USER' NOT NULL, /*권한명*/
 	ID varchar2(20) NOT NULL,/*회원ID*/
 	PRIMARY KEY (auth, ID),
 	CONSTRAINT ROLECK CHECK(auth IN ('ROLE_USER' , 'ROLE_ADMIN')) 
 );
+
+SELECT * FROM AUTHORITY;
 
 /*댓글*/
 CREATE TABLE comments
@@ -59,12 +59,12 @@ CREATE TABLE members
 	ID varchar2(20) NOT NULL,/*회원id*/
 	name varchar2(20) NOT NULL,/*이름*/
 	pw varchar2(40) NOT NULL,/*비밀번호*/
-	phone varchar2(15) NOT NULL,/*전화번호*/
+	phone varchar2(15),/*전화번호*/
 	email varchar2(40),/*이메일*/
 	pimg_url varchar2(30),/*프로필 이미지*/
 	tag varchar2(50),/*관심주제*/
 	PRIMARY KEY (ID)
-); 
+);
 
 SELECT * FROM members;
 
@@ -175,5 +175,5 @@ ALTER TABLE memberstudy
 	REFERENCES studygroup (sg_id) ON DELETE SET NULL
 ;
 
-
+INSERT INTO authority (auth, id) VALUES ('ROLE_USER', (SELECT m.id FROM MEMBERS m WHERE m.id = 'cogather'));
 
