@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.cogather.domain.memberstudy.model.MemberStudyDAO">
+<mapper namespace="com.project.cogather.memberstudy.model.MemberStudyDAO">
 <!-- // 스터디그룹id를 통해 특정 스터디그룹과 연관된 memberstudy 항목을 가져오는 쿼리 -->
 <select id="selectBySGId" resultType="com.project.cogather.memberstudy.model.MemberStudyDTO">
 	SELECT ID id, SG_ID sg_id, ACCTIME acctime, CURTIME curtime, G_AUTH g_auth, ATT_DATE att_date, ENTIME entime, ENSTATUS enstatus

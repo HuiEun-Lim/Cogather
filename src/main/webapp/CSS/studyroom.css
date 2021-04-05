@@ -18,6 +18,11 @@
 #sg_id, #contextPath, #id{
 	display: none;
 }
+.center{
+	width:40%;
+	height: 500px;
+	overflow:auto;
+}
 .left {
 	width:20%;
 	height: 500px;
