@@ -103,7 +103,16 @@ public class CafeDTO {
 	public void setPayment(String payment) {
 		this.payment = payment;
 	}
-		
 	
+	public void setStartdate(String startdate) {
+		this.start_date = LocalDateTime.parse(startdate);
+		System.out.println("받아온시작날짜" + start_date);
+	}
+		
+	public void setEnddate(String enddate) {
+		this.end_date = LocalDateTime.parse(enddate);
+		System.out.println("받아온종료날짜" + end_date);
+
+	}
 	
 } //end DTO

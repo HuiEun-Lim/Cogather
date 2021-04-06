@@ -2,7 +2,7 @@
 <%@ page session="false" %>
 <%@ taglib  prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
-   
+<%@ page import="java.util.Date" %>   
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
@@ -34,6 +34,7 @@ function chkSubmit(){
 	}
 	return true;
 }
+
 </script>
 <body>
 	<!-- Navbar (sit on top) -->
@@ -70,20 +71,20 @@ function chkSubmit(){
 			<div class="w3-light-grey" style="height:2px; margin-bottom: 70px" >
 	    		<div style="width:10%; height:2px; background-color:#FDBF26"></div>
 			</div>
-			
+			<div id="ctest"></div>
 			<form name="frm" action="writeOk.do" method="post" onsubmit="return chkSubmit()">
-				<input type="text" id="ID" name="ID" value="ttest">
+				<input type="text" id="ID" name="ID" value="t1">
 				<label>시설선택</label>
 					<select id="seat_id" name="seat_id">
 					  <option value="room01">단체룸</option>
 					  <option value="person01">개인좌석</option>
 					</select>
-				<!--  
+				  
 				<h3>날짜선택</h3>
 				<label>시작 날짜</label>
-				<input type="date" id="startdate" name="start_date">
+				<input type="datetime-local" id="startdate" name="startdate">
 				<label>종료 날짜</label>
-				<input type="date" id="startdate" name="end_date">-->
+				<input type="datetime-local" id="enddate" name="enddate">
 				<label>결제방법선택</label>
 				<input type="text" id="payment" name="payment" value="네이버페이">
 					<input type="submit" value="Submit">
@@ -126,6 +127,7 @@ function chkSubmit(){
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7f36e46956483ffffb803d95f128023d"></script>
 <script>
+
 window.onscroll = function() {myFunction()};
 function myFunction() {
     var navbar = document.getElementById("myNavbar");
@@ -145,6 +147,8 @@ function toggleFunction() {
         x.className = x.className.replace(" w3-show", "");
     }
 }
+
+	
 
 </script>
 </body>

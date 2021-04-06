@@ -28,7 +28,7 @@
 	      <div class="choice">
 		      <a href="main" class="w3-bar-item w3-button">HOME</a>
 		      <a href="info" class="w3-bar-item w3-button w3-hide-small w3-border-bottom w3-border-amber">시설소개</a>
-		      <a href="#" class="w3-bar-item w3-button w3-hide-small">예약하기</a>
+		      <a href="reservation" class="w3-bar-item w3-button w3-hide-small">예약하기</a>
 		      <a href="map" class="w3-bar-item w3-button w3-hide-small">오시는 길</a>
 		      <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
 		   </div>
@@ -36,7 +36,7 @@
 	    <!-- Navbar on small screens -->
 	    <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium">
 	      <a href="info" class="w3-bar-item w3-button" onclick="toggleFunction()">시설소개</a>
-	      <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">예약하기</a>
+	      <a href="reservation" class="w3-bar-item w3-button" onclick="toggleFunction()">예약하기</a>
 	      <a href="map" class="w3-bar-item w3-button" onclick="toggleFunction()">오시는 길</a>
 	      <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
 	    </div>

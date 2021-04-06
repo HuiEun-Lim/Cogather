@@ -59,6 +59,8 @@ public class CafeController {
 	@RequestMapping("/kakaopay")
 	@ResponseBody
 	public String kakaopay() {
+		System.out.println("아이디는:" + ID + "| 좌석번호는" + seat_id + "|결제방법은" + payment);
+
 		try {
 			URL addrs = new URL("https://kapi.kakao.com/v1/payment/ready");
 			HttpURLConnection conn = (HttpURLConnection) addrs.openConnection();
@@ -66,7 +68,7 @@ public class CafeController {
 			conn.setRequestProperty("Authorization", "KakaoAK 0d8ab7645584e6e849e393632311ab22");
 			conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 			conn.setDoOutput(true);
-			String param="cid=TC0ONETIME&partner_order_id=res01&partner_user_id=user01&item_name='스터디룸'&quantity=1&total_amount=12000&tax_free_amount=12000&approval_url=http://localhost:8080/cogather/studycafe/main&cancel_url=http://localhost:8080/cogather/studycafe/info&fail_url=http://localhost:8080/cogather/studycafe/map";
+			String param="cid=TC0ONETIME&partner_order_id=res01&partner_user_id="+ID+"&item_name="+seat_id+"&quantity=1&total_amount=12000&tax_free_amount=12000&approval_url=http://localhost:8080/cogather/studycafe/main&cancel_url=http://localhost:8080/cogather/studycafe/info&fail_url=http://localhost:8080/cogather/studycafe/map";
 			OutputStream out = conn.getOutputStream();
 			DataOutputStream dout = new DataOutputStream(out);
 			dout.writeBytes(param);
@@ -95,13 +97,12 @@ public class CafeController {
 	}
 	
 	@RequestMapping("/writeOk")
-	public String writeOk(Model model, HttpServletRequest request) {
-		//model.addAttribute("result", cafeService.write(dto));
+	public String writeOk(CafeDTO dto, Model model, HttpServletRequest request) {
+		model.addAttribute("result", cafeService.write(dto));
 		ID = request.getParameter("ID");
 		seat_id = request.getParameter("seat_id");
 		payment = request.getParameter("payment");
-		System.out.println(ID + "|" + seat_id + "|" + payment);
-		
+		System.out.println("아이디는:" + ID + "| 좌석번호는" + seat_id + "|결제방법은" + payment);
 		return "cafe/writeOk";
 	}
 	

@@ -9,7 +9,7 @@
 		INSERT INTO reservation 
 			(res_id, ID, seat_id, start_date, end_date, payment) 
 		VALUES
-			(reservation_seq.nextval, #{ID}, #{seat_id}, SYSDATE, SYSDATE, #{payment})
+			(reservation_seq.nextval, #{ID}, #{seat_id}, #{start_date}, #{end_date}, #{payment})
 	</insert>
 	
 	<select id="select" resultType="com.project.cogather.domain.TestDAO">
