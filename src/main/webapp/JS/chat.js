@@ -30,7 +30,7 @@ function showChat(msg){ // 메시지 타입에 따라 바꿔서 보여줌
 			"<li class='chat chat-center''> "+ msg.sender+" 입장 </li>"+
 			"<div class='clear-both'></div>"
 		);
-		// 사용자 목록 업데이트 하기
+		// 새로운 사용자가 들어오면 사용자 목록 업데이트 하기
 		getMembers();
 	}else if(msg.type == 'TALK'){
 		if(username == msg.sender){
@@ -50,6 +50,7 @@ function showChat(msg){ // 메시지 타입에 따라 바꿔서 보여줌
 			"<li class='chat chat-center'> "+ msg.sender+" 퇴장 </li>"+
 			"<div class='clear-both'></div>"
 		);
+		getMembers(); // 퇴장시 subscriber들이 해당 메시지를 받으면 멤버 리스트를 업데이트함
 	}
 }
 

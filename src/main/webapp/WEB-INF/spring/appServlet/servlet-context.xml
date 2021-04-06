@@ -71,6 +71,9 @@
 		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
 	</beans:bean>
 	
+<!-- 	레디스 publisher가 메시지를 처리하여 subscriber로 보내면, serialize 되어 있는 데이터를 클래스로 매핑해주는데 사용해봤음  -->
+	<beans:bean name="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"></beans:bean>
+	
 <!-- 	Interceptor 빈 생성 -->
 <!-- 	<beans:bean name="loginInterceptor" class="com.lec.sts16_interceptor.controller.LoginInterceptor"></beans:bean> -->
 	

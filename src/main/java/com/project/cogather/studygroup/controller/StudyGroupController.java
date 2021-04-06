@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.project.cogather.chat.service.RedisService;
 import com.project.cogather.members.service.MembersService;
 import com.project.cogather.memberstudy.service.MemberStudyService;
 
@@ -17,6 +18,8 @@ public class StudyGroupController {
 
 	@Autowired
 	MemberStudyService memberStudyService;
+	@Autowired
+	RedisService redisService;
 	
 	@RequestMapping("/studygroup")
 	public String studymain(Model model) {
@@ -30,6 +33,7 @@ public class StudyGroupController {
 		model.addAttribute("studyMemberdetails", memberStudyService.selectMembersBySGId(sg_id));
 		model.addAttribute("sg_id", sg_id);
 		model.addAttribute("id", id);
+		redisService.enterChatRoom(sg_id); // redis topic 리스너 활성화
 		return "group/studyroom";
 	}
 	// 스터디 룸으로 들어가기전 해당 id가 방에 가입상태인지 파악
@@ -41,12 +45,6 @@ public class StudyGroupController {
 		
 		return "group/roomenterOk";
 	}
-	// 스터디 룸을 나가기전 누적 시간 저장
-	@RequestMapping("/roomoutOk")
-	public String  roomoutOk(int sg_id, String id, Model model) {
-		model.addAttribute("result", memberStudyService.outStatus(sg_id, id));
-		
-		return "group/roomoutOk";
-	}
+	
 	
 }

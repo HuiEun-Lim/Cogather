@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -89,4 +90,25 @@ public class RestMemberStudyController {
 		result.setStatus(status);
 		return result;
 	}
+	
+	// 스터디 룸 나가기
+		@GetMapping("ms/roomoutOk")
+		public AjaxResult  roomoutOk(int sg_id, String id, Model model) {
+			AjaxResult result = new AjaxResult();
+			int cnt = 0; 
+			String status = "fail"; 
+			StringBuilder message = new StringBuilder();
+			
+			cnt = memberStudyService.outStatus(sg_id, id);			
+			
+			if(cnt == 0) {
+				message.append("방 상태 변경 못함");
+			}else {
+				status = "OK";
+			}
+			result.setCnt(cnt);
+			result.setMessage(message.toString());
+			result.setStatus(status);
+			return result;
+		}
 }

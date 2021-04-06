@@ -6,12 +6,13 @@ $(function() {
 	// 이렇게 하지 않으면 분리된 javascript 파일은 제일 마지막에 컴파일 되므로 request에 있는 정보들을 받아올 수 없다. 
 	sg_id = $('#sg_id').text();
 	id = $('#id').text();
+	contextPath = $("#contextPath").text();;
 	getMembers(); // 현제 db에 들어와있는 상태를 가진 유저들 목록을 표시하고 타이머 준비
 });
 // 스터디에 참여하고 있는 멤버들 데이터를 가져옴
 function getMembers() {
 	$.ajax({
-		url: "./MemberStudyRest/ms/"+sg_id ,
+		url: "./MemberStudyRest/ms/" + sg_id,
 		type: "GET",
 		cache: false,
 		success: function(data, status) {
@@ -19,21 +20,24 @@ function getMembers() {
 				updateMembers(data);
 			}
 		}
-		});
+	});
 }
-	
-	
-	
+
+
+
 // json 데이터로 받은 유저 목록을 표시
 function updateMembers(jsonObj) {
 	var result = "" // 결과
 	var userId = id;
 	var msData = jsonObj['msdata'];
 	var mData = jsonObj['mdata'];
+	var check = false;
 	if (jsonObj.status == "OK") {
 		for (var i = 0; i < msData.length; i++) {
-			if (msData[i].id == userId) {
 
+			if (msData[i].id == userId) {
+				check = true;
+				console.log("test1:" + msData.length);
 				if (members[msData[i].id] == null) {
 					setTimer(msData[i].entime, msData[i].id);
 				}
@@ -45,10 +49,15 @@ function updateMembers(jsonObj) {
 					"</div>";
 				break;
 			}
-		}
 
+		}
+		if (check == false) {
+			alert("퇴실 상태 입니다. 다시 들어와주십시오");
+			outroom();
+		}
 		for (var i = 0; i < msData.length; i++) {
 			if (msData[i].id != userId) {
+				console.log("test2: " + msData.length);
 				if (members[msData[i].id] == null) {
 					setTimer(msData[i].entime, msData[i].id);
 				}
@@ -77,10 +86,10 @@ function setTimer(time, userId) {
 	var time = date[1].split(':');
 	date = date[0].split('-');
 	timer['timerId'] = setInterval("calTime()", 1000);
-	timer['entime'] = new Date(date[0], date[1] - 1, date[2], time[0], time[1],time[2]);
+	timer['entime'] = new Date(date[0], date[1] - 1, date[2], time[0], time[1], time[2]);
 	timer['time'] = '0:0:0';
 	members[userId] = timer;
-	
+
 }
 // 입장시간과 현재 시간의 차이를 계산하는 함수
 function calTime() {
@@ -106,29 +115,42 @@ function updateTime() {
 }
 // 방나가기 - 타이머 시간을 누적시간으로 변환 
 function outroom() {
-	
-	clearInterval(members[id]['timerId']);
-	
-	var temp = members[id]['time'].split(':');
-	var time = new Date(2021, 0, 2, temp[0], temp[1], temp[2]);
-	storeAcctime(time);
-	delete members[id];
-	disconnect();
-	location.href = "roomoutOk?sg_id="+sg_id+"&id="+id;
-	
+	$.ajax({
+		url: "./MemberStudyRest/ms/roomoutOk?sg_id=" + sg_id + "&id=" +id,
+		type: "GET",
+		cache: false,
+		success: function(data, status) {
+			if (status == "success") {
+
+				var temp = members[id]['time'].split(':');
+				var time = new Date(2021, 0, 2, temp[0], temp[1], temp[2]);
+				storeAcctime(time);
+				clearInterval(members[id]['timerId']);
+				delete members[id];
+				disconnect();
+				location.href = contextPath + "/group/studygroup";
+			}
+		}
+	});
+
+
+
+
+
+
 }
 // 타이머 시간 누적시간으로 저장 요청
 function storeAcctime(time) {
-	
+
 	$.ajax({
 		url: "./MemberStudyRest/ms/acctime",
 		type: "PUT",
-		data: "sg_id="+sg_id+"&id="+id+"&acctime=" + time.toISOString(),
+		data: "sg_id=" + sg_id + "&id=" + id + "&acctime=" + time.toISOString(),
 		cache: false,
 		success: function(data, status) {
 			if (status == "success") {
 				if (data.status == "OK") {
-					alert("누적시간 저장 성공")
+					alert("누적시간 저장 성공");
 				}
 			}
 		}
