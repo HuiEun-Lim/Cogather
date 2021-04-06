@@ -72,7 +72,7 @@ function chkSubmit(){
 	    		<div style="width:10%; height:2px; background-color:#FDBF26"></div>
 			</div>
 			<div id="ctest"></div>
-			<form name="frm" action="writeOk.do" method="post" onsubmit="return chkSubmit()">
+			<form name="frm" action="rsvOk.do" method="post" onsubmit="return chkSubmit()">
 				<input type="text" id="ID" name="ID" value="t1">
 				<label>시설선택</label>
 					<select id="seat_id" name="seat_id">

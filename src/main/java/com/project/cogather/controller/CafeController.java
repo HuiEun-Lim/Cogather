@@ -96,14 +96,14 @@ public class CafeController {
 		return "{\"result\":\"NO\"}";
 	}
 	
-	@RequestMapping("/writeOk")
-	public String writeOk(CafeDTO dto, Model model, HttpServletRequest request) {
+	@RequestMapping("/rsvOk")
+	public String rsvOk(CafeDTO dto, Model model, HttpServletRequest request) {
 		model.addAttribute("result", cafeService.write(dto));
 		ID = request.getParameter("ID");
 		seat_id = request.getParameter("seat_id");
 		payment = request.getParameter("payment");
 		System.out.println("아이디는:" + ID + "| 좌석번호는" + seat_id + "|결제방법은" + payment);
-		return "cafe/writeOk";
+		return "cafe/rsvOk";
 	}
 	
 	@RequestMapping("/test")
