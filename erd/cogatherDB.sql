@@ -188,7 +188,9 @@ VALUES
 (studygroup_seq.nextval, 'test4', 'test', 4,'1,2,3', 'url4');
 
 SELECT * FROM studygroup;
-
+SELECT sg_id id, sg_name name, sg_info info, sg_max max, sg_regdate regdate, sg_tag tag, kko_url kko_url
+		FROM studygroup
+		where sg_id = 1;
 
 /* Create Foreign Keys */
 

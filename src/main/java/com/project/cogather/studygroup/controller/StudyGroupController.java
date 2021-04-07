@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.project.cogather.chat.service.RedisService;
 import com.project.cogather.members.service.MembersService;
 import com.project.cogather.memberstudy.service.MemberStudyService;
+import com.project.cogather.studygroup.model.StudyGroupDTO;
+import com.project.cogather.studygroup.service.StudyGroupService;
 
 @Controller
 @RequestMapping("/group")
@@ -20,6 +22,8 @@ public class StudyGroupController {
 	MemberStudyService memberStudyService;
 	@Autowired
 	RedisService redisService;
+	@Autowired
+	StudyGroupService studyGroupService;
 	
 	@RequestMapping("/studygroup")
 	public String studymain(Model model) {
@@ -31,6 +35,9 @@ public class StudyGroupController {
 	public String studyroom(int sg_id, String id ,Model model) {
 		model.addAttribute("studyMemberList", memberStudyService.select(sg_id));
 		model.addAttribute("studyMemberdetails", memberStudyService.selectMembersBySGId(sg_id));
+		StudyGroupDTO test =studyGroupService.getStudyGroupBySGID(sg_id);
+		System.out.println(test.getSg_name());
+		model.addAttribute("studyGroupBYSGID", studyGroupService.getStudyGroupBySGID(sg_id));
 		model.addAttribute("sg_id", sg_id);
 		model.addAttribute("id", id);
 		redisService.enterChatRoom(sg_id); // redis topic 리스너 활성화

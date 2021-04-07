@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.cogather.studygroup.model.StudyGroupDAO">
 	<select id="getStudyGroupBySGID" resultType="com.project.cogather.studygroup.model.StudyGroupDTO">
-		SELECT sg_id id, sg_name name, sg_info info, sg_max max, sg_regdate regdate, sg_tag tag, kko_url kko_url
+		SELECT sg_id, sg_name, sg_info, sg_max, sg_regdate, sg_tag, kko_url
 		FROM studygroup
-		where sg_id = #{param1}
+		where sg_id = #{sg_id}
 	</select>
 </mapper>

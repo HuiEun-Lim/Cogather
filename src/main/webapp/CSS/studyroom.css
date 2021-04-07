@@ -1,10 +1,16 @@
 @charset "UTF-8";
 
-html,body {
+html, body {
 	width: 100%;
 	height: 100%;
 	margin: 0;
 }
+
+@font-face {
+	font-family: 'Gugi-Regular';
+	src: url(/cogather/font/Gugi-Regular.ttf) format('truetype');
+}
+
 .pimg {
 	width: 80px;
 	height: 80px;
@@ -13,8 +19,8 @@ html,body {
 .chatbox {
 	position: absolute;
 	top: 0;
-	left:0;
-	right:0;
+	left: 0;
+	right: 0;
 	bottom: 50px;
 	overflow: auto;
 }
@@ -29,58 +35,89 @@ html,body {
 	background-color: #ffffb3;
 	border: solid #FFE650 1px;
 }
-#outroom{
+
+#outroom {
+	position: absolute; display : inline-block;
 	height: 50px;
-	margin:0;
+	margin: 0;
+	right: 0;
+	display: inline-block;
 }
+
+
+#enter-cnt-head {
+	position: absolute;
+	left: 200px;
+	color: #fcdb58; 
+	top: 13px;
+}
+#enter-cnt {
+	position: absolute;
+	left: 280px;
+	color: #fcdb58; 
+	top: 13px;
+}
+#room-title {
+	position: absolute;
+	display: inline-block;
+	margin: 0 auto;
+	font-family: Gugi-Regular;
+	text-align:center;
+	top:6px;
+	color: #fcdb58;
+}
+
 .room {
 	position: relative;
 	height: 100%;
 	width: 100%;
 	min-height: 400px;
 }
-nav#room-menu{
-	position:absolute;
-	height:50px;
-	left:0;
-	right:0;
-	top:0;
-	margin:0;
+
+nav#room-menu {
+	position: absolute;
+	height: 50px;
+	left: 0;
+	right: 0;
+	top: 0;
+	margin: 0;
 }
+
 .content-body {
 	position: absolute;
-	margin:0;
-	left:0;
-	right:0;
-	bottom:0;
-	top:50px;
-	
+	margin: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 50px;
 }
 
 #sg_id, #contextPath, #id {
 	display: none;
 }
 
-
-
 .left {
 	position: absolute;
 	left: 0;
 	width: 200px;
-	height:100%;
+	height: 100%;
 	min-height: 400px;
 	overflow: hidden;
 }
+
 .center {
 	position: absolute;
 	left: 200px;
 	right: 400px;
 	height: 100%;
 	min-height: 400px;
-	align-items: center; overflow : auto;
+	min-width: 300px;
+	align-items: center;
+	overflow: auto;
 	border: solid gray 1px;
 	overflow: auto;
 }
+
 .right {
 	position: absolute;
 	right: 0;
@@ -106,28 +143,32 @@ nav#room-menu{
 	position: absolute;
 	width: 335px;
 	height: 50px;
-	right:58px;
-	bottom:0;
+	right: 58px;
+	bottom: 0;
 	float: left;
-	margin:0;
+	margin: 0;
 }
+
 .message-send {
 	position: absolute;
 	height: 50px;
 	width: 58px;
 	bottom: 0;
-	right:0;
-	margin:0;
+	right: 0;
+	margin: 0;
 }
+
 .chat {
 	list-style: none;
 }
 
 .chat-center {
 	width: 80%;
-	text-align: center; margin-left : 30px;
+	text-align: center;
+	margin-left: 30px;
 	margin-right: 30px;
-	margin-top: 5px; margin-bottom : 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 	border-radius: 2em;
 	background-color: #d3d3d1;
 	margin-bottom: 5px;
@@ -136,7 +177,6 @@ nav#room-menu{
 
 .chat-left {
 	float: left;
-	
 	margin-left: -15px;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -148,7 +188,8 @@ nav#room-menu{
 .chat-right {
 	float: right;
 	margin-right: 10px;
-	margin-top: 5px; margin-bottom : 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 	max-width: 70%;
 	border-radius: 0.5em;
 	background-color: white;

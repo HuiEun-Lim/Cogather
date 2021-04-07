@@ -70,7 +70,7 @@ function updateMembers(jsonObj) {
 					;
 			}
 		}
-
+		$("#enter-cnt").html(msData.length + " 명");
 		$("div.left .user-list").html(result);
 		return true;
 	} else {
