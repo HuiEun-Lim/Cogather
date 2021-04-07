@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@taglib  prefix="spring" uri="http://www.springframework.org/tags" %> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
+
 <!DOCTYPE html>
 <html lang="ko">
 <html>
@@ -17,6 +19,7 @@
 </head>
 <body>
 <!-- Navbar (sit on top) -->
+<div id="wrap">
 <div class="w3-top">
   <div class="w3-bar" id="myNavbar">
     <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
@@ -25,10 +28,8 @@
     <a href="/cogather/group/studygroup" class="w3-bar-item w3-button">
     	<img src="/cogather/img/logo_cut.png" class="logo"  >
     </a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small">스터디목록</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small">스터디만들기</a>
-    <input type="text" placeholder="스터디명 검색" href="#" class="w3-bar-item w3-button w3-hide-small"">
-    <button onclick="search()" class="w3-bar-item w3-button search"><img src="/cogather/img/group/search.png" class="search"></button>
+    <a href="/cogather/group/studylist" class="w3-bar-item w3-button w3-hide-small">스터디목록</a>
+    <a href="/cogather/group/studywrite" class="w3-bar-item w3-button w3-hide-small">스터디만들기</a>
    
      <a href="#" class="w3-bar-item w3-button w3-hide-small">마이페이지</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red login">로그인</a>
@@ -44,11 +45,6 @@
 
 
 <img src="/cogather/img/group/studygroupmain.jpg" width="100%" height="300px" >
-<br><br><br>
-
-<button onclick="location.href='roomenterOk?sg_id=1&id=id1'">스터디 화면 테스트(id1,sg1)</button>
-<button onclick="location.href='roomenterOk?sg_id=1&id=id2'">스터디 화면 테스트(id2,sg1)</button>
-
 
 <script>
 	//Change style of navbar on scroll
@@ -71,7 +67,41 @@
 	        x.className = x.className.replace(" w3-show", "");
 	    }
 	}
+	
 </script>
 
+<br><br>
+<h5>최근 스터디</h5>
+
+<c:choose>
+			<c:when test="${ empty list || fn:length(list)==0 }">
+			
+			</c:when>
+			<c:otherwise>
+				
+				<c:forEach var="dto" items="${list}">
+				<ul id="myUl" class="row">
+				<li class="column">
+   					 
+    				 <p>방번호:${dto.sg_id}</p>
+    				 <p>스터디명:${dto.sg_tag}</p>
+  				</li>
+  				
+				</c:forEach>
+				<li class="column new_div">
+   					 <h5 style="text-align:center">신규 스터디 생성</h5>
+   					 <button style="border:none;class="button_add"><img src="/cogather/img/group/add.png" class="add"onclick="location.href='/cogather/group/studywrite'" ></button>
+				  	<p></p>
+				  	
+  				</li>
+				</ul>
+				
+			</c:otherwise>
+		</c:choose>
+</div>
+<br><br><br>
+
+<button onclick="location.href='roomenterOk?sg_id=1&id=id1'">스터디 화면 테스트(id1,sg1)</button>
+<button onclick="location.href='roomenterOk?sg_id=1&id=id2'">스터디 화면 테스트(id2,sg1)</button>
 </body>
 </html>

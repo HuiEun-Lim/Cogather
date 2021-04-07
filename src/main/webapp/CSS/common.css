@@ -1,4 +1,16 @@
 @charset "UTF-8";
+#wrap{
+	width: 100%;
+    min-height: 100%;
+    margin:0;
+    background-color: white; /*전체 틀 색깔*/
+    margin-right: auto;
+    margin-left: auto;
+    text-align: left;    
+    background-repeat: repeat-y;
+	
+}
+
 .login{
 	color:white;
 	
@@ -9,5 +21,203 @@ img.logo{
 	
 }
 .search{
-	width: 30px;
+	width: 20px;
+	
 }
+.searchbutton{
+	height:40px;
+}
+.searchbar{
+	height:40px;
+}
+.writebutton{
+	background-color:#ffd43b;
+	border :0;
+	outline:0;
+	color:white;
+	width:100px;
+	height:50px;
+	float:right;
+}
+.writebutton:hover{
+	background-color:#fff3bf;
+}
+.createbutton{
+	background-color:#ffd43b;
+	border :0;
+	outline:0;
+	color:white;
+	width:100px;
+	height:50px;
+}
+.createbutton:hover{
+	background-color:#fff3bf;
+}
+.listbutton{
+	background-color:#ffd43b;
+	border :0;
+	outline:0;
+	color:white;
+	width:100px;
+	height:50px;
+}
+
+.listbutton:hover{
+	background-color:#fff3bf;
+}
+
+.viewbutton{
+	background-color:#ffd43b;
+	border :0;
+	outline:0;
+	color:white;
+	width:100px;
+	height:50px;
+	position:relative;
+	float:right;
+	left:-50%;
+	margin:0 10px 0 0;
+
+}
+
+.studylist{
+	color:white;
+}
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+* {
+  box-sizing: border-box;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 20%;
+  border:2px solid #ffd43b;
+  border-radius:10px;
+  border-collapse:separate;
+  margin: 0 10px 10px 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+
+}
+
+table {
+  border-spacing: 10px;
+  border-collapse: separate;
+}
+table td {
+  width: 30px;
+  border-radius:10px;
+  border:2px solid #ffd43b;
+}
+
+div.column button {
+	background-color:white;
+	padding: 5px;
+	margin: 0 0 0 100px;
+}
+
+ul li.column button {
+	background-color:white;
+	padding: 5px;
+	margin: 0 0 0 100px;
+}
+#myInput {
+  background-image: url('/cogather/img/group/search.png');
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 30%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 2px solid #ffd43b;
+  margin-bottom: 12px;
+  margin: 0 0 0 10px;
+}
+
+
+#myUl{
+	
+	list-style-type:none;
+}
+div#write_id{
+	border: 1px solid black;
+	text-align:center;
+}
+div#text_content{
+  -ms-flex: 30%; /* IE10 */
+  flex: 30%;
+  padding: 20px;
+}
+div#row {  
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+}
+div#main {   
+  -ms-flex: 70%; /* IE10 */
+  flex: 70%;
+  background-color: white;
+  padding: 20px;
+  float:right;
+}
+.enterbutton{
+	background-color:#ffd43b;
+	border :0;
+	outline:0;
+	color:white;
+	width:100px;
+	height:50px;
+}
+
+.enterbutton:hover{
+	background-color:#fff3bf;
+}
+.updatebutton{
+	background-color:#ffd43b;
+	border :0;
+	outline:0;
+	color:white;
+	width:100px;
+	height:50px;
+}
+.updatebutton:hover{
+	background-color:#fff3bf;
+}
+.yesterdaybutton{
+	background-color:#ffd43b;
+	border :0;
+	outline:0;
+	color:white;
+	width:100px;
+	height:50px;
+	float:left;
+}
+.yesterdaybutton:hover{
+	background-color:#fff3bf;
+}
+.listupdate{
+	background-color:#ffd43b;
+	border :0;
+	outline:0;
+	color:white;
+	width:100px;
+	height:50px;
+	float:left;
+	margin:0 0 0 10px;
+}
+.clear{
+	clear:both;
+}
+
+

@@ -17,6 +17,7 @@ CREATE SEQUENCE comments_seq;
 CREATE SEQUENCE content_seq;
 CREATE SEQUENCE reservation_seq;
 CREATE SEQUENCE studygroup_seq;
+CREATE SEQUENCE studygroup_file_seq;
 DROP SEQUENCE studygroup_seq;
 
 
@@ -64,7 +65,8 @@ CREATE TABLE members
 	pimg_url varchar2(30),/*프로필 이미지*/
 	tag varchar2(50),/*관심주제*/
 	PRIMARY KEY (ID)
-);
+
+); 
 
 INSERT INTO members (ID, NAME, PW, PHONE, EMAIL, PIMG_URL, TAG)
 VALUES 
@@ -148,6 +150,12 @@ CREATE TABLE reservation
 	payment varchar2(30),/*결제방법*/
 	PRIMARY KEY (res_id)
 );
+SELECT * FROM (
+SELECT ROWNUM AS RNUM, T.* FROM
+(SELECT * FROM studygroup ORDER BY sg_id DESC)T) 
+WHERE RNUM >=1 AND RNUM < 3;
+
+
 
 SELECT * FROM reservation;
 
@@ -165,33 +173,88 @@ SELECT * FROM  seats;
 CREATE TABLE studygroup
 (
 	sg_id number NOT NULL,/*스터디그룹고유번호*/
-	sg_name varchar2(50) NOT NULL,/*스터디그룹이름*/
+	sg_name varchar2(60) NOT NULL,/*스터디그룹이름*/
 	sg_info clob,/*스터디그룹정보*/
 	sg_max number,/*스터디그룹제한인원수*/
 	sg_regdate date DEFAULT SYSDATE,/*스터디그룹생성날짜*/
-	sg_tag varchar2(50),/*스터디주제*/
-	kko_url varchar2(40),/*카톡방 주소*/
+	sg_tag varchar2(60),/*스터디주제*/
+	kko_url varchar2(300),/*카톡방 주소*/
+	file_name varchar2(300),/*썸네일*/
 	PRIMARY KEY (sg_id)
 );
+
+
+
+SELECT file_name  FROM studygroup;
+SELECT * FROM STUDYGROUP ORDER BY sg_id;
+ /*스터디 그룹 이미지 파일*/ 
+CREATE TABLE studygroup_file
+(
+	sgf_id NUMBER NOT NULL,   /*파일 번호*/
+	sgf_org_file_name varchar2(100) NOT NULL, /*원본 파일 이름*/
+	sgf_stored_file_name varchar2(100) NOT NULL, /*변경된 파일 이름*/
+	sg_id NUMBER NOT NULL,/*스터디그룹고유번호*/
+	sgf_file_size NUMBER,  /*파일 크기*/
+	PRIMARY KEY (sgf_id)  
+);
+/*not null 없앴다.*/
+ALTER TABLE STUDYGROUP_FILE MODIFY sgf_id NULL;
+ALTER TABLE STUDYGROUP_FILE MODIFY sgf_org_file_name NULL;
+ALTER TABLE STUDYGROUP_FILE MODIFY sgf_stored_file_name NULL;
+ALTER TABLE STUDYGROUP_FILE MODIFY sg_id NULL;
+
+
+INSERT INTO studygroup_file VALUES
+(studygroup_file_seq.nextval, 'aaa', 'aaa',160,1000);
+
+
+SELECT * FROM studygroup_file;
+SELECT * FROM studygroup_file;
+
+DROP TABLE studygroup_file CASCADE CONSTRAINTS;
+
+ALTER TABLE studygroup_file
+	ADD FOREIGN KEY (sg_id)
+	REFERENCES studygroup (sg_id)
+	ON DELETE CASCADE
+;
+
+
+SELECT * FROM studygroup;
 -- study group dummy insert test
-INSERT INTO STUDYGROUP (SG_ID, SG_NAME, SG_INFO, SG_MAX, SG_TAG, KKO_URL)
-VALUES 
-(studygroup_seq.nextval, 'test1', 'test', 4,'1,2,3', 'url1');
-INSERT INTO STUDYGROUP (SG_ID, SG_NAME, SG_INFO, SG_MAX, SG_TAG, KKO_URL)
-VALUES 
-(studygroup_seq.nextval, 'test2', 'test', 4,'1,2,3', 'url2');
-INSERT INTO STUDYGROUP (SG_ID, SG_NAME, SG_INFO, SG_MAX, SG_TAG, KKO_URL)
-VALUES 
-(studygroup_seq.nextval, 'test3', 'test', 4,'1,2,3', 'url3');
-INSERT INTO STUDYGROUP (SG_ID, SG_NAME, SG_INFO, SG_MAX, SG_TAG, KKO_URL)
-VALUES 
-(studygroup_seq.nextval, 'test4', 'test', 4,'1,2,3', 'url4');
+INSERT INTO studygroup VALUES
+(studygroup_seq.nextval, 'aaa', '안녕하세요', 2, sysdate, 'aaa','https://open.kakao.com/o/szYZxz5c','group571b230b-10a6-4ebb-bfa5-7a2600eaf771.png');
+
+INSERT INTO studygroup VALUES
+(studygroup_seq.nextval, 'bbb', '안녕하세요', 4, sysdate, 'aaa','https://open.kakao.com/o/szYZxz5c');
+
+INSERT INTO studygroup VALUES
+(studygroup_seq.nextval, '수학', '안녕하세요', 4, sysdate, 'aaa','https://open.kakao.com/o/szYZxz5c');
+
+INSERT INTO studygroup VALUES
+(studygroup_seq.nextval, '수학', '안녕하세요', 4, sysdate, '수학','https://open.kakao.com/o/szYZxz5c');
+
+INSERT INTO studygroup VALUES
+(studygroup_seq.nextval, '임시데이터', '안녕하세요', 4, sysdate, '임시데이터','https://open.kakao.com/o/szYZxz5c');
+----------------------------------------------------------------------------------------------------------------------
+SELECT COUNT(*) FROM studygroup;
+SELECT sg_id,sg_name FROM studygroup ORDER by sg_id DESC;
+
+SELECT * FROM studygroup WHERE ROWNUM<=2 ORDER by sg_id DESC; /*상위 데이터 3개 조회*/
+
+SELECT * FROM studygroup;
+
+
 
 SELECT * FROM studygroup;
 SELECT sg_id id, sg_name name, sg_info info, sg_max max, sg_regdate regdate, sg_tag tag, kko_url kko_url
 		FROM studygroup
 		where sg_id = 1;
 
+SELECT * FROM (
+	SELECT ROWNUM AS RNUM, T.* FROM (SELECT * FROM studygroup ORDER BY sg_id DESC)T) 
+	WHERE RNUM >=1 AND RNUM < 3;
+/*studygroupfile은 관계 없앴다.*/
 /* Create Foreign Keys */
 
 ALTER TABLE comments
