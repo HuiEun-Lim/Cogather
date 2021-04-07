@@ -1,0 +1,7 @@
+package com.project.cogather.domain;
+
+public class StudyGroupSearch extends StudyGroupPaging{
+	
+	
+
+}

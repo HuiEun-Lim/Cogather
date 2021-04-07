@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  
+<mapper namespace="com.project.cogather.domain.StudyGroupDAO">
+
+	<select id="select" resultType="com.project.cogather.domain.StudyGroupDTO">
+		SELECT 
+			*
+		FROM 
+			studygroup 
+		ORDER by sg_id DESC
+		
+	</select>
+	
+	<select id="countBoard" resultType="int">
+		SELECT COUNT(*) FROM studygroup
+	</select>
+	
+	<select id="selectBoard" resultType="com.project.cogather.domain.StudyGroupDTO">
+		<![CDATA[ SELECT * FROM (
+	SELECT ROWNUM AS RNUM, T.* FROM (SELECT * FROM studygroup ORDER BY sg_id DESC)T) 
+	WHERE
+	
+	 RNUM >=#{start} AND RNUM < #{end}
+	]]>
+
+		
+	</select>
+	
+	<select id="selectByUid" resultType="com.project.cogather.domain.StudyGroupDTO">
+		SELECT 
+			*
+		FROM 
+			studygroup 
+		WHERE sg_id= #{param1}
+		
+	</select>
+	
+	<select id="select_recent" resultType="com.project.cogather.domain.StudyGroupDTO">
+		<![CDATA[
+		 SELECT * FROM studygroup WHERE ROWNUM <=2 ORDER by sg_id DESC
+		]]>
+	</select>
+	
+	 <insert id="insert" flushCache="true" 
+	parameterType="com.project.cogather.domain.StudyGroupDTO"
+	keyProperty="sg_id" useGeneratedKeys="true" keyColumn="sg_id">
+		
+		INSERT INTO studygroup
+			 (sg_id,sg_info,sg_name,sg_max,sg_regdate,sg_tag,kko_url,file_name) 
+		VALUES
+			(studygroup_seq.nextval,#{sg_info}, #{sg_name},#{sg_max},SYSDATE,#{sg_tag},#{kko_url},#{file_name, jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="insertFile" parameterType="hashMap">
+		
+		INSERT INTO studygroup_file
+			 (sgf_id,sgf_org_file_name,sgf_stored_file_name,sg_id,sgf_file_size) 
+		VALUES
+			(studygroup_file_seq.nextval,#{sgf_org_file_name, jdbcType=VARCHAR}, #{sgf_stored_file_name, jdbcType=VARCHAR},#{sg_id},#{sgf_file_size})
+	</insert>
+	
+	<select id="selectFile" parameterType="com.project.cogather.domain.StudyGroupFileDTO" resultType="hashMap">
+			SELECT *
+			FROM studygroup_file 
+			WHERE sg_id=#{sg_id, jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectFileInfo" parameterType="hashMap" resultType="hashMap">
+			SELECT sgf_org_file_name,sgf_stored_file_name
+			FROM studygroup_file 
+			WHERE sg_id=#{SG_ID, jdbcType=VARCHAR}
+	</select>
+	
+	
+	<update id="update" flushCache="true" 
+		parameterType="com.project.cogather.domain.StudyGroupDTO">
+		UPDATE studygroup 
+		SET sg_info = #{a.sg_info},sg_name=#{a.sg_name},sg_tag=#{a.sg_tag},kko_url=#{a.kko_url}
+		WHERE sg_id = #{param1}
+	</update>
+	
+	<delete id="deleteByUid" flushCache="true">
+		DELETE FROM studygroup WHERE sg_id = #{sg_id}
+	</delete>
+	
+</mapper>
