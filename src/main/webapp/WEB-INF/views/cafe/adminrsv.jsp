@@ -10,10 +10,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="/cogather/CSS/cafeinfo.css">
-		  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="/cogather/JS/adminrsv.js"></script>
 	<script src="https://kit.fontawesome.com/65311e5b1a.js" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="/cogather/JS/cafersv.js"></script>
-	<title>오시는길</title>
+	<title>예약현황</title>
 </head>
 <body>
 	<!-- Navbar (sit on top) -->
@@ -30,30 +30,37 @@
 	      <div class="choice">
 		      <a href="main" class="w3-bar-item w3-button">HOME</a>
 		      <a href="info" class="w3-bar-item w3-button w3-hide-small">시설소개</a>
-		      <a href="#" class="w3-bar-item w3-button w3-hide-small">예약하기</a>
-		      <a href="map" class="w3-bar-item w3-button w3-hide-small w3-border-bottom w3-border-amber">오시는 길</a>
-		      <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
+		      <a href="reservation" class="w3-bar-item w3-button w3-hide-small">예약하기</a>
+		      <a href="map" class="w3-bar-item w3-button w3-hide-small">오시는 길</a>
+		      <a href="adminrsv" class="w3-bar-item w3-button w3-hide-small w3-border-bottom w3-border-amber">예약현황</a>
+		      <a href="login" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
 		   </div>
 	    </div>	  
 	    <!-- Navbar on small screens -->
 	    <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium">
 	      <a href="info" class="w3-bar-item w3-button" onclick="toggleFunction()">시설소개</a>
-	      <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">예약하기</a>
+	      <a href="reservation" class="w3-bar-item w3-button" onclick="toggleFunction()">예약하기</a>
 	      <a href="map" class="w3-bar-item w3-button" onclick="toggleFunction()">오시는 길</a>
-	      <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
+	      <a href="login" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
 	    </div>
     </div>
     
     <div id="wrap">
     	<div class="w3-padding-64" style="margin-top:90px">
-    	<table>
-    	<tr>
-    	<th>rsv_id</th>
+    	<h3>예약 현황 </h3>
+		<div class="w3-light-grey" style="height:2px; margin-bottom: 70px" >
+    		<div style="width:10%; height:2px; background-color:#FDBF26"></div>
+		</div>
+		
+    	<table class="w3-table w3-bordered w3-centered w3-large w3-card-4">
+    	<tr class="w3-amber">
+    	<th>예약번호</th>
     	<th>회원ID</th>
     	<th>좌석번호</th>
     	<th>시작날짜</th>
     	<th>종료날짜</th>
     	<th>결제방법</th>
+    	<th>예약취소</th>
     	</tr>
     	
     	<c:choose>
@@ -63,24 +70,24 @@
     		<c:forEach var="dto" items="${list }">
     		<tr>
     		<td>${dto.res_id }</td>
-    		<td>${dto.ID} }</td>
-    		<td>${dto.seat_id} }</td>
-    		<td>${dto.start_dateTime} }</td>
-    		<td>${dto.end_dateTime} }</td>
-    		<td>${dto.payment} }</td>
+    		<td>${dto.ID} </td>
+    		<td>${dto.seat_id} </td>
+    		<td>${dto.start_date} </td>
+    		<td>${dto.end_date} </td>
+    		<td>${dto.payment} </td>
+    		<td><button class="w3-red w3-text-light-grey" onclick="chkDelete(${dto.res_id })">예약취소</button></td>
     		</tr>
     		</c:forEach>
     	</c:otherwise>
     	</c:choose>
     	</table>
     	</div>
-			<div class="w3-button" id="apibtn">카카오페이</div>
 	 </div>
     <!-- Footer -->
 <footer class="w3-center w3-black w3-padding-64">
   <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
   <div class="w3-xlarge w3-section w3-center">
-    <table style="color:white">
+    <table>
     <tr>
     <th>대표자 정보</th>
     <th style="width:10px"></th>

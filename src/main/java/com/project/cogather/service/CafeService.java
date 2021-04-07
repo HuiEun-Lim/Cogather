@@ -79,9 +79,9 @@ public class CafeService {
 //		return dao.update(dto.getUid(), dto);
 //	}
 	
-	public int deleteByUid(int uid) {
+	public int deleteByUid(int res_id) {
 		dao = sqlSession.getMapper(TestDAO.class); // MyBatis 사용
-		return dao.deleteByUid(uid);				
+		return dao.deleteByUid(res_id);				
 	}
 	
 }

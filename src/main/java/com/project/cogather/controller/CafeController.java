@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -106,9 +107,15 @@ public class CafeController {
 		return "cafe/rsvOk";
 	}
 	
-	@RequestMapping("/test")
+	@RequestMapping("/adminrsv")
 	public String list(Model model) {
 		model.addAttribute("list", cafeService.list());
-		return "cafe/test";
+		return "cafe/adminrsv";
+	}
+	
+	@GetMapping("/deleteOk.do")
+	public String deleteOk(int res_id, Model model) {
+		model.addAttribute("result", cafeService.deleteByUid(res_id));
+		return "cafe/deleteOk";
 	}
 }

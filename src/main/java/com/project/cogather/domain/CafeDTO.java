@@ -65,13 +65,13 @@ public class CafeDTO {
 
 
 	public LocalDateTime getStart_date() {
-		System.out.println(start_date+"시작날짜");
+		//System.out.println(start_date+"시작날짜");
 		return start_date;
 	}
 	
 
 	public void setStart_date(LocalDateTime start_date) {
-		System.out.println(start_date+"시작날짜!!");
+		//System.out.println(start_date+"시작날짜!!");
 		this.start_date = start_date;
 	}
 	
@@ -105,12 +105,12 @@ public class CafeDTO {
 	}
 	
 	public void setStartdate(String startdate) {
-		this.start_date = LocalDateTime.parse(startdate);
+		//this.start_date = LocalDateTime.parse(startdate);
 		System.out.println("받아온시작날짜" + start_date);
 	}
 		
 	public void setEnddate(String enddate) {
-		this.end_date = LocalDateTime.parse(enddate);
+		//this.end_date = LocalDateTime.parse(enddate);
 		System.out.println("받아온종료날짜" + end_date);
 
 	}
