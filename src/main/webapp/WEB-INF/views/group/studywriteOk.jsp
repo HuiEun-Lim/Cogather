@@ -8,6 +8,7 @@
 </head>
 <body>
 
+
 	<c:choose>
 		<c:when test="${result ==0 }">
 			<script>
@@ -23,6 +24,8 @@
 		</c:otherwise>
 	</c:choose>
 </body>
+
+   
 
 </html>
 

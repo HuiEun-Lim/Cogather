@@ -19,6 +19,7 @@
 
 
 <form name="frm" action="studywriteOk" method="post" enctype="multipart/form-data" onsubmit="return chkSubmit()">
+
 스터디 이름:&nbsp&nbsp
 <input type="text" name="sg_name" style="width:20%;height:30px;" /><br><br>
 제한 인원수:&nbsp&nbsp

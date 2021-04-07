@@ -90,26 +90,11 @@ public class StudyGroupController {
 		}
 		@RequestMapping(value="/studywriteOk")
 		public String studywriteOk(StudyGroupDTO dto,MultipartHttpServletRequest mpRequest,Model model) throws Exception {
+
+			//1.상대경로 바꾸기 2.물리적인 파일 같이 삭제하기  
+			//첨부파일 썸네일 하나의 함수로 
 			
-//			System.out.println(mpRequest.getRealPath("img/group")); 
-			
-			//썸네일 업로드 
-			String file_name=null;
-//			MultipartFile uploadFile = dto.getUploadFile(); // 형꺼
-			MultipartFile uploadFile = mpRequest.getFile("uploadFile"); // 정희꺼
-			if (!uploadFile.isEmpty()) {
-				String originalFileName = uploadFile.getOriginalFilename();
-				String ext = FilenameUtils.getExtension(originalFileName);	//확장자 구하기
-				UUID uuid = UUID.randomUUID();	//UUID 구하기
-				file_name=uuid+"."+ext;
-				uploadFile.transferTo(new File("C:\\DevRoot\\Dropbox\\CoGather\\cogather\\src\\main\\webapp\\img\\group\\upload\\"+file_name));
-				
-			}
-			
-			dto.setFile_name(file_name);
-			//썸네일 업로드 끝
-			StudyGroupFileDTO fdto = null;
-			model.addAttribute("result", studygroupservice.write(dto, fdto, mpRequest));
+			model.addAttribute("result", studygroupservice.write(mpRequest));
 
 			return "group/studywriteOk";
 		}
