@@ -7,16 +7,20 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.project.cogather.studygroup.model.StudyGroupDAO;
 import com.project.cogather.studygroup.model.StudyGroupDTO;
@@ -41,9 +45,48 @@ public class StudyGroupService {
 		return dao.select_recent();
 	}
 	
-	public int write(StudyGroupDTO dto,StudyGroupFileDTO fdto,MultipartHttpServletRequest mpRequest) throws Exception {
+	public int write(MultipartHttpServletRequest mpRequest) throws Exception {
 		dao=sqlSession.getMapper(StudyGroupDAO.class);
+		StudyGroupDTO dto = new StudyGroupDTO();
+		String file_name=null;
+//		MultipartFile uploadFile = dto.getUploadFile(); // 형꺼
+		MultipartFile uploadFile = mpRequest.getFile("uploadFile"); // 정희꺼
+	
+		System.out.println("mp1 "+mpRequest.getParameter("sg_name"));
+		System.out.println("mp2 "+mpRequest.getParameter("sg_info"));
+		System.out.println("mp3 "+mpRequest.getParameter("sg_tag"));
+		System.out.println("mp4 "+mpRequest.getParameter("kko_url"));
+		String sg_info=mpRequest.getParameter("sg_info");
+		String sg_name=mpRequest.getParameter("sg_name");
+		String sg_tag=mpRequest.getParameter("sg_tag");
+		String kko_url=mpRequest.getParameter("kko_url");
+		dto.setSg_info(sg_info);
+		dto.setKko_url(kko_url);
+		dto.setSg_name(sg_name);
+		dto.setSg_tag(sg_tag);
+		if (!uploadFile.isEmpty()) {
+			String originalFileName = uploadFile.getOriginalFilename();
+			String ext = FilenameUtils.getExtension(originalFileName);	//확장자 구하기
+			UUID uuid = UUID.randomUUID();	//UUID 구하기
+			file_name=uuid+"."+ext;
+			String pdfPath = mpRequest.getSession().getServletContext().getRealPath("/img/group/upload/");
+
+			System.out.println(new File(pdfPath));	
+			uploadFile.transferTo(new File(pdfPath+file_name));
+			//uploadFile.transferTo(new File("upload"+file_name));
+
+			
+		
+				
+		}
+		
+		dto.setFile_name(file_name);
+		
+		//insert
 		int result = dao.insert(dto);
+		
+		
+		//첨부파일 업로드 
 		List<Map<String,Object>> list =  fileUtils.parseInsertFileInfo(dto, mpRequest); 
 		String sgf_org_file_name = null;
 		String sgf_stored_file_name = null;
@@ -59,7 +102,7 @@ public class StudyGroupService {
 		  sgf_org_file_name=fileUtils.getSgf_org_file_name();
 		  sgf_stored_file_name=fileUtils.getSgf_stored_file_name();
 		  sgf_file_size=fileUtils.getSgf_file_size();
-		  fdto = new StudyGroupFileDTO(sgf_org_file_name,sgf_stored_file_name,sgf_file_size,sg_id);
+		//fdto = new StudyGroupFileDTO(sgf_org_file_name,sgf_stored_file_name,sgf_file_size,sg_id);
 		 Map<String,Object> map = new HashMap<String,Object>();
 		 map.put(sgf_org_file_name,"sgf_org_file_name");
 		 map.put(sgf_stored_file_name,"sgf_stored_file_name");

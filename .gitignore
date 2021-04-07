@@ -60,5 +60,7 @@ pom.xml.next
 release.properties
 dependency-reduced-pom.xml
 
+# uploaded imgs
+img/group/upload/
 
 

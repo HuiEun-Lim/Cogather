@@ -60,9 +60,10 @@
 	<!-- 파일 업로드 설정 -->
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<!-- 파일 사이즈 설정 가능 byte 단위
-		<property name="maxUploadSize" value="100000" />
-		-->
+		<!-- 파일 사이즈 설정 가능 byte 단위-->
+		<beans:property name="maxUploadSize" value="100000000" />
+		<beans:property name="maxInMemorySize" value="100000000"/> <!-- 10MB-->
+		
 	</beans:bean>
 	<!-- MyBatis 설정 -->
 	<beans:bean name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
