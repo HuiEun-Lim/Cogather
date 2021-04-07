@@ -74,7 +74,12 @@ function disconnect(){ // stompClient 종료하기전 메시지 보내고 죽음
 	}
 	console.log(username+"의 메시지 전송 소켓 종료");
 }
-
+function formSend(){
+	$("form#sendMessage button").click(function(){ 
+		sendChat();
+		$('form#sendMessage input').val(''); // 메시지보내고 나서 inputbox 비우기
+	});
+}
 $(function() {
 	username = $("#id").text(); 
 	roomId = $("#sg_id").text();
@@ -86,10 +91,7 @@ $(function() {
 		e.preventDefault();
 	});
 	
-	$("form#sendMessage button").click(function(){ 
-		sendChat();
-		$('form#sendMessage input').val(''); // 메시지보내고 나서 inputbox 비우기
-	});
+	
 	
     window.BeforeUnloadEvent = function(){
         disconnect();

@@ -19,6 +19,7 @@ CREATE SEQUENCE reservation_seq;
 CREATE SEQUENCE studygroup_seq;
 CREATE SEQUENCE studygroup_file_seq;
 DROP SEQUENCE studygroup_seq;
+DROP SEQUENCE content_seq;
 
 
 /* Create Tables */
@@ -45,15 +46,41 @@ CREATE TABLE comments
 CREATE TABLE content
 (
 	ct_uid number NOT NULL, /*게시글 고유번호*/
-	ID varchar2(20) NOT NULL,/*게시글 제목*/
-	sg_id number NOT NULL,/*회원ID*/
+	ID varchar2(20) NOT NULL,/*회원ID*/
+	sg_id number NOT NULL, /*스터디방번호*/
 	ct_title varchar2(40) NOT NULL,/*게시글 제목*/
 	ct_content clob,/*게시글 내용*/
+	ct_viewcnt integer DEFAULT 0, /* 조회수 */
 	regdate date DEFAULT SYSDATE,/*둥록날짜*/
 	PRIMARY KEY (ct_uid)
 );
+/* 스터디 그룹 게시글 파일 테이블 */
+CREATE TABLE content_file
+{
+	cf_id NUMBER NOT NULL,
+	cf_source varchar2(500) NOT NULL,
+	cf_file varchar2(500) NOT NULL,
+	ct_id NUMBER NOT NULL,
+	PRIMARY KEY (ct_id)
+}
+
+INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
+VALUES (content_seq.nextval, 'id1', 21, 'ㅈㄴ 쉽군', '언제 끝나....' );
 
 SELECT * FROM CONTENT;
+
+SELECT
+	ct_uid ,id,sg_id ,ct_title ,ct_content ,regdate, ct_viewcnt
+FROM 
+	(SELECT ROWNUM AS RNUM, T.* FROM 
+		(SELECT * FROM CONTENT 
+		WHERE SG_ID = 21
+		ORDER BY ct_uid DESC 
+		) T
+	) 
+WHERE 
+	RNUM >= 1 AND RNUM < (1 + 3);
+
 /*회원*/
 CREATE TABLE members
 (
@@ -93,24 +120,17 @@ CREATE TABLE memberstudy
 -- 방생성자 방 생성
 INSERT INTO memberstudy (ID, sg_id, g_auth)
 VALUES 
-('id1', 1, 'captain');
-INSERT INTO memberstudy (ID, sg_id, g_auth)
-VALUES 
-('id1', 2, 'captain');
-INSERT INTO memberstudy (ID, sg_id, g_auth)
-VALUES 
-('id1', 3, 'captain');
-INSERT INTO memberstudy (ID, sg_id, g_auth)
-VALUES 
-('id1', 4, 'captain');
+('id1', 21, 'captain');
+
 
 -- 참가자 참여 허락
 INSERT INTO memberstudy (ID, sg_id, g_auth)
 VALUES 
-('id2', 1, 'crew');
+('id2', 21, 'crew');
 INSERT INTO memberstudy (ID, sg_id, g_auth)
 VALUES 
-('id3', 2, 'crew');
+('id3', 21, 'crew');
+
 INSERT INTO memberstudy (ID, sg_id, g_auth)
 VALUES 
 ('id4', 3, 'crew');
@@ -119,11 +139,14 @@ VALUES
 ('id5', 4, 'crew');
 
 SELECT * FROM memberstudy;
+
 SELECT ID id, SG_ID sg_id, ACCTIME acctime, CURTIME curtime, G_AUTH g_auth, ATT_DATE att_date
 FROM MEMBERSTUDY
 WHERE SG_ID = 1
 ;
 UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'id1';
+UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'id2';
+UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'id3';
 
 SELECT m.ID ,m.EMAIL, m.NAME, m.PIMG_URL, m.TAG , ms.ENSTATUS
 	FROM MEMBERSTUDY ms JOIN MEMBERS m ON ms.ID = m.ID 
@@ -256,6 +279,7 @@ SELECT * FROM (
 	WHERE RNUM >=1 AND RNUM < 3;
 /*studygroupfile은 관계 없앴다.*/
 /* Create Foreign Keys */
+
 
 ALTER TABLE comments
 	ADD FOREIGN KEY (ct_uid)

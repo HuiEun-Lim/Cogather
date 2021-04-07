@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.cogather.content.model.ContentDAO">
+	<select id="selectFromRow" resultType="com.project.cogather.content.model.ContentDTO">
+	<![CDATA[
+	SELECT
+		ct_uid ,id,sg_id ,ct_title ,ct_content ,regdate
+	FROM 
+		(SELECT ROWNUM AS RNUM, T.* FROM 
+			(SELECT * FROM CONTENT 
+			WHERE SG_ID = #{sg_id}
+			ORDER BY ct_uid DESC 
+			) T
+		) 
+	WHERE 
+		RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})
+	]]>
+	</select>
+	
+	<select id="countAll" resultType="int">
+		SELECT count(*) FROM CONTENT
+		WHERE SG_ID = #{sg_id}
+	</select>
+	
+	<update id="incViewCnt" flushCache="true">
+		UPDATE CONTENT
+		SET ct_viewcnt = ct_viewcnt + 1
+		WHERE ct_uid = #{ct_uid}
+	</update>
+	
+	<select id="selectByUid" resultType="com.project.cogather.content.model.ContentDTO">
+		SELECT *
+		FROM CONTENT
+		WHERE CT_UID = #{ct_uid}
+	</select>
+	
+	<insert id="insert" flushCache="true">
+		INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
+		VALUES (content_seq.nextval, #{id}, #{sg_id}, #{ct_title}, #{ct_content} )
+	</insert>
+	
+	<update id="update" flushCache="true">
+		UPDATE CONTENT
+		SET CT_TITLE = #{ct_title}, CT_CONTENT = #{ct_content}
+		WHERE CT_UID = #{ct_uid} AND ID = #{id} AND SG_ID = #{sg_id} 
+	</update>
+	
+	<delete id="deleteByUids" flushCache="true" parameterType="java.util.ArrayList">
+		DELETE FROM CONTENT
+		WHERE CT_UID IN (
+			<foreach collection="array" item="item" index="index" separator=",">
+				${item}
+			</foreach>
+		)
+		
+	</delete>
+	<delete id="deleteByUid">
+		DELETE FROM CONTENT
+		WHERE CT_UID = #{ct_uid} AND ID = #{id}
+	</delete>
+</mapper>

@@ -56,17 +56,17 @@ public class StudyGroupService {
 		
 		System.out.println("고유번호:  "+sg_id);
 		
-		  sgf_org_file_name=fileUtils.getSgf_org_file_name();
-		  sgf_stored_file_name=fileUtils.getSgf_stored_file_name();
-		  sgf_file_size=fileUtils.getSgf_file_size();
-		  fdto = new StudyGroupFileDTO(sgf_org_file_name,sgf_stored_file_name,sgf_file_size,sg_id);
-		 Map<String,Object> map = new HashMap<String,Object>();
-		 map.put(sgf_org_file_name,"sgf_org_file_name");
-		 map.put(sgf_stored_file_name,"sgf_stored_file_name");
+		sgf_org_file_name = fileUtils.getSgf_org_file_name();
+		sgf_stored_file_name = fileUtils.getSgf_stored_file_name();
+		sgf_file_size = fileUtils.getSgf_file_size();
+		fdto = new StudyGroupFileDTO(sgf_org_file_name,sgf_stored_file_name,sgf_file_size,sg_id);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(sgf_org_file_name, "sgf_org_file_name");
+		map.put(sgf_stored_file_name,"sgf_stored_file_name");
 		
 		
-		 System.out.println("map 파일 다운로드 확인"+map.toString());
-		 selectFileInfo(map);
+		System.out.println("map 파일 다운로드 확인" + map.toString());
+		selectFileInfo(map);
 		System.out.println("StudyGroup:  "+list.get(0));
 //		for(int i=0;i<size-1;i++) {
 //			dao.insertFile(list.get(i));

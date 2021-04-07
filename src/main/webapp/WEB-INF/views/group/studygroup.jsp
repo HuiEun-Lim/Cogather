@@ -101,7 +101,8 @@
 </div>
 <br><br><br>
 
-<button onclick="location.href='roomenterOk?sg_id=1&id=id1'">스터디 화면 테스트(id1,sg1)</button>
-<button onclick="location.href='roomenterOk?sg_id=1&id=id2'">스터디 화면 테스트(id2,sg1)</button>
+<button onclick="location.href='roomenterOk?sg_id=21&id=id1'">스터디 화면 테스트(id1,sg21)</button>
+<button onclick="location.href='roomenterOk?sg_id=21&id=id2'">스터디 화면 테스트(id2,sg21)</button>
+<button onclick="location.href='roomenterOk?sg_id=21&id=id3'">스터디 화면 테스트(id3,sg21)</button>
 </body>
 </html>

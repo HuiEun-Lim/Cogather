@@ -116,19 +116,37 @@ function updateTime() {
 // 방나가기 - 타이머 시간을 누적시간으로 변환 
 function outroom() {
 	$.ajax({
-		url: "./MemberStudyRest/ms/roomoutOk?sg_id=" + sg_id + "&id=" +id,
+		url: "./MemberStudyRest/ms/roomoutOk?sg_id=" + sg_id + "&id=" + id,
 		type: "GET",
 		cache: false,
 		success: function(data, status) {
 			if (status == "success") {
+				if (data.status = "OK") {
+					var temp = members[id]['time'].split(':');
+					var time = new Date(0, 0, 2, temp[0], temp[1], temp[2]);
+					storeAcctime(time)
+					clearInterval(members[id]['timerId']);
+					delete members[id];
+					disconnect();
+					location.href = contextPath + "/group/studygroup";
 
-				var temp = members[id]['time'].split(':');
-				var time = new Date(2021, 0, 2, temp[0], temp[1], temp[2]);
-				storeAcctime(time);
-				clearInterval(members[id]['timerId']);
-				delete members[id];
-				disconnect();
-				location.href = contextPath + "/group/studygroup";
+
+				} else {
+					alert("정상적으로 방을 나가지 못했습니다.")
+					$.ajax({
+						url: "./MemberStudyRest/ms/roomenter?sg_id=" + sg_id + "&id=" + id,
+						type: "GET",
+						cache: false,
+						success: function(data, status) {
+							if (status == "success") {
+								if (data.status = "OK") {
+									alert("다시 방으로 들어옵니다.")
+								}
+							}
+						}
+					});
+				}
+
 			}
 		}
 	});
@@ -147,10 +165,12 @@ function storeAcctime(time) {
 		type: "PUT",
 		data: "sg_id=" + sg_id + "&id=" + id + "&acctime=" + time.toISOString(),
 		cache: false,
+		async: false,
 		success: function(data, status) {
 			if (status == "success") {
 				if (data.status == "OK") {
-					alert("누적시간 저장 성공");
+			
+				} else {
 				}
 			}
 		}

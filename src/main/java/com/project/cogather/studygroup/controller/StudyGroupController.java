@@ -89,11 +89,9 @@ public class StudyGroupController {
 			return "group/studywrite";
 		}
 		@RequestMapping(value="/studywriteOk")
-		public String studywriteOk(MultipartHttpServletRequest mpRequest,Model model) throws Exception {
+		public String studywriteOk(StudyGroupDTO dto,MultipartHttpServletRequest mpRequest,Model model) throws Exception {
 			
 //			System.out.println(mpRequest.getRealPath("img/group")); 
-//			mpRequest.getAttribute();
-			
 			
 			//썸네일 업로드 
 			String file_name=null;
@@ -111,7 +109,7 @@ public class StudyGroupController {
 			dto.setFile_name(file_name);
 			//썸네일 업로드 끝
 			StudyGroupFileDTO fdto = null;
-			model.addAttribute("result", studygroupservice.write(mpRequest));
+			model.addAttribute("result", studygroupservice.write(dto, fdto, mpRequest));
 
 			return "group/studywriteOk";
 		}
@@ -165,8 +163,6 @@ public class StudyGroupController {
 	// 스터디 룸으로 들어온 상태
 	@RequestMapping("/studyroom")
 	public String studyroom(int sg_id, String id ,Model model) {
-		model.addAttribute("studyMemberList", memberStudyService.select(sg_id));
-		model.addAttribute("studyMemberdetails", memberStudyService.selectMembersBySGId(sg_id));
 		model.addAttribute("studyGroupBYSGID", studygroupservice.selectByUid(sg_id));
 		model.addAttribute("sg_id", sg_id);
 		model.addAttribute("id", id);

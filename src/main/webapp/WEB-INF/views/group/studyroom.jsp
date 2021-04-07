@@ -28,7 +28,7 @@
 <body>
 	<div class="room">
 		<nav id="room-menu">
-			<h2 id="room-title">${studyGroupBYSGID.sg_name }</h2>
+			<h2 id="room-title">${studyGroupBYSGID[0].sg_name }</h2>
 			<span id="enter-cnt-head">참여인원</span><span id="enter-cnt"></span>
 			<button id="outroom" class="btn btn-danger" onclick="outroom()">퇴실하기</button>
 			<div class="clear-both"></div>
