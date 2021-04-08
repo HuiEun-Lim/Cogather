@@ -48,7 +48,7 @@ CREATE TABLE content
 	ct_uid number NOT NULL, /*게시글 고유번호*/
 	ID varchar2(20) NOT NULL,/*회원ID*/
 	sg_id number NOT NULL, /*스터디방번호*/
-	ct_title varchar2(40) NOT NULL,/*게시글 제목*/
+	ct_title varchar2(500) NOT NULL,/*게시글 제목*/
 	ct_content clob,/*게시글 내용*/
 	ct_viewcnt integer DEFAULT 0, /* 조회수 */
 	regdate date DEFAULT SYSDATE,/*둥록날짜*/
@@ -63,24 +63,36 @@ CREATE TABLE content_file
 	ct_id NUMBER NOT NULL,
 	PRIMARY KEY (ct_id)
 }
+INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
+VALUES (content_seq.nextval, 'id1', 21, '변명중에서도 가장 어리석고 못난 별명은 -시간이 없어서- 이다','변명중에서도 가장 어리석고 못난 별명은 -시간이 없어서- 이다');
 
 INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
-VALUES (content_seq.nextval, 'id1', 21, 'ㅈㄴ 쉽군', '언제 끝나....' );
+VALUES (content_seq.nextval, 'id2', 21, '모두가 비슷한 생각을 한다는 것은 아무도 생각하고 있지 않다는 말이다.', '모두가 비슷한 생각을 한다는 것은 아무도 생각하고 있지 않다는 말이다.' );
+
+INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
+VALUES (content_seq.nextval, 'id3', 21, '인간이 불행한 이유는 자신이 행복하다는 사실을 모르기 때문이다. 단지 그 뿐이다.', '인간이 불행한 이유는 자신이 행복하다는 사실을 모르기 때문이다. 단지 그 뿐이다.' );
 
 SELECT * FROM CONTENT;
 
 SELECT
-	ct_uid ,id,sg_id ,ct_title ,ct_content ,regdate, ct_viewcnt
-FROM 
-	(SELECT ROWNUM AS RNUM, T.* FROM 
-		(SELECT * FROM CONTENT 
+		ct_uid ,id,sg_id ,ct_title ,ct_content, ct_viewcnt,regdate
+	FROM 
+		(SELECT ROWNUM AS RNUM, T.* FROM 
+			(SELECT * FROM CONTENT 
+			WHERE SG_ID = 21
+			ORDER BY ct_uid DESC 
+			) T
+		) 
+	WHERE 
+		RNUM >= 1 AND RNUM < (1 + 10);
+	
+SELECT count(*) FROM CONTENT
 		WHERE SG_ID = 21
-		ORDER BY ct_uid DESC 
-		) T
-	) 
-WHERE 
-	RNUM >= 1 AND RNUM < (1 + 3);
 
+UPDATE CONTENT
+SET CT_TITLE = '에이시발', CT_CONTENT = '왜 안되는데'
+WHERE CT_UID = 22 AND ID = 'id1' AND SG_ID = 21; 		
+		
 /*회원*/
 CREATE TABLE members
 (

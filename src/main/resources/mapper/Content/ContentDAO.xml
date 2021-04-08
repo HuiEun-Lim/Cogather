@@ -4,7 +4,7 @@
 	<select id="selectFromRow" resultType="com.project.cogather.content.model.ContentDTO">
 	<![CDATA[
 	SELECT
-		ct_uid ,id,sg_id ,ct_title ,ct_content ,regdate
+		ct_uid ,id,sg_id ,ct_title ,ct_content, ct_viewcnt,regdate
 	FROM 
 		(SELECT ROWNUM AS RNUM, T.* FROM 
 			(SELECT * FROM CONTENT 
@@ -31,7 +31,7 @@
 	<select id="selectByUid" resultType="com.project.cogather.content.model.ContentDTO">
 		SELECT *
 		FROM CONTENT
-		WHERE CT_UID = #{ct_uid}
+		WHERE CT_UID = #{ct_uid} AND SG_ID = #{sg_id}
 	</select>
 	
 	<insert id="insert" flushCache="true">
@@ -56,6 +56,6 @@
 	</delete>
 	<delete id="deleteByUid">
 		DELETE FROM CONTENT
-		WHERE CT_UID = #{ct_uid} AND ID = #{id}
+		WHERE SG_ID = #{sg_id} AND CT_UID = #{ct_uid} AND ID = #{id} 
 	</delete>
 </mapper>

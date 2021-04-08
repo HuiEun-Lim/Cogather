@@ -74,11 +74,10 @@ function disconnect(){ // stompClient 종료하기전 메시지 보내고 죽음
 	}
 	console.log(username+"의 메시지 전송 소켓 종료");
 }
-function formSend(){
-	$("form#sendMessage button").click(function(){ 
-		sendChat();
-		$('form#sendMessage input').val(''); // 메시지보내고 나서 inputbox 비우기
-	});
+function formSend(){ 
+	sendChat();
+	$('form#sendMessage input').val(''); // 메시지보내고 나서 inputbox 비우기
+	
 }
 $(function() {
 	username = $("#id").text(); 
@@ -88,7 +87,7 @@ $(function() {
 	
 	
 	$("form").on('submit', function(e){
-		e.preventDefault();
+		e.preventDefault(); // submit 이벤트듣 이벤트 발생시 창이 새로고침되면서 실행되는데 이를 막아줌
 	});
 	
 	

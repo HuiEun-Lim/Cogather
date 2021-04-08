@@ -20,4 +20,8 @@ public class MembersService {
 		membersDAO = sqlsession.getMapper(MembersDAO.class);
 		return membersDAO.selectAll();
 	}
+	public List<MembersDTO> selectMemberById(String id){
+		membersDAO = sqlsession.getMapper(MembersDAO.class);
+		return membersDAO.selectMemberById(id);
+	}
 }

@@ -43,7 +43,7 @@ function updateMembers(jsonObj) {
 				}
 				result = result +
 					"<div>" +
-					"<img class='pimg' src='/cogather/" + mData[i].pimg_url + "'>" +
+					"<img class='pimg' src='"+contextPath+"/" + mData[i].pimg_url + "'>" +
 					"<div class='userName'> " + msData[i].id + " </div>" +
 					"<div id='timer-" + msData[i].id + "'> 타이머:" + "<h3>" + members[msData[i].id]['time'] + "</h3>" + "</div>" +
 					"</div>";

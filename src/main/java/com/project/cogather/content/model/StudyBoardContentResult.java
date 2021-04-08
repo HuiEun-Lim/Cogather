@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.cogather.common.AjaxResult;
+import com.project.cogather.members.model.MembersDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +17,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class StudyBoardContentResult extends AjaxResult {
 	List<ContentDTO> data;
+	List<MembersDTO> member;
 
 	int page; // 현재 페이지 #
 

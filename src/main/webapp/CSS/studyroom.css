@@ -103,6 +103,7 @@ nav#room-menu {
 	height: 100%;
 	min-height: 400px;
 	overflow: hidden;
+	
 }
 
 .center {
@@ -111,7 +112,7 @@ nav#room-menu {
 	right: 400px;
 	height: 100%;
 	min-height: 400px;
-	min-width: 300px;
+	min-width: 500px;
 	align-items: center;
 	overflow: auto;
 	border: solid gray 1px;
@@ -198,4 +199,90 @@ nav#room-menu {
 
 .clear-both {
 	clear: both;
+}
+
+/* #simpleTableTitle { */
+/* 	display:none; */
+/* } */
+.comment-icon{
+	width:20px;
+	margin-left:10px;
+}
+.write-btn{
+	color: #ffffff;
+	background-color: #fdca6c;
+}
+.board-title{
+	font-family: Gugi-Regular;
+	text-align: center;
+}
+.board-subtitle{
+	font-family: Gugi-Regular;
+	text-align: center;
+}
+.board-list{
+	overflow:auto;
+}
+.ele-right {
+	float:right;
+}
+.ele-left {
+	float:left;
+}
+.blind {
+	display:none;
+}
+
+/* 페이징 */
+.paging-center {
+    text-align: center;
+}
+ul.pagination{
+	display:flex;
+	list-style-type:none;
+	justify-content: center;
+	align-items: center;
+	
+}
+
+ul.pagination li{
+    display: inline-block;
+}
+
+ul.pagination a {
+    color: black;
+    float: left;
+    padding: 4px 8px;
+    text-decoration: none;
+    transition: background-color .3s;
+    /* border: 1px solid #ddd; */
+    /* margin: 0 4px; */
+    margin: 0px;
+}
+
+ul.pagination a.active {
+    background-color: #fdca6c;
+    color: white;
+    border: 1px solid #fdca6c;
+}
+
+ul.pagination a:hover:not(.active) {background-color: #ddd;}
+
+div#write-mode {
+	display:none;
+}
+div#view-mode{
+	display:none;
+}
+
+.writer-info img{
+	width:30px;
+	border-radius: 50%;
+}
+.content-title:hover{
+	color: #fdca6c;
+	cursor: pointer;
+}
+.article-header{
+	margin-top:30px;
 }
