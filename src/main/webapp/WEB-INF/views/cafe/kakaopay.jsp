@@ -13,6 +13,7 @@
 	<script src="https://kit.fontawesome.com/65311e5b1a.js" crossorigin="anonymous"></script>
 	<title>예약하기</title>
 </head>
+<!--  
 <script>
 $(document).ready(function(){
 		$.ajax({
@@ -33,6 +34,7 @@ function alertCode(jsonObj){
 	window.open(turl);
 }
 </script>
+-->
 <body>
 	
 </body>
