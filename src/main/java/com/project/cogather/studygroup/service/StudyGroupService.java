@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -64,14 +65,17 @@ public class StudyGroupService {
 		dto.setSg_tag(sg_tag);
 		if (!uploadFile.isEmpty()) {
 			String originalFileName = uploadFile.getOriginalFilename();
-			String ext = FilenameUtils.getExtension(originalFileName); // 확장자 구하기
-			UUID uuid = UUID.randomUUID(); // UUID 구하기
-			file_name = uuid + "." + ext;
-			String pdfPath = mpRequest.getSession().getServletContext().getRealPath("/img/group/upload/");
 
-			System.out.println(new File(pdfPath));
-			uploadFile.transferTo(new File(pdfPath + file_name));
-			// uploadFile.transferTo(new File("upload"+file_name));
+			String ext = FilenameUtils.getExtension(originalFileName);	//확장자 구하기
+			UUID uuid = UUID.randomUUID();	//UUID 구하기
+			file_name=uuid+"."+ext;
+	//		String pdfPath = mpRequest.getSession().getServletContext().getRealPath("/img/group/");
+	//		System.out.println(new File(pdfPath));	
+	//		uploadFile.transferTo(new File(pdfPath+file_name));
+			//uploadFile.transferTo(new File("upload"+file_name));
+		//	uploadFile.transferTo(new File("D:\\DevRoot\\Dropbox\\App04\\CoGather\\Cogather\\src\\main\\webapp\\img\\group\\upload\\"+file_name));
+			uploadFile.transferTo(new File("C:\\tomcat\\upload\\"+file_name));
+
 
 		}
 

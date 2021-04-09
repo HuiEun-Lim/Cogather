@@ -111,6 +111,15 @@ INSERT INTO members (ID, NAME, PW, PHONE, EMAIL, PIMG_URL, TAG)
 VALUES 
 ('id1', 'name1', 'pw1','010-xxxx-xxxx','oooooooo@naver.com', 'img/member/img1','1,2,4');
 
+
+INSERT INTO members (ID, NAME, PW, PHONE, EMAIL, PIMG_URL, TAG)
+VALUES 
+('id2', 'name2', 'pw2','010-xxxx-xxxx','oooooooo@naver.com', 'img/member/img1','1,2,4');
+
+INSERT INTO members (ID, NAME, PW, PHONE, EMAIL, PIMG_URL, TAG)
+VALUES 
+('id3', 'name3', 'pw3','010-xxxx-xxxx','oooooooo@naver.com', 'img/member/img1','1,2,4');
+
 SELECT * FROM members;
 SELECT id "id", name name, pw pw, phone phone, email email, pimg_url pimg_url, tag tag
 FROM members;
@@ -129,6 +138,8 @@ CREATE TABLE memberstudy
 	CONSTRAINT GAUTH_CHECK CHECK(g_auth IN ('captain', 'crew', 'common')),
 	CONSTRAINT ENSTATUS_CHECK CHECK(enstatus IN ('in', 'out'))
 );
+DELETE FROM MEMBERSTUDY WHERE sg_id =1;
+SELECT * FROM MEMBERSTUDY;
 -- 방생성자 방 생성
 INSERT INTO memberstudy (ID, sg_id, g_auth)
 VALUES 
@@ -149,6 +160,10 @@ VALUES
 INSERT INTO memberstudy (ID, sg_id, g_auth)
 VALUES 
 ('id5', 4, 'crew');
+
+INSERT INTO memberstudy (ID, sg_id, g_auth)
+VALUES 
+('id3', 2,'common');
 
 SELECT * FROM memberstudy;
 

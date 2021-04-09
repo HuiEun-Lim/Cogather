@@ -86,49 +86,6 @@ function myFunction() {
 }
 
 </script>
-<%-- 
-<table>
-		<tr>
-			<th>스터디그룹고유번호</th>
-			<th>이름</th>
-			<th>인원수</th>
-			<th>주제</th>
-			<th>등록일</th>
-		</tr>
-		<c:choose>
-			<c:when test="${ empty list || fn:length(list)==0 }">
-			
-			</c:when>
-			<c:otherwise>
-				<c:forEach var="dto" items="${list}">
-				<tr>
-				<td>${dto.sg_id}</td>
-				<td>${dto.sg_name}</td>
-				<td>${dto.sg_max}</td>
-				<td>${dto.sg_tag}</td>
-				<td>${dto.sg_regDate}</td>
-				
-				</tr>
-				</c:forEach>
-			</c:otherwise>
-		</c:choose>
-
-	</table> 
- --%>
-<%-- <div class="row">
-  <div class="column" style="background-color:#bbb;">
-    <h2>번호</h2>
-    <p>${dto.sg_id}</p>
-  </div>
-  <div class="column" style="background-color:#bbb;">
-    <h2>Column 2</h2>
-    <p>Some text..</p>
-  </div>
-   <div class="column" style="background-color:#bbb;">
-    <h2>Column 3</h2>
-    <p>Some text..</p>
-  </div>
-</div>  --%>
 
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="스터디주제 검색" href="#" class="#" style="border: 2px solid #ffd43b;">
 <br>스터디 목록들<br>
@@ -143,10 +100,11 @@ function myFunction() {
 				
 				<li class="column">
 				
-			
+	
+				
+				
 					<img src="/cogather/img/group/upload/${dto.file_name}" width="20%" height="50px" >
- 				
- 					  <p>방번호:${dto.sg_id}</p>
+					  <p>방번호:${dto.sg_id}</p>
     				 <p><a href="/cogather/group/studyview?sg_id=${dto.sg_id}">스터디주제:${dto.sg_tag}</a></p>
     				 
   				</li>

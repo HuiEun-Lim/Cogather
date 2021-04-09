@@ -89,8 +89,9 @@ function fn_fileDown(sg_id){
 		
 		<hr>
 		<c:if test="${list[0].file_name ne null}">
+			<img src="/cogather/img/group/upload/${list[0].file_name}" width="20%" height="50px" >
 			
-				 <img src="/cogather/img/group/upload/${list[0].file_name}" width="20%" height="50px" >
+		
 	 			<%-- ${list[0].fileName}
 			 --%>
 		</c:if>
@@ -117,6 +118,8 @@ function fn_fileDown(sg_id){
 		<div id="main">
 		<button onclick="location.href='#'" class="viewbutton hover">참가자목록</button>
 		
+			
+			
 		</div>
 	</div>
 
