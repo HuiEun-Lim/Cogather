@@ -51,18 +51,21 @@ public class StudyGroupService {
 //		MultipartFile uploadFile = dto.getUploadFile(); // 형꺼
 		MultipartFile uploadFile = mpRequest.getFile("uploadFile"); // 정희꺼
 
-		System.out.println("mp1 " + mpRequest.getParameter("sg_name"));
-		System.out.println("mp2 " + mpRequest.getParameter("sg_info"));
-		System.out.println("mp3 " + mpRequest.getParameter("sg_tag"));
-		System.out.println("mp4 " + mpRequest.getParameter("kko_url"));
-		String sg_info = mpRequest.getParameter("sg_info");
-		String sg_name = mpRequest.getParameter("sg_name");
-		String sg_tag = mpRequest.getParameter("sg_tag");
-		String kko_url = mpRequest.getParameter("kko_url");
+		System.out.println("mp1 "+mpRequest.getParameter("sg_name"));
+		System.out.println("mp2 "+mpRequest.getParameter("sg_info"));
+		System.out.println("mp3 "+mpRequest.getParameter("sg_tag"));
+		System.out.println("mp4 "+mpRequest.getParameter("kko_url"));
+		String sg_info=mpRequest.getParameter("sg_info");
+		String sg_name=mpRequest.getParameter("sg_name");
+		String sg_tag=mpRequest.getParameter("sg_tag");
+		String kko_url=mpRequest.getParameter("kko_url");
+		int sg_max=Integer.parseInt(mpRequest.getParameter("sg_max"));
+
 		dto.setSg_info(sg_info);
 		dto.setKko_url(kko_url);
 		dto.setSg_name(sg_name);
 		dto.setSg_tag(sg_tag);
+		dto.setSg_max(sg_max);
 		if (!uploadFile.isEmpty()) {
 			String originalFileName = uploadFile.getOriginalFilename();
 

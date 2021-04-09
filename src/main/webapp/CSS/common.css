@@ -158,18 +158,19 @@ div#text_content{
   flex: 30%;
   padding: 20px;
 }
-div#row {  
+div #row {  
   display: -ms-flexbox; /* IE10 */
   display: flex;
   -ms-flex-wrap: wrap; /* IE10 */
   flex-wrap: wrap;
 }
-div#main {   
-  -ms-flex: 70%; /* IE10 */
+div #row #main {   
+ /*  -ms-flex: 70%; IE10
   flex: 70%;
-  background-color: white;
+  background-color:#ffd43b;
   padding: 20px;
   float:right;
+  border: 1px solid black; */
 }
 .enterbutton{
 	background-color:#ffd43b;
@@ -219,5 +220,4 @@ div#main {
 .clear{
 	clear:both;
 }
-
 
