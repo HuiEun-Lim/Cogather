@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+.member-list ul{
+	list-style-type: none;
+	
+}
+.member-list li{
+	
+	padding:10px;
+}
+.member-list{
+	height: 400px;
+	overflow: auto;
+	margin-top: 100px;
+}
+.member-thumbnail{
+	margin-left:30px;
+	width:50px;
+}
+
+.member-list-container{
+	-ms-flex: 70%; /* IE10 */
+	flex: 70%;
+	padding: 50px;
+	float:right;
+	border: 1px solid black;
+	text-align:center;
+}

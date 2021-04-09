@@ -16,6 +16,7 @@ import com.project.cogather.common.AjaxResult;
 import com.project.cogather.members.model.MembersDTO;
 import com.project.cogather.memberstudy.model.MemberStudyDTO;
 import com.project.cogather.memberstudy.model.MemberStudyResult;
+import com.project.cogather.memberstudy.model.MemberStudyUserResult;
 import com.project.cogather.memberstudy.service.MemberStudyService;
 
 @RestController
@@ -24,6 +25,54 @@ public class RestMemberStudyController {
 	
 	@Autowired
 	MemberStudyService memberStudyService;
+	
+	@GetMapping("/{sg_id}")
+	public MemberStudyUserResult getUserList(@PathVariable int sg_id) {
+		MemberStudyUserResult result = new MemberStudyUserResult();
+		List<MemberStudyDTO> rdata = null;
+		List<MembersDTO> rmember = null;
+		List<MemberStudyDTO> cdata = null;
+		List<MembersDTO> cmember = null;
+		
+		int cnt = 0;
+		String status = "fail";
+		StringBuilder message = new StringBuilder();
+		
+		try {
+			System.out.println("check0");
+			rdata = memberStudyService.selectRegister(sg_id);
+			System.out.println("check1");
+			rmember = memberStudyService.selectRegisterMember(sg_id);
+			System.out.println("check2");
+			cdata = memberStudyService.selectCommon(sg_id);
+			System.out.println("check3");
+			cmember = memberStudyService.selectCommonMember(sg_id);
+			System.out.println("check4");
+			
+			if (rdata == null || rdata.size() == 0 || rmember == null || rmember.size() == 0) {
+				message.append("생성자는 어디 있냐");
+				
+			}else {
+				status = "OK";
+			}
+			
+			if (cdata == null || cdata.size() == 0 || cmember == null || cmember.size() == 0) {
+				message.append("참가 신청한 인원이 없음");
+			}
+			
+		}catch(Exception e) {
+			message.append("트랜잭션 에러: " + e.getMessage());
+		}
+		
+		result.setMessage(message.toString());
+		result.setStatus(status);
+		result.setRdata(rdata);
+		result.setRmember(rmember);
+		result.setCdata(cdata);
+		result.setCmember(cmember);
+		
+		return result;
+	}
 	
 	// memberStudy 에서 studygroup 아이디에 따라 참여하고 있는 멤버데이터를 json으로 반환하는 핸드
 	@GetMapping("/ms/{sg_id}")
@@ -111,4 +160,54 @@ public class RestMemberStudyController {
 			result.setStatus(status);
 			return result;
 		}
+		//스터디 신청
+		@GetMapping("/ms/{sg_id}/{id}")
+		public AjaxResult RegisterRoom(@PathVariable String id,@PathVariable int sg_id){
+			AjaxResult result = new AjaxResult();
+			
+			
+			int cnt = 0; 
+			String status = "fail"; 
+			StringBuilder message = new StringBuilder(); 
+		
+			try {
+				cnt = memberStudyService.createCommon(id, sg_id);
+				if(cnt !=0) {
+					status="Ok";
+				}
+			}catch (Exception e){
+				message.append("error:"+e.getMessage());
+			}
+			result.setCnt(cnt);
+			result.setMessage(message.toString());
+			result.setStatus(status);
+			
+			return result;
+		}
+		
+		@PutMapping("/ms/{sg_id}/{id}")
+		public AjaxResult UpdateCrew(@PathVariable String id,@PathVariable int sg_id){
+			AjaxResult result = new AjaxResult();
+			
+			
+			int cnt = 0; 
+			String status = "fail"; 
+			StringBuilder message = new StringBuilder(); 
+		
+			try {
+				cnt = memberStudyService.updateCrew(id, sg_id);
+				if(cnt !=0) {
+					status="Ok";
+				}
+			}catch (Exception e){
+				message.append("error:"+e.getMessage());
+			}
+			result.setCnt(cnt);
+			result.setMessage(message.toString());
+			result.setStatus(status);
+			
+			return result;
+		}
+		
+		
 }

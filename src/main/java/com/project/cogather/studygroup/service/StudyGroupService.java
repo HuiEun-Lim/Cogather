@@ -21,8 +21,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.project.cogather.memberstudy.model.MemberStudyDAO;
+import com.project.cogather.memberstudy.model.MemberStudyDTO;
 import com.project.cogather.studygroup.model.StudyGroupDAO;
 import com.project.cogather.studygroup.model.StudyGroupDTO;
 
@@ -39,16 +43,19 @@ public class StudyGroupService {
 	
 	StudyGroupDAO dao;
 	
+	MemberStudyDAO mdao;
 	
 	
 	public List<StudyGroupDTO> list_recent(){
 		dao=sqlSession.getMapper(StudyGroupDAO.class);
 		return dao.select_recent();
 	}
-	
+	@Transactional
 	public int write(MultipartHttpServletRequest mpRequest) throws Exception {
 		dao=sqlSession.getMapper(StudyGroupDAO.class);
 		StudyGroupDTO dto = new StudyGroupDTO();
+		
+		
 		String file_name=null;
 //		MultipartFile uploadFile = dto.getUploadFile(); // 형꺼
 		MultipartFile uploadFile = mpRequest.getFile("uploadFile"); // 정희꺼
@@ -66,6 +73,7 @@ public class StudyGroupService {
 		dto.setSg_name(sg_name);
 		dto.setSg_tag(sg_tag);
 		dto.setSg_max(sg_max);
+		
 		if (!uploadFile.isEmpty()) {
 			String originalFileName = uploadFile.getOriginalFilename();
 			String ext = FilenameUtils.getExtension(originalFileName);	//확장자 구하기
@@ -90,6 +98,7 @@ public class StudyGroupService {
 		
 		//insert
 		int result = dao.insert(dto);
+		
 		
 		
 		//첨부파일 업로드 
@@ -129,6 +138,13 @@ public class StudyGroupService {
 		}
 
 		System.out.println("생성된 sg_id는 "+dto.getSg_id());
+		
+		//스터디 방 생성 
+		String id="id1";
+		mdao=sqlSession.getMapper(MemberStudyDAO.class);
+		mdao.createCaptain(id,dto.getSg_id());
+		
+		
 		return result;
 	}
 

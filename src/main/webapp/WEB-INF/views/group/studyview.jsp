@@ -2,8 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<link rel="stylesheet" href="/cogather/CSS/common.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 
 <c:choose>
 	<c:when test="${empty list || fn:length(list) == 0 }">
@@ -28,13 +27,16 @@
 	}
 	
 </script>
+<link rel="stylesheet" href="/cogather/CSS/common.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <!-- lightbox2 제이퉈리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.min.css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath }/CSS/studyview.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox.min.js"></script>
+
 <script>
 
 function chkDelete(sg_id){
@@ -59,6 +61,78 @@ lightbox.option({
     disableScrolling: false,
     fitImagesInViewport:false
 })
+
+function registerRoom(){
+	$.ajax({
+		url: "./MemberStudyRest/ms/${list[0].sg_id}/id2",
+		type: "GET",
+		cache: false,
+		success: function(data, status) {
+			if (status == "success") {
+				alert("가입 신청하였습니다");
+			}
+		}
+	});
+}
+function loadMember(){
+	console.log("지나감");
+	$.ajax({
+		url: "./MemberStudyRest/${list[0].sg_id}",
+		type: "GET",
+		cache: false,
+		success: function(data, status) {
+			if (status == "success") {
+				if(data.status == "OK"){
+					updateMemberList(data);	
+				}
+				
+			}
+		}
+	});
+}
+
+
+
+function updateMemberList(data){
+	var result = "";
+	var id;
+	result += "<h4>현제 가입자</h4>"
+	for(var i =0; i < data.rdata.length; i++){
+		result += "<li>" +"<img class='member-thumbnail'src='${pageContext.request.contextPath }/"+ data.rmember[i].pimg_url+"'>"+"<span class='member-name'>"+data.rdata[i].id+"</span></li>";
+	}
+	result+="<hr>";
+	result += "<h4>가입 신청중</h4>"
+	for(var i = 0; i < data.cdata.length; i++){
+		id=data.cmember[i].id;
+		result += "<li>" +"<img class='member-thumbnail' src='${pageContext.request.contextPath }/"+ data.cmember[i].pimg_url+"'>"+"<span class='member-name'>"+data.cdata[i].id+"</span>"+
+		"<button btn-id='"+id+"'type='button' onclick='accept(this.btn-id)' class='btn btn-success'>수락</button></li>";
+		
+	}
+	console.log(accept(id));
+	console.log(id);
+	$(".member-list ul").html(result);
+}
+
+function accept(id){
+	/* console.log($(this).attr('btn-id'));
+	console.log($(this).attr('type'));  */
+	console.log("sdfsd"+id);
+	console.log('지나감222');
+	$.ajax({
+		url: "./MemberStudyRest/ms/${list[0].sg_id}/"+id,
+		type: "PUT",
+		cache: false,
+		success: function(data, status) {
+			if (status == "success") {
+				if(data.status=="OK"){
+					alert("가입승인 완료");
+				}
+			}
+		}
+	});
+}
+
+
 </script>
 <body>
 <div id="wrap">
@@ -130,13 +204,13 @@ lightbox.option({
 		
 		</div>
 		
-		<div id="main" style="-ms-flex: 70%; /* IE10 */flex: 70%;padding: 50px;float:right;border: 1px solid black;text-align:center;">
-		<button onclick="location.href='#'" class="viewbutton hover">참가자목록</button>
+		<div id="main" class="member-list-container">
+		<button onclick="loadMember()" class="viewbutton hover">참가자목록</button>
+		<div class="member-list">
+			<ul></ul>
+		</div>
 		<br><br><br><br>
-			dldl
-			d;sd;
-			sdfsdf
-			sfssdsdffff
+			
 		</div>
 	</div>
 
@@ -153,10 +227,12 @@ lightbox.option({
 		<button onclick="location.href='studylist'" class="listbutton hover">목록보기</button>
 		<button onclick="chkDelete(${list[0].sg_id })" style="background-color:#ffd43b;border :0;outline:0;color:white;width:100px;height:50px;position:relative;float:right;left:-50%;
 	margin:0 10px 0 0;" class="viewbutton hover">삭제하기</button>
-		<button onclick="location.href='#'" class="enterbutton hover" style="color:white;float:right;background-color:#ffd43b;border :0;
+		
+		<button onclick="registerRoom()" class="enterbutton hover" style="color:white;float:right;background-color:#ffd43b;border :0;
 	outline:0;width:100px;
-	height:50px;">방입장</button>
+	height:50px;">방입장</button> 
 	</section>
+	
 </body>
 </html>
 				

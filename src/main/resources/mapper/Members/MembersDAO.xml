@@ -5,4 +5,6 @@
 	SELECT id "id", name name, pw pw, phone phone, email email, pimg_url pimg_url, tag tag
 	FROM members
 </select>
+
+
 </mapper>
