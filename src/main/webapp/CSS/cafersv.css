@@ -1,37 +1,45 @@
 @font-face {
 	font-family: "a시네마L.ttf";
-	src:url("/cogather/CSS/a시네마L.ttf")format("truetype");
+	src: url("/cogather/CSS/a시네마L.ttf") format("truetype");
 }
 
-
-#myNavbar{
+#myNavbar {
 	color: #595959;
-	font-size:20px;
-
+	font-size: 20px;
 }
 
-img.logo{
+img.logo {
 	width: 80px;
-	margin-left:10px;	
+	margin-left: 10px;
 }
 
-.choice{
-	padding-top:6px;
+.choice {
+	padding-top: 6px;
 }
 
 .tgbar {
-	margin-top:50px;
+	margin-top: 50px;
 }
 
 #home, #navDemo {
 	font-family: a시네마L;
 }
 
-
 #wrap {
-    width: 1000px;
-    margin: 0;
-    margin-right: auto;
-    margin-left: auto;
-    text-align: left;
+	width: 1000px;
+	margin: 0;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: left;
+}
+
+.seats {
+	width: 150px;
+	height: 200px;
+}
+
+.seats {
+	border: 2px solid black;
+	border-collapse: collapse;
+	text-align: center;
 }

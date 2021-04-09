@@ -30,6 +30,10 @@
 		DELETE FROM reservation WHERE res_id = #{res_id}
 	</delete>
 	
+	<select id="getprice" resultType="int">
+		SELECT seat_price FROM seats WHERE seat_id = #{param1}
+	</select>
+	
 	<select id="searchBySubject"
 		resultType="com.project.cogather.domain.CafeDTO">
 	</select>

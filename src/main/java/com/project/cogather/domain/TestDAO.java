@@ -12,10 +12,12 @@ public interface TestDAO {
 	
 	//새로운 예약 등록
 	int insert(CafeDTO dto);
-	int insert(String ID, String seat_id, LocalDateTime start_date, LocalDateTime end_date, String payment);
+	int insert(String ID, String seat_id, LocalDateTime start_date, LocalDateTime end_date, String payment, int seat_price);
 	
 	//특정 예약내역 삭제하기
 	int deleteByUid(int res_id);
 	
 	CafeDTO searchBySubject(String seat_id);
+	
+	int getprice(String seat_id, CafeDTO dto);
 } //end DAO

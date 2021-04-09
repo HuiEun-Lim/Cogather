@@ -9,33 +9,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="/cogather/CSS/cafersv.css">
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	<script src="https://kit.fontawesome.com/65311e5b1a.js" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="/cogather/JS/cafersv.js"></script>
+	<script type="text/javascript" src="/cogather/JS/seats.js"></script>
 	<title>예약하기</title>
 </head>
-<script>
-function chkSubmit(){
-	frm = document.forms['frm'];
-	
-	var name=frm['name'].value.trim();
-	var subject = frm['subject'].value.trim();
 
-	if(name == ""){
-		alert("작성자 란은 반드시 입력해야 합니다.");
-		frm['name'].focus();
-		return false;
-	}
-	if(subject == ""){
-		alert("제목은 반드시 작성해야 합니다");
-        frm["subject"].focus();
-        return false;
-	}
-	return true;
-}
-
-</script>
 <body>
 	<!-- Navbar (sit on top) -->
 	<div class="w3-top w3-border-bottom w3-border-light-gray">
@@ -53,7 +34,7 @@ function chkSubmit(){
 		      <a href="info" class="w3-bar-item w3-button w3-hide-small">시설소개</a>
 		      <a href="reservation" class="w3-bar-item w3-button w3-hide-small w3-border-bottom w3-border-amber">예약하기</a>
 		      <a href="map" class="w3-bar-item w3-button w3-hide-small">오시는 길</a>
-		      <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
+		      <a href="login" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
 		   </div>
 	    </div>	  
 	    <!-- Navbar on small screens -->
@@ -61,7 +42,7 @@ function chkSubmit(){
 	      <a href="info" class="w3-bar-item w3-button" onclick="toggleFunction()">시설소개</a>
 	      <a href="reservation" class="w3-bar-item w3-button" onclick="toggleFunction()">예약하기</a>
 	      <a href="map" class="w3-bar-item w3-button" onclick="toggleFunction()">오시는 길</a>
-	      <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
+	      <a href="login" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
 	    </div>
     </div>
     
@@ -71,14 +52,20 @@ function chkSubmit(){
 			<div class="w3-light-grey" style="height:2px; margin-bottom: 70px" >
 	    		<div style="width:10%; height:2px; background-color:#FDBF26"></div>
 			</div>
-			<div id="ctest"></div>
+			<label>시설선택</label>
+			
+			<input type="radio" id="room" name="seats" value="1400" onclick="checkroom()">
+			        <label for="room">스터디룸</label>
+			        <input type="radio" id="private" name="seats" value="1100" onclick="checkprivate()">
+			        <label for="private">개인좌석</label>
 			<form name="frm" action="rsvOk.do" method="post" onsubmit="return chkSubmit()">
+			<div id="pickSeat">
+			        과연<br>어떻게 될까
+			    	</div>
+				<br><br>
 				<input type="text" id="ID" name="ID" value="t1">
-				<label>시설선택</label>
-					<select id="seat_id" name="seat_id">
-					  <option value="room01">단체룸</option>
-					  <option value="person01">개인좌석</option>
-					</select>
+			    <input type="text" id="seat_id" name="seat_id" value="tteesstt">
+			    
 				  
 				<h3>날짜선택</h3>
 				<label>시작 날짜</label>
@@ -89,7 +76,6 @@ function chkSubmit(){
 				<input type="text" id="payment" name="payment" value="네이버페이">
 					<input type="submit" value="Submit">
 			</form>
-			<div class="w3-button" id="apibtn">카카오페이</div>
 	     </div>
 	        
 	       
@@ -125,7 +111,6 @@ function chkSubmit(){
 </footer>
     
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7f36e46956483ffffb803d95f128023d"></script>
 <script>
 
 window.onscroll = function() {myFunction()};

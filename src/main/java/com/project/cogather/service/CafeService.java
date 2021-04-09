@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.cogather.domain.CafeDTO;
 import com.project.cogather.domain.TestDAO;
@@ -83,7 +84,11 @@ public class CafeService {
 		dao = sqlSession.getMapper(TestDAO.class); // MyBatis 사용
 		return dao.deleteByUid(uid);				
 	}
-	
+	@Transactional
+	public int getprice(CafeDTO dto) {
+		dao = sqlSession.getMapper(TestDAO.class);
+		return dao.getprice(dto.getSeat_id(),dto);
+	}
 }
 
 

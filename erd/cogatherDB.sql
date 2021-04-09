@@ -103,6 +103,7 @@ CREATE TABLE reservation
 
 SELECT * FROM reservation;
 
+
 /*좌석*/
 CREATE TABLE seats
 (
@@ -114,9 +115,10 @@ CREATE TABLE seats
 INSERT INTO seats
 (seat_id, SEAT_PRICE) 
 VALUES 
-('room01',1200);
+('room08',4000);
 
-SELECT * FROM  seats;
+
+SELECT * FROM seats;
 
 /*스터디 그룹*/
 CREATE TABLE studygroup

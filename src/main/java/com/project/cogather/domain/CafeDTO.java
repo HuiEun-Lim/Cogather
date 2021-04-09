@@ -13,7 +13,7 @@ public class CafeDTO {
 	private LocalDateTime start_date; //예약 시작날짜
 	private LocalDateTime end_date;
 	private String payment; //결제 방법
-	
+	private int seat_price;
 	
 	public CafeDTO() {
 		super();
@@ -22,7 +22,7 @@ public class CafeDTO {
 
 
 	public CafeDTO(int res_id, String ID, String seat_id, LocalDateTime start_date, LocalDateTime end_date,
-			String payment) {
+			String payment, int seat_price) {
 		super();
 		this.res_id = res_id;
 		this.ID = ID;
@@ -30,6 +30,7 @@ public class CafeDTO {
 		this.start_date = start_date;
 		this.end_date = end_date;
 		this.payment = payment;
+		this.seat_price = seat_price;
 		System.out.printf("CafeDTO(%d, %s, %s, %s, %s, %s) 객체 생성\n", res_id, ID, seat_id, start_date, end_date, payment);
 	}
 
@@ -65,13 +66,11 @@ public class CafeDTO {
 
 
 	public LocalDateTime getStart_date() {
-		System.out.println(start_date+"시작날짜");
 		return start_date;
 	}
 	
 
 	public void setStart_date(LocalDateTime start_date) {
-		System.out.println(start_date+"시작날짜!!");
 		this.start_date = start_date;
 	}
 	
@@ -113,6 +112,16 @@ public class CafeDTO {
 		this.end_date = LocalDateTime.parse(enddate);
 		System.out.println("받아온종료날짜" + end_date);
 
+	}
+
+
+	public int getSeat_price() {
+		return seat_price;
+	}
+
+
+	public void setSeat_price(int seat_price) {
+		this.seat_price = seat_price;
 	}
 	
 } //end DTO
