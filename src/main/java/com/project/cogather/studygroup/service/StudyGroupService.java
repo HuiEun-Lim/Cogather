@@ -60,10 +60,12 @@ public class StudyGroupService {
 		String sg_name=mpRequest.getParameter("sg_name");
 		String sg_tag=mpRequest.getParameter("sg_tag");
 		String kko_url=mpRequest.getParameter("kko_url");
+		int sg_max=Integer.parseInt(mpRequest.getParameter("sg_max"));
 		dto.setSg_info(sg_info);
 		dto.setKko_url(kko_url);
 		dto.setSg_name(sg_name);
 		dto.setSg_tag(sg_tag);
+		dto.setSg_max(sg_max);
 		if (!uploadFile.isEmpty()) {
 			String originalFileName = uploadFile.getOriginalFilename();
 			String ext = FilenameUtils.getExtension(originalFileName);	//확장자 구하기

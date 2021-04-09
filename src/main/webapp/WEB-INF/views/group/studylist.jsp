@@ -103,6 +103,7 @@ function myFunction() {
 	
 				
 				
+
 					<img src="/cogather/img/group/upload/${dto.file_name}" width="20%" height="50px" >
 					  <p>방번호:${dto.sg_id}</p>
     				 <p><a href="/cogather/group/studyview?sg_id=${dto.sg_id}">스터디주제:${dto.sg_tag}</a></p>
@@ -134,6 +135,7 @@ function myFunction() {
 		</c:if>
 	</div>
 <button onclick="location.href='/cogather/group/studywrite'" class="writebutton hover">글작성</button>
+
 
 </div>
 

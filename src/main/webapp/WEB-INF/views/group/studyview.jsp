@@ -26,8 +26,15 @@
 		window.open('${list[0].kko_url}', "kakaoTalk", "width=1000, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes" ); 
 
 	}
+	
 </script>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<!-- lightbox2 제이퉈리 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox.min.js"></script>
 <script>
 
 function chkDelete(sg_id){
@@ -46,6 +53,12 @@ function fn_fileDown(sg_id){
 //	location.href = '/cogather/group/fileDown';
 	
 }
+lightbox.option({
+    resizeDuration: 200,
+    wrapAround: true,
+    disableScrolling: false,
+    fitImagesInViewport:false
+})
 </script>
 <body>
 <div id="wrap">
@@ -73,7 +86,7 @@ function fn_fileDown(sg_id){
 </div>
 <img src="/cogather/img/group/studygroupmain.jpg" width="100%" height="300px" >
 		<br><br>
-	<div id="row">
+	<div id="row" style=" display: -ms-flexbox; /* IE10 */display: flex;-ms-flex-wrap: wrap; /* IE10 */flex-wrap: wrap;">
 		<div id="text_content">
 		<b id="name_id" style="color:#ffd43b;float:middle;"><br>스터디 이름: </b><b>${list[0].sg_name }</b><br>
 		<b id="name_id" style="color:#ffd43b;float:middle;">스터디 주제 : </b> <b>${list[0].sg_tag }</b><br>
@@ -86,11 +99,12 @@ function fn_fileDown(sg_id){
 		</div>
 		<section id="container">
 		<b id="name_id" style="color:#ffd43b;float:middle;">이미지 보기: </b><b> </b><br> 
-		
+		<!-- light box2  제이쿼리 -->
 		<hr>
-		<c:if test="${list[0].file_name ne null}">
-			<img src="/cogather/img/group/upload/${list[0].file_name}" width="20%" height="50px" >
-			
+		<c:if test="${list[0].file_name ne null}" >
+		<a href="/cogather/img/group/upload/${list[0].file_name}" data-lightbox="example-set">
+			<img src="/cogather/img/group/upload/${list[0].file_name}" width="20%" height="50px">(이미지 클릭시 확대)
+			</a>
 		
 	 			<%-- ${list[0].fileName}
 			 --%>
@@ -115,11 +129,14 @@ function fn_fileDown(sg_id){
 		<button type="submit" onclick="openWin();" style="background-color:white;border:0px"><img src="/cogather/img/group/kakao.png"></button>
 		
 		</div>
-		<div id="main">
-		<button onclick="location.href='#'" class="viewbutton hover">참가자목록</button>
 		
-			
-			
+		<div id="main" style="-ms-flex: 70%; /* IE10 */flex: 70%;padding: 50px;float:right;border: 1px solid black;text-align:center;">
+		<button onclick="location.href='#'" class="viewbutton hover">참가자목록</button>
+		<br><br><br><br>
+			dldl
+			d;sd;
+			sdfsdf
+			sfssdsdffff
 		</div>
 	</div>
 
@@ -131,9 +148,11 @@ function fn_fileDown(sg_id){
 	
 		<br><br><br><br><br><br><br><br><br>
 		
-		<button onclick="location.href='studyupdate?sg_id=${list[0].sg_id }'" class="viewbutton hover">수정하기</button>
+		<button onclick="location.href='studyupdate?sg_id=${list[0].sg_id }'" style="border :0;outline:0;color:white;width:100px;height:50px;position:relative;float:right;left:-50%;
+	margin:0 10px 0 0;" class="viewbutton hover">수정하기</button>
 		<button onclick="location.href='studylist'" class="listbutton hover">목록보기</button>
-		<button onclick="chkDelete(${list[0].sg_id })" class="viewbutton hover">삭제하기</button>
+		<button onclick="chkDelete(${list[0].sg_id })" style="background-color:#ffd43b;border :0;outline:0;color:white;width:100px;height:50px;position:relative;float:right;left:-50%;
+	margin:0 10px 0 0;" class="viewbutton hover">삭제하기</button>
 		<button onclick="location.href='#'" class="enterbutton hover" style="color:white;float:right;background-color:#ffd43b;border :0;
 	outline:0;width:100px;
 	height:50px;">방입장</button>
