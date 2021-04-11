@@ -193,7 +193,7 @@ public class StudyGroupService {
 	}
 	
 	//게시글 총 개수
-	public int countBoard() {
+	public int countBoard(StudyGroupPaging sp) {
 		dao = sqlSession.getMapper(StudyGroupDAO.class);
 		return dao.countBoard();
 	}

@@ -52,24 +52,22 @@ public class StudyGroupController {
 				, @RequestParam(required = false) String keyword
 				) {
 			
-			int total = studygroupservice.countBoard();
-			/*
-			if (nowPage == null && cntPerPage == null) {
-				nowPage = "1";
-				cntPerPage = "9";
-			} else if (nowPage == null) {
-				nowPage = "9";
-			} else if (cntPerPage == null) { 
-				cntPerPage = "9";
-			}
-			*/
+			int total = studygroupservice.countBoard(sp);
+			sp.setTotal(total);
+			System.out.println("방 개수"+total);
+			sp.getTotal();
+			
 			sp = new StudyGroupPaging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 			//sp.pageInfo(Integer.parseInt(nowPage), total, Integer.parseInt(cntPerPage));
 			sp.setSearchType(searchType);
 			sp.setKeyword(keyword);
+			
 			model.addAttribute("paging", sp);
 			//model.addAttribute("list", studygroupservice.list());
 			model.addAttribute("list", studygroupservice.selectBoard(sp));
+			total = studygroupservice.countBoard(sp);
+			sp.setTotal(total);
+			System.out.println("방 개수2: "+sp.getTotal());
 			return "group/studylist";
 		}
 		

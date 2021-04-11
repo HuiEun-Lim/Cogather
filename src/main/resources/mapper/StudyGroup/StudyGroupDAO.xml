@@ -11,13 +11,14 @@
 	</select>
 	
 	<select id="countBoard" resultType="int">
-		SELECT COUNT(*) FROM studygroup
+		 SELECT COUNT(*) FROM studygroup WHERE sg_tag LIKE '%' || #{keyword, jdbcType=VARCHAR}
+		
 	</select>
 	
 	<select id="selectBoard" resultType="com.project.cogather.studygroup.model.StudyGroupDTO">
 		<![CDATA[ SELECT * FROM (
 	SELECT ROWNUM AS RNUM, T.* 
-	FROM (SELECT * FROM studygroup where sg_tag like '%'||#{keyword, jdbcType=VARCHAR} ORDER BY sg_id DESC) T) 
+	FROM (SELECT * FROM studygroup where sg_tag like '%'||#{keyword, jdbcType=VARCHAR} ||'%' or sg_id like '%'||#{keyword, jdbcType=VARCHAR}  ORDER BY sg_id DESC) T) 
 	
 	
 	WHERE

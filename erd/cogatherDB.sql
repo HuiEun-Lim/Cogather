@@ -178,7 +178,7 @@ WHERE SG_ID = 1 AND ID = 'id1' AND (g_auth = 'captain' or g_auth = 'crew')
 UPDATE MEMBERSTUDY SET ENSTATUS = 'in', ENTIME = SYSDATE 
 	WHERE SG_ID = 1 AND ID = 'id2' AND (G_AUTH = 'crew' OR G_AUTH = 'captain')
 
-
+SELECT COUNT(*) FROM studygroup WHERE sg_tag LIKE '%토익';
 /*예약*/
 CREATE TABLE reservation
 (

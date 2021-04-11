@@ -84,10 +84,15 @@
 
 	
 		var url="/cogather/group/studylist";
-		url = url + "?searchType=" + $('#searchType').val();
+		
+		
+		url = url+"?nowPage=${paging.startPage }&cntPerPage=${paging.cntPerPage}";
+		 
+		url = url + "&searchType=" + $('#searchType').val();
 
 		url = url + "&keyword=" + $('#keyword').val();
-
+	
+		
 		location.href = url;
 
 		console.log(url);
@@ -135,11 +140,13 @@
 					<b style="display: inline;border: 1px solid #FFFFFF; ;margin:0 5px 0 0;background-color:#ffd43b;padding:5px">${p}</b>
 				</c:when>
 				<c:when test="${p != paging.nowPage }">
-					<a href="/cogather/group/studylist?nowPage=${p}&cntPerPage=${paging.cntPerPage}">${p}</a>
+					<a href="/cogather/group/studylist?nowPage=${p}&cntPerPage=${paging.cntPerPage}&keyword=${paging.keyword}">${p}</a>
 				</c:when>
 			</c:choose>
 			
 		</c:forEach>
+		
+		
 		<c:if test="${paging.endPage != paging.lastPage}">
 			<a href="/cogather/group/studylist?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
 		</c:if>
@@ -151,10 +158,10 @@
 	<div class="form-group row justify-content-center">
 			<div class="w300" style="padding-right:10px">
 
-				<input type="text" class="form-control form-control-sm" name="keyword" id="keyword" style="border: 2px solid #ffd43b;">
+				<input type="text" class="form-control form-control-sm" placeholder="스터디 주제 검색 또는 방번호 검색" name="keyword" id="keyword" style="border: 2px solid #ffd43b;margin:0 0 0 50px;width:30%;height:40px;">
 
 
-				<button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch" >
+				<button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch" style="background:white;border:none;">
 					<img src="/cogather/img/group/search.png" class="search"  >
 				</button>
 			</div>
