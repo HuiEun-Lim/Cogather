@@ -39,8 +39,10 @@ function checkroom() {
         function turnRed() {
             $(".test-td td").click(function () {
                 var tselect = $(this).text();
+               	$(".test-td td").not(tselect).css('color','black');
                 document.getElementById(tselect).style.color = 'red';
                 document.getElementById("seat_id").value = tselect;
             })
+            
 
         }

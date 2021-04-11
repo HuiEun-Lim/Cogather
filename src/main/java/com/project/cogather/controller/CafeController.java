@@ -115,6 +115,11 @@ public class CafeController {
 		return "cafe/adminrsv";
 	}
 	
+	@RequestMapping("/test")
+	public String test(Model model) {
+		return "cafe/test";
+	}
+	
 	@GetMapping("/deleteOk.do")
 	public String deleteOk(int res_id, Model model) {
 		model.addAttribute("result", cafeService.deleteByUid(res_id));
