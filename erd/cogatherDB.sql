@@ -105,7 +105,7 @@ CREATE TABLE memberstudy
 	CONSTRAINT ENSTATUS_CHECK CHECK(enstatus IN ('in', 'out'))
 );
 DELETE FROM MEMBERSTUDY WHERE sg_id =337 AND g_auth='crew';
-SELECT * FROM MEMBERSTUDY;
+SELECT * FROM MEMBERSTUDY
 
 -- 방생성자 방 생성
 INSERT INTO memberstudy (ID, sg_id, g_auth)

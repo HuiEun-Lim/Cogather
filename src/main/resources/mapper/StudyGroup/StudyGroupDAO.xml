@@ -16,15 +16,33 @@
 	
 	<select id="selectBoard" resultType="com.project.cogather.studygroup.model.StudyGroupDTO">
 		<![CDATA[ SELECT * FROM (
-	SELECT ROWNUM AS RNUM, T.* FROM (SELECT * FROM studygroup ORDER BY sg_id DESC)T) 
-	WHERE
+	SELECT ROWNUM AS RNUM, T.* 
+	FROM (SELECT * FROM studygroup where sg_tag like '%'||#{keyword, jdbcType=VARCHAR} ORDER BY sg_id DESC) T) 
 	
+	
+	WHERE
 	 RNUM >=#{start} AND RNUM < #{end}
 	]]>
 
 		
 	</select>
 	
+	
+	 <sql id="search">
+        <choose>
+            <when test="search_option == 'all' ">
+                where  
+                      user_id like '%'||#{keyword}||'%'
+                      or content like '%' || #{keyword}||'%'
+                      or title like '%'||#{keyword}||'%'   
+            </when>
+            <otherwise>
+                where ${search_option} like '%'||#{keyword}||'%'
+            </otherwise>
+        </choose>
+    </sql>
+    
+    
 	<select id="selectByUid" resultType="com.project.cogather.studygroup.model.StudyGroupDTO">
 		SELECT 
 			*

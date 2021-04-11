@@ -47,7 +47,10 @@ public class StudyGroupController {
 		@RequestMapping("/studylist")
 		public String studylist(StudyGroupPaging sp, Model model
 				, @RequestParam(value="nowPage", required=false,defaultValue = "1")String nowPage
-				, @RequestParam(value="cntPerPage", required=false,defaultValue = "9")String cntPerPage) {
+				, @RequestParam(value="cntPerPage", required=false,defaultValue = "9")String cntPerPage
+				, @RequestParam(required = false, defaultValue = "title") String searchType
+				, @RequestParam(required = false) String keyword
+				) {
 			
 			int total = studygroupservice.countBoard();
 			/*
@@ -62,7 +65,8 @@ public class StudyGroupController {
 			*/
 			sp = new StudyGroupPaging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 			//sp.pageInfo(Integer.parseInt(nowPage), total, Integer.parseInt(cntPerPage));
-		
+			sp.setSearchType(searchType);
+			sp.setKeyword(keyword);
 			model.addAttribute("paging", sp);
 			//model.addAttribute("list", studygroupservice.list());
 			model.addAttribute("list", studygroupservice.selectBoard(sp));

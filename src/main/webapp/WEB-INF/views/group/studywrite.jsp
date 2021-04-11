@@ -7,9 +7,61 @@
 <title>글작성</title>
 	<link rel="stylesheet" href="/cogather/CSS/common.css">
 </head>
-
-
-
+<script>
+function chkSubmit(){
+	frm = document.forms['frm'];
+	
+	var sg_name = frm['sg_name'].value.trim();
+	var sg_max = frm['sg_max'].value.trim();
+	var sg_info = frm['sg_info'].value.trim();
+	var sg_tag = frm['sg_tag'].value.trim();
+	var kko_url = frm['kko_url'].value.trim();
+	var length;
+	var str;
+	
+	var numreg =  /^[0-9]*$/;
+	if(sg_name == ""){
+		alert("스터디 이름은 반드시 입력해야 합니다");
+		frm['sg_name'].focus();
+		return false;	
+	}
+	if(sg_name.length >=12){
+		alert("스터디 이름에 글자수가 너무 많아요..");
+		return false;
+	}
+	if(sg_tag.length >=30){
+		alert("스터디 주제에 글자수가 너무 많아요..");
+		return false;
+	}
+	if(sg_max >10){
+		alert("인원수 초과 10명 이하로 해주세요 ");
+		return false;
+	}
+	if(sg_max== ""){
+		alert("제한 인원수는 반드시 입력해야 합니다");
+		frm['sg_max'].focus();
+		return false;
+	}
+	if(sg_tag == ""){
+		alert("주제는 반드시 입력해야 합니다");
+		frm['sg_tag'].focus();
+		return false;
+	}
+	
+	if(kko_url == ""){
+		alert("카카오 오픈 채팅방을 만들어주세요그리고 링크를 복사해 주세요 ");
+		frm['kko_url'].focus();
+		return false;
+	}
+	if(!numreg.test(sg_max)){
+		alert("제한 인원수는 숫자여야 합니다");
+		return false;
+	}
+	
+	return true;
+	
+}
+</script>
 <body>
 <div id="write_id">
 <h4>글작성</h4><br><br>
@@ -44,7 +96,7 @@
 카톡방 주소:&nbsp&nbsp
 <input type="text" name="kko_url" style="width:20%;height:30px;"/><br><br>
 썸네일 업로드:&nbsp
-<input type="file" name="uploadFile" id="uploadFile"/>
+<input type="file" name="uploadFile" id="uploadFile" required/>
 <div class="select_img"><img src=""></div>
  <script>
   $("#uploadFile").change(function(){
@@ -57,7 +109,7 @@
    }
   });
  </script>
- <input type="file" name="file">  
+첨부파일:  <input type="file" name="file">  
  <div class="form-group" style="border: 1px solid #dbdbdb;">
 		
 </div>
