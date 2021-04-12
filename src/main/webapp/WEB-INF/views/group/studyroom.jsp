@@ -26,7 +26,7 @@
 	<div class="room">
 		<nav id="room-menu">
 			<h2 id="room-title">${studyGroupBYSGID[0].sg_name }</h2>
-			<span id="enter-cnt-head">참여인원</span><span id="enter-cnt"></span>
+			<div id="enter-cnt-head">참여인원</div><span id="enter-cnt"></span>
 			<button id="outroom" class="btn btn-danger" onclick="outroom()">퇴실하기</button>
 			<div class="clear-both"></div>
 		</nav>
@@ -88,10 +88,11 @@
 					<div class="clear-both"></div>
 					
 					<div id="write-mode">
-						<form id="frmWrite"  method="post">
+						<form id="frmWrite"  method="post" enctype="Multipart/form-data">
 							<div class="container">
-							<input id="content-uid" type="hidden" name="ct_uid" value="0">
+								<input id="content-uid" type="hidden" name="ct_uid" value="0" >
 								<div class="form-group">
+									
 									<label class="col-sm-2" for="title">제목:</label>
 									<input class="form-control" type="text" id="ct_title" placeholder="제목을 입력해주세요" name="ct_title">
 								</div>
@@ -99,21 +100,10 @@
 									<input type="hidden" id="userid" name="id" value="${id }">
 									<label class="control-label col-sm-2" for="ct_content">내용</label>
 									<textarea name="ct_content" id="editor1" style="width:640;height:600;margin:0 0 0 0px;"></textarea><br><br>
-									<script>
-										CKEDITOR.replace('editor1',
-												{
-											width:'100%',
-											height:'300px',
-											allowedContent:true,
-											//filebrowserUploadUrl:'${pageContext.request.contextPath}/studywriteOk'
-											toolbar:[['Bold','-','italic','Underline','Font','FontSize'],['NumberedList'],['SpellChecker','Copy','Paste','PasteText','TextColor','BGColor','Link']]
-										});
-									
-									</script>
 								
 								<div class="btn_group_write">
 									<button disabled="disabled" id="write-list" type="button" class="btn btn-secondary ele-left">목록</button>
-									<button disabled="disabled" id="write-send" type="button" class="btn btn-success ele-right" onclick="chkWrite()">작성</button>
+									<button disabled="disabled" id="write-send" type="button" class="btn btn-success ele-right">작성</button>
 								</div>
 								<div class="btn_group_update">
 									<button disabled="disabled" id="update-cancel" type="button" class="btn btn-danger ele-left">취소</button>
@@ -137,8 +127,21 @@
 						<div class="article-container">
 						
 						</div>
-						<div class="comment-info"></div>
-						<div class="comment-box"></div>
+						<div class="comment-info">
+							<div class="box_left">
+								<img src='${pageContext.request.contextPath }/img/group/comment.png'>
+								<span>0</span>
+							</div>
+						</div>
+						<div class="comment-box">
+							<div class="comment_option">
+								<h3 class="comment_title">댓글</h3>
+									<i class="fas fa-sync-alt fa-spin comment_refresh_button"></i>
+							</div>
+							<ul class="comment_list">
+							
+							</ul>
+						</div>
 					</div>
 					
 				</div>

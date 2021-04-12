@@ -102,7 +102,7 @@ public class RestMemberStudyController {
 		int cnt = 0;
 		String status = "fail";
 		StringBuilder message = new StringBuilder();
-
+		
 		cnt = memberStudyService.outStatus(sg_id, id);
 		if (cnt == 0) {
 			message.append("방 상태 변경 못함");
@@ -112,6 +112,7 @@ public class RestMemberStudyController {
 		result.setCnt(cnt);
 		result.setMessage(message.toString());
 		result.setStatus(status);
+		System.out.println("퇴실중"+status);
 		return result;
 	}
 

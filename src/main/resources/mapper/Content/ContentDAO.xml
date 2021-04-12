@@ -16,7 +16,16 @@
 		RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})
 	]]>
 	</select>
-	
+	<select id="selectTempContent" resultType="com.project.cogather.content.model.ContentDTO">
+		<![CDATA[
+				SELECT * 
+				FROM (SELECT * 
+					FROM content
+					WHERE id = #{id}
+					ORDER BY ct_uid DESC)
+				WHERE ROWNUM <=1
+]]>
+	</select>
 	<select id="countAll" resultType="int">
 		SELECT count(*) FROM CONTENT
 		WHERE SG_ID = #{sg_id}
@@ -58,4 +67,5 @@
 		DELETE FROM CONTENT
 		WHERE SG_ID = #{sg_id} AND CT_UID = #{ct_uid} AND ID = #{id} 
 	</delete>
+	
 </mapper>

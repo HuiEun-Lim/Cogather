@@ -4,10 +4,13 @@ var viewItem = undefined; // 가장 최근에 view 한 글의 데이터
 var contextPath = undefined; // 컨텍스트 경로
 var username = undefined; // 유저 이름
 var roomId = undefined; // 방 번호
+
 $(function(){
 	contextPath = $("#contextPath").text();
 	username = $("#id").text(); 
 	roomId = $("#sg_id").text();
+	
+	
 	
 	loadBoard(page); // 페이지 최초 로딩
 	
@@ -18,23 +21,31 @@ $(function(){
 		togglePage("write-mode"); // 글작성화면 모드로 전환
 	});
 	$("#write-list").click(function(){
+		chkDelete();
 		togglePage("list-mode"); // 본래 리스트 화면으로 
 	});
 	$("#view-list").click(function(){
+		loadBoard(window.page);  // 현재 페이지 목록 다시 로딩
 		togglePage("list-mode");// 본래 리스트 화면으로
 	});
-	
-	$("#view-delete").click(function(){
+	$("#write-send").click(function (event){
+		event.preventDefault();
+		chkUpdate();
+	})
+	$("#view-delete").click(function(event){
+		event.preventDefault();
 		chkDelete(); // 삭제
 	});
 	
-	$("#view-update").click(function(){
+	$("#view-update").click(function(event){
+		event.preventDefault();
 		togglePage("update-mode");
 	});
 	$("#update-cancel").click(function(){
 		togglePage("view-mode");
 	});
-	$("#update-send").click(function(){
+	$("#update-send").click(function(event){
+		event.preventDefault();
 		chkUpdate();
 	});
 });
@@ -47,7 +58,6 @@ function loadBoard(page){
         cache : false,
         success : function(data, status){
             if(status == "success"){
-				console.log("succ");
                 if(updateList(data)){   // application/json 이면 이미 parse 되어 있다.
                     // 업데이트된 list 에 view 동작 이벤트 가동
                     addViewEvent();
@@ -171,8 +181,11 @@ function togglePage(mode){
 		$(".btn_group_update #update-send").attr("disabled",true);
 		$(".btn_group_update #update-cancel").hide();
 		$(".btn_group_update #update-send").hide();
+		createTempContent();
+// 										CKFinder.setupCKEditor(editor);
 	}
 	if(mode == "list-mode"){
+		
 		$("#write-mode").hide();
 		$("#view-mode").hide();
 		$(".board-list").show();
@@ -187,6 +200,7 @@ function togglePage(mode){
 		$(".btn_group_update #update-send").attr("disabled",true);
 		$(".btn_group_update #update-cancel").hide();
 		$(".btn_group_update #update-send").hide();
+		$("#write-mode [name='ct_uid']").val('');
 	}
 	
 	if(mode == "view-mode"){
@@ -235,6 +249,7 @@ function togglePage(mode){
 			;
 		$(".article-header .writer-info").html(userinfo);
 		$(".article-container").html(viewItem.data[0].ct_content);
+		$("#write-mode [name='ct_uid']").val(viewItem.data[0].ct_uid);
 	}
 	
 	if(mode == "update-mode"){
@@ -258,16 +273,23 @@ function togglePage(mode){
 		$("#write-mode #ct_title").val(viewItem.data[0].ct_title);
 		$("#write-mode [name='ct_uid']").val(viewItem.data[0].ct_uid);
 		
+		CKEDITOR.replace('editor1',
+		{
+			width:'100%',
+			height: '450px',
+			allowedContent: true,
+			uploadUrl: contextPath+'/group/studyboard/file/'+viewItem.data[0].ct_uid+"?responseType=json"
+		});
+		
 		CKEDITOR.instances.editor1.setData(viewItem.data[0].ct_content);
 		
 	}
 }
 
-// 새글 등록 처리
-function chkWrite(){
-	CKupdate();
-    var data = $("#frmWrite").serialize();
-
+// 게시글 작성 모드 일 때 임시 게시글 생성하고 게시글 id 받아오기
+function createTempContent(){
+	var data = $("#frmWrite").serialize();
+	
     $.ajax({
         url : contextPath+"/group/studyboard/",
         type : "POST",
@@ -276,11 +298,20 @@ function chkWrite(){
         success : function(data, status){
             if(status == "success"){
                 if(data.status == "OK"){
-                    alert("INSERT 성공 " + data.cnt + "개:" + data.status);
 					$("#frmWrite #ct_title").val("");
 					$("#frmWrite #editor1").val("");
+					
+					$("#write-mode [name='ct_uid']").val(data.data[0].ct_uid);
+					
+					CKEDITOR.replace('editor1',
+					{
+						width:'100%',
+						height: '450px',
+						allowedContent: true,
+						uploadUrl: contextPath+'/group/studyboard/file/'+$("#write-mode [name='ct_uid']").val()+"?responseType=json"
+					
+					});
 					CKEDITOR.instances.editor1.setData("");
-                    loadBoard(1);  // 첫페이지 로딩
                 } else {
                     alert("INSERT 실패 " + data.status + " : " + data.message);
                 }
@@ -288,12 +319,11 @@ function chkWrite(){
         }
 
     });  // end $ajax()
+}
+// 게시글 id가 받아진다면 파일 업로드 하는 url에 게시글 id 포함해서 보내기 - ckeditor가 바라는 형태에 맞춰서 진행하기
 
-    // request  끝나고 나서  기본 입력된거 지우기
-    
-    return false;
-} // end chkWrite();
-
+// 만약 게시글 작성이 완료되지 않는다면 업로드된 파일 삭제 및 게시글 삭제 
+// -> chkDelete() 로 처리함
 
 //AJAX 로 폼의 데이터를 전송할 때 CKEDITOR로 변환 된 textarea값을 다시 변경해줘야 데이터가 전달된다.
 
@@ -326,13 +356,30 @@ function addViewEvent(){
 		});
 	});
 }
-
+function view(ct){
+	$.ajax({
+			url: contextPath+"/group/studyboard/"+sg_id+"/detail/" + ct,
+			type: "GET",
+			cache: false,
+			success: function(data, status){
+				if(status == "success"){
+					if(data.status == "OK"){
+						// 글 읽어 오기는 성공
+						window.viewItem = data; //전역변수로 데이터 전달
+						togglePage("view-mode"); // 글 읽기 페이지로 변경
+						
+						$(".board-list table [data-viewcnt='"+viewItem.data[0].ct_uid+"']").text(viewItem.data[0].ct_viewcnt);
+					}
+				}
+			}
+		});
+}
 // 게시글 삭제
 function chkDelete() {
 	var data = {
-		"sg_id": viewItem.data[0].sg_id,
-		"ct_uid": viewItem.data[0].ct_uid,
-		"id": viewItem.data[0].id
+		"sg_id": roomId,
+		"ct_uid": $("#write-mode [name='ct_uid']").val(),
+		"id": username
 	}
 	$.ajax({
 		url: contextPath + "/group/studyboard/",    // URL : /board
@@ -342,8 +389,10 @@ function chkDelete() {
 		success: function(data, status) {
 			if (status == "success") {
 				if (data.status == "OK") {
-					alert("DELETE성공: " + data.cnt + "개");
+//					alert("DELETE성공: " + data.cnt + "개");
+					$("#write-mode [name='ct_uid']").val(0);
 					loadBoard(window.page);  // 현재 페이지 목록 다시 로딩
+					CKEDITOR.instances.editor1.setData('');
 				} else {
 					alert("DELETE실패: " + data.message);
 					return false;
@@ -357,7 +406,7 @@ function chkDelete() {
 function chkUpdate(){
 	CKupdate();
     var data = $("#frmWrite").serialize();
-
+	var ct = $("#write-mode [name='ct_uid']").val();
     $.ajax({
         url : contextPath+"/group/studyboard/",
         type : "PUT",
@@ -370,7 +419,7 @@ function chkUpdate(){
 					$("#frmWrite #ct_title").val("");
 					$("#frmWrite #editor1").val("");
 					CKEDITOR.instances.editor1.setData("");
-                    loadBoard(1);  // 첫페이지 로딩
+                    view(ct);
                 } else {
                     alert("INSERT 실패 " + data.status + " : " + data.message);
                 }

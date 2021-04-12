@@ -21,6 +21,9 @@ public interface ContentDAO {
 	// 글 읽기
 	public List<ContentDTO> selectByUid(@Param("sg_id")int sg_id, @Param("ct_uid") int ct_uid);
 	
+	// 임시 생성된 글 번호 가져오기
+	public List<ContentDTO> selectTempContent(@Param("id") String id);
+	
 	// 조회수 증가
 	public int incViewCnt(@Param("sg_id") int sg_id, @Param("ct_uid") int ct_uid);
 	
@@ -35,4 +38,6 @@ public interface ContentDAO {
 	
 	// 특정 uid 글 삭제
 	public int deleteByUid(@Param("sg_id") int sg_id,@Param("ct_uid") int ct_uid, @Param("id") String id);
+	
+	
 }

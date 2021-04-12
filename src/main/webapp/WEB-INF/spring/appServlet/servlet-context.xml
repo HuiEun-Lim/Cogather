@@ -22,6 +22,7 @@
 	<resources mapping="/JS/**" location="/JS/" />
 	<resources mapping="/img/**" location="/img/" />
 	<resources mapping="/font/**" location="/font/" />
+	<resources mapping="/boardupload/**" location="/boardupload/" />
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -62,8 +63,8 @@
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 파일 사이즈 설정 가능 byte 단위-->
-		<beans:property name="maxUploadSize" value="100000000" />
-		<beans:property name="maxInMemorySize" value="100000000"/> <!-- 10MB-->
+		<beans:property name="maxUploadSize" value="1000000000" />
+		<beans:property name="maxInMemorySize" value="1000000000"/> <!-- 100MB-->
 		
 	</beans:bean>
 	<!-- MyBatis 설정 -->

@@ -8,7 +8,11 @@ $(function() {
 	id = $('#id').text();
 	contextPath = $("#contextPath").text();;
 	getMembers(); // 현제 db에 들어와있는 상태를 가진 유저들 목록을 표시하고 타이머 준비
+	
 });
+
+
+
 // 스터디에 참여하고 있는 멤버들 데이터를 가져옴
 function getMembers() {
 	$.ajax({
@@ -128,6 +132,7 @@ function outroom() {
 					clearInterval(members[id]['timerId']);
 					delete members[id];
 					disconnect();
+					
 					location.href = contextPath + "/group/studygroup";
 
 

@@ -37,25 +37,31 @@ html, body {
 }
 
 #outroom {
-	position: absolute; display : inline-block;
-	height: 50px;
+	position: absolute;
+	display : inline-block;
+	height: 70px;
+	top:5px;
+	bottom:5px;
 	margin: 0;
 	right: 0;
-	display: inline-block;
+	
 }
 
 
 #enter-cnt-head {
-	position: absolute;
-	left: 200px;
-	color: #fcdb58; 
-	top: 13px;
+	position:relative;
+	display:inline;
+	top:50px;
+	color: #fcd22e; 
+	
 }
 #enter-cnt {
-	position: absolute;
-	left: 280px;
-	color: #fcdb58; 
-	top: 13px;
+	position:relative;
+	display:inline;
+	top:50px;
+	padding-left:10px;
+	color: #fcd22e; 
+	
 }
 #room-title {
 	position: absolute;
@@ -64,7 +70,8 @@ html, body {
 	font-family: Gugi-Regular;
 	text-align:center;
 	top:6px;
-	color: #fcdb58;
+	left:3px;
+	color: #fcd22e;
 }
 
 .room {
@@ -76,7 +83,7 @@ html, body {
 
 nav#room-menu {
 	position: absolute;
-	height: 50px;
+	height: 80px;
 	left: 0;
 	right: 0;
 	top: 0;
@@ -89,7 +96,7 @@ nav#room-menu {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	top: 50px;
+	top: 80px;
 }
 
 #sg_id, #contextPath, #id {
@@ -285,4 +292,8 @@ div#view-mode{
 }
 .article-header{
 	margin-top:30px;
+}
+
+#current-ct_uid {
+	display:none;
 }

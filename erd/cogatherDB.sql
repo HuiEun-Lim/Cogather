@@ -4,6 +4,7 @@
 DROP TABLE authority CASCADE CONSTRAINTS;
 DROP TABLE comments CASCADE CONSTRAINTS;
 DROP TABLE content CASCADE CONSTRAINTS;
+DROP TABLE content_file CASCADE CONSTRAINTS;
 DROP TABLE memberstudy CASCADE CONSTRAINTS;
 DROP TABLE reservation CASCADE CONSTRAINTS;
 DROP TABLE members CASCADE CONSTRAINTS;
@@ -18,9 +19,10 @@ CREATE SEQUENCE content_seq;
 CREATE SEQUENCE reservation_seq;
 CREATE SEQUENCE studygroup_seq;
 CREATE SEQUENCE studygroup_file_seq;
+CREATE SEQUENCE content_file_seq;
 DROP SEQUENCE studygroup_seq;
 DROP SEQUENCE content_seq;
-
+DROP SEQUENCE content_file_seq;
 
 /* Create Tables */
 /*권한*/
@@ -35,7 +37,7 @@ CREATE TABLE authority
 CREATE TABLE comments
 (
 	cm_uid number NOT NULL,/*댓글고유번호*/
-	ID varchar2(20) NOT NULL,/*회원ID*/
+	ID varchar2(50) NOT NULL,/*회원ID*/
 	ct_uid number NOT NULL,/*게시글 고유번호*/
 	reply clob NOT NULL,/*댓글 내용*/
 	regdate date DEFAULT SYSDATE,/*등록날짜*/
@@ -46,9 +48,9 @@ CREATE TABLE comments
 CREATE TABLE content
 (
 	ct_uid number NOT NULL, /*게시글 고유번호*/
-	ID varchar2(20) NOT NULL,/*회원ID*/
+	ID varchar2(50) NOT NULL,/*회원ID*/
 	sg_id number NOT NULL, /*스터디방번호*/
-	ct_title varchar2(500) NOT NULL,/*게시글 제목*/
+	ct_title varchar2(500) DEFAULT ' ',/*게시글 제목*/
 	ct_content clob,/*게시글 내용*/
 	ct_viewcnt integer DEFAULT 0, /* 조회수 */
 	regdate date DEFAULT SYSDATE,/*둥록날짜*/
@@ -56,13 +58,21 @@ CREATE TABLE content
 );
 /* 스터디 그룹 게시글 파일 테이블 */
 CREATE TABLE content_file
-{
+(
 	cf_id NUMBER NOT NULL,
 	cf_source varchar2(500) NOT NULL,
 	cf_file varchar2(500) NOT NULL,
-	ct_id NUMBER NOT NULL,
-	PRIMARY KEY (ct_id)
-}
+	ct_uid NUMBER NOT NULL,
+	PRIMARY KEY (cf_id)
+)
+;
+ALTER TABLE content_file
+	ADD FOREIGN KEY (ct_uid)
+	REFERENCES content (ct_uid)
+	ON DELETE CASCADE -- 참조하는 부모가 삭제되면 같이 삭제되도록
+;
+SELECT * FROM content_file;
+
 INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
 VALUES (content_seq.nextval, 'id1', 21, '변명중에서도 가장 어리석고 못난 별명은 -시간이 없어서- 이다','변명중에서도 가장 어리석고 못난 별명은 -시간이 없어서- 이다');
 
@@ -73,6 +83,13 @@ INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
 VALUES (content_seq.nextval, 'id3', 21, '인간이 불행한 이유는 자신이 행복하다는 사실을 모르기 때문이다. 단지 그 뿐이다.', '인간이 불행한 이유는 자신이 행복하다는 사실을 모르기 때문이다. 단지 그 뿐이다.' );
 
 SELECT * FROM CONTENT;
+
+SELECT * 
+FROM (SELECT * 
+FROM content
+WHERE id = 'id1'
+ORDER BY ct_uid DESC)
+WHERE ROWNUM <=1;
 
 SELECT
 		ct_uid ,id,sg_id ,ct_title ,ct_content, ct_viewcnt,regdate
