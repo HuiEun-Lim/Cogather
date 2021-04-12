@@ -8,6 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="/cogather/CSS/cafemain.css">
+	<link rel="shortcut icon" href="/cogather/img/favicon.png" type="image/x-icon" />
 	<script src="https://kit.fontawesome.com/65311e5b1a.js" crossorigin="anonymous"></script>
 	<title>Main</title>
 </head>
@@ -28,7 +29,7 @@
     <a href="#" class="w3-bar-item w3-button w3-hide-small">시설소개</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small">예약하기</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small">오시는 길</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
+    <a href="login" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
   </div>
   </div>
 
@@ -37,7 +38,7 @@
     <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">시설소개</a>
     <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">예약하기</a>
         <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">오시는 길</a>
-    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
+    <a href="login" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
   </div>
 </div>
 

@@ -58,7 +58,7 @@ CREATE TABLE members
 (
 	ID varchar2(20) NOT NULL,/*회원id*/
 	name varchar2(20) NOT NULL,/*이름*/
-	pw varchar2(40) NOT NULL,/*비밀번호*/
+	pw varchar2(100) NOT NULL,/*비밀번호*/
 	phone varchar2(15),/*전화번호*/
 	email varchar2(40),/*이메일*/
 	pimg_url varchar2(30),/*프로필 이미지*/
@@ -175,5 +175,9 @@ ALTER TABLE memberstudy
 	REFERENCES studygroup (sg_id) ON DELETE SET NULL
 ;
 
-INSERT INTO authority (auth, id) VALUES ('ROLE_USER', (SELECT m.id FROM MEMBERS m WHERE m.id = 'cogather'));
+DELETE FROM AUTHORITY;
+DELETE FROM MEMBERS;
 
+SELECT m.*, a.auth
+FROM MEMBERS m, AUTHORITY a
+WHERE m.id = a.id;

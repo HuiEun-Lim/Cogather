@@ -18,6 +18,7 @@ function chkSubmit(){
 	var id = frm['id'].value.trim();
 	var pw = frm['pw'].value.trim();
 	var pw2 = frm['pw2'].value.trim();
+	var phone = frm['phone'].value.trim();
 
 	
 	if(id == ""){
@@ -46,6 +47,13 @@ function chkSubmit(){
 		frm['name'].focus();
 		return false;
 	}
+	
+	if(phone == ""){
+		alert("전화번호는 반드시 작성해야 합니다");
+        frm['phone'].focus();
+        return false;
+	}
+	
 	return true;
 }
 </script>
@@ -60,15 +68,15 @@ function chkSubmit(){
 <div id="wrap2">
 <form name="frm" action="signupOk" method="post" onsubmit="return chkSubmit()">
 <br>
-<h5>아이디</h5>
+<h5 class="required">아이디</h5>
 <input type="text" name="id"/><br><br>
-<h5>이름</h5>
+<h5 class="required">이름</h5>
 <input type="text" name="name"/><br><br>
-<h5>패스워드</h5>
+<h5 class="required">패스워드</h5>
 <input type="password" name="pw"/><br><br>
-<h5>패스워드 확인</h5>
+<h5 class="required">패스워드 확인</h5>
 <input type="password" name="pw2"/><br><br>
-<h5>전화번호</h5>
+<h5 class="required">전화번호</h5>
 <input type="text" name="phone"/><br><br>
 <h5>e-mail</h5>
 <input type="text" name="email"/><br><br>

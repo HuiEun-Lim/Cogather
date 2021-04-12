@@ -30,7 +30,12 @@ input {
 	background-color:lightgrey;
 }
 
-.required:after {
-	content:" *";
-    color: red;
+.join {
+	color:grey;
+}
+
+.join a {
+	color:#595959;
+	text-decoration:none;
+	font-weight:bold;
 }
