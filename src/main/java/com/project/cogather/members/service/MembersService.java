@@ -2,6 +2,7 @@ package com.project.cogather.members.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,9 @@ public class MembersService {
 	public List<MembersDTO> selectMemberById(String id){
 		membersDAO = sqlsession.getMapper(MembersDAO.class);
 		return membersDAO.selectMemberById(id);
+	}
+	public List<MembersDTO> selectMemberByCtUid(Integer ct_uid){
+		membersDAO = sqlsession.getMapper(MembersDAO.class);
+		return membersDAO.selectMemberByCtUid(ct_uid);
 	}
 }

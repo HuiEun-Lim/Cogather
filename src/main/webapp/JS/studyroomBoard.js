@@ -48,6 +48,15 @@ $(function(){
 		event.preventDefault();
 		chkUpdate();
 	});
+	$("#comment-register").click(function(event){
+		event.preventDefault();
+		sendComment();
+	});
+	$(".comment-box i").click(function(event){
+		event.preventDefault();
+		loadComments(viewItem.data[0].ct_uid);
+	});
+	
 });
 
 function loadBoard(page){
@@ -170,7 +179,10 @@ function togglePage(mode){
 		$(".board-list").hide();
 		$("#view-mode").hide();
 		$("#write-mode").show();
-		$("#sendMessage button").attr("disabled", true);
+		
+		$(".article-header .writer-info").html('');
+		$(".article-container").html('');
+		
 		$(".btn_group_write #write-list").attr("disabled",false);
 		$(".btn_group_write #write-send").attr("disabled",false);
 		$(".btn_group_view #view-list").attr("disabled", true);
@@ -181,6 +193,7 @@ function togglePage(mode){
 		$(".btn_group_update #update-send").attr("disabled",true);
 		$(".btn_group_update #update-cancel").hide();
 		$(".btn_group_update #update-send").hide();
+		$(".comment-list").html('');
 		createTempContent();
 // 										CKFinder.setupCKEditor(editor);
 	}
@@ -189,7 +202,10 @@ function togglePage(mode){
 		$("#write-mode").hide();
 		$("#view-mode").hide();
 		$(".board-list").show();
-		$("#sendMessage button").attr("disabled", false);
+		
+		$(".article-header .writer-info").html('');
+		$(".article-container").html('');
+		
 		$(".btn_group_write #write-list").attr("disabled",true);
 		$(".btn_group_write #write-send").attr("disabled",true);
 		$(".btn_group_view #view-list").attr("disabled", true);
@@ -201,12 +217,15 @@ function togglePage(mode){
 		$(".btn_group_update #update-cancel").hide();
 		$(".btn_group_update #update-send").hide();
 		$("#write-mode [name='ct_uid']").val('');
+		$(".comment-list").html('');
 	}
 	
 	if(mode == "view-mode"){
 		$("#write-mode").hide();
 		$(".board-list").hide();
-		$("#sendMessage button").attr("disabled", true);
+		
+		
+		
 		$(".btn_group_write #write-list").attr("disabled",true);
 		$(".btn_group_write #write-send").attr("disabled",true);
 		$(".btn_group_view #view-list").attr("disabled", false);
@@ -250,13 +269,17 @@ function togglePage(mode){
 		$(".article-header .writer-info").html(userinfo);
 		$(".article-container").html(viewItem.data[0].ct_content);
 		$("#write-mode [name='ct_uid']").val(viewItem.data[0].ct_uid);
+		loadComments(viewItem.data[0].ct_uid);
 	}
 	
 	if(mode == "update-mode"){
 		$(".board-list").hide();
 		$("#view-mode").hide();
 		$("#write-mode").show();
-		$("#sendMessage button").attr("disabled", true);
+		
+		$(".article-header .writer-info").html('');
+		$(".article-container").html('');
+		
 		$(".btn_group_write #write-list").attr("disabled",true);
 		$(".btn_group_write #write-send").attr("disabled",true);
 		$(".btn_group_view #view-list").attr("disabled", true);
@@ -282,6 +305,7 @@ function togglePage(mode){
 		});
 		
 		CKEDITOR.instances.editor1.setData(viewItem.data[0].ct_content);
+		
 		
 	}
 }
@@ -427,4 +451,161 @@ function chkUpdate(){
         }
 
     });  // end $ajax() 
+}
+
+function sendComment(){
+	var data = {
+		'ct_uid':viewItem.data[0].ct_uid, 
+		'id' : username,
+		'reply': $('.comment_content').val()
+		}
+		
+	$.ajax({
+        url : contextPath+"/group/studyboard/comments",
+        type : "POST",
+        cache : false,
+        data : data, 
+        success : function(data, status){
+            if(status == "success"){
+                if(data.status == "OK"){
+                    alert("댓글 작성 완료");
+					loadComments(viewItem.data[0].ct_uid);
+					$('.comment_content').val('');
+                } else {
+                    alert("INSERT 실패 " + data.status + " : " + data.message);
+                }
+            }
+        }
+
+    });  // end $ajax() 
+}
+
+
+function loadComments(ct_uid){
+	$.ajax({
+        url : contextPath+"/group/studyboard/comments/"+ct_uid,
+        type : "GET",
+        cache : false,
+        success : function(data, status){
+            if(status == "success"){
+                if(data.status == "OK"){
+					showComments(data);
+                } else {
+                    console.log("댓글 없음");
+                }
+            }
+        }
+
+    });  // end $ajax() 	
+}
+function showComments(jsonObj){
+	var result = "";
+	var members = {};
+	for(var i=0;i<jsonObj.members.length; i++){
+		members[jsonObj.members[i].id] = jsonObj.members[i];
+	}
+	
+	var writer = "";
+	writer += "<img src='"+contextPath+"/"+members[username].pimg_url+"'>";
+	writer += "<div>"+username+"</div>";
+	$(".comment-writer-info").html(writer);
+	
+	for(var i=0;i <jsonObj.cnt; i++){
+		result += "<li id='"+jsonObj.data[i].cm_uid+"comment' class='comment'>";
+		result += "<img src='"+contextPath+"/"+members[jsonObj.data[i].id].pimg_url+"'>";
+		result += "<div class='comment-writer'>"+jsonObj.data[i].id+"</div>";
+		result += "<div class='comment-body-wrapper'>"; 
+		result += "<div class='comment-content'>"+jsonObj.data[i].reply+"</div>";	
+		result += "<div class='comment-time'>" + jsonObj.data[i].regdate+"</div>";
+		if(username == jsonObj.data[i].id){
+			result += "<a id='"+jsonObj.data[i].cm_uid+"fix' class='comment-fix-btn'>수정</a>";
+			result += "<a id='"+jsonObj.data[i].cm_uid+"del' class='comment-del-btn'>삭제</a>";
+			result += "</div>";
+			result += "<div class='edit-dialog'></div>";
+			result += "</li>";
+		}else{
+			result += "</div>"
+			result += "</li>";	
+		}
+		
+	}
+	$("ul.comment-list").html(result);
+	
+	$(".comment-info span").text(jsonObj.cnt);
+	$(".comment a.comment-del-btn").click(function(event){
+		event.preventDefault();
+		var v = $(this).attr('id').split('del');
+		v = v[0];
+		delCommentByUser(v);
+	});
+	
+	$(".comment a.comment-fix-btn").click(function(event){
+		event.preventDefault();
+		var v = $(this).attr('id').split('fix');
+		v = v[0];
+		toggleCommentDialog(v);
+	});
+}
+
+function toggleCommentDialog(v){
+	$("li[id='"+v+"comment"+"'] .comment-body-wrapper").hide();
+	$("li[id='"+v+"comment"+"'] .edit-dialog").show();
+	var text = $("li[id='"+v+"comment"+"'] .comment-body-wrapper .comment-content").text();
+	var dialog = "";
+	dialog += '<div class="comment-input-container">';
+	dialog += '<textarea class="comment_content">'+text+'</textarea>'
+	dialog += '<a role="button" id="comment-cancel" class="comment-cancel">취소</a>'
+	dialog += '<a role="button" id="comment-register" class="comment-register">완료</a>'
+	dialog += '</div>'
+	$("li[id='"+v+"comment"+"'] .edit-dialog").html(dialog);
+	
+	$("li[id='"+v+"comment"+"'] .edit-dialog #comment-register").click(function(){
+		fixCommentByUser(v);
+	});
+	$("li[id='"+v+"comment"+"'] .edit-dialog #comment-cancel").click(function(){
+		loadComments(viewItem.data[0].ct_uid);
+	});
+}
+function fixCommentByUser(v){
+	var text = $("li[id='"+v+"comment"+"'] .comment_content").val();
+	alert("text: " + text);
+	var data = {'cm_uid':v, 'id': username, 'reply': text};
+	
+	$.ajax({
+        url : contextPath+"/group/studyboard/comments/",
+        type : "PUT",
+        cache : false,
+		data : data,
+        success : function(data, status){
+            if(status == "success"){
+                if(data.status == "OK"){
+					loadComments(viewItem.data[0].ct_uid);
+                } else {
+                    alert("댓글 수정 실패 " + data.status + " : " + data.message);
+                }
+            }
+        }
+
+    }); 
+	
+}
+
+function delCommentByUser(v){
+	var data = {'cm_uid':v, 'id': username};
+	$.ajax({
+        url : contextPath+"/group/studyboard/comments/",
+        type : "DELETE",
+        cache : false,
+		data : data,
+        success : function(data, status){
+            if(status == "success"){
+                if(data.status == "OK"){
+					loadComments(viewItem.data[0].ct_uid);
+                } else {
+                    alert("댓글 삭제 실패 " + data.status + " : " + data.message);
+                }
+            }
+        }
+
+    }); 
 }

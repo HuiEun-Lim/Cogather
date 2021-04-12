@@ -138,7 +138,12 @@
 								<h3 class="comment_title">댓글</h3>
 									<i class="fas fa-sync-alt fa-spin comment_refresh_button"></i>
 							</div>
-							<ul class="comment_list">
+							<div class="comment-input-container">
+								<div class="comment-writer-info"></div>
+								<textarea class="comment_content" placeholder="댓글을 작성해주세요"></textarea>
+								<a role="button" id="comment-register" class="comment-register">등록</a>
+							</div>
+							<ul class="comment-list">
 							
 							</ul>
 						</div>
@@ -166,7 +171,7 @@
 				<div id="id">${id }</div>
 				<div id="contextPath">${pageContext.request.contextPath }</div>
 			</div>
-
+	
 
 		</div>
 	</div>

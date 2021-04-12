@@ -6,6 +6,7 @@ var stompClient = null;
 var contextPath = null;
 
 
+
 function connect() {
 	var socket = new SockJS(contextPath+"/endpoint"); // WebSocketConfig에서 설정한 endpoint를 통해 Socket 생성
 	
@@ -25,6 +26,8 @@ function connect() {
 }
 
 function showChat(msg){ // 메시지 타입에 따라 바꿔서 보여줌
+	var t = new Date();
+	var time_str = t.getHours()+":" +t.getMinutes();
 	if(msg.type == 'JOIN'){
 		$('#msgArea').append(
 			"<li class='chat chat-center''> "+ msg.sender+" 입장 </li>"+
@@ -35,12 +38,30 @@ function showChat(msg){ // 메시지 타입에 따라 바꿔서 보여줌
 	}else if(msg.type == 'TALK'){
 		if(username == msg.sender){
 			$('#msgArea').append(
-			"<li class='chat chat-right'> "+ msg.sender+" : "+ msg.content+"</li>"+
+			"<li class='chat chat-right'> "+ 
+				"<div class='chat-sender-info'>"+
+					"<img class= 'chat-sender-img' src='"+contextPath+"/"+member_profiles[username].pimg_url+"'>"+
+					"<span>"+msg.sender+"</span>"+
+				"</div>"+
+				"<div class= 'chat-content-box'>"+
+					"<div class='chat-content'>" +msg.content+"</div>"+	
+					"<div class='chat-time'>"+time_str+"</div>"+
+				"</div>"+
+			"</li>"+
 			"<div class='clear-both'></div>"
 			);	
 		}else{
 			$('#msgArea').append(
-			"<li class='chat chat-left'> "+ msg.sender+" : "+ msg.content+"</li>"+
+			"<li class='chat chat-left'> "+
+				"<div class='chat-sender-info'>"+
+					"<img class= 'chat-sender-img' src='"+contextPath+"/"+member_profiles[username].pimg_url+"'>"+
+					"<span>"+msg.sender+"</span>"+
+				"</div>"+
+				"<div class= 'chat-content-box'>"+
+					"<div class='chat-content'>" +msg.content+"</div>"+	
+					"<div class='chat-time'>"+time_str+"</div>"+
+				"</div>"+
+			"</li>"+
 			"<div class='clear-both'></div>"
 			);
 		}

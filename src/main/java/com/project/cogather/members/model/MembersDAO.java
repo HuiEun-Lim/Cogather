@@ -9,4 +9,6 @@ public interface MembersDAO {
 	public List<MembersDTO> selectAll();
 	
 	public List<MembersDTO> selectMemberById(@Param("id") String id);
+	
+	public List<MembersDTO> selectMemberByCtUid(@Param("ct_uid") Integer ct_uid);
 }
