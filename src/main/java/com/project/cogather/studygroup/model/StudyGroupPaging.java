@@ -4,6 +4,8 @@ public class StudyGroupPaging {
 
 	private int nowPage, startPage, endPage, total, cntPerPage, lastPage, start, end;
 	private int cntPage = 5;
+	private String searchType;
+	private String keyword;
 	
 	public StudyGroupPaging() {
 	
@@ -110,6 +112,20 @@ public class StudyGroupPaging {
 	public void getCntPage(int cntPage) {
 		this.cntPage = cntPage;
 	}
+	
+	public String getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	
 	
 	
 }

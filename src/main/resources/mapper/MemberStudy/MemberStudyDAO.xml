@@ -56,4 +56,45 @@ WHERE SG_ID = #{param1} AND ID = #{param2} AND (g_auth = 'captain' or g_auth = '
 UPDATE MEMBERSTUDY SET ACCTIME = #{param3} 
 WHERE SG_ID = #{param1} and ID = #{param2} AND (g_auth = 'captain' or g_auth = 'crew')
 </update>
+<!-- 캡틴 만들기-->
+<insert id="createCaptain" flushCache="true" keyProperty="sg_id" useGeneratedKeys="true" keyColumn="sg_id">
+	INSERT INTO memberstudy (ID, sg_id, g_auth)
+	VALUES 
+	(#{id}, #{sg_id}, 'captain')
+</insert>
+<!-- Common -->
+<insert id="createCommon" flushCache="true">
+	INSERT INTO memberstudy (ID, sg_id, g_auth)
+	VALUES 
+	(#{id}, #{sg_id}, 'common')
+</insert>
+
+<insert id="updateCrew" flushCache="true">
+	UPDATE  memberstudy 
+	SET  
+	g_auth='crew'
+	WHERE sg_id=#{sg_id} AND id=#{id}
+</insert>
+
+
+<!-- public List<MemberStudyDTO> selectRegister(int sg_id); -->
+<select id="selectRegister" resultType="com.project.cogather.memberstudy.model.MemberStudyDTO">
+	SELECT ID id, SG_ID sg_id, ACCTIME acctime, CURTIME curtime, G_AUTH g_auth, ATT_DATE att_date
+	FROM MEMBERSTUDY
+	WHERE SG_ID = #{sg_id} and (g_auth = 'crew' or g_auth='captain')
+
+</select>
+
+<select id="selectCommonMemberBySGId" resultType="com.project.cogather.members.model.MembersDTO">
+	SELECT m.ID id ,m.EMAIL email, m.NAME name, m.PIMG_URL pimg_url, m.TAG tag 
+	FROM MEMBERSTUDY ms JOIN MEMBERS m ON ms.ID = m.ID 
+	WHERE SG_ID = #{sg_id} and (g_auth = 'common')
+</select>
+
+<select id="selectRegisterMemberBySGId" resultType="com.project.cogather.members.model.MembersDTO">
+	SELECT m.ID id ,m.EMAIL email, m.NAME name, m.PIMG_URL pimg_url, m.TAG tag 
+	FROM MEMBERSTUDY ms JOIN MEMBERS m ON ms.ID = m.ID 
+	WHERE SG_ID = #{sg_id} and (g_auth = 'captain' or g_auth = 'crew')
+</select>
+
 </mapper>

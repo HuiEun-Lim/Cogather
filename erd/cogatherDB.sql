@@ -147,8 +147,13 @@ WHERE ID IN
 
 INSERT INTO members (ID, NAME, PW, PHONE, EMAIL, PIMG_URL, TAG)
 VALUES 
-('id1', 'name1', 'pw1','010-xxxx-xxxx','oooooooo@naver.com', 'img/member/img1','1,2,4');
+('id1', 'name1', 'pw1','010-xxxx-xxxx','oooooooo@naver.com', 'img/member/default.jpg','1,2,4');
 
+UPDATE members SET PIMG_URL = 'img/member/default.jpg'
+WHERE id = 'id1';
+
+UPDATE members SET PIMG_URL = 'img/member/default.jpg'
+WHERE id = 'id2';
 
 INSERT INTO members (ID, NAME, PW, PHONE, EMAIL, PIMG_URL, TAG)
 VALUES 
@@ -176,8 +181,9 @@ CREATE TABLE memberstudy
 	CONSTRAINT GAUTH_CHECK CHECK(g_auth IN ('captain', 'crew', 'common')),
 	CONSTRAINT ENSTATUS_CHECK CHECK(enstatus IN ('in', 'out'))
 );
-DELETE FROM MEMBERSTUDY WHERE sg_id =1;
-SELECT * FROM MEMBERSTUDY;
+DELETE FROM MEMBERSTUDY WHERE sg_id =337 AND g_auth='crew';
+SELECT * FROM MEMBERSTUDY
+
 -- 방생성자 방 생성
 INSERT INTO memberstudy (ID, sg_id, g_auth)
 VALUES 
@@ -203,11 +209,18 @@ INSERT INTO memberstudy (ID, sg_id, g_auth)
 VALUES 
 ('id3', 2,'common');
 
+INSERT INTO memberstudy (ID, sg_id, g_auth)
+VALUES 
+('id3', 333,'common');
+
 SELECT * FROM memberstudy;
+
+SELECT * FROM MEMBERSTUDY m JOIN STUDYGROUP st ON m.SG_ID = st.SG_ID;
+UPDATE MEMBERSTUDY  SET g_auth='captain' WHERE sg_id=333; /*권한 수정*/
 
 SELECT ID id, SG_ID sg_id, ACCTIME acctime, CURTIME curtime, G_AUTH g_auth, ATT_DATE att_date
 FROM MEMBERSTUDY
-WHERE SG_ID = 1
+WHERE SG_ID = 336
 ;
 UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'id1';
 UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'id2';
@@ -218,6 +231,18 @@ SELECT m.ID ,m.EMAIL, m.NAME, m.PIMG_URL, m.TAG , ms.ENSTATUS
 	WHERE SG_ID = 1 and (g_auth = 'captain' or g_auth = 'crew')
 	;
 
+SELECT ID id, SG_ID sg_id, ACCTIME acctime, CURTIME curtime, G_AUTH g_auth, ATT_DATE att_date
+	FROM MEMBERSTUDY
+	WHERE SG_ID = 336 and g_auth = 'crew' or g_auth='captain';
+
+SELECT m.ID id ,m.EMAIL email, m.NAME name, m.PIMG_URL pimg_url, m.TAG tag 
+	FROM MEMBERSTUDY ms JOIN MEMBERS m ON ms.ID = m.ID 
+	WHERE SG_ID = 336 and (g_auth = 'captain' or g_auth = 'crew');
+	
+SELECT m.ID id ,m.EMAIL email, m.NAME name, m.PIMG_URL pimg_url, m.TAG tag 
+	FROM MEMBERSTUDY ms JOIN MEMBERS m ON ms.ID = m.ID 
+	WHERE SG_ID =336 and (g_auth = 'common');	
+	
 SELECT ACCTIME 
 FROM MEMBERSTUDY
 WHERE SG_ID = 1 AND ID = 'id1' AND (g_auth = 'captain' or g_auth = 'crew')
@@ -226,7 +251,7 @@ WHERE SG_ID = 1 AND ID = 'id1' AND (g_auth = 'captain' or g_auth = 'crew')
 UPDATE MEMBERSTUDY SET ENSTATUS = 'in', ENTIME = SYSDATE 
 	WHERE SG_ID = 1 AND ID = 'id2' AND (G_AUTH = 'crew' OR G_AUTH = 'captain')
 
-
+SELECT COUNT(*) FROM studygroup WHERE sg_tag LIKE '%토익';
 /*예약*/
 CREATE TABLE reservation
 (
@@ -324,7 +349,7 @@ INSERT INTO studygroup VALUES
 
 INSERT INTO studygroup VALUES
 (studygroup_seq.nextval, '임시데이터', '안녕하세요', 4, sysdate, '임시데이터','https://open.kakao.com/o/szYZxz5c');
-----------------------------------------------------------------------------------------------------------------------
+
 SELECT COUNT(*) FROM studygroup;
 SELECT sg_id,sg_name FROM studygroup ORDER by sg_id DESC;
 

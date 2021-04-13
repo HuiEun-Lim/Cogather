@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>      
+   
 <!DOCTYPE html>
 <html lang="ko">
 <html>
@@ -40,9 +41,14 @@
     <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction() login">마이페이지</a>
   </div>
 </div>
-
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
 <img src="/cogather/img/group/studygroupmain.jpg" width="100%" height="300px" >
+
+
+
+
+
 
 <script>
 	//Change style of navbar on scroll
@@ -67,27 +73,36 @@
 	}
 </script>
 <br><br>
+
 <script>
-function myFunction() {
-    var input, filter, ul, li, p, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUl");
-    li = ul.getElementsByTagName("li");
-    for (i = 0; i < li.length; i++) {
-       p = li[i].getElementsByTagName("p")[1];
-        txtValue = p.innerText|| p.textContent;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-        }
-    }
-}
+
+   // 생략	
+
+	$(document).on('click', '#btnSearch', function(e){
+
+		e.preventDefault();
+
+	
+		var url="/cogather/group/studylist";
+		
+		
+		url = url+"?nowPage=${paging.startPage }&cntPerPage=${paging.cntPerPage}";
+		 
+		url = url + "&searchType=" + $('#searchType').val();
+
+		url = url + "&keyword=" + $('#keyword').val();
+	
+		
+		location.href = url;
+
+		console.log(url);
+
+	});	
 
 </script>
 
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="스터디주제 검색" href="#" class="#" style="border: 2px solid #ffd43b;">
+ 
+
 <br>스터디 목록들<br>
 <b>스터디 방 총 개수 :${paging.total }</b>
   	<c:choose>
@@ -125,18 +140,32 @@ function myFunction() {
 					<b style="display: inline;border: 1px solid #FFFFFF; ;margin:0 5px 0 0;background-color:#ffd43b;padding:5px">${p}</b>
 				</c:when>
 				<c:when test="${p != paging.nowPage }">
-					<a href="/cogather/group/studylist?nowPage=${p}&cntPerPage=${paging.cntPerPage}">${p}</a>
+					<a href="/cogather/group/studylist?nowPage=${p}&cntPerPage=${paging.cntPerPage}&keyword=${paging.keyword}">${p}</a>
 				</c:when>
 			</c:choose>
 			
 		</c:forEach>
+		
+		
 		<c:if test="${paging.endPage != paging.lastPage}">
 			<a href="/cogather/group/studylist?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
 		</c:if>
 	</div>
 <button onclick="location.href='/cogather/group/studywrite'" class="writebutton hover">글작성</button>
 
+<!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="스터디주제 검색" href="#" class="#" style="border: 2px solid #ffd43b;">
+ -->	<!-- 지울 내용들 테스트중 -->
+	<div class="form-group row justify-content-center">
+			<div class="w300" style="padding-right:10px">
 
+				<input type="text" class="form-control form-control-sm" placeholder="스터디 주제 검색 또는 방번호 검색" name="keyword" id="keyword" style="border: 2px solid #ffd43b;margin:0 0 0 50px;width:30%;height:40px;">
+
+
+				<button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch" style="background:white;border:none;">
+					<img src="/cogather/img/group/search.png" class="search"  >
+				</button>
+			</div>
+		</div>
 </div>
 
 </body>

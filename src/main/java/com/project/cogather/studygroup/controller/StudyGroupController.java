@@ -47,25 +47,27 @@ public class StudyGroupController {
 		@RequestMapping("/studylist")
 		public String studylist(StudyGroupPaging sp, Model model
 				, @RequestParam(value="nowPage", required=false,defaultValue = "1")String nowPage
-				, @RequestParam(value="cntPerPage", required=false,defaultValue = "9")String cntPerPage) {
+				, @RequestParam(value="cntPerPage", required=false,defaultValue = "9")String cntPerPage
+				, @RequestParam(required = false, defaultValue = "title") String searchType
+				, @RequestParam(required = false) String keyword
+				) {
 			
-			int total = studygroupservice.countBoard();
-			/*
-			if (nowPage == null && cntPerPage == null) {
-				nowPage = "1";
-				cntPerPage = "9";
-			} else if (nowPage == null) {
-				nowPage = "9";
-			} else if (cntPerPage == null) { 
-				cntPerPage = "9";
-			}
-			*/
+			int total = studygroupservice.countBoard(sp);
+			sp.setTotal(total);
+			System.out.println("방 개수"+total);
+			sp.getTotal();
+			
 			sp = new StudyGroupPaging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 			//sp.pageInfo(Integer.parseInt(nowPage), total, Integer.parseInt(cntPerPage));
-		
+			sp.setSearchType(searchType);
+			sp.setKeyword(keyword);
+			
 			model.addAttribute("paging", sp);
 			//model.addAttribute("list", studygroupservice.list());
 			model.addAttribute("list", studygroupservice.selectBoard(sp));
+			total = studygroupservice.countBoard(sp);
+			sp.setTotal(total);
+			System.out.println("방 개수2: "+sp.getTotal());
 			return "group/studylist";
 		}
 		
@@ -93,9 +95,10 @@ public class StudyGroupController {
 
 			//1.상대경로 바꾸기 2.물리적인 파일 같이 삭제하기  
 			//첨부파일 썸네일 하나의 함수로 
-			
+			//memberstudy captain 자격으로  
 			model.addAttribute("result", studygroupservice.write(mpRequest));
-
+		//	memberStudyService.createCaptain('id1')
+			
 			return "group/studywriteOk";
 		}
 		

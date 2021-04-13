@@ -28,6 +28,26 @@ public class MemberStudyService {
 		memberStudyDAO = sqlsession.getMapper(MemberStudyDAO.class);
 		return memberStudyDAO.selectMemberBySGId(sg_id);
 	}
+	//register
+	public List<MemberStudyDTO> selectRegister(int sg_id){
+		memberStudyDAO = sqlsession.getMapper(MemberStudyDAO.class);
+		return memberStudyDAO.selectRegister(sg_id);
+	}
+	//common
+	public List<MemberStudyDTO> selectCommon(int sg_id){
+		memberStudyDAO = sqlsession.getMapper(MemberStudyDAO.class);
+		return memberStudyDAO.selectCommonBySGId(sg_id);
+	}
+	// register 된 멤버 가져오기
+	public List<MembersDTO> selectRegisterMember(int sg_id){
+		memberStudyDAO = sqlsession.getMapper(MemberStudyDAO.class);
+		return memberStudyDAO.selectRegisterMemberBySGId(sg_id);
+	}
+	// common인 멤버 가져오기
+	public List<MembersDTO> selectCommonMember(int sg_id){
+		memberStudyDAO = sqlsession.getMapper(MemberStudyDAO.class);
+		return memberStudyDAO.selectCommonMemberBySGId(sg_id);
+	}
 	// 방 입장 상태로 변경 - 
 	public int enterStatus(int sg_id, String id) {
 		memberStudyDAO = sqlsession.getMapper(MemberStudyDAO.class);
@@ -50,4 +70,23 @@ public class MemberStudyService {
 		memberStudyDAO = sqlsession.getMapper(MemberStudyDAO.class);
 		return memberStudyDAO.updateAcctime(sg_id, id, acctime);
 	}
+	
+	// 방생성시 captain 자격으로 memberstudy 추가
+	public int createCaptain(String id, int sg_id) {
+		memberStudyDAO = sqlsession.getMapper(MemberStudyDAO.class);
+		return memberStudyDAO.createCaptain(id,sg_id);
+	}
+	
+	public int createCommon(String id, int sg_id) {
+		memberStudyDAO = sqlsession.getMapper(MemberStudyDAO.class);
+		return memberStudyDAO.createCommon(id,sg_id);
+	}
+	
+	public int updateCrew(String id, int sg_id) {
+		memberStudyDAO = sqlsession.getMapper(MemberStudyDAO.class);
+		return memberStudyDAO.updateCrew(id,sg_id);
+	}
+	
+	
+	
 }
