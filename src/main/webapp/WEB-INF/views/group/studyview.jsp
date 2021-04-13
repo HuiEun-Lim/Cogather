@@ -25,6 +25,10 @@
 		window.open('${list[0].kko_url}', "kakaoTalk", "width=1000, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes" ); 
 
 	}
+	function openMail(){
+		location.href = 'mailSending';
+	}
+	
 	
 </script>
 <link rel="stylesheet" href="/cogather/CSS/common.css">
@@ -47,6 +51,15 @@ function chkDelete(sg_id){
 		location.href = 'studydeleteOk?sg_id=' + sg_id;
 	}
 } // chkDelete
+function chkDeleteFile(sg_id){
+	// 삭제 여부, 다시 확인 하고 진행하기
+	var r = confirm("삭제하시겠습니까?");
+	
+	if(r){
+		location.href = 'studydeleteFileOk?sg_id=' + sg_id;
+	}
+} // chkDelete
+
 function fn_fileDown(sg_id){
 	var formObj = $("form[name='readForm']");
 	$("#SG_ID").attr("value", sg_id);
@@ -192,15 +205,18 @@ function accept(id){
 		<div style="border: 1px solid #dbdbdb;">
 			
 			<c:forEach var="file" items="${files}">
-				<a href="#" onclick="fn_fileDown('${file.SG_ID}'); return false;">${file.SGF_ORG_FILE_NAME}</a><br>
-			
+				<a href="#" onclick="fn_fileDown('${file.SG_ID}'); return false;">
+				${file.SGF_ORG_FILE_NAME}</a><br>
+				<button onclick="chkDeleteFile(${list[0].sg_id })">삭제하기</button>
 			</c:forEach>
+			
 		<%-- 	<a href="#" onclick="fn_fileDown('${file[0].sg_id}'); return false;">FF${file[0].sg_id}</a>${file[0].sgf_file_size}<br>
 		 --%>	
 		</div>
 		
 		<br><!-- location.href='${list[0].kko_url} -->
 		<button type="submit" onclick="openWin();" style="background-color:white;border:0px"><img src="/cogather/img/group/kakao.png"></button>
+		<button type="submit"  onclick="openMail()" style="background-color:white;border:0px"><img src="/cogather/img/group/mail.png"></button>
 		
 		</div>
 		

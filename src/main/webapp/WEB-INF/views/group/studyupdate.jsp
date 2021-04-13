@@ -26,10 +26,57 @@
 
 <div id="write_id">
 <h2>수정</h2>
+<script>
+function chkSubmit(){
+	frm = document.forms['frm'];
+	
+	var sg_name = frm['sg_name'].value.trim();
+	var sg_info = frm['sg_info'].value.trim();
+	var sg_tag = frm['sg_tag'].value.trim();
+	var kko_url = frm['kko_url'].value.trim();
+	var length;
+	var str;
+	
+	var numreg =  /^[0-9]*$/;
+	if(sg_name == ""){
+		alert("스터디 이름은 반드시 입력해야 합니다");
+		frm['sg_name'].focus();
+		return false;	
+	}
+	if(sg_name.length >=12){
+		alert("스터디 이름에 글자수가 너무 많아요..");
+		return false;
+	}
+	if(sg_tag.length >=30){
+		alert("스터디 주제에 글자수가 너무 많아요..");
+		return false;
+	}
+	
+	if(sg_tag == ""){
+		alert("주제는 반드시 입력해야 합니다");
+		frm['sg_tag'].focus();
+		return false;
+	}
+	
+	if(kko_url == ""){
+		alert("카카오 오픈 채팅방을 만들어주세요그리고 링크를 복사해 주세요 ");
+		frm['kko_url'].focus();
+		return false;
+	}
+	if(!numreg.test(sg_max)){
+		alert("제한 인원수는 숫자여야 합니다");
+		return false;
+	}
+	
+	return true;
+	
+}
+</script>
 <script src="/cogather/JS/ckeditor/ckeditor.js">
 </script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
-<form name="frm" action="studyupdateOk" method="post" onsubmit="return chkSubmit()">
+<form name="frm" action="studyupdateOk" method="post" enctype="multipart/form-data" onsubmit="return chkSubmit()">
 <input type="hidden" name="sg_id" value="${list[0].sg_id}"/>
 스터디 이름:&nbsp&nbsp
 <input type="text" name="sg_name" style="width:20%;height:30px;" value="${list[0].sg_name}"/><br><br>
@@ -46,8 +93,29 @@
 	});
 
 </script>
+썸네일 업로드:&nbsp
+<input type="file" name="uploadFile" id="uploadFile" value="${list[0].file_name}" required/>
+
+<div class="select_img"><img src=""></div>
+ <script>
+  $("#uploadFile").change(function(){
+   if(this.files && this.files[0]) {
+    var reader = new FileReader;
+    reader.onload = function(data) {
+     $(".select_img img").attr("src", data.target.result).width(500);        
+    }
+    reader.readAsDataURL(this.files[0]);
+   }
+  });
+ </script>
 카톡방 주소:&nbsp&nbsp
 <input type="text" name="kko_url" style="width:20%;height:30px;" value="${list[0].kko_url}"/><br><br>
+
+<%--  <c:forEach var="file" items="${files}">
+첨부파일:  <input type="file" name="file" value="${file.SGF_ORG_FILE_NAME}" >
+	${file.SGF_ORG_FILE_NAME}		
+</c:forEach> --%>
+	 
 <br><br>
 <input type="submit" value="수정" class="updatebutton"/>
 </form>

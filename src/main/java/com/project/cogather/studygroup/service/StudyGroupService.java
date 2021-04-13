@@ -181,8 +181,21 @@ public class StudyGroupService {
 		return dao.selectByUid(sg_id);
 	}
 	
-	public int update(StudyGroupDTO dto) {
+	public int update(StudyGroupDTO dto,MultipartHttpServletRequest mpRequest) throws IllegalStateException, IOException {
 		dao = sqlSession.getMapper(StudyGroupDAO.class);
+		MultipartFile uploadFile = mpRequest.getFile("uploadFile"); // 정희꺼
+		String file_name=null;
+		if (!uploadFile.isEmpty()) {
+			String originalFileName = uploadFile.getOriginalFilename();
+			String ext = FilenameUtils.getExtension(originalFileName);	//확장자 구하기
+			UUID uuid = UUID.randomUUID();	//UUID 구하기
+			file_name=uuid+"."+ext;
+			uploadFile.transferTo(new File("C:\\tomcat\\upload\\"+file_name));
+				
+		}
+		
+		dto.setFile_name(file_name);
+		
 		return dao.update(dto.getSg_id(),dto);
 		
 	}
@@ -191,11 +204,14 @@ public class StudyGroupService {
 		dao = sqlSession.getMapper(StudyGroupDAO.class);
 		return dao.deleteByUid(sg_id);
 	}
-	
+	public int deleteFileByUid(int sg_id) {
+		dao = sqlSession.getMapper(StudyGroupDAO.class);
+		return dao.deleteFileByUid(sg_id);
+	}
 	//게시글 총 개수
 	public int countBoard(StudyGroupPaging sp) {
 		dao = sqlSession.getMapper(StudyGroupDAO.class);
-		return dao.countBoard();
+		return dao.countBoard(sp.getKeyword());
 	}
 
 	//페이지 게시글 
@@ -205,4 +221,6 @@ public class StudyGroupService {
 		
 		return dao.selectBoard(sp);
 	}
+	
+	
 }

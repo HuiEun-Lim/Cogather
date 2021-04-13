@@ -1,15 +1,20 @@
 package com.project.cogather.studygroup.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +45,8 @@ public class StudyGroupController {
 	RedisService redisService;
 	@Autowired
 	StudyGroupService studygroupservice;
-	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	
 	//페이징 게시판  임시
@@ -115,16 +121,25 @@ public class StudyGroupController {
 		@RequestMapping("/studyupdate")
 		public String update (int sg_id,Model model) {
 			model.addAttribute("list", studygroupservice.selectByUid(sg_id));
+			List<Map<String,Object>> fileList = studygroupservice.selectFile(sg_id);
+			
+			model.addAttribute("files",fileList);
 			return "group/studyupdate";
 		}
 		@PostMapping("/studyupdateOk")
-		public String updateOk(StudyGroupDTO dto,Model model) {
-			model.addAttribute("result", studygroupservice.update(dto));
+		public String updateOk(StudyGroupDTO dto,MultipartHttpServletRequest mpRequest,Model model) throws IllegalStateException, IOException {
+			model.addAttribute("result", studygroupservice.update(dto,mpRequest));
 			return "group/studyupdateOk";
 		}
 		@GetMapping("/studydeleteOk")
 		public String deleteOk(int sg_id,Model model) {
 			model.addAttribute("result", studygroupservice.deleteByUid(sg_id));
+			model.addAttribute("result", studygroupservice.deleteFileByUid(sg_id));
+			return "group/studydeleteOk";
+		}
+		@GetMapping("/studydeleteFileOk")
+		public String deleteFileOk(int sg_id,Model model) {
+			model.addAttribute("result", studygroupservice.deleteFileByUid(sg_id));
 			return "group/studydeleteOk";
 		}
 		
@@ -148,6 +163,34 @@ public class StudyGroupController {
 			response.getOutputStream().close();
 			
 		}
+		
+		//메일 보내기 기능
+		@RequestMapping("/mailSending")
+		public String mailSending(HttpServletRequest request) {
+
+			String setfrom = "``";
+			//String frommail = request.getParameter("frommail"); // 받는 사람 이메일
+			String tomail = request.getParameter("tomail"); // 받는 사람 이메일
+			String title = request.getParameter("title"); // 제목
+			String content = request.getParameter("content"); // 내용
+
+			try {
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper messageHelper = new MimeMessageHelper(message,
+						true, "UTF-8");
+
+			//	messageHelper.setFrom(frommail); // 보내는사람 생략하면 정상작동을 안함
+				messageHelper.setTo(tomail); // 받는사람 이메일
+				messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+				messageHelper.setText(content); // 메일 내용
+
+				mailSender.send(message);
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+
+			return "group/mail";
+		}	
 	// 스터디 룸으로 들어온 상태
 	@RequestMapping("/studyroom")
 	public String studyroom(int sg_id, String id ,Model model) {

@@ -5,14 +5,15 @@
 <c:choose>
 	<c:when test="${result == 0 }">
 		<script>
-			alert("삭제 실패");
-			hisotry.back();
+			alert("삭제 성공");
+			location.href = "studylist"; <%-- 삭제후에는 list 로 가자 --%>
 		</script>
 	</c:when>
 	<c:otherwise>
 		<script>
 			alert("삭제 성공");
 			location.href = "studylist"; <%-- 삭제후에는 list 로 가자 --%>
+			
 		</script>
 	</c:otherwise>
 </c:choose>

@@ -23,7 +23,7 @@ public abstract List<StudyGroupDTO> select();
 	public abstract List<StudyGroupDTO> selectByUid(int sg_id);
 	
 	// 게시물 총 갯수
-	public int countBoard();
+	public int countBoard(String keyword);
 
 	// 페이징 처리 게시글 조회
 	public List<StudyGroupDTO> selectBoard(StudyGroupPaging sp);
@@ -36,4 +36,9 @@ public abstract List<StudyGroupDTO> select();
 	public abstract Map<String,Object> selectFileInfo(Map<String,Object>map);
 	//첨부파일 조회
 	public abstract List<Map<String,Object>> selectFile(int sg_id);
+	
+	//첨부파일 삭제
+	public int deleteFileByUid(int sg_id);
+	//첨부파일 수정
+	public abstract void updateFile(Map<String,Object>map) throws Exception;
 }	

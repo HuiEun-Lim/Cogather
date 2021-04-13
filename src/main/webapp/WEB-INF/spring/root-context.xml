@@ -5,5 +5,18 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-
+<!-- gmail -->
+ 
+  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    <property name="host" value="smtp.gmail.com" />
+    <property name="port" value="587" />
+    <property name="username" value="cogather12@gmail.com" />
+    <property name="password" value="zhrpej12" />
+    <property name="javaMailProperties">
+    <props>
+      <prop key="mail.smtp.auth">true</prop>
+      <prop key="mail.smtp.starttls.enable">true</prop>
+    </props>
+    </property>
+  </bean>
 </beans>

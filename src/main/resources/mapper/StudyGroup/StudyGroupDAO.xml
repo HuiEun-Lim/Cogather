@@ -77,6 +77,8 @@
 			(studygroup_file_seq.nextval,#{sgf_org_file_name, jdbcType=VARCHAR}, #{sgf_stored_file_name, jdbcType=VARCHAR},#{sg_id},#{sgf_file_size})
 	</insert>
 	
+	
+	
 	<select id="selectFile" parameterType="com.project.cogather.studygroup.model.StudyGroupFileDTO" resultType="hashMap">
 			SELECT *
 			FROM studygroup_file 
@@ -93,7 +95,7 @@
 	<update id="update" flushCache="true" 
 		parameterType="com.project.cogather.studygroup.model.StudyGroupDTO">
 		UPDATE studygroup 
-		SET sg_info = #{a.sg_info},sg_name=#{a.sg_name},sg_tag=#{a.sg_tag},kko_url=#{a.kko_url}
+		SET sg_info = #{a.sg_info},sg_name=#{a.sg_name},sg_tag=#{a.sg_tag},kko_url=#{a.kko_url},file_name=#{a.file_name}
 		WHERE sg_id = #{param1}
 	</update>
 	
@@ -101,5 +103,7 @@
 		DELETE FROM studygroup WHERE sg_id = #{sg_id}
 	</delete>
 	
-	
+	<delete id="deleteFileByUid" flushCache="true">
+		DELETE FROM studygroup_file WHERE sg_id = #{sg_id, jdbcType=INTEGER}
+	</delete>
 </mapper>
