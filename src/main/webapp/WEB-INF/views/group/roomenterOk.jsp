@@ -19,7 +19,6 @@
 	</c:when>
 	<c:otherwise>
 		<script>
-			alert("방에 입장합니다");
 			
 			location.href="studyroom?sg_id=${sg_id}&id=${id}";
 		</script>

@@ -1,6 +1,6 @@
 
-members = {}; // 타이머를 저장하기 위한 전역 변수 
-
+var members = {}; // 타이머를 저장하기 위한 전역 변수 
+var member_profiles = {};
 $(function() {
 	//js와 html을 분리하기 위해 jstl과 el을 받아야 한다면 html 요소에 숨겨놓고 문서 완성시 그걸 읽어 오는 방식을 해봄
 	// 이렇게 하지 않으면 분리된 javascript 파일은 제일 마지막에 컴파일 되므로 request에 있는 정보들을 받아올 수 없다. 
@@ -8,7 +8,11 @@ $(function() {
 	id = $('#id').text();
 	contextPath = $("#contextPath").text();;
 	getMembers(); // 현제 db에 들어와있는 상태를 가진 유저들 목록을 표시하고 타이머 준비
+	
 });
+
+
+
 // 스터디에 참여하고 있는 멤버들 데이터를 가져옴
 function getMembers() {
 	$.ajax({
@@ -18,6 +22,9 @@ function getMembers() {
 		success: function(data, status) {
 			if (status == "success") {
 				updateMembers(data);
+				for(var i = 0; i<data['mdata'].length;i++){
+					member_profiles[data['mdata'][i].id] = data['mdata'][i];
+				}
 			}
 		}
 	});
@@ -37,16 +44,20 @@ function updateMembers(jsonObj) {
 
 			if (msData[i].id == userId) {
 				check = true;
-				console.log("test1:" + msData.length);
+				
 				if (members[msData[i].id] == null) {
 					setTimer(msData[i].entime, msData[i].id);
 				}
-				result = result +
-					"<div>" +
-					"<img class='pimg' src='/cogather/" + mData[i].pimg_url + "'>" +
+				result += 
+					"<h2 class='left-title'>스터디원</h2>"+
+					"<h3 class='left-title-sub'>나<h3>"+
+					"<div id='"+msData[i].id+"-user'>" +
+					"<img class='pimg' src='"+contextPath+"/" + mData[i].pimg_url + "'>" +
 					"<div class='userName'> " + msData[i].id + " </div>" +
-					"<div id='timer-" + msData[i].id + "'> 타이머:" + "<h3>" + members[msData[i].id]['time'] + "</h3>" + "</div>" +
-					"</div>";
+					"<div class='timer-title' id='timer-" + msData[i].id + "'> 타이머:" + "<h3>" + members[msData[i].id]['time'] + "</h3>" + "</div>" +
+					"</div>"+
+					"<br><br>"
+					;
 				break;
 			}
 
@@ -57,7 +68,7 @@ function updateMembers(jsonObj) {
 		}
 		for (var i = 0; i < msData.length; i++) {
 			if (msData[i].id != userId) {
-				console.log("test2: " + msData.length);
+				
 				if (members[msData[i].id] == null) {
 					setTimer(msData[i].entime, msData[i].id);
 				}
@@ -65,7 +76,7 @@ function updateMembers(jsonObj) {
 					"<div>" +
 					"<img class='pimg' src='/cogather/" + mData[i].pimg_url + "'>" +
 					"<div> " + msData[i].id + " </div>" +
-					"<div id='timer-" + msData[i].id + "'> 타이머:" + "<h3>" + members[msData[i].id]['time'] + "</h3>" + "</div>" +
+					"<div class='timer-title' id='timer-" + msData[i].id + "'> 타이머:" + "<h3>" + members[msData[i].id]['time'] + "</h3>" + "</div>" +
 					"</div>"
 					;
 			}
@@ -116,19 +127,38 @@ function updateTime() {
 // 방나가기 - 타이머 시간을 누적시간으로 변환 
 function outroom() {
 	$.ajax({
-		url: "./MemberStudyRest/ms/roomoutOk?sg_id=" + sg_id + "&id=" +id,
+		url: "./MemberStudyRest/ms/roomoutOk?sg_id=" + sg_id + "&id=" + id,
 		type: "GET",
 		cache: false,
 		success: function(data, status) {
 			if (status == "success") {
+				if (data.status = "OK") {
+					var temp = members[id]['time'].split(':');
+					var time = new Date(0, 0, 2, temp[0], temp[1], temp[2]);
+					storeAcctime(time)
+					clearInterval(members[id]['timerId']);
+					delete members[id];
+					disconnect();
+					
+					location.href = contextPath + "/group/studygroup";
 
-				var temp = members[id]['time'].split(':');
-				var time = new Date(2021, 0, 2, temp[0], temp[1], temp[2]);
-				storeAcctime(time);
-				clearInterval(members[id]['timerId']);
-				delete members[id];
-				disconnect();
-				location.href = contextPath + "/group/studygroup";
+
+				} else {
+					alert("정상적으로 방을 나가지 못했습니다.")
+					$.ajax({
+						url: "./MemberStudyRest/ms/roomenter?sg_id=" + sg_id + "&id=" + id,
+						type: "GET",
+						cache: false,
+						success: function(data, status) {
+							if (status == "success") {
+								if (data.status = "OK") {
+									alert("다시 방으로 들어옵니다.")
+								}
+							}
+						}
+					});
+				}
+
 			}
 		}
 	});
@@ -147,10 +177,12 @@ function storeAcctime(time) {
 		type: "PUT",
 		data: "sg_id=" + sg_id + "&id=" + id + "&acctime=" + time.toISOString(),
 		cache: false,
+		async: false,
 		success: function(data, status) {
 			if (status == "success") {
 				if (data.status == "OK") {
-					alert("누적시간 저장 성공");
+			
+				} else {
 				}
 			}
 		}

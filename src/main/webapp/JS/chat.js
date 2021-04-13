@@ -6,6 +6,7 @@ var stompClient = null;
 var contextPath = null;
 
 
+
 function connect() {
 	var socket = new SockJS(contextPath+"/endpoint"); // WebSocketConfig에서 설정한 endpoint를 통해 Socket 생성
 	
@@ -25,6 +26,8 @@ function connect() {
 }
 
 function showChat(msg){ // 메시지 타입에 따라 바꿔서 보여줌
+	var t = new Date();
+	var time_str = t.getHours()+":" +t.getMinutes();
 	if(msg.type == 'JOIN'){
 		$('#msgArea').append(
 			"<li class='chat chat-center''> "+ msg.sender+" 입장 </li>"+
@@ -35,12 +38,30 @@ function showChat(msg){ // 메시지 타입에 따라 바꿔서 보여줌
 	}else if(msg.type == 'TALK'){
 		if(username == msg.sender){
 			$('#msgArea').append(
-			"<li class='chat chat-right'> "+ msg.sender+" : "+ msg.content+"</li>"+
+			"<li class='chat chat-right'> "+ 
+				"<div class='chat-sender-info'>"+
+					"<img class= 'chat-sender-img' src='"+contextPath+"/"+member_profiles[username].pimg_url+"'>"+
+					"<span>"+msg.sender+"</span>"+
+				"</div>"+
+				"<div class= 'chat-content-box'>"+
+					"<div class='chat-content'>" +msg.content+"</div>"+	
+					"<div class='chat-time'>"+time_str+"</div>"+
+				"</div>"+
+			"</li>"+
 			"<div class='clear-both'></div>"
 			);	
 		}else{
 			$('#msgArea').append(
-			"<li class='chat chat-left'> "+ msg.sender+" : "+ msg.content+"</li>"+
+			"<li class='chat chat-left'> "+
+				"<div class='chat-sender-info'>"+
+					"<img class= 'chat-sender-img' src='"+contextPath+"/"+member_profiles[username].pimg_url+"'>"+
+					"<span>"+msg.sender+"</span>"+
+				"</div>"+
+				"<div class= 'chat-content-box'>"+
+					"<div class='chat-content'>" +msg.content+"</div>"+	
+					"<div class='chat-time'>"+time_str+"</div>"+
+				"</div>"+
+			"</li>"+
 			"<div class='clear-both'></div>"
 			);
 		}
@@ -74,7 +95,11 @@ function disconnect(){ // stompClient 종료하기전 메시지 보내고 죽음
 	}
 	console.log(username+"의 메시지 전송 소켓 종료");
 }
-
+function formSend(){ 
+	sendChat();
+	$('form#sendMessage input').val(''); // 메시지보내고 나서 inputbox 비우기
+	
+}
 $(function() {
 	username = $("#id").text(); 
 	roomId = $("#sg_id").text();
@@ -83,13 +108,10 @@ $(function() {
 	
 	
 	$("form").on('submit', function(e){
-		e.preventDefault();
+		e.preventDefault(); // submit 이벤트듣 이벤트 발생시 창이 새로고침되면서 실행되는데 이를 막아줌
 	});
 	
-	$("form#sendMessage button").click(function(){ 
-		sendChat();
-		$('form#sendMessage input').val(''); // 메시지보내고 나서 inputbox 비우기
-	});
+	
 	
     window.BeforeUnloadEvent = function(){
         disconnect();

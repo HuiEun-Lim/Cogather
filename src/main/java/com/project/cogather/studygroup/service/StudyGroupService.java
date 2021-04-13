@@ -40,8 +40,9 @@ public class StudyGroupService {
 	SqlSession sqlSession;
 	@Autowired
 	private StudyGroupFileUtils fileUtils;
-	
+
 	StudyGroupDAO dao;
+
 	
 	MemberStudyDAO mdao;
 	
@@ -52,13 +53,13 @@ public class StudyGroupService {
 	}
 	@Transactional
 	public int write(MultipartHttpServletRequest mpRequest) throws Exception {
-		dao=sqlSession.getMapper(StudyGroupDAO.class);
+		dao = sqlSession.getMapper(StudyGroupDAO.class);
 		StudyGroupDTO dto = new StudyGroupDTO();
-		
-		
 		String file_name=null;
+
 //		MultipartFile uploadFile = dto.getUploadFile(); // 형꺼
 		MultipartFile uploadFile = mpRequest.getFile("uploadFile"); // 정희꺼
+
 		System.out.println("mp1 "+mpRequest.getParameter("sg_name"));
 		System.out.println("mp2 "+mpRequest.getParameter("sg_info"));
 		System.out.println("mp3 "+mpRequest.getParameter("sg_tag"));
@@ -68,6 +69,7 @@ public class StudyGroupService {
 		String sg_tag=mpRequest.getParameter("sg_tag");
 		String kko_url=mpRequest.getParameter("kko_url");
 		int sg_max=Integer.parseInt(mpRequest.getParameter("sg_max"));
+
 		dto.setSg_info(sg_info);
 		dto.setKko_url(kko_url);
 		dto.setSg_name(sg_name);
@@ -76,6 +78,7 @@ public class StudyGroupService {
 		
 		if (!uploadFile.isEmpty()) {
 			String originalFileName = uploadFile.getOriginalFilename();
+
 			String ext = FilenameUtils.getExtension(originalFileName);	//확장자 구하기
 			UUID uuid = UUID.randomUUID();	//UUID 구하기
 			file_name=uuid+"."+ext;
@@ -86,54 +89,47 @@ public class StudyGroupService {
 		//	uploadFile.transferTo(new File("D:\\DevRoot\\Dropbox\\App04\\CoGather\\Cogather\\src\\main\\webapp\\img\\group\\upload\\"+file_name));
 			uploadFile.transferTo(new File("C:\\tomcat\\upload\\"+file_name));
 
-		
-		
 
-			
-		
-				
 		}
-		
+
 		dto.setFile_name(file_name);
-		
-		//insert
+
+		// insert
 		int result = dao.insert(dto);
-		
-		
-		
+
 		//첨부파일 업로드 
 		List<Map<String,Object>> list =  fileUtils.parseInsertFileInfo(dto, mpRequest); 
+
 		String sgf_org_file_name = null;
 		String sgf_stored_file_name = null;
 		int sgf_file_size;
-		//진행중
-		int size= list.size();
-		
-		int sg_id=dto.getSg_id();
-		
-		
-		System.out.println("고유번호:  "+sg_id);
-		
-		  sgf_org_file_name=fileUtils.getSgf_org_file_name();
-		  sgf_stored_file_name=fileUtils.getSgf_stored_file_name();
-		  sgf_file_size=fileUtils.getSgf_file_size();
-		//fdto = new StudyGroupFileDTO(sgf_org_file_name,sgf_stored_file_name,sgf_file_size,sg_id);
-		 Map<String,Object> map = new HashMap<String,Object>();
-		 map.put(sgf_org_file_name,"sgf_org_file_name");
-		 map.put(sgf_stored_file_name,"sgf_stored_file_name");
-		
-		
-		 System.out.println("map 파일 다운로드 확인"+map.toString());
-		 selectFileInfo(map);
-		System.out.println("StudyGroup:  "+list.get(0));
+		// 진행중
+		int size = list.size();
+
+		int sg_id = dto.getSg_id();
+
+		System.out.println("고유번호:  " + sg_id);
+
+		sgf_org_file_name = fileUtils.getSgf_org_file_name();
+		sgf_stored_file_name = fileUtils.getSgf_stored_file_name();
+		sgf_file_size = fileUtils.getSgf_file_size();
+		// fdto = new
+		// StudyGroupFileDTO(sgf_org_file_name,sgf_stored_file_name,sgf_file_size,sg_id);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(sgf_org_file_name, "sgf_org_file_name");
+		map.put(sgf_stored_file_name, "sgf_stored_file_name");
+
+		System.out.println("map 파일 다운로드 확인" + map.toString());
+		selectFileInfo(map);
+		System.out.println("StudyGroup:  " + list.get(0));
 //		for(int i=0;i<size-1;i++) {
 //			dao.insertFile(list.get(i));
 //		}
-		//dao.insertFile(fdto);
-		int i=1;
-		if(list.size()==2) {
+		// dao.insertFile(fdto);
+		int i = 1;
+		if (list.size() == 2) {
 			dao.insertFile(list.get(1));
-		}else {
+		} else {
 			System.out.println("파일없어요");
 		}
 
@@ -144,42 +140,39 @@ public class StudyGroupService {
 		mdao=sqlSession.getMapper(MemberStudyDAO.class);
 		mdao.createCaptain(id,dto.getSg_id());
 		
-		
+	
 		return result;
 	}
 
-	
-	public List<StudyGroupDTO> viewByUid(int sg_id){
+	public List<StudyGroupDTO> viewByUid(int sg_id) {
 		dao = sqlSession.getMapper(StudyGroupDAO.class);
 		selectFile(sg_id);
-		
+
 		return dao.selectByUid(sg_id);
 	}
-	
-	public List<Map<String,Object>> selectFile(int sg_id){
+
+	public List<Map<String, Object>> selectFile(int sg_id) {
 		dao = sqlSession.getMapper(StudyGroupDAO.class);
-		System.out.println("sg_id service"+sg_id);
-		
+		System.out.println("sg_id service" + sg_id);
+
 		return dao.selectFile(sg_id);
 	}
-	
-	
-	  public Map<String,Object> selectFileInfo(Map<String, Object> map)
-	  { 
-		 
-	   dao =sqlSession.getMapper(StudyGroupDAO.class); 
-	   //map = new HashMap<String, Object>();
-	   System.out.println("service map"+map.toString());
-	   return dao.selectFileInfo(map); 
-	  
-	  }
-	 
-	
-	public List<StudyGroupDTO> selectByUid(int sg_id){
+
+	public Map<String, Object> selectFileInfo(Map<String, Object> map) {
+
 		dao = sqlSession.getMapper(StudyGroupDAO.class);
-	
+		// map = new HashMap<String, Object>();
+		System.out.println("service map" + map.toString());
+		return dao.selectFileInfo(map);
+
+	}
+
+	public List<StudyGroupDTO> selectByUid(int sg_id) {
+		dao = sqlSession.getMapper(StudyGroupDAO.class);
+
 		return dao.selectByUid(sg_id);
 	}
+
 	
 	public int update(StudyGroupDTO dto,MultipartHttpServletRequest mpRequest) throws IllegalStateException, IOException {
 		dao = sqlSession.getMapper(StudyGroupDAO.class);
@@ -199,26 +192,32 @@ public class StudyGroupService {
 		return dao.update(dto.getSg_id(),dto);
 		
 	}
+
 	
 	public int deleteByUid(int sg_id) {
 		dao = sqlSession.getMapper(StudyGroupDAO.class);
 		return dao.deleteByUid(sg_id);
 	}
+
 	public int deleteFileByUid(int sg_id) {
 		dao = sqlSession.getMapper(StudyGroupDAO.class);
 		return dao.deleteFileByUid(sg_id);
 	}
+
+
+	
+
 	//게시글 총 개수
 	public int countBoard(StudyGroupPaging sp) {
 		dao = sqlSession.getMapper(StudyGroupDAO.class);
 		return dao.countBoard(sp.getKeyword());
 	}
 
-	//페이지 게시글 
+	// 페이지 게시글
 	public List<StudyGroupDTO> selectBoard(StudyGroupPaging sp) {
-		
+
 		dao = sqlSession.getMapper(StudyGroupDAO.class);
-		
+
 		return dao.selectBoard(sp);
 	}
 	

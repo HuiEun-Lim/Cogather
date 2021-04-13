@@ -4,6 +4,7 @@
 DROP TABLE authority CASCADE CONSTRAINTS;
 DROP TABLE comments CASCADE CONSTRAINTS;
 DROP TABLE content CASCADE CONSTRAINTS;
+DROP TABLE content_file CASCADE CONSTRAINTS;
 DROP TABLE memberstudy CASCADE CONSTRAINTS;
 DROP TABLE reservation CASCADE CONSTRAINTS;
 DROP TABLE members CASCADE CONSTRAINTS;
@@ -18,8 +19,10 @@ CREATE SEQUENCE content_seq;
 CREATE SEQUENCE reservation_seq;
 CREATE SEQUENCE studygroup_seq;
 CREATE SEQUENCE studygroup_file_seq;
+CREATE SEQUENCE content_file_seq;
 DROP SEQUENCE studygroup_seq;
-
+DROP SEQUENCE content_seq;
+DROP SEQUENCE content_file_seq;
 
 /* Create Tables */
 /*권한*/
@@ -34,26 +37,94 @@ CREATE TABLE authority
 CREATE TABLE comments
 (
 	cm_uid number NOT NULL,/*댓글고유번호*/
-	ID varchar2(20) NOT NULL,/*회원ID*/
+	ID varchar2(50) NOT NULL,/*회원ID*/
 	ct_uid number NOT NULL,/*게시글 고유번호*/
 	reply clob NOT NULL,/*댓글 내용*/
 	regdate date DEFAULT SYSDATE,/*등록날짜*/
 	PRIMARY KEY (cm_uid)
 );
+SELECT * 
+FROM COMMENTS
+WHERE ct_uid = 20
+ORDER BY CM_UID DESC
+;
+
+INSERT INTO COMMENTS (CM_UID, ID, CT_UID, REPLY)
+VALUES (comments_seq.nextval, 'id1', '20','노잼쓰' )
+;
+UPDATE COMMENTS 
+SET REPLY = '정말인가요?', REGDATE = SYSDATE
+WHERE CM_UID = 1 AND ID = 'id1';
+
+DELETE FROM COMMENTS
+WHERE CM_UID = 1;
 
 /*스터디 그룹 게시글*/
 CREATE TABLE content
 (
 	ct_uid number NOT NULL, /*게시글 고유번호*/
-	ID varchar2(20) NOT NULL,/*게시글 제목*/
-	sg_id number NOT NULL,/*회원ID*/
-	ct_title varchar2(40) NOT NULL,/*게시글 제목*/
+	ID varchar2(50) NOT NULL,/*회원ID*/
+	sg_id number NOT NULL, /*스터디방번호*/
+	ct_title varchar2(500) DEFAULT ' ',/*게시글 제목*/
 	ct_content clob,/*게시글 내용*/
+	ct_viewcnt integer DEFAULT 0, /* 조회수 */
 	regdate date DEFAULT SYSDATE,/*둥록날짜*/
 	PRIMARY KEY (ct_uid)
 );
+/* 스터디 그룹 게시글 파일 테이블 */
+CREATE TABLE content_file
+(
+	cf_id NUMBER NOT NULL,
+	cf_source varchar2(500) NOT NULL,
+	cf_file varchar2(500) NOT NULL,
+	ct_uid NUMBER NOT NULL,
+	PRIMARY KEY (cf_id)
+)
+;
+ALTER TABLE content_file
+	ADD FOREIGN KEY (ct_uid)
+	REFERENCES content (ct_uid)
+	ON DELETE CASCADE -- 참조하는 부모가 삭제되면 같이 삭제되도록
+;
+SELECT * FROM content_file;
+
+INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
+VALUES (content_seq.nextval, 'id1', 21, '변명중에서도 가장 어리석고 못난 별명은 -시간이 없어서- 이다','변명중에서도 가장 어리석고 못난 별명은 -시간이 없어서- 이다');
+
+INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
+VALUES (content_seq.nextval, 'id2', 21, '모두가 비슷한 생각을 한다는 것은 아무도 생각하고 있지 않다는 말이다.', '모두가 비슷한 생각을 한다는 것은 아무도 생각하고 있지 않다는 말이다.' );
+
+INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
+VALUES (content_seq.nextval, 'id3', 21, '인간이 불행한 이유는 자신이 행복하다는 사실을 모르기 때문이다. 단지 그 뿐이다.', '인간이 불행한 이유는 자신이 행복하다는 사실을 모르기 때문이다. 단지 그 뿐이다.' );
 
 SELECT * FROM CONTENT;
+
+SELECT * 
+FROM (SELECT * 
+FROM content
+WHERE id = 'id1'
+ORDER BY ct_uid DESC)
+WHERE ROWNUM <=1;
+
+SELECT
+		ct_uid ,id,sg_id ,ct_title ,ct_content, ct_viewcnt,regdate
+	FROM 
+		(SELECT ROWNUM AS RNUM, T.* FROM 
+			(SELECT * FROM CONTENT 
+			WHERE SG_ID = 21
+			ORDER BY ct_uid DESC 
+			) T
+		) 
+	WHERE 
+		RNUM >= 1 AND RNUM < (1 + 10);
+	
+SELECT count(*) FROM CONTENT
+		WHERE SG_ID = 21
+
+UPDATE CONTENT
+SET CT_TITLE = '에이시발', CT_CONTENT = '왜 안되는데'
+WHERE CT_UID = 22 AND ID = 'id1' AND SG_ID = 21; 		
+		
 /*회원*/
 CREATE TABLE members
 (
@@ -67,6 +138,12 @@ CREATE TABLE members
 	PRIMARY KEY (ID)
 
 ); 
+
+SELECT * 
+FROM MEMBERS
+WHERE ID IN 
+(SELECT ID FROM COMMENTS WHERE CT_UID = 10)
+;
 
 INSERT INTO members (ID, NAME, PW, PHONE, EMAIL, PIMG_URL, TAG)
 VALUES 
@@ -110,24 +187,17 @@ SELECT * FROM MEMBERSTUDY
 -- 방생성자 방 생성
 INSERT INTO memberstudy (ID, sg_id, g_auth)
 VALUES 
-('id1', 1, 'captain');
-INSERT INTO memberstudy (ID, sg_id, g_auth)
-VALUES 
-('id1', 2, 'captain');
-INSERT INTO memberstudy (ID, sg_id, g_auth)
-VALUES 
-('id1', 3, 'captain');
-INSERT INTO memberstudy (ID, sg_id, g_auth)
-VALUES 
-('id1', 4, 'captain');
+('id1', 21, 'captain');
+
 
 -- 참가자 참여 허락
 INSERT INTO memberstudy (ID, sg_id, g_auth)
 VALUES 
-('id2', 1, 'crew');
+('id2', 21, 'crew');
 INSERT INTO memberstudy (ID, sg_id, g_auth)
 VALUES 
-('id3', 2, 'crew');
+('id3', 21, 'crew');
+
 INSERT INTO memberstudy (ID, sg_id, g_auth)
 VALUES 
 ('id4', 3, 'crew');
@@ -144,6 +214,7 @@ VALUES
 ('id3', 333,'common');
 
 SELECT * FROM memberstudy;
+
 SELECT * FROM MEMBERSTUDY m JOIN STUDYGROUP st ON m.SG_ID = st.SG_ID;
 UPDATE MEMBERSTUDY  SET g_auth='captain' WHERE sg_id=333; /*권한 수정*/
 
@@ -152,6 +223,8 @@ FROM MEMBERSTUDY
 WHERE SG_ID = 336
 ;
 UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'id1';
+UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'id2';
+UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'id3';
 
 SELECT m.ID ,m.EMAIL, m.NAME, m.PIMG_URL, m.TAG , ms.ENSTATUS
 	FROM MEMBERSTUDY ms JOIN MEMBERS m ON ms.ID = m.ID 
@@ -276,7 +349,7 @@ INSERT INTO studygroup VALUES
 
 INSERT INTO studygroup VALUES
 (studygroup_seq.nextval, '임시데이터', '안녕하세요', 4, sysdate, '임시데이터','https://open.kakao.com/o/szYZxz5c');
-----------------------------------------------------------------------------------------------------------------------
+
 SELECT COUNT(*) FROM studygroup;
 SELECT sg_id,sg_name FROM studygroup ORDER by sg_id DESC;
 
@@ -296,6 +369,7 @@ SELECT * FROM (
 	WHERE RNUM >=1 AND RNUM < 3;
 /*studygroupfile은 관계 없앴다.*/
 /* Create Foreign Keys */
+
 
 ALTER TABLE comments
 	ADD FOREIGN KEY (ct_uid)

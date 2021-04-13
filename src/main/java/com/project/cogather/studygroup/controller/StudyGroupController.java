@@ -97,8 +97,8 @@ public class StudyGroupController {
 			return "group/studywrite";
 		}
 		@RequestMapping(value="/studywriteOk")
-		public String studywriteOk(MultipartHttpServletRequest mpRequest,Model model) throws Exception {
-			
+		public String studywriteOk(StudyGroupDTO dto,MultipartHttpServletRequest mpRequest,Model model) throws Exception {
+
 			//1.상대경로 바꾸기 2.물리적인 파일 같이 삭제하기  
 			//첨부파일 썸네일 하나의 함수로 
 			//memberstudy captain 자격으로  
@@ -194,8 +194,6 @@ public class StudyGroupController {
 	// 스터디 룸으로 들어온 상태
 	@RequestMapping("/studyroom")
 	public String studyroom(int sg_id, String id ,Model model) {
-		model.addAttribute("studyMemberList", memberStudyService.select(sg_id));
-		model.addAttribute("studyMemberdetails", memberStudyService.selectMembersBySGId(sg_id));
 		model.addAttribute("studyGroupBYSGID", studygroupservice.selectByUid(sg_id));
 		model.addAttribute("sg_id", sg_id);
 		model.addAttribute("id", id);

@@ -6,5 +6,15 @@
 	FROM members
 </select>
 
+<select id="selectMemberById" resultType="com.project.cogather.members.model.MembersDTO">
+	SELECT * from MEMBERS
+	WHERE ID = #{id} 
+</select>
+<select id="selectMemberByCtUid" resultType="com.project.cogather.members.model.MembersDTO">
+	SELECT * 
+	FROM MEMBERS
+	WHERE ID IN 
+		(SELECT ID FROM COMMENTS WHERE CT_UID = #{ct_uid})
+</select>
 
 </mapper>
