@@ -57,8 +57,8 @@
     	<th>예약번호</th>
     	<th>회원ID</th>
     	<th>좌석번호</th>
-    	<th>시작날짜</th>
-    	<th>종료날짜</th>
+    	<th>시작시간</th>
+    	<th>종료시간</th>
     	<th>결제방법</th>
     	<th>예약취소</th>
     	</tr>
@@ -72,8 +72,8 @@
     		<td>${dto.res_id }</td>
     		<td>${dto.ID} </td>
     		<td>${dto.seat_id} </td>
-    		<td>${dto.start_date} </td>
-    		<td>${dto.end_date} </td>
+    		<td>${dto.getStart_dateTime()} </td>
+    		<td>${dto.getEnd_dateTime()} </td>
     		<td>${dto.payment} </td>
     		<td><button class="w3-red w3-text-light-grey" onclick="chkDelete(${dto.res_id })">예약취소</button></td>
     		</tr>

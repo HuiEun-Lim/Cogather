@@ -9,6 +9,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,9 +32,10 @@ public class CafeController {
 	private CafeService cafeService;
 	String ID;
 	String seat_id;
-	String payment;
-	int price;
-	int total = 0;
+	LocalDateTime start_date;
+	LocalDateTime end_date;
+	long price;
+	long hours;
 	
 	@Autowired
 	public void setCafeService(CafeService cafeService) {
@@ -62,8 +66,6 @@ public class CafeController {
 	@RequestMapping("/kakaopay")
 	@ResponseBody
 	public String kakaopay() {
-		System.out.println("아이디는:" + ID + "| 좌석번호는" + price + "|결제방법은" + payment);
-
 		try {
 			URL addrs = new URL("https://kapi.kakao.com/v1/payment/ready");
 			HttpURLConnection conn = (HttpURLConnection) addrs.openConnection();
@@ -104,9 +106,12 @@ public class CafeController {
 		model.addAttribute("result", cafeService.write(dto));
 		ID = request.getParameter("ID");
 		seat_id = request.getParameter("seat_id");
-		payment = request.getParameter("payment");
-		price = cafeService.getprice(dto);
-		total += price;
+		start_date = dto.getStart_date();
+		end_date = dto.getEnd_date();
+		Duration duration = Duration.between(start_date, end_date);
+		hours = (duration.toMinutes()/60);
+		System.out.println(hours+"시간 걸림");
+		price = (cafeService.getprice(dto)) * hours;
 		return "cafe/rsvOk";
 	}
 	

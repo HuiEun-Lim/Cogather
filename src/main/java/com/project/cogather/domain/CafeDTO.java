@@ -77,7 +77,7 @@ public class CafeDTO {
 //  Date 를 String 으로 리턴하는 getter
 	public String getStart_dateTime() {
 		if(this.start_date == null) return "";
-		return this.start_date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh"));
+		return this.start_date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm"));
 	}
 
 	public LocalDateTime getEnd_date() {
@@ -91,7 +91,7 @@ public class CafeDTO {
 	
 	public String getEnd_dateTime() {
 		if(this.end_date == null) return "";
-		return this.end_date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
+		return this.end_date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm"));
 	}
 
 	public String getPayment() {

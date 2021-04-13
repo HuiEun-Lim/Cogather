@@ -32,3 +32,14 @@ img.logo {
 	margin-left: auto;
 	text-align: left;
 }
+
+.optitle {
+	font-size : 23px;
+	margin-top: 40px;
+}
+
+.optent {
+	font-size: 17px;
+	margin-right: 22px;
+	margin-bottom: 22px;
+}

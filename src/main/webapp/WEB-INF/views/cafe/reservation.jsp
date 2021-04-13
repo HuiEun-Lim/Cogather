@@ -56,31 +56,33 @@
 	<div id="wrap">
 		<div class="w3-padding-64" style="margin-top: 90px">
 			<h3>예약하기</h3>
-			<div class="w3-light-grey" style="height: 2px; margin-bottom: 70px">
+			<div class="w3-light-grey" style="height: 2px; margin-bottom: 50px">
 				<div style="width: 10%; height: 2px; background-color: #FDBF26"></div>
 			</div>
-			<h3>시설선택</h3>
+			<div class="optitle">시설선택</div><br>
 			<input type="radio" id="room" name="seats"
 				value="4000" onclick="checkroom()" required>
-				<label for="room">스터디룸</label>
+				<label for="room" class = "optent">스터디룸</label>
 			<input type="radio" id="private" name="seats" value="1600"
 				onclick="checkprivate()">
-				<label for="private">개인좌석</label>
+				<label for="private" class = "optent">개인좌석</label>
 			<form name="frm" action="rsvOk.do" method="post"
 				onsubmit="return chkSubmit()">
 				<div id="pickSeat">
 				</div>
-				<br>
-				<br> <input type="text" id="ID" name="ID" value="t1">
+				<br><br>
+				<span id = "chkseatagain"></span>
+				<br>선택하신 좌석은 예약후에는 변경하실 수 없습니다. 
+				<br><input type="text" id="ID" name="ID" value="t1">
 				<input type="text" id="seat_id" name="seat_id" style="visibility : hidden" required>
 
-				<h4>날짜선택</h4>
-				<label>시작 날짜</label> <input type="datetime-local" id="startdate"
-					name="startdate" required>
-				<label>종료 날짜</label> <input
+				<div class="optitle">날짜선택</div><br>
+				<label class = "optent">시작 날짜</label> <input type="datetime-local" id="startdate"
+					name="startdate" required><br>
+				<label class = "optent">종료 날짜</label> <input
 					type="datetime-local" id="enddate" name="enddate" required>
-				<h4>결제방법선택</h4>
-				<input type="text" id="payment" name="payment" value="카카오페이">
+				<div class="optitle">결제방법선택</div><br>
+				<input type="text" id="kakaopay" name="payment" value="카카오페이" readonly><br><br>
 				<input type="submit" value="예약하기">
 			</form>
 		</div>
@@ -125,9 +127,9 @@ window.onscroll = function() {myFunction()};
 function myFunction() {
     var navbar = document.getElementById("myNavbar");
     if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        navbar.className = "w3-bar" + " w3-card-2" + " w3-animate-top" + " w3-black" + " w3-hover-light-gray";
+        navbar.className = "w3-bar" + " w3-card-2" + " w3-white";
     } else {
-        navbar.className = navbar.className.replace(" w3-card-2 w3-animate-top w3-black w3-hover-light-gray", "");
+        navbar.className = navbar.className.replace(" w3-card-2 w3-animate-top w3-white w3-hover-border-bottom w3-border-amber", "");
     }
 }
 

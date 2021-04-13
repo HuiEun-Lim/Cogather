@@ -2,7 +2,7 @@ function checkroom() {
             if (document.getElementById('room').checked) {
                 document.getElementById('pickSeat').innerHTML = "<table class='w3-table-all w3-centered'><tr class=" + "test-td" + "><td id=" +
                     "room01" + " >room01</td>" +
-                    "<td id=" + "room02" + ">room02</td><td id=" + " room03" + ">room03</td><td id=" + "room04" +
+                    "<td id= 'room02'>room02</td><td id=" + " room03" + ">room03</td><td id=" + "room04" +
                     " >room04</td></tr><tr><td colspan=" + "4" + ">통로</td>" +
                     "</tr><tr class=" + "test-td" + "><td id=" + "room05" + " >room05</td><td id=" + "room06" + ">room06</td><td id=" +
                     " room07" + ">room07</td><td id=" + "room08" + ">room08</td></tr></table>";
@@ -42,6 +42,7 @@ function checkroom() {
                	$(".test-td td").not(tselect).css('color','black');
                 document.getElementById(tselect).style.color = 'red';
                 document.getElementById("seat_id").value = tselect;
+                document.getElementById('chkseatagain').innerHTML = "선택하신 좌석은 <b>" + tselect + "</b> 입니다";
             })
             
 
