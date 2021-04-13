@@ -36,4 +36,5 @@ public class CafeService {
 		result = dao.authinsert(dto);
 		return result;
 	}
+	
 }

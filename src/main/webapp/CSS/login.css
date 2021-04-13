@@ -39,3 +39,8 @@ input {
 	text-decoration:none;
 	font-weight:bold;
 }
+
+.required:after {
+	content:" *";
+    color: red;
+}

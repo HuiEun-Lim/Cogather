@@ -63,6 +63,7 @@ CREATE TABLE members
 	email varchar2(40),/*이메일*/
 	pimg_url varchar2(30),/*프로필 이미지*/
 	tag varchar2(50),/*관심주제*/
+	enabled char(1) DEFAULT 1,
 	PRIMARY KEY (ID)
 );
 

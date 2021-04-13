@@ -34,7 +34,7 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
 		
 		// 만약 일반 회원 (ROLE_MEMBER) 라면 로그인 후 곧바로 /sample/member 로 이동
 		if(roleNames.contains("ROLE_USER")) {
-			response.sendRedirect(request.getContextPath() + "/home");
+			response.sendRedirect(request.getContextPath() + "/studycafe/main");
 			return;
 		}
 		

@@ -21,6 +21,8 @@
 		VALUES
 			('ROLE_USER', (SELECT m.id FROM MEMBERS m WHERE m.id = #{id}))
 	</insert>
+	
+	
 
 
 
