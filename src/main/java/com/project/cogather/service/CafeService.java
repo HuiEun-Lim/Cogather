@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.cogather.domain.CafeDTO;
-import com.project.cogather.domain.TestDAO;
+import com.project.cogather.domain.CafeDAO;
 
 // Service 단.
 //   JSP MVC model2 의 Command 역할 비슷
@@ -21,9 +21,9 @@ import com.project.cogather.domain.TestDAO;
 @Service
 public class CafeService {
 
-	TestDAO dao;
+	CafeDAO dao;
 //	@Autowired
-//	public void setDao(TestDAO dao) {
+//	public void setDao(CafeDAO dao) {
 //		this.dao = dao;
 //	}
 	
@@ -43,17 +43,17 @@ public class CafeService {
 	
 	public List<CafeDTO> list(){
 		// MyBatis 가 만들어준 DAO
-		dao = sqlSession.getMapper(TestDAO.class);
+		dao = sqlSession.getMapper(CafeDAO.class);
 		return dao.select();
 	}
 	
 	public List<CafeDTO> selectDate(String seat_id){
-		dao = sqlSession.getMapper(TestDAO.class);
+		dao = sqlSession.getMapper(CafeDAO.class);
 		return dao.selectDate(seat_id);
 	}
 	
 	public int write(CafeDTO dto) {
-		dao = sqlSession.getMapper(TestDAO.class);
+		dao = sqlSession.getMapper(CafeDAO.class);
 		//return dao.insert(dto);
 		
 		int result = dao.insert(dto);
@@ -70,28 +70,28 @@ public class CafeService {
 //		//  1. 조회수 증가    :   incViewCnt()
 //		//  2. 글 하나 읽어오기 :  selectByUid()
 //		
-//		dao = sqlSession.getMapper(TestDAO.class); // MyBatis 사용
+//		dao = sqlSession.getMapper(CafeDAO.class); // MyBatis 사용
 //		return dao.selectByUid(uid);
 //	}
 //	
 //	public List<CafeDTO> selectByUid(int uid) {
-//		dao = sqlSession.getMapper(TestDAO.class); // MyBatis 사용
+//		dao = sqlSession.getMapper(CafeDAO.class); // MyBatis 사용
 //		return dao.selectByUid(uid);  // 1개짜리 List
 //	}
 //	
 //	public int update(CafeDTO dto) {
-//		dao = sqlSession.getMapper(TestDAO.class); // MyBatis 사용
+//		dao = sqlSession.getMapper(CafeDAO.class); // MyBatis 사용
 //		//return dao.update(dto);
 //		return dao.update(dto.getUid(), dto);
 //	}
 	
 	public int deleteByUid(int uid) {
-		dao = sqlSession.getMapper(TestDAO.class); // MyBatis 사용
+		dao = sqlSession.getMapper(CafeDAO.class); // MyBatis 사용
 		return dao.deleteByUid(uid);				
 	}
 	@Transactional
 	public int getprice(CafeDTO dto) {
-		dao = sqlSession.getMapper(TestDAO.class);
+		dao = sqlSession.getMapper(CafeDAO.class);
 		return dao.getprice(dto.getSeat_id(),dto);
 	}
 }

@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
-public interface TestDAO {
+public interface CafeDAO {
 	//전체 예약내역 SELECT
 	List<CafeDTO> select();
 	

@@ -63,16 +63,6 @@ function chkSubmit(){
 			var resdate2 = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));
 			alert("예약허쉴");
 			alert(resdate2);
-			if((data['chkdates'][i].start_date).getTime() - startd.getTime() <= 0 &&(data['chkdates'][i].end_date).getTime() - startd.getTime() >= 0){ // 시작 날짜가 같거나 이후다
-				temp = seatdates['chkdates'][i].start_date - startd;
-				alert(temp);
-				return false;
-			}
-		
-			else if((data['chkdates'][i].start_date).getTime() - endd.getTime() <= 0 && (data['chkdates'][i].end_date).getTime() - endd.getTime() >= 0){
-				alert("이미 예약된 자리입니다.");
-				return false;
-			}
 		}
 	}
 	
