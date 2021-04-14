@@ -34,6 +34,10 @@
 		SELECT seat_price FROM seats WHERE seat_id = #{param1}
 	</select>
 	
+	<select id="selectDate" resultType = "com.project.cogather.domain.CafeDTO">
+		SELECT seat_id, start_date, end_date FROM reservation WHERE seat_id = #{seat_id}
+	</select>
+	
 	<select id="searchBySubject"
 		resultType="com.project.cogather.domain.CafeDTO">
 	</select>

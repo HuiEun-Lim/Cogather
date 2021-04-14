@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
 public interface TestDAO {
@@ -20,4 +21,6 @@ public interface TestDAO {
 	CafeDTO searchBySubject(String seat_id);
 	
 	int getprice(String seat_id, CafeDTO dto);
+	
+	List<CafeDTO> selectDate(@Param("seat_id") String seat_id);
 } //end DAO

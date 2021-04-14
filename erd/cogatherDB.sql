@@ -103,7 +103,6 @@ CREATE TABLE reservation
 
 SELECT * FROM reservation;
 
-
 /*좌석*/
 CREATE TABLE seats
 (

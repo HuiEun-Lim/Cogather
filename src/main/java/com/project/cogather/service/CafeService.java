@@ -47,6 +47,11 @@ public class CafeService {
 		return dao.select();
 	}
 	
+	public List<CafeDTO> selectDate(String seat_id){
+		dao = sqlSession.getMapper(TestDAO.class);
+		return dao.selectDate(seat_id);
+	}
+	
 	public int write(CafeDTO dto) {
 		dao = sqlSession.getMapper(TestDAO.class);
 		//return dao.insert(dto);

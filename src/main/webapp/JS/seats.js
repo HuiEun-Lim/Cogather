@@ -43,7 +43,10 @@ function checkroom() {
                 document.getElementById(tselect).style.color = 'red';
                 document.getElementById("seat_id").value = tselect;
                 document.getElementById('chkseatagain').innerHTML = "선택하신 좌석은 <b>" + tselect + "</b> 입니다";
+  				getDates(tselect);
+				printRsv();             
             })
             
 
         }
+		

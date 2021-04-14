@@ -18,7 +18,7 @@
 	<div class="w3-top w3-border-bottom w3-border-light-gray">
 	    <div class="w3-bar" id="myNavbar">
 		    <div class="choice">
-		      <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+		      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
 		        <i class="fa fa-bars"></i>
 		      </a>
 		     </div>
@@ -30,7 +30,7 @@
 		      <a href="info" class="w3-bar-item w3-button w3-hide-small w3-border-bottom w3-border-amber">시설소개</a>
 		      <a href="reservation" class="w3-bar-item w3-button w3-hide-small">예약하기</a>
 		      <a href="map" class="w3-bar-item w3-button w3-hide-small">오시는 길</a>
-		      <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
+		      <a href="login" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
 		   </div>
 	    </div>	  
 	    <!-- Navbar on small screens -->
@@ -38,7 +38,7 @@
 	      <a href="info" class="w3-bar-item w3-button" onclick="toggleFunction()">시설소개</a>
 	      <a href="reservation" class="w3-bar-item w3-button" onclick="toggleFunction()">예약하기</a>
 	      <a href="map" class="w3-bar-item w3-button" onclick="toggleFunction()">오시는 길</a>
-	      <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
+	      <a href="login" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
 	    </div>
     </div>
     
@@ -58,11 +58,11 @@
             </thead>
             <tr>
               <td>스터디룸</td>
-              <td>2000원</td>
+              <td>4000원</td>
             </tr>
             <tr>
               <td>1인좌석</td>
-              <td>1100원</td>
+              <td>1600원</td>
             </tr>
           </table>
         </div>
@@ -136,9 +136,9 @@
 	function myFunction() {
 	    var navbar = document.getElementById("myNavbar");
 	    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-	        navbar.className = "w3-bar" + " w3-card-2" + " w3-animate-top" + " w3-black" + " w3-hover-light-gray";
+	        navbar.className = "w3-bar" + " w3-card-2" + " w3-white";
 	    } else {
-	        navbar.className = navbar.className.replace(" w3-card-2 w3-animate-top w3-black w3-hover-light-gray", "");
+	        navbar.className = navbar.className.replace(" w3-card-2 w3-animate-top w3-white w3-hover-border-bottom w3-border-amber", "");
 	    }
 	}
 

@@ -19,7 +19,66 @@
 <script type="text/javascript" src="/cogather/JS/seats.js"></script>
 <title>예약하기</title>
 </head>
+<script>
 
+var seatdates;
+function chkSubmit(){
+	frm = document.forms['frm'];
+	
+	var seatid = frm['seat_id'].value.trim();
+	var startd = new Date(frm['startdate'].value.trim());
+	var endd = new Date(frm['enddate'].value.trim());
+	var diffTime = (endd.getTime() - startd.getTime())/(1000 * 60*60);
+		
+	if(seatid == ""){
+		alert("좌석을 반드시 선택해야합니다.");
+		return false;
+		
+	}
+	
+	if(diffTime < 1 || diffTime > 72){
+		alert("시간 확인하세요");
+		return false;
+	}
+	chkdates();
+	
+	function chkdates(){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/studycafe/dateResult?seat_id="+seatid,
+			type: "GET",
+			cache: false,
+			success: function(data, status){
+				if(status == "success"){
+					if(data.status == "success"){
+						seatdates = data;
+						chkrsvdate(data)
+					}
+				}
+			}
+		})
+	}
+	function chkrsvdate(data){
+		for(var i=0; i<data['chkdates'].length;i++){
+			var resdate = (data['chkdates'][i].start_date).split(/[- :]/);
+			var resdate2 = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));
+			alert("예약허쉴");
+			alert(resdate2);
+			if((data['chkdates'][i].start_date).getTime() - startd.getTime() <= 0 &&(data['chkdates'][i].end_date).getTime() - startd.getTime() >= 0){ // 시작 날짜가 같거나 이후다
+				temp = seatdates['chkdates'][i].start_date - startd;
+				alert(temp);
+				return false;
+			}
+		
+			else if((data['chkdates'][i].start_date).getTime() - endd.getTime() <= 0 && (data['chkdates'][i].end_date).getTime() - endd.getTime() >= 0){
+				alert("이미 예약된 자리입니다.");
+				return false;
+			}
+		}
+	}
+	
+	
+}
+</script>
 <body>
 	<!-- Navbar (sit on top) -->
 	<div class="w3-top w3-border-bottom w3-border-light-gray">
@@ -77,14 +136,30 @@
 				<input type="text" id="seat_id" name="seat_id" style="visibility : hidden" required>
 
 				<div class="optitle">날짜선택</div><br>
-				<label class = "optent">시작 날짜</label> <input type="datetime-local" id="startdate"
-					name="startdate" required><br>
+				<label class = "optent">시작 날짜</label>
+				<input type="datetime-local" id="startdate"	name="startdate" required><br>
 				<label class = "optent">종료 날짜</label> <input
 					type="datetime-local" id="enddate" name="enddate" required>
 				<div class="optitle">결제방법선택</div><br>
 				<input type="text" id="kakaopay" name="payment" value="카카오페이" readonly><br><br>
 				<input type="submit" value="예약하기">
 			</form>
+			
+			<div id="chkdates">
+			<table>
+				<thead>
+				<tr>
+				<th>시설번호</th>
+				<th>예약시작</th>
+				<th>예약종료</th>
+				</tr>
+				</thead>
+				<tbody>
+				
+				</tbody>
+							
+			</table>
+			</div>
 		</div>
 
 
@@ -143,8 +218,33 @@ function toggleFunction() {
     }
 }
 
-	
+function getDates(seat_id){
+
+	$.ajax({
+		url:"${pageContext.request.contextPath}/studycafe/dateResult?seat_id="+seat_id,
+		type: "GET",
+		cache: false,
+		success: function(data, status){
+			if(status == "success"){
+				if(data.status == "success"){
+					seatdates = data;
+					printRsv(data);
+				}
+			}
+		}
+	})
+}
+
+function printRsv(data){
+	var result = "";
+	for(var i=0; i<data['chkdates'].length;i++){
+		result += "<tr><td>"+data['chkdates'][i].seat_id+"</td><td>"+data['chkdates'][i].start_date+"</td><td>"+data['chkdates'][i].end_date+"</td></tr>";
+	}
+	$('#chkdates tbody').html(result);
+}
+
 
 </script>
+
 </body>
 </html>

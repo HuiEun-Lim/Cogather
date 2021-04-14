@@ -2,15 +2,24 @@ package com.project.cogather.domain;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 public class CafeDTO {
 	private int res_id; // 예약번호 res_id : number
 	private String ID;  // 예약한 회원 ID, ID:String
 	private String seat_id;    // 예약한 시설번호 seat_id : String
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+   @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
 	private LocalDateTime start_date; //예약 시작날짜
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+   @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
 	private LocalDateTime end_date;
 	private String payment; //결제 방법
 	private int seat_price;
