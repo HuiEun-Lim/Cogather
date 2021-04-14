@@ -26,6 +26,7 @@
     	<img src="../img/logo_cut.png" class="logo"  >
     </a>
     <div class="choice">
+<<<<<<< HEAD
     <a href="#home" class="w3-bar-item w3-button">HOME</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small">시설소개</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small">예약하기</a>
@@ -45,15 +46,29 @@
                     <div id="user_id">안녕하세요. ${user_id }님</div>
     	</form>
    	</sec:authorize>
+=======
+    <a href="main" class="w3-bar-item w3-button">HOME</a>
+    <a href="info" class="w3-bar-item w3-button w3-hide-small">시설소개</a>
+    <a href="reservation" class="w3-bar-item w3-button w3-hide-small">예약하기</a>
+    <a href="map" class="w3-bar-item w3-button w3-hide-small">오시는 길</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
+>>>>>>> origin/cafersv
   </div>
   </div>
 
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+<<<<<<< HEAD
     <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">시설소개</a>
     <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">예약하기</a>
     <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">오시는 길</a>
     <a href="../login" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
+=======
+    <a href="info" class="w3-bar-item w3-button" onclick="toggleFunction()">시설소개</a>
+    <a href="reservation" class="w3-bar-item w3-button" onclick="toggleFunction()">예약하기</a>
+        <a href="map" class="w3-bar-item w3-button" onclick="toggleFunction()">오시는 길</a>
+    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
+>>>>>>> origin/cafersv
   </div>
 </div>
 

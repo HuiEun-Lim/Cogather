@@ -10,6 +10,14 @@ DROP TABLE members CASCADE CONSTRAINTS;
 DROP TABLE seats CASCADE CONSTRAINTS;
 DROP TABLE studygroup CASCADE CONSTRAINTS;
 
+<<<<<<< HEAD
+=======
+DROP SEQUENCE authority_seq;
+DROP SEQUENCE comments_seq;
+DROP SEQUENCE content_seq;
+DROP SEQUENCE reservation_seq;
+DROP SEQUENCE studygroup_seq;
+>>>>>>> origin/cafersv
 
 CREATE SEQUENCE comments_seq;
 CREATE SEQUENCE content_seq;
@@ -67,6 +75,11 @@ CREATE TABLE members
 	PRIMARY KEY (ID)
 );
 
+INSERT INTO members
+(ID, name, pw, phone, email) 
+VALUES 
+('t1', 'test', '123', '01012341234', 'a@gmail.com');
+
 SELECT * FROM members;
 
 /*개인 스터디 관리*/
@@ -104,7 +117,13 @@ CREATE TABLE seats
 	PRIMARY KEY (seat_id)
 );
 
-SELECT * FROM  seats;
+INSERT INTO seats
+(seat_id, SEAT_PRICE) 
+VALUES 
+('room08',4000);
+
+
+SELECT * FROM seats;
 
 /*스터디 그룹*/
 CREATE TABLE studygroup
