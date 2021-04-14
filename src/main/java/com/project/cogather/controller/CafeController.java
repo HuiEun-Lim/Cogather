@@ -1,7 +1,5 @@
 package com.project.cogather.controller;
 
-<<<<<<< HEAD
-=======
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -17,7 +15,6 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
->>>>>>> origin/cafersv
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,23 +33,22 @@ import com.project.cogather.service.UserService;
 public class CafeController {
 	
 	private CafeService cafeService;
-<<<<<<< HEAD
 	private UserService userService;
-=======
+	
 	String ID;
 	String seat_id;
 	LocalDateTime start_date;
 	LocalDateTime end_date;
 	long price;
 	long hours;
->>>>>>> origin/cafersv
+
 	
 	@Autowired
 	public void setCafeService(CafeService cafeService) {
 		this.cafeService = cafeService;
 	}
 	
-<<<<<<< HEAD
+
 	@Autowired
 	public void setUserService(UserService userService) {
 		this.userService = userService;
@@ -63,18 +59,14 @@ public class CafeController {
 		System.out.println("CafeController() 생성");
 	}
 	
-=======
->>>>>>> origin/cafersv
+
 	@RequestMapping("/main")
 	public String studymain(Model model) {
 		return "cafe/main";
 	}
-<<<<<<< HEAD
 
-	
-	
 
-=======
+
 	
 	@RequestMapping("/info")
 	public String studyinfo(Model model) {
@@ -149,16 +141,11 @@ public class CafeController {
 		model.addAttribute("list", cafeService.list());
 		return "cafe/adminrsv";
 	}
-	
-//	@RequestMapping("/test")
-//	public String test(Model model) {
-//		return "cafe/test";
-//	}
+
 	
 	@GetMapping("/deleteOk.do")
 	public String deleteOk(int res_id, Model model) {
 		model.addAttribute("result", cafeService.deleteByUid(res_id));
 		return "cafe/deleteOk";
 	}
->>>>>>> origin/cafersv
 }
