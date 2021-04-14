@@ -12,7 +12,7 @@
 	<c:otherwise>
 		<script>
 			alert("가입성공! \n코게더의 가족이 되신 걸 환영합니다~!");
-			location.href = "main";
+			location.href = "${pageContext.request.contextPath}/studycafe/main";
 		</script>
 	</c:otherwise>
 </c:choose>

@@ -7,12 +7,5 @@ import java.util.List;
 
 //@MapperScan
 public interface CafeDAO {
-	// 전체 SELECT
-	List<CafeMemberDTO> select();
 	
-	int minsert(CafeMemberDTO dto);
-	int minsert(String id, String pw, String name, String phone, String email);
-	
-	int authinsert(CafeMemberDTO dto);
-	int authinsert(String auth, CafeMemberDTO dto);
 }

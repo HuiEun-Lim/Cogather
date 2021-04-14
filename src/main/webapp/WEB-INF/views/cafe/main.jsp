@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page session="false" %>
 <%@ taglib  prefix="spring" uri="http://www.springframework.org/tags" %>   
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
@@ -29,12 +30,21 @@
     <a href="#" class="w3-bar-item w3-button w3-hide-small">시설소개</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small">예약하기</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small">오시는 길</a>
-    <c:if test="${member == null}">
-    	<a href="login" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
-    </c:if>
-    <c:if test="${member != null}">
-    	<a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그아웃</a>
-    </c:if>
+    <sec:authorize access="isAnonymous()">
+    	<a href="../login" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
+    </sec:authorize>
+    <sec:authorize access="isAuthenticated()">
+    	<form action="${pageContext.request.contextPath}/logout" method='post'>
+		<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
+		<button class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그아웃</button>
+    	<a href="cafemypage?id=${user_id }" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">마이페이지</a>
+    	<sec:authorize access="hasRole('ROLE_ADMIN')">
+    	<a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">관리자페이지</a>
+		</sec:authorize>
+		<sec:authentication property="principal.username" var="user_id" />
+                    <div id="user_id">안녕하세요. ${user_id }님</div>
+    	</form>
+   	</sec:authorize>
   </div>
   </div>
 
@@ -43,7 +53,7 @@
     <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">시설소개</a>
     <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">예약하기</a>
     <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">오시는 길</a>
-    <a href="login" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
+    <a href="../login" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
   </div>
 </div>
 

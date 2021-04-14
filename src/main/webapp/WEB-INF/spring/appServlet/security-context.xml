@@ -28,7 +28,7 @@
 		 <security:access-denied-handler ref="userAccessDenied"/>
 		
 		<!-- 로그아웃, 아래 url 로 POST requeszt 하면 로그아웃 처리된다. -->
-		<security:logout logout-url="/userLogout" invalidate-session="true"/>
+		<security:logout logout-url="/logout" invalidate-session="true"/>
 		
 	</security:http>
 	

@@ -80,6 +80,8 @@ function chkSubmit(){
 <input type="text" name="phone"/><br><br>
 <h5>e-mail</h5>
 <input type="text" name="email"/><br><br>
+<h5>관심태그</h5>
+<input type="text" name="tag"/><br><br>
 <br>
 <input type="submit" class="btn" value="가입하기" />
 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>

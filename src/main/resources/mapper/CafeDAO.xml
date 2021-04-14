@@ -4,29 +4,5 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.cogather.domain.CafeDAO">
 
-	<insert id="minsert" flushCache="true"
-		parameterType="com.project.cogather.domain.CafeMemberDTO"
-		keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-		INSERT INTO members
-			(id, name, pw, phone, email)
-		VALUES
-			(#{id}, #{name}, #{pw}, #{phone}, #{email})
-	</insert>
-	
-	<insert id="authinsert" flushCache="true"
-		parameterType="com.project.cogather.domain.CafeMemberDTO"
-		keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-		INSERT INTO authority
-			(auth, id)
-		VALUES
-			('ROLE_USER', (SELECT m.id FROM MEMBERS m WHERE m.id = #{id}))
-	</insert>
-	
-	
-
-
-
-
-
 
 </mapper>

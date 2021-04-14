@@ -1,6 +1,6 @@
 package com.project.cogather.domain;
 
-public class CafeMemberDTO {
+public class UserDTO {
 	private String id;
 	private String pw;
 	private String name;
@@ -8,9 +8,9 @@ public class CafeMemberDTO {
 	private String email;
 	private String auth;
 	
-	public CafeMemberDTO() { super(); }
+	public UserDTO() { super(); }
 	
-	public CafeMemberDTO(String id, String pw, String name, String phone, String email, String auth) {
+	public UserDTO(String id, String pw, String name, String phone, String email, String auth) {
 		super();
 		this.id = id;
 		this.pw = pw;
@@ -67,11 +67,5 @@ public class CafeMemberDTO {
 	public void setAuth(String auth) {
 		this.auth = auth;
 	}
-	
-	
-	
-	
-	
-	
 	
 }
