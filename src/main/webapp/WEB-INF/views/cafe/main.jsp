@@ -26,11 +26,10 @@
     	<img src="../img/logo_cut.png" class="logo"  >
     </a>
     <div class="choice">
-<<<<<<< HEAD
-    <a href="#home" class="w3-bar-item w3-button">HOME</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small">시설소개</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small">예약하기</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small">오시는 길</a>
+    <a href="#home" class="w3-bar-item w3-button w3-hide-small">HOME</a>
+    <a href="info" class="w3-bar-item w3-button w3-hide-small">시설소개</a>
+    <a href="reservation" class="w3-bar-item w3-button w3-hide-small">예약하기</a>
+    <a href="map" class="w3-bar-item w3-button w3-hide-small">오시는 길</a>
     <sec:authorize access="isAnonymous()">
     	<a href="../login" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
     </sec:authorize>
@@ -40,35 +39,34 @@
 		<button class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그아웃</button>
     	<a href="cafemypage?id=${user_id }" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">마이페이지</a>
     	<sec:authorize access="hasRole('ROLE_ADMIN')">
-    	<a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">관리자페이지</a>
+    	<a href="adminrsv" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">관리자페이지</a>
 		</sec:authorize>
 		<sec:authentication property="principal.username" var="user_id" />
-                    <div id="user_id">안녕하세요. ${user_id }님</div>
+        	<div id="user_id" class="w3-bar-item w3-right">안녕하세요. ${user_id }님</div>
     	</form>
    	</sec:authorize>
-=======
-    <a href="main" class="w3-bar-item w3-button">HOME</a>
-    <a href="info" class="w3-bar-item w3-button w3-hide-small">시설소개</a>
-    <a href="reservation" class="w3-bar-item w3-button w3-hide-small">예약하기</a>
-    <a href="map" class="w3-bar-item w3-button w3-hide-small">오시는 길</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
->>>>>>> origin/cafersv
   </div>
   </div>
 
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
-<<<<<<< HEAD
-    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">시설소개</a>
-    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">예약하기</a>
-    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">오시는 길</a>
-    <a href="../login" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
-=======
+  <a href="main" class="w3-bar-item w3-button" onclick="toggleFunction()">HOME</a>
     <a href="info" class="w3-bar-item w3-button" onclick="toggleFunction()">시설소개</a>
     <a href="reservation" class="w3-bar-item w3-button" onclick="toggleFunction()">예약하기</a>
-        <a href="map" class="w3-bar-item w3-button" onclick="toggleFunction()">오시는 길</a>
-    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
->>>>>>> origin/cafersv
+    <a href="map" class="w3-bar-item w3-button" onclick="toggleFunction()">오시는 길</a>
+    <sec:authorize access="isAnonymous()">
+    <a href="../login" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
+    </sec:authorize>
+    <sec:authorize access="isAuthenticated()">
+    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">마이페이지</a>
+    <form action="${pageContext.request.contextPath}/logout" method='post'>
+		<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
+		<button class="w3-bar-item w3-button" onclick="toggleFunction()">로그아웃</button>
+    </form>
+    </sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
+    <a href="adminrsv" class="w3-bar-item w3-button" onclick="toggleFunction()">관리자페이지</a>
+	</sec:authorize>
   </div>
 </div>
 

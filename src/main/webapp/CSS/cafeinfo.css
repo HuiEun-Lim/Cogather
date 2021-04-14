@@ -3,6 +3,23 @@
 	src:url("/cogather/CSS/a시네마L.ttf")format("truetype");
 }
 
+@font-face {
+	font-family: "NanumBarunpenB";
+	src:url("../CSS/NanumBarunpenB.ttf")format("truetype");
+}
+
+#myNavbar {
+	color: white;
+	font-size:20px;
+	font-family:NanumBarunpenB;
+}
+
+.user_id {
+	color: white;
+	font-size:20px;
+	font-family:NanumBarunpenB;
+}
+
 
 #myNavbar{
 	color: #595959;
