@@ -55,6 +55,7 @@ public class StudyGroupService {
 	public int write(MultipartHttpServletRequest mpRequest) throws Exception {
 		dao = sqlSession.getMapper(StudyGroupDAO.class);
 		StudyGroupDTO dto = new StudyGroupDTO();
+		StudyGroupFileDTO fdto = new StudyGroupFileDTO();
 		String file_name=null;
 
 //		MultipartFile uploadFile = dto.getUploadFile(); // 형꺼
@@ -107,18 +108,19 @@ public class StudyGroupService {
 		int size = list.size();
 
 		int sg_id = dto.getSg_id();
-
+		int sgf_id = fdto.getSgf_id();
 		System.out.println("고유번호:  " + sg_id);
-
+		System.out.println("파일고유번호:  " + sgf_id);
 		sgf_org_file_name = fileUtils.getSgf_org_file_name();
 		sgf_stored_file_name = fileUtils.getSgf_stored_file_name();
 		sgf_file_size = fileUtils.getSgf_file_size();
+		
 		// fdto = new
 		// StudyGroupFileDTO(sgf_org_file_name,sgf_stored_file_name,sgf_file_size,sg_id);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(sgf_org_file_name, "sgf_org_file_name");
 		map.put(sgf_stored_file_name, "sgf_stored_file_name");
-
+	
 		System.out.println("map 파일 다운로드 확인" + map.toString());
 		selectFileInfo(map);
 		System.out.println("StudyGroup:  " + list.get(0));
@@ -174,7 +176,7 @@ public class StudyGroupService {
 	}
 
 	
-	public int update(StudyGroupDTO dto,MultipartHttpServletRequest mpRequest) throws IllegalStateException, IOException {
+	public int update(StudyGroupDTO dto,MultipartHttpServletRequest mpRequest) throws Exception {
 		dao = sqlSession.getMapper(StudyGroupDAO.class);
 		MultipartFile uploadFile = mpRequest.getFile("uploadFile"); // 정희꺼
 		String file_name=null;
@@ -188,6 +190,43 @@ public class StudyGroupService {
 		}
 		
 		dto.setFile_name(file_name);
+		
+		//첨부파일 업로드 
+				List<Map<String,Object>> list =  fileUtils.parseInsertFileInfo(dto, mpRequest); 
+
+				String sgf_org_file_name = null;
+				String sgf_stored_file_name = null;
+				int sgf_file_size;
+				// 진행중
+				int size = list.size();
+
+				int sg_id = dto.getSg_id();
+
+				System.out.println("고유번호:  " + sg_id);
+
+				sgf_org_file_name = fileUtils.getSgf_org_file_name();
+				sgf_stored_file_name = fileUtils.getSgf_stored_file_name();
+				sgf_file_size = fileUtils.getSgf_file_size();
+				// fdto = new
+				// StudyGroupFileDTO(sgf_org_file_name,sgf_stored_file_name,sgf_file_size,sg_id);
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put(sgf_org_file_name, "sgf_org_file_name");
+				map.put(sgf_stored_file_name, "sgf_stored_file_name");
+
+				System.out.println("map 파일 다운로드 확인" + map.toString());
+				selectFileInfo(map);
+				System.out.println("StudyGroup:  " + list.get(0));
+//				for(int i=0;i<size-1;i++) {
+//					dao.insertFile(list.get(i));
+//				}
+				// dao.insertFile(fdto);
+				int i = 1;
+				if (list.size() == 2) {
+					dao.insertFile(list.get(1));
+				} else {
+					System.out.println("파일없어요");
+				}
+
 		
 		return dao.update(dto.getSg_id(),dto);
 		

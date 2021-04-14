@@ -103,6 +103,7 @@ public class StudyGroupController {
 			//첨부파일 썸네일 하나의 함수로 
 			//memberstudy captain 자격으로  
 			model.addAttribute("result", studygroupservice.write(mpRequest));
+			
 		//	memberStudyService.createCaptain('id1')
 			
 			return "group/studywriteOk";
@@ -127,7 +128,7 @@ public class StudyGroupController {
 			return "group/studyupdate";
 		}
 		@PostMapping("/studyupdateOk")
-		public String updateOk(StudyGroupDTO dto,MultipartHttpServletRequest mpRequest,Model model) throws IllegalStateException, IOException {
+		public String updateOk(StudyGroupDTO dto,MultipartHttpServletRequest mpRequest,Model model) throws Exception {
 			model.addAttribute("result", studygroupservice.update(dto,mpRequest));
 			return "group/studyupdateOk";
 		}
@@ -138,8 +139,8 @@ public class StudyGroupController {
 			return "group/studydeleteOk";
 		}
 		@GetMapping("/studydeleteFileOk")
-		public String deleteFileOk(int sg_id,Model model) {
-			model.addAttribute("result", studygroupservice.deleteFileByUid(sg_id));
+		public String deleteFileOk(int sgf_id,Model model) {
+			model.addAttribute("result", studygroupservice.deleteFileByUid(sgf_id));
 			return "group/studydeleteOk";
 		}
 		

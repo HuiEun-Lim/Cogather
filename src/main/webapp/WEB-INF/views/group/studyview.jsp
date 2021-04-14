@@ -51,23 +51,39 @@ function chkDelete(sg_id){
 		location.href = 'studydeleteOk?sg_id=' + sg_id;
 	}
 } // chkDelete
-function chkDeleteFile(sg_id){
+function loadingPage(data){
+	$("#filelist").text("");
+}
+function chkDeleteFile(sgf_id){
 	// 삭제 여부, 다시 확인 하고 진행하기
-	var r = confirm("삭제하시겠습니까?");
+	/* var r = confirm("삭제하시겠습니까?");
 	
 	if(r){
 		location.href = 'studydeleteFileOk?sg_id=' + sg_id;
-	}
+	} */
+	
+	$.ajax({
+		url: "studydeleteFileOk?sgf_id=" + sgf_id,
+		type: "GET",
+		cache: false,
+		success: function(data, status) {
+			if (status == "success") {
+				alert("삭제 성공");
+				loadingPage(data);
+			}
+		}
+	});
 } // chkDelete
 
-function fn_fileDown(sg_id){
+function fn_fileDown(sgf_id){
 	var formObj = $("form[name='readForm']");
-	$("#SG_ID").attr("value", sg_id);
+	$("#SGF_ID").attr("value", sgf_id);
 	formObj.attr("action", "/cogather/group/fileDown");
 	formObj.submit();  
 //	location.href = '/cogather/group/fileDown';
 	
 }
+
 lightbox.option({
     resizeDuration: 200,
     wrapAround: true,
@@ -200,14 +216,17 @@ function accept(id){
 		<form name="readForm" role="form" method="post">
 		
 			<input type="hidden" id="SG_ID" name="SG_ID" value="">
+			<input type="hidden" id="SGF_ID" name="SGF_ID" value="">
 		
 		</form>
 		<div style="border: 1px solid #dbdbdb;">
 			
 			<c:forEach var="file" items="${files}">
-				<a href="#" onclick="fn_fileDown('${file.SG_ID}'); return false;">
-				${file.SGF_ORG_FILE_NAME}</a><br>
-				<button onclick="chkDeleteFile(${list[0].sg_id })">삭제하기</button>
+				<a href="#" onclick="fn_fileDown('${file.SGF_ID}'); return false;">
+				<div id ="filelist">
+				(${file.SGF_ID})${file.SGF_ORG_FILE_NAME}</a><br>
+				</div>
+				<button onclick="chkDeleteFile(${file.SGF_ID })">삭제하기</button>
 			</c:forEach>
 			
 		<%-- 	<a href="#" onclick="fn_fileDown('${file[0].sg_id}'); return false;">FF${file[0].sg_id}</a>${file[0].sgf_file_size}<br>

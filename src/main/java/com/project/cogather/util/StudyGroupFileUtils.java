@@ -65,6 +65,7 @@ public class StudyGroupFileUtils {
 			multipartFile = mpRequest.getFile(iterator.next());
 			
 			if(multipartFile.isEmpty() == false) {
+				
 				sgf_org_file_name = multipartFile.getOriginalFilename();
 				originalFileExtension = sgf_org_file_name.substring(sgf_org_file_name.lastIndexOf("."));
 				sgf_stored_file_name = getRandomString() + originalFileExtension;
@@ -82,9 +83,12 @@ public class StudyGroupFileUtils {
 				StudyGroupFileDTO fdto = new StudyGroupFileDTO(sgf_org_file_name,sgf_stored_file_name,sgf_file_size,sg_id);
 				fdto.getSgf_org_file_name();
 			//	StudyController scr = new StudyController(fdto.getSgf_org_file_name(),fdto.getSgf_stored_file_name());
-				System.out.println("util"+fdto.getSg_id());
+				System.out.println("util"+fdto.getSgf_id());
+				
+
 				fdto.getSgf_stored_file_name();
 			}
+			
 		}
 		return list;
 		

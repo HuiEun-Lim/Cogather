@@ -71,6 +71,12 @@
 	        x.className = x.className.replace(" w3-show", "");
 	    }
 	}
+	
+	$(document).keypress(function (event) {
+	    if (event.keyCode === 13) {
+	        $("#btnSearch").click();
+	    }
+	})
 </script>
 <br><br>
 
@@ -159,6 +165,8 @@
 			<div class="w300" style="padding-right:10px">
 
 				<input type="text" class="form-control form-control-sm" placeholder="스터디 주제 검색 또는 방번호 검색" name="keyword" id="keyword" style="border: 2px solid #ffd43b;margin:0 0 0 50px;width:30%;height:40px;">
+
+
 
 
 				<button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch" style="background:white;border:none;">

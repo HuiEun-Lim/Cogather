@@ -6,7 +6,7 @@ public class StudyGroupFileDTO {
 	String sgf_stored_file_name = null;
 	int sgf_file_size;
 	int sg_id;
-	
+	int sgf_id;
 	
 	public StudyGroupFileDTO() {
 		super();
@@ -77,6 +77,20 @@ public class StudyGroupFileDTO {
 	public void setSg_id(int sg_id) {
 		
 		this.sg_id = sg_id;
+	}
+
+
+
+
+	public int getSgf_id() {
+		return sgf_id;
+	}
+
+
+
+
+	public void setSgf_id(int sgf_id) {
+		this.sgf_id = sgf_id;
 	}
 
 

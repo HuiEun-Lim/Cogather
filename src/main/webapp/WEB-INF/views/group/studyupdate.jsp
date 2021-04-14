@@ -107,15 +107,45 @@ function chkSubmit(){
     reader.readAsDataURL(this.files[0]);
    }
   });
+  
+  function chkDeleteFile(sgf_id){
+		$.ajax({
+			url: "studydeleteFileOk?sgf_id=" + sgf_id,
+			type: "GET",
+			cache: false,
+			success: function(data, status) {
+				if (status == "success") {
+					alert("삭제 성공");
+					loadingPage(data);
+				}
+			}
+		});
+		
+	} // chkDelete
+	function loadingPage(data){
+		$("#filelist").text("");
+	}
  </script>
 카톡방 주소:&nbsp&nbsp
 <input type="text" name="kko_url" style="width:20%;height:30px;" value="${list[0].kko_url}"/><br><br>
 
-<%--  <c:forEach var="file" items="${files}">
-첨부파일:  <input type="file" name="file" value="${file.SGF_ORG_FILE_NAME}" >
-	${file.SGF_ORG_FILE_NAME}		
-</c:forEach> --%>
-	 
+
+<c:forEach var="file" items="${files}">
+</c:forEach> 
+첨부파일:  <input type="file" name="file" required>
+<div style="border: 1px solid #dbdbdb;">
+			
+			<c:forEach var="file" items="${files}">
+				<a href="#" onclick="fn_fileDown('${file.SG_ID}'); return false;">
+				<div id="filelist">
+				(${file.SGF_ID})${file.SGF_ORG_FILE_NAME}</a><br>
+				</div>
+				<button onclick="chkDeleteFile(${file.SGF_ID }); return false;">삭제및 수정</button>
+			</c:forEach>
+			
+		<%-- 	<a href="#" onclick="fn_fileDown('${file[0].sg_id}'); return false;">FF${file[0].sg_id}</a>${file[0].sgf_file_size}<br>
+		 --%>	
+		</div>
 <br><br>
 <input type="submit" value="수정" class="updatebutton"/>
 </form>
