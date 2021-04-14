@@ -1,20 +1,33 @@
 @font-face {
 	font-family: "a시네마L.ttf";
-	src:url("/cogather/CSS/a시네마L.ttf")format("truetype");
+	src:url("../CSS/a시네마L.ttf")format("truetype");
 }
+
+@font-face {
+	font-family: "NanumBarunpenB";
+	src:url("../CSS/NanumBarunpenB.ttf")format("truetype");
+}
+
 
 .bgimg {
 	
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url('/cogather/img/cafe/mainback.png');
+    background-image: url('../img/cafe/mainback.png');
     min-height: 370px;
 }
 
 #myNavbar{
 	color: white;
 	font-size:20px;
+	font-family:NanumBarunpenB;
+}
+
+.user_id {
+	color: white;
+	font-size:20px;
+	font-family:NanumBarunpenB;
 }
 
 img.logo{
@@ -41,6 +54,7 @@ img.logo{
     margin-left: auto;
     text-align: left;
 }
+
 
 .info {
 	color:#595959;

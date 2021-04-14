@@ -15,18 +15,17 @@ public class CafeDTO {
 	private String seat_id;    // 예약한 시설번호 seat_id : String
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
-   @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
 	private LocalDateTime start_date; //예약 시작날짜
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
-   @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
 	private LocalDateTime end_date;
 	private String payment; //결제 방법
 	private int seat_price;
 	
 	public CafeDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 

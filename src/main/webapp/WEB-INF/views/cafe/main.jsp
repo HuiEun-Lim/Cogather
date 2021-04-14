@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page session="false" %>
 <%@ taglib  prefix="spring" uri="http://www.springframework.org/tags" %>   
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
@@ -7,7 +8,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<link rel="stylesheet" href="/cogather/CSS/cafemain.css">
+	<link rel="stylesheet" href="../CSS/cafemain.css">
+	<link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon" />
 	<script src="https://kit.fontawesome.com/65311e5b1a.js" crossorigin="anonymous"></script>
 	<title>Main</title>
 </head>
@@ -21,23 +23,50 @@
     </a>
    </div>
     <a href="#" class="w3-bar-item w3-button w3-hover-none" style="margin-top:0; margin-right:5px">
-    	<img src="/cogather/img/logo_cut.png" class="logo"  >
+    	<img src="../img/logo_cut.png" class="logo"  >
     </a>
     <div class="choice">
-    <a href="main" class="w3-bar-item w3-button">HOME</a>
+    <a href="#home" class="w3-bar-item w3-button w3-hide-small">HOME</a>
     <a href="info" class="w3-bar-item w3-button w3-hide-small">시설소개</a>
     <a href="reservation" class="w3-bar-item w3-button w3-hide-small">예약하기</a>
     <a href="map" class="w3-bar-item w3-button w3-hide-small">오시는 길</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
+    <sec:authorize access="isAnonymous()">
+    	<a href="../login" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
+    </sec:authorize>
+    <sec:authorize access="isAuthenticated()">
+    	<form action="${pageContext.request.contextPath}/logout" method='post'>
+		<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
+		<button class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그아웃</button>
+    	<a href="cafemypage?id=${user_id }" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">마이페이지</a>
+    	<sec:authorize access="hasRole('ROLE_ADMIN')">
+    	<a href="adminrsv" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">관리자페이지</a>
+		</sec:authorize>
+		<sec:authentication property="principal.username" var="user_id" />
+        	<div id="user_id" class="w3-bar-item w3-right">안녕하세요. ${user_id }님</div>
+    	</form>
+   	</sec:authorize>
   </div>
   </div>
 
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+  <a href="main" class="w3-bar-item w3-button" onclick="toggleFunction()">HOME</a>
     <a href="info" class="w3-bar-item w3-button" onclick="toggleFunction()">시설소개</a>
     <a href="reservation" class="w3-bar-item w3-button" onclick="toggleFunction()">예약하기</a>
-        <a href="map" class="w3-bar-item w3-button" onclick="toggleFunction()">오시는 길</a>
-    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
+    <a href="map" class="w3-bar-item w3-button" onclick="toggleFunction()">오시는 길</a>
+    <sec:authorize access="isAnonymous()">
+    <a href="../login" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
+    </sec:authorize>
+    <sec:authorize access="isAuthenticated()">
+    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">마이페이지</a>
+    <form action="${pageContext.request.contextPath}/logout" method='post'>
+		<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
+		<button class="w3-bar-item w3-button" onclick="toggleFunction()">로그아웃</button>
+    </form>
+    </sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
+    <a href="adminrsv" class="w3-bar-item w3-button" onclick="toggleFunction()">관리자페이지</a>
+	</sec:authorize>
   </div>
 </div>
 
@@ -49,9 +78,9 @@
 </div>
 <div id="wrap">
 	<div class="w3-row-padding w3-padding-top-64">
-	     <div class="w3-col s4 w3-center"><p class="info"><img src="/cogather/img/cafe/24.png" class="infoimg"><br>24시간 영업<br>언제나 이용 가능</p></div>   
-	     <div class="w3-col s4 w3-center"><p class="info"><img src="/cogather/img/cafe/muted.png" class="infoimg"><br>조용한 공간<br>집중하기 좋은 장소</p></div>
-	     <div class="w3-col s4 w3-center"><p class="info"><img src="/cogather/img/cafe/charger.png" class="infoimg"><br>충전기, 독서대 등<br>편의물품 무료제공</p></div>
+	     <div class="w3-col s4 w3-center"><p class="info"><img src="../img/cafe/24.png" class="infoimg"><br>24시간 영업<br>언제나 이용 가능</p></div>   
+	     <div class="w3-col s4 w3-center"><p class="info"><img src="../img/cafe/muted.png" class="infoimg"><br>조용한 공간<br>집중하기 좋은 장소</p></div>
+	     <div class="w3-col s4 w3-center"><p class="info"><img src="../img/cafe/charger.png" class="infoimg"><br>충전기, 독서대 등<br>편의물품 무료제공</p></div>
 	</div>
 	
 

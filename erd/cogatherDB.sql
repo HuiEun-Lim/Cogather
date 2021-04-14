@@ -10,11 +10,14 @@ DROP TABLE members CASCADE CONSTRAINTS;
 DROP TABLE seats CASCADE CONSTRAINTS;
 DROP TABLE studygroup CASCADE CONSTRAINTS;
 
+<<<<<<< HEAD
+=======
 DROP SEQUENCE authority_seq;
 DROP SEQUENCE comments_seq;
 DROP SEQUENCE content_seq;
 DROP SEQUENCE reservation_seq;
 DROP SEQUENCE studygroup_seq;
+>>>>>>> origin/cafersv
 
 CREATE SEQUENCE comments_seq;
 CREATE SEQUENCE content_seq;
@@ -31,6 +34,8 @@ CREATE TABLE authority
 	PRIMARY KEY (auth, ID),
 	CONSTRAINT ROLECK CHECK(auth IN ('ROLE_USER' , 'ROLE_ADMIN')) 
 );
+
+SELECT * FROM AUTHORITY;
 
 /*댓글*/
 CREATE TABLE comments
@@ -61,13 +66,14 @@ CREATE TABLE members
 (
 	ID varchar2(20) NOT NULL,/*회원id*/
 	name varchar2(20) NOT NULL,/*이름*/
-	pw varchar2(40) NOT NULL,/*비밀번호*/
-	phone varchar2(15) NOT NULL,/*전화번호*/
+	pw varchar2(100) NOT NULL,/*비밀번호*/
+	phone varchar2(15),/*전화번호*/
 	email varchar2(40),/*이메일*/
 	pimg_url varchar2(30),/*프로필 이미지*/
 	tag varchar2(50),/*관심주제*/
+	enabled char(1) DEFAULT 1,
 	PRIMARY KEY (ID)
-); 
+);
 
 INSERT INTO members
 (ID, name, pw, phone, email) 
@@ -189,5 +195,9 @@ ALTER TABLE memberstudy
 	REFERENCES studygroup (sg_id) ON DELETE SET NULL
 ;
 
+DELETE FROM AUTHORITY;
+DELETE FROM MEMBERS;
 
-
+SELECT m.*, a.auth
+FROM MEMBERS m, AUTHORITY a
+WHERE m.id = a.id;

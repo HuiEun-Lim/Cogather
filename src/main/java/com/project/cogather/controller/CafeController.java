@@ -25,27 +25,48 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.cogather.domain.CafeDTO;
 import com.project.cogather.service.CafeService;
 
+import com.project.cogather.service.CafeService;
+import com.project.cogather.service.UserService;
+
 @Controller
 @RequestMapping("/studycafe")
 public class CafeController {
 	
 	private CafeService cafeService;
+	private UserService userService;
+	
 	String ID;
 	String seat_id;
 	LocalDateTime start_date;
 	LocalDateTime end_date;
 	long price;
 	long hours;
+
 	
 	@Autowired
 	public void setCafeService(CafeService cafeService) {
 		this.cafeService = cafeService;
 	}
 	
+
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+	
+
+	public CafeController() {
+		System.out.println("CafeController() 생성");
+	}
+	
+
 	@RequestMapping("/main")
 	public String studymain(Model model) {
 		return "cafe/main";
 	}
+
+
+
 	
 	@RequestMapping("/info")
 	public String studyinfo(Model model) {
@@ -120,11 +141,7 @@ public class CafeController {
 		model.addAttribute("list", cafeService.list());
 		return "cafe/adminrsv";
 	}
-	
-//	@RequestMapping("/test")
-//	public String test(Model model) {
-//		return "cafe/test";
-//	}
+
 	
 	@GetMapping("/deleteOk.do")
 	public String deleteOk(int res_id, Model model) {
