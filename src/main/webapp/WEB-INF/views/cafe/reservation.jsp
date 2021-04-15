@@ -156,8 +156,9 @@ function chkSubmit(){
 				</div>
 				<br><br>
 				<span id = "chkseatagain"></span>
-				<br>선택하신 좌석은 예약후에는 변경하실 수 없습니다. 
-				<br><input type="text" id="ID" name="ID" value="t1">
+				<br>선택하신 좌석은 예약후에는 변경하실 수 없습니다.
+				<sec:authentication property="principal.username" var="user_id" />
+				<br><input type="text" id="ID" name="ID" value="${user_id }" readonly>
 				<input type="text" id="seat_id" name="seat_id" style="visibility : hidden" required>
 
 				<div class="optitle">날짜선택</div><br>
@@ -168,6 +169,7 @@ function chkSubmit(){
 				<div class="optitle">결제방법선택</div><br>
 				<input type="text" id="kakaopay" name="payment" value="카카오페이" readonly><br><br>
 				<input type="submit" value="예약하기">
+				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
 			</form>
 			
 			<div id="chkdates">
@@ -191,7 +193,7 @@ function chkSubmit(){
 	</div>
 	<!-- Footer -->
 	<footer class="w3-center w3-black w3-padding-64">
-		<a href="#home" class="w3-button w3-light-grey"><i
+		<a href="#wrap" class="w3-button w3-light-grey"><i
 			class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
 		<div class="w3-xlarge w3-section w3-center">
 			<table style="color: white">

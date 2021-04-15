@@ -7,7 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="/cogather/CSS/login.css">
-<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <title>회원가입</title>
 </head>
 <script>
@@ -76,7 +75,7 @@ function chkSubmit(){
 <input type="password" name="pw"/><br><br>
 <h5 class="required">패스워드 확인</h5>
 <input type="password" name="pw2"/><br><br>
-<h5 class="required">전화번호</h5>
+<h5>전화번호</h5>
 <input type="text" name="phone"/><br><br>
 <h5>e-mail</h5>
 <input type="text" name="email"/><br><br>
@@ -87,24 +86,6 @@ function chkSubmit(){
 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
 </form>
 <br><br>
-<a id="custom-login-btn" href="javascript:loginWithKakao()">
-  <img
-    src="/cogather/img/kakao_login_large_wide.png"
-    width=100%
-  />
-</a>
-<script type="text/javascript">
-  function loginWithKakao() {
-    Kakao.Auth.login({
-      success: function(authObj) {
-        alert(JSON.stringify(authObj))
-      },
-      fail: function(err) {
-        alert(JSON.stringify(err))
-      },
-    })
-  }
-</script>
 
 <br><br><br><br><br><br><br><br>
 

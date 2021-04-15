@@ -15,7 +15,7 @@
 		<security:intercept-url pattern="/studycafe/**" access="permitAll"/>
 		
 		<!-- /sample/member 요청은 ROLE_USER 라는 권한이 있는 사용자 만이 접근 가능 -->
-		<security:intercept-url pattern="/home" access="hasRole('ROLE_USER')"/> 
+		<security:intercept-url pattern="/cafemypage/*" access="hasRole('ROLE_USER')"/> 
 		
 		<!-- /sample/admin 요청은 ROLE_ADMIN 권한이 있는 사용자 만 접근 가능 -->
 		<!--<security:intercept-url pattern="/home" access="hasRole('ROLE_ADMIN')"/>-->

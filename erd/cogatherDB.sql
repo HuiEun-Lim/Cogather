@@ -75,11 +75,6 @@ CREATE TABLE members
 	PRIMARY KEY (ID)
 );
 
-INSERT INTO members
-(ID, name, pw, phone, email) 
-VALUES 
-('t1', 'test', '123', '01012341234', 'a@gmail.com');
-
 SELECT * FROM members;
 
 /*개인 스터디 관리*/

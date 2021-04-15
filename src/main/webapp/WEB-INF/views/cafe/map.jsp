@@ -9,9 +9,9 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-   <link rel="stylesheet" href="/cogather/CSS/cafemap.css">
+   <link rel="stylesheet" href="../CSS/cafemap.css">
    <script src="https://kit.fontawesome.com/65311e5b1a.js" crossorigin="anonymous"></script>
-   <script type="text/javascript" src="/cogather/JS/cafemap.js"></script>
+   <script type="text/javascript" src="../JS/cafemap.js"></script>
    <title>오시는길</title>
 </head>
 <body>
@@ -121,7 +121,7 @@
     </div>
     <!-- Footer -->
 <footer class="w3-center w3-black w3-padding-64">
-  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+  <a href="wrap" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
   <div class="w3-xlarge w3-section w3-center">
     <table style="color:white">
     <tr>
@@ -151,26 +151,25 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7f36e46956483ffffb803d95f128023d"></script>
 <script>
-window.onscroll = function() {myFunction()};
-function myFunction() {
-    var navbar = document.getElementById("myNavbar");
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        navbar.className = "w3-bar" + " w3-card-2" + " w3-animate-top" + " w3-black" + " w3-hover-light-gray";
-    } else {
-        navbar.className = navbar.className.replace(" w3-card-2 w3-animate-top w3-black w3-hover-light-gray", "");
-    }
-}
+    window.onscroll = function() {myFunction()};
+	function myFunction() {
+	    var navbar = document.getElementById("myNavbar");
+	    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+	        navbar.className = "w3-bar" + " w3-card-2" + " w3-white";
+	    } else {
+	        navbar.className = navbar.className.replace(" w3-card-2 w3-animate-top w3-white w3-hover-border-bottom w3-border-amber", "");
+	    }
+	}
 
-// Used to toggle the menu on small screens when clicking on the menu button
-function toggleFunction() {
-    var x = document.getElementById("navDemo");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } else {
-        x.className = x.className.replace(" w3-show", "");
-    }
-}
-
+	// Used to toggle the menu on small screens when clicking on the menu button
+	function toggleFunction() {
+	    var x = document.getElementById("navDemo");
+	    if (x.className.indexOf("w3-show") == -1) {
+	        x.className += " w3-show";
+	    } else {
+	        x.className = x.className.replace(" w3-show", "");
+	    }
+	}
    myMap();
 
 </script>

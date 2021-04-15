@@ -37,12 +37,12 @@
     	<form action="${pageContext.request.contextPath}/logout" method='post'>
 		<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
 		<button class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그아웃</button>
-    	<a href="cafemypage?id=${user_id }" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">마이페이지</a>
+		<sec:authentication property="principal.username" var="user_id" />
+    	<a href="../cafemypage?id=${user_id }" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">마이페이지</a>
     	<sec:authorize access="hasRole('ROLE_ADMIN')">
     	<a href="adminrsv" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">관리자페이지</a>
 		</sec:authorize>
-		<sec:authentication property="principal.username" var="user_id" />
-        	<div id="user_id" class="w3-bar-item w3-right">안녕하세요. ${user_id }님</div>
+        <div id="user_id" class="w3-bar-item w3-right">안녕하세요. ${user_id }님</div>
     	</form>
    	</sec:authorize>
   </div>
@@ -202,6 +202,7 @@
 	  slides[slideIndex-1].style.display = "block";
 	  dots[slideIndex-1].className += " active";
 	}
+	
 </script>
 
 </body>

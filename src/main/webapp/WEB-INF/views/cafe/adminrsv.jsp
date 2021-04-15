@@ -9,9 +9,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<link rel="stylesheet" href="/cogather/CSS/cafeinfo.css">
+	<link rel="stylesheet" href="../CSS/cafeinfo.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script type="text/javascript" src="/cogather/JS/adminrsv.js"></script>
+		<script type="text/javascript" src="../JS/adminrsv.js"></script>
 	<script src="https://kit.fontawesome.com/65311e5b1a.js" crossorigin="anonymous"></script>
 	<title>예약현황</title>
 </head>
@@ -33,7 +33,7 @@
 		      <a href="reservation" class="w3-bar-item w3-button w3-hide-small">예약하기</a>
 		      <a href="map" class="w3-bar-item w3-button w3-hide-small">오시는 길</a>
 		      <a href="adminrsv" class="w3-bar-item w3-button w3-hide-small w3-border-bottom w3-border-amber">예약현황</a>
-		      <a href="login" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
+		      <a href="../login" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
 		   </div>
 	    </div>	  
 	    <!-- Navbar on small screens -->
@@ -41,7 +41,7 @@
 	      <a href="info" class="w3-bar-item w3-button" onclick="toggleFunction()">시설소개</a>
 	      <a href="reservation" class="w3-bar-item w3-button" onclick="toggleFunction()">예약하기</a>
 	      <a href="map" class="w3-bar-item w3-button" onclick="toggleFunction()">오시는 길</a>
-	      <a href="login" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
+	      <a href="../login" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
 	    </div>
     </div>
     
@@ -85,7 +85,7 @@
 	 </div>
     <!-- Footer -->
 <footer class="w3-center w3-black w3-padding-64">
-  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+  <a href="wrap" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
   <div class="w3-xlarge w3-section w3-center">
     <table>
     <tr>

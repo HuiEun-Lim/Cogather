@@ -9,9 +9,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<link rel="stylesheet" href="/cogather/CSS/cafeinfo.css">
+	<link rel="stylesheet" href="../CSS/cafeinfo.css">
 	<script src="https://kit.fontawesome.com/65311e5b1a.js" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="/cogather/JS/cafeinfo.js"></script>
+	<script type="text/javascript" src="../JS/cafeinfo.js"></script>
 	<title>시설소개</title>
 </head>
 <body>
@@ -134,7 +134,7 @@
 	    </div>
     <!-- Footer -->
 <footer class="w3-center w3-black w3-padding-64">
-  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+  <a href="wrap" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
   <div class="w3-xlarge w3-section w3-center">
     <table style="color:white">
     <tr>
