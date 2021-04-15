@@ -4,15 +4,27 @@
 	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
+	
 	<bean id="userAccessDenied" class="com.project.cogather.security.UserAccessDeniedHandler"/>
 	<bean id="userLoginSuccess" class="com.project.cogather.security.UserLoginSuccessHandler"/>
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
+<!-- 	multipart request 해결 	 -->
+     
+<!-- 파일 업로드 설정 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 파일 사이즈 설정 가능 byte 단위-->
+		<beans:property name="maxUploadSize" value="1000000000" />
+		<beans:property name="maxInMemorySize" value="1000000000"/> <!-- 100MB-->
+		<beans:property name="defaultEncoding" value="UTF-8" />
+	</beans:bean>
+	
 	<!-- 컨테이너의 HTTP security 요소 -->
 	<security:http>
 		<!-- 특정 url pattern 요청이 들어올때 인터셉터를 이용해 접근 제한 설정 -->
+		<security:intercept-url pattern="/group/**" access="permitAll"/>
 		<security:intercept-url pattern="/studycafe/**" access="permitAll"/>
+		
 		
 		<!-- /sample/member 요청은 ROLE_USER 라는 권한이 있는 사용자 만이 접근 가능 -->
 		<security:intercept-url pattern="/cafemypage/*" access="hasRole('ROLE_USER')"/> 

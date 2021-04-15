@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -70,7 +71,7 @@ function chkSubmit(){
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
 
-<form name="frm" action="studywriteOk" method="post" enctype="multipart/form-data" onsubmit="return chkSubmit()">
+<form name="frm" action="${pageContext.request.contextPath}/group/studywriteOk" method="post" enctype="multipart/form-data" onsubmit="return chkSubmit()">
 
 스터디 이름:&nbsp&nbsp
 <input type="text" name="sg_name" style="width:20%;height:30px;" /><br><br>
@@ -115,6 +116,7 @@ function chkSubmit(){
 </div>
 <br><br><br><br><br><br><br>
 <input type="submit" value="생성" class="createbutton hover"/>
+<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
 </form>
 
 <br>

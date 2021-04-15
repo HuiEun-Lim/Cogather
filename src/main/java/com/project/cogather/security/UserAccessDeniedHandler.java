@@ -17,7 +17,7 @@ public class UserAccessDeniedHandler implements AccessDeniedHandler {
 		System.out.println("User Access Denied Handler");
 		accessDeniedException.printStackTrace();
 		System.out.println("redirect 합니다...");
-		response.sendRedirect(request.getContextPath() + "/studycafe/accessError");  // 리다이렉트!
+		response.sendRedirect(request.getContextPath() + "/accessError");  // 리다이렉트!
 	}
 
 }

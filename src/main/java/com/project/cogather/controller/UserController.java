@@ -21,9 +21,11 @@ public class UserController {
 
 	
 	@GetMapping("/accessError")
-	public void accessDenied(Authentication auth, Model model) {
+	public String accessDenied(Authentication auth, Model model) {
 		System.out.println("access Denied : " + auth);
 		model.addAttribute("msg", "접근 권한 거부");
+		
+		return "user/accessError";
 	}
 	
 	@RequestMapping("/signup")

@@ -150,9 +150,9 @@ CREATE TABLE members
 --(SELECT ID FROM COMMENTS WHERE CT_UID = 10)
 --;
 --
---INSERT INTO members (ID, NAME, PW, PHONE, EMAIL, PIMG_URL, TAG)
---VALUES 
---('id1', 'name1', 'pw1','010-xxxx-xxxx','oooooooo@naver.com', 'img/member/default.jpg','1,2,4');
+INSERT INTO members (ID, NAME, PW, PHONE, EMAIL, PIMG_URL, TAG)
+VALUES 
+('id1', 'name1', 'pw1','010-xxxx-xxxx','oooooooo@naver.com', 'img/member/default.jpg','1,2,4');
 --
 --UPDATE members SET PIMG_URL = 'img/member/default.jpg'
 --WHERE id = 'id1';
