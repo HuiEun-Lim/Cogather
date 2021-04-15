@@ -217,7 +217,7 @@ function accept(id){
 		
 			<input type="hidden" id="SG_ID" name="SG_ID" value="">
 			<input type="hidden" id="SGF_ID" name="SGF_ID" value="">
-		
+			<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/> 
 		</form>
 		<div style="border: 1px solid #dbdbdb;">
 			

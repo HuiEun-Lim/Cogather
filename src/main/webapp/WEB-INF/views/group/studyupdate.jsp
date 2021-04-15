@@ -128,7 +128,7 @@ function chkSubmit(){
  </script>
 카톡방 주소:&nbsp&nbsp
 <input type="text" name="kko_url" style="width:20%;height:30px;" value="${list[0].kko_url}"/><br><br>
-
+<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/> 
 
 <c:forEach var="file" items="${files}">
 </c:forEach> 

@@ -309,7 +309,7 @@ CREATE TABLE studygroup
 
 
 
---SELECT file_name  FROM studygroup;
+SELECT *  FROM studygroup;
 --SELECT * FROM STUDYGROUP ORDER BY sg_id;
  /*스터디 그룹 이미지 파일*/ 
 CREATE TABLE studygroup_file
@@ -332,7 +332,7 @@ CREATE TABLE studygroup_file
 --(studygroup_file_seq.nextval, 'aaa', 'aaa',160,1000);
 --
 --
---SELECT * FROM studygroup_file;
+SELECT * FROM studygroup_file;
 --SELECT * FROM studygroup_file;
 
 DROP TABLE studygroup_file CASCADE CONSTRAINTS;
