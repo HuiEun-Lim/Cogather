@@ -11,23 +11,22 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://kit.fontawesome.com/a6e7d7d152.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="/cogather/JS/ckeditor/ckeditor.js"></script>
-<script src="${pageContext.request.contextPath }/JS/chat.js"></script>
 <script src="${pageContext.request.contextPath }/JS/studyroomMember.js"></script>
 <script src="${pageContext.request.contextPath }/JS/studyroomBoard.js"></script>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 </head>
+
 <body>
+	
 	<div class="room">
 		<nav id="room-menu">
 			<h2 id="room-title">${studyGroupBYSGID[0].sg_name }</h2>
 			<div id="enter-cnt-head">참여인원</div><span id="enter-cnt"></span>
-			<button id="outroom" class="btn btn-danger" onclick="outroom()">퇴실하기</button>
+			<button id="outroom" class="btn btn-danger" >퇴실하기</button>
 			<div class="clear-both"></div>
 		</nav>
 		<div class="content-body">
@@ -171,14 +170,38 @@
 				<div id="id">${id }</div>
 				<div id="contextPath">${pageContext.request.contextPath }</div>
 			</div>
-	
-
 		</div>
 	</div>
 
-
 	<script>
+		$(function(){
+			// 브라우저 새로고침 및 해당 키들에 대한 이벤트 감지
+			$(window).on("beforeunload", function(event){
+				event.preventDefault();
+				console.log("페이지 언로드 전 - 새로고침, 뒤로가기, 브라우저 종료 바로 직전에 확인");
+				console.log(chk);
+				event.returnValue='아무값'; 
+				return '아무값';
+			});
+			$(window).on("unload", function(event){
+				var data = new FormData();
+				
+				data.append('sg_id','${sg_id}');
+				data.append('id','${id}');
+				new Promise((resolve,reject) => {
+					disconnect();
+					resolve();
+				})
+				.then(()=>{
+					navigator.sendBeacon("./MemberStudyRest/ms/roomoutOk",data);
+				})
+				;
+				
+				
+			});
+		})
 		
 	</script>
+	
 </body>
 </html>

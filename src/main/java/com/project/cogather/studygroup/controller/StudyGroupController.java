@@ -28,6 +28,7 @@ import com.project.cogather.chat.service.RedisService;
 import com.project.cogather.studygroup.model.StudyGroupFileDTO;
 import com.project.cogather.studygroup.model.StudyGroupPaging;
 import com.project.cogather.members.service.MembersService;
+import com.project.cogather.memberstudy.model.MemberStudyDTO;
 import com.project.cogather.memberstudy.service.MemberStudyService;
 import com.project.cogather.studygroup.model.StudyGroupDTO;
 import com.project.cogather.studygroup.service.StudyGroupService;
@@ -204,7 +205,11 @@ public class StudyGroupController {
 	// 스터디 룸으로 들어가기전 해당 id가 방에 가입상태인지 파악
 	@RequestMapping("/roomenterOk")
 	public String roomenterOk(int sg_id, String id, Model model) {
-		model.addAttribute("result", memberStudyService.enterStatus(sg_id, id));
+		int result = memberStudyService.enterStatus(sg_id, id);
+		model.addAttribute("result", result);
+		List<MemberStudyDTO> temp = memberStudyService.select(sg_id);
+		System.out.println("enter result : " + result);
+		System.out.println(temp.get(0).getEnstatus());
 		model.addAttribute("sg_id", sg_id);
 		model.addAttribute("id", id);
 		

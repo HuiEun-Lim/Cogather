@@ -57,7 +57,11 @@ $(function(){
 		loadComments(viewItem.data[0].ct_uid); // 게시글 아이디로 새로 받아서 뿌려줌
 	});
 	
+	
+
 });
+
+
 
 function loadBoard(page){ // 방 번호와 페이지, 페이지에 표시할 글의 수로 데이터를 받아옴
 	togglePage("list-mode");

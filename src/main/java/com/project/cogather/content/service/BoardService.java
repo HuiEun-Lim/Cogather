@@ -111,6 +111,7 @@ public class BoardService {
 		}
 		
 		try {
+			
 			while(filenameitr.hasNext()) {
 				fileName = filenameitr.next(); // 파일 이름 가져옴 -- ckeditor에서 upload라는 이름으로 줌
 				MultipartFile file = mpRequest.getFile(fileName); // 파일 객체를 얻음

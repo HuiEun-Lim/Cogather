@@ -14,6 +14,4 @@ public class ContentFileDTO {
 	private String cf_source;
 	private String cf_file;
 	private Integer ct_uid;
-	
-	
 }

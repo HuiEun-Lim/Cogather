@@ -5,6 +5,7 @@
 		INSERT INTO CONTENT_FILE (cf_id, cf_source, cf_file, ct_uid)
 		VALUES (content_file_seq.nextval, #{cf_source}, #{cf_file}, #{ct_uid})
 	</insert>
+	
 	<select id="getFileInfosByCTUID" resultType="com.project.cogather.content.model.ContentFileDTO">
 		SELECT *
 		FROM CONTENT_FILE

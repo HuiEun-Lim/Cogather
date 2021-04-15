@@ -81,7 +81,7 @@ public class RestContentController {
 		return result;
 	}
 
-	// 특정 방의 특정 게시글
+	// 특정 방의 특정 게시글 보기
 	@GetMapping("/{sg_id}/detail/{ct_uid}")
 	public StudyBoardContentResult detail(@PathVariable int sg_id, @PathVariable int ct_uid) {
 		StudyBoardContentResult result = new StudyBoardContentResult();
@@ -118,6 +118,7 @@ public class RestContentController {
 		return result;
 	}
 	
+	// 임시 게시글 생성 및 임시 게시글 id 반환
 	@PostMapping("")
 	public StudyBoardContentResult write(ContentDTO dto) {
 		StudyBoardContentResult result = new StudyBoardContentResult();
@@ -192,6 +193,7 @@ public class RestContentController {
 	public CKeditorFileResult contentFileUpload(@PathVariable int ct_uid, MultipartHttpServletRequest mpRequest) {
 		CKeditorFileResult result = new CKeditorFileResult();
 		CKeditorFileError error = new CKeditorFileError();
+		
 		int uploaded = 0;
 		String fileName = null;
 		String url = null;
