@@ -11,27 +11,31 @@ DROP TABLE members CASCADE CONSTRAINTS;
 DROP TABLE seats CASCADE CONSTRAINTS;
 DROP TABLE studygroup CASCADE CONSTRAINTS;
 
-DROP SEQUENCE authority_seq;
-
-
+-- sequnce 생성
 CREATE SEQUENCE comments_seq;
 CREATE SEQUENCE content_seq;
 CREATE SEQUENCE reservation_seq;
 CREATE SEQUENCE studygroup_seq;
 CREATE SEQUENCE studygroup_file_seq;
 CREATE SEQUENCE content_file_seq;
-DROP SEQUENCE studygroup_seq;
-DROP SEQUENCE content_seq;
+-- sequnce 드롭
 DROP SEQUENCE content_file_seq;
+DROP SEQUENCE comments_seq;
+DROP SEQUENCE content_seq;
+DROP SEQUENCE reservation_seq;
+DROP SEQUENCE studygroup_seq;
 
 /* Create Tables */
 /*권한*/
 CREATE TABLE authority
 (
-	auth varchar2(20) NOT NULL, /*권한명*/
+	auth varchar2(20) DEFAULT 'ROLE_USER' NOT NULL, /*권한명*/
 	ID varchar2(20) NOT NULL,/*회원ID*/
-	PRIMARY KEY (auth, ID)
+	PRIMARY KEY (auth, ID),
+	CONSTRAINT ROLECK CHECK(auth IN ('ROLE_USER' , 'ROLE_ADMIN')) 
 );
+
+SELECT * FROM AUTHORITY;
 
 /*댓글*/
 CREATE TABLE comments
@@ -43,21 +47,21 @@ CREATE TABLE comments
 	regdate date DEFAULT SYSDATE,/*등록날짜*/
 	PRIMARY KEY (cm_uid)
 );
-SELECT * 
-FROM COMMENTS
-WHERE ct_uid = 20
-ORDER BY CM_UID DESC
-;
-
-INSERT INTO COMMENTS (CM_UID, ID, CT_UID, REPLY)
-VALUES (comments_seq.nextval, 'id1', '20','노잼쓰' )
-;
-UPDATE COMMENTS 
-SET REPLY = '정말인가요?', REGDATE = SYSDATE
-WHERE CM_UID = 1 AND ID = 'id1';
-
-DELETE FROM COMMENTS
-WHERE CM_UID = 1;
+--SELECT * 
+--FROM COMMENTS
+--WHERE ct_uid = 20
+--ORDER BY CM_UID DESC
+--;
+--
+--INSERT INTO COMMENTS (CM_UID, ID, CT_UID, REPLY)
+--VALUES (comments_seq.nextval, 'id1', '20','노잼쓰' )
+--;
+--UPDATE COMMENTS 
+--SET REPLY = '정말인가요?', REGDATE = SYSDATE
+--WHERE CM_UID = 1 AND ID = 'id1';
+--
+--DELETE FROM COMMENTS
+--WHERE CM_UID = 1;
 
 /*스터디 그룹 게시글*/
 CREATE TABLE content
@@ -86,86 +90,87 @@ ALTER TABLE content_file
 	REFERENCES content (ct_uid)
 	ON DELETE CASCADE -- 참조하는 부모가 삭제되면 같이 삭제되도록
 ;
-SELECT * FROM content_file;
-
-INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
-VALUES (content_seq.nextval, 'id1', 21, '변명중에서도 가장 어리석고 못난 별명은 -시간이 없어서- 이다','변명중에서도 가장 어리석고 못난 별명은 -시간이 없어서- 이다');
-
-INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
-VALUES (content_seq.nextval, 'id2', 21, '모두가 비슷한 생각을 한다는 것은 아무도 생각하고 있지 않다는 말이다.', '모두가 비슷한 생각을 한다는 것은 아무도 생각하고 있지 않다는 말이다.' );
-
-INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
-VALUES (content_seq.nextval, 'id3', 21, '인간이 불행한 이유는 자신이 행복하다는 사실을 모르기 때문이다. 단지 그 뿐이다.', '인간이 불행한 이유는 자신이 행복하다는 사실을 모르기 때문이다. 단지 그 뿐이다.' );
-
-SELECT * FROM CONTENT;
-
-SELECT * 
-FROM (SELECT * 
-FROM content
-WHERE id = 'id1'
-ORDER BY ct_uid DESC)
-WHERE ROWNUM <=1;
-
-SELECT
-		ct_uid ,id,sg_id ,ct_title ,ct_content, ct_viewcnt,regdate
-	FROM 
-		(SELECT ROWNUM AS RNUM, T.* FROM 
-			(SELECT * FROM CONTENT 
-			WHERE SG_ID = 21
-			ORDER BY ct_uid DESC 
-			) T
-		) 
-	WHERE 
-		RNUM >= 1 AND RNUM < (1 + 10);
-	
-SELECT count(*) FROM CONTENT
-		WHERE SG_ID = 21
-
-UPDATE CONTENT
-SET CT_TITLE = '에이시발', CT_CONTENT = '왜 안되는데'
-WHERE CT_UID = 22 AND ID = 'id1' AND SG_ID = 21; 		
+--SELECT * FROM content_file;
+--
+--INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
+--VALUES (content_seq.nextval, 'id1', 21, '변명중에서도 가장 어리석고 못난 별명은 -시간이 없어서- 이다','변명중에서도 가장 어리석고 못난 별명은 -시간이 없어서- 이다');
+--
+--INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
+--VALUES (content_seq.nextval, 'id2', 21, '모두가 비슷한 생각을 한다는 것은 아무도 생각하고 있지 않다는 말이다.', '모두가 비슷한 생각을 한다는 것은 아무도 생각하고 있지 않다는 말이다.' );
+--
+--INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
+--VALUES (content_seq.nextval, 'id3', 21, '인간이 불행한 이유는 자신이 행복하다는 사실을 모르기 때문이다. 단지 그 뿐이다.', '인간이 불행한 이유는 자신이 행복하다는 사실을 모르기 때문이다. 단지 그 뿐이다.' );
+--
+--SELECT * FROM CONTENT;
+--
+--SELECT * 
+--FROM (SELECT * 
+--FROM content
+--WHERE id = 'id1'
+--ORDER BY ct_uid DESC)
+--WHERE ROWNUM <=1;
+--
+--SELECT
+--		ct_uid ,id,sg_id ,ct_title ,ct_content, ct_viewcnt,regdate
+--	FROM 
+--		(SELECT ROWNUM AS RNUM, T.* FROM 
+--			(SELECT * FROM CONTENT 
+--			WHERE SG_ID = 21
+--			ORDER BY ct_uid DESC 
+--			) T
+--		) 
+--	WHERE 
+--		RNUM >= 1 AND RNUM < (1 + 10);
+--	
+--SELECT count(*) FROM CONTENT
+--		WHERE SG_ID = 21
+--
+--UPDATE CONTENT
+--SET CT_TITLE = '에이시발', CT_CONTENT = '왜 안되는데'
+--WHERE CT_UID = 22 AND ID = 'id1' AND SG_ID = 21; 		
 		
 /*회원*/
 CREATE TABLE members
 (
 	ID varchar2(20) NOT NULL,/*회원id*/
 	name varchar2(20) NOT NULL,/*이름*/
-	pw varchar2(40) NOT NULL,/*비밀번호*/
-	phone varchar2(15) NOT NULL,/*전화번호*/
+	pw varchar2(100) NOT NULL,/*비밀번호*/
+	phone varchar2(15),/*전화번호*/
 	email varchar2(40),/*이메일*/
 	pimg_url varchar2(30),/*프로필 이미지*/
 	tag varchar2(50),/*관심주제*/
+	enabled char(1) DEFAULT 1,
 	PRIMARY KEY (ID)
+);
 
-); 
 
-SELECT * 
-FROM MEMBERS
-WHERE ID IN 
-(SELECT ID FROM COMMENTS WHERE CT_UID = 10)
-;
-
-INSERT INTO members (ID, NAME, PW, PHONE, EMAIL, PIMG_URL, TAG)
-VALUES 
-('id1', 'name1', 'pw1','010-xxxx-xxxx','oooooooo@naver.com', 'img/member/default.jpg','1,2,4');
-
-UPDATE members SET PIMG_URL = 'img/member/default.jpg'
-WHERE id = 'id1';
-
-UPDATE members SET PIMG_URL = 'img/member/default.jpg'
-WHERE id = 'id2';
-
-INSERT INTO members (ID, NAME, PW, PHONE, EMAIL, PIMG_URL, TAG)
-VALUES 
-('id2', 'name2', 'pw2','010-xxxx-xxxx','oooooooo@naver.com', 'img/member/img1','1,2,4');
-
-INSERT INTO members (ID, NAME, PW, PHONE, EMAIL, PIMG_URL, TAG)
-VALUES 
-('id3', 'name3', 'pw3','010-xxxx-xxxx','oooooooo@naver.com', 'img/member/img1','1,2,4');
-
-SELECT * FROM members;
-SELECT id "id", name name, pw pw, phone phone, email email, pimg_url pimg_url, tag tag
-FROM members;
+--SELECT * 
+--FROM MEMBERS
+--WHERE ID IN 
+--(SELECT ID FROM COMMENTS WHERE CT_UID = 10)
+--;
+--
+--INSERT INTO members (ID, NAME, PW, PHONE, EMAIL, PIMG_URL, TAG)
+--VALUES 
+--('id1', 'name1', 'pw1','010-xxxx-xxxx','oooooooo@naver.com', 'img/member/default.jpg','1,2,4');
+--
+--UPDATE members SET PIMG_URL = 'img/member/default.jpg'
+--WHERE id = 'id1';
+--
+--UPDATE members SET PIMG_URL = 'img/member/default.jpg'
+--WHERE id = 'id2';
+--
+--INSERT INTO members (ID, NAME, PW, PHONE, EMAIL, PIMG_URL, TAG)
+--VALUES 
+--('id2', 'name2', 'pw2','010-xxxx-xxxx','oooooooo@naver.com', 'img/member/img1','1,2,4');
+--
+--INSERT INTO members (ID, NAME, PW, PHONE, EMAIL, PIMG_URL, TAG)
+--VALUES 
+--('id3', 'name3', 'pw3','010-xxxx-xxxx','oooooooo@naver.com', 'img/member/img1','1,2,4');
+--
+--SELECT * FROM members;
+--SELECT id "id", name name, pw pw, phone phone, email email, pimg_url pimg_url, tag tag
+--FROM members;
 /*개인 스터디 관리*/
 CREATE TABLE memberstudy
 (
@@ -181,77 +186,77 @@ CREATE TABLE memberstudy
 	CONSTRAINT GAUTH_CHECK CHECK(g_auth IN ('captain', 'crew', 'common')),
 	CONSTRAINT ENSTATUS_CHECK CHECK(enstatus IN ('in', 'out'))
 );
-DELETE FROM MEMBERSTUDY WHERE sg_id =337 AND g_auth='crew';
-SELECT * FROM MEMBERSTUDY
-
--- 방생성자 방 생성
-INSERT INTO memberstudy (ID, sg_id, g_auth)
-VALUES 
-('id1', 21, 'captain');
-
-
--- 참가자 참여 허락
-INSERT INTO memberstudy (ID, sg_id, g_auth)
-VALUES 
-('id2', 21, 'crew');
-INSERT INTO memberstudy (ID, sg_id, g_auth)
-VALUES 
-('id3', 21, 'crew');
-
-INSERT INTO memberstudy (ID, sg_id, g_auth)
-VALUES 
-('id4', 3, 'crew');
-INSERT INTO memberstudy (ID, sg_id, g_auth)
-VALUES 
-('id5', 4, 'crew');
-
-INSERT INTO memberstudy (ID, sg_id, g_auth)
-VALUES 
-('id3', 2,'common');
-
-INSERT INTO memberstudy (ID, sg_id, g_auth)
-VALUES 
-('id3', 333,'common');
-
-SELECT * FROM memberstudy;
-
-SELECT * FROM MEMBERSTUDY m JOIN STUDYGROUP st ON m.SG_ID = st.SG_ID;
-UPDATE MEMBERSTUDY  SET g_auth='captain' WHERE sg_id=333; /*권한 수정*/
-
-SELECT ID id, SG_ID sg_id, ACCTIME acctime, CURTIME curtime, G_AUTH g_auth, ATT_DATE att_date
-FROM MEMBERSTUDY
-WHERE SG_ID = 336
-;
-UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'id1';
-UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'id2';
-UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'id3';
-
-SELECT m.ID ,m.EMAIL, m.NAME, m.PIMG_URL, m.TAG , ms.ENSTATUS
-	FROM MEMBERSTUDY ms JOIN MEMBERS m ON ms.ID = m.ID 
-	WHERE SG_ID = 1 and (g_auth = 'captain' or g_auth = 'crew')
-	;
-
-SELECT ID id, SG_ID sg_id, ACCTIME acctime, CURTIME curtime, G_AUTH g_auth, ATT_DATE att_date
-	FROM MEMBERSTUDY
-	WHERE SG_ID = 336 and g_auth = 'crew' or g_auth='captain';
-
-SELECT m.ID id ,m.EMAIL email, m.NAME name, m.PIMG_URL pimg_url, m.TAG tag 
-	FROM MEMBERSTUDY ms JOIN MEMBERS m ON ms.ID = m.ID 
-	WHERE SG_ID = 336 and (g_auth = 'captain' or g_auth = 'crew');
-	
-SELECT m.ID id ,m.EMAIL email, m.NAME name, m.PIMG_URL pimg_url, m.TAG tag 
-	FROM MEMBERSTUDY ms JOIN MEMBERS m ON ms.ID = m.ID 
-	WHERE SG_ID =336 and (g_auth = 'common');	
-	
-SELECT ACCTIME 
-FROM MEMBERSTUDY
-WHERE SG_ID = 1 AND ID = 'id1' AND (g_auth = 'captain' or g_auth = 'crew')
-;
-
-UPDATE MEMBERSTUDY SET ENSTATUS = 'in', ENTIME = SYSDATE 
-	WHERE SG_ID = 1 AND ID = 'id2' AND (G_AUTH = 'crew' OR G_AUTH = 'captain')
-
-SELECT COUNT(*) FROM studygroup WHERE sg_tag LIKE '%토익';
+--DELETE FROM MEMBERSTUDY WHERE sg_id =337 AND g_auth='crew';
+--SELECT * FROM MEMBERSTUDY
+--
+---- 방생성자 방 생성
+--INSERT INTO memberstudy (ID, sg_id, g_auth)
+--VALUES 
+--('id1', 21, 'captain');
+--
+--
+---- 참가자 참여 허락
+--INSERT INTO memberstudy (ID, sg_id, g_auth)
+--VALUES 
+--('id2', 21, 'crew');
+--INSERT INTO memberstudy (ID, sg_id, g_auth)
+--VALUES 
+--('id3', 21, 'crew');
+--
+--INSERT INTO memberstudy (ID, sg_id, g_auth)
+--VALUES 
+--('id4', 3, 'crew');
+--INSERT INTO memberstudy (ID, sg_id, g_auth)
+--VALUES 
+--('id5', 4, 'crew');
+--
+--INSERT INTO memberstudy (ID, sg_id, g_auth)
+--VALUES 
+--('id3', 2,'common');
+--
+--INSERT INTO memberstudy (ID, sg_id, g_auth)
+--VALUES 
+--('id3', 333,'common');
+--
+--SELECT * FROM memberstudy;
+--
+--SELECT * FROM MEMBERSTUDY m JOIN STUDYGROUP st ON m.SG_ID = st.SG_ID;
+--UPDATE MEMBERSTUDY  SET g_auth='captain' WHERE sg_id=333; /*권한 수정*/
+--
+--SELECT ID id, SG_ID sg_id, ACCTIME acctime, CURTIME curtime, G_AUTH g_auth, ATT_DATE att_date
+--FROM MEMBERSTUDY
+--WHERE SG_ID = 336
+--;
+--UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'id1';
+--UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'id2';
+--UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'id3';
+--
+--SELECT m.ID ,m.EMAIL, m.NAME, m.PIMG_URL, m.TAG , ms.ENSTATUS
+--	FROM MEMBERSTUDY ms JOIN MEMBERS m ON ms.ID = m.ID 
+--	WHERE SG_ID = 1 and (g_auth = 'captain' or g_auth = 'crew')
+--	;
+--
+--SELECT ID id, SG_ID sg_id, ACCTIME acctime, CURTIME curtime, G_AUTH g_auth, ATT_DATE att_date
+--	FROM MEMBERSTUDY
+--	WHERE SG_ID = 336 and g_auth = 'crew' or g_auth='captain';
+--
+--SELECT m.ID id ,m.EMAIL email, m.NAME name, m.PIMG_URL pimg_url, m.TAG tag 
+--	FROM MEMBERSTUDY ms JOIN MEMBERS m ON ms.ID = m.ID 
+--	WHERE SG_ID = 336 and (g_auth = 'captain' or g_auth = 'crew');
+--	
+--SELECT m.ID id ,m.EMAIL email, m.NAME name, m.PIMG_URL pimg_url, m.TAG tag 
+--	FROM MEMBERSTUDY ms JOIN MEMBERS m ON ms.ID = m.ID 
+--	WHERE SG_ID =336 and (g_auth = 'common');	
+--	
+--SELECT ACCTIME 
+--FROM MEMBERSTUDY
+--WHERE SG_ID = 1 AND ID = 'id1' AND (g_auth = 'captain' or g_auth = 'crew')
+--;
+--
+--UPDATE MEMBERSTUDY SET ENSTATUS = 'in', ENTIME = SYSDATE 
+--	WHERE SG_ID = 1 AND ID = 'id2' AND (G_AUTH = 'crew' OR G_AUTH = 'captain')
+--
+--SELECT COUNT(*) FROM studygroup WHERE sg_tag LIKE '%토익';
 /*예약*/
 CREATE TABLE reservation
 (
@@ -263,14 +268,14 @@ CREATE TABLE reservation
 	payment varchar2(30),/*결제방법*/
 	PRIMARY KEY (res_id)
 );
-SELECT * FROM (
-SELECT ROWNUM AS RNUM, T.* FROM
-(SELECT * FROM studygroup ORDER BY sg_id DESC)T) 
-WHERE RNUM >=1 AND RNUM < 3;
-
-
-
-SELECT * FROM reservation;
+--SELECT * FROM (
+--SELECT ROWNUM AS RNUM, T.* FROM
+--(SELECT * FROM studygroup ORDER BY sg_id DESC)T) 
+--WHERE RNUM >=1 AND RNUM < 3;
+--
+--
+--
+--SELECT * FROM reservation;
 
 /*좌석*/
 CREATE TABLE seats
@@ -280,7 +285,13 @@ CREATE TABLE seats
 	PRIMARY KEY (seat_id)
 );
 
-SELECT * FROM  seats;
+--INSERT INTO seats
+--(seat_id, SEAT_PRICE) 
+--VALUES 
+--('room08',4000);
+--
+--
+--SELECT * FROM seats;
 
 /*스터디 그룹*/
 CREATE TABLE studygroup
@@ -298,31 +309,31 @@ CREATE TABLE studygroup
 
 
 
-SELECT file_name  FROM studygroup;
-SELECT * FROM STUDYGROUP ORDER BY sg_id;
+--SELECT file_name  FROM studygroup;
+--SELECT * FROM STUDYGROUP ORDER BY sg_id;
  /*스터디 그룹 이미지 파일*/ 
 CREATE TABLE studygroup_file
 (
-	sgf_id NUMBER NOT NULL,   /*파일 번호*/
-	sgf_org_file_name varchar2(100) NOT NULL, /*원본 파일 이름*/
-	sgf_stored_file_name varchar2(100) NOT NULL, /*변경된 파일 이름*/
-	sg_id NUMBER NOT NULL,/*스터디그룹고유번호*/
+	sgf_id NUMBER ,   /*파일 번호*/
+	sgf_org_file_name varchar2(100), /*원본 파일 이름*/
+	sgf_stored_file_name varchar2(100), /*변경된 파일 이름*/
+	sg_id NUMBER ,/*스터디그룹고유번호*/
 	sgf_file_size NUMBER,  /*파일 크기*/
 	PRIMARY KEY (sgf_id)  
 );
-/*not null 없앴다.*/
-ALTER TABLE STUDYGROUP_FILE MODIFY sgf_id NULL;
-ALTER TABLE STUDYGROUP_FILE MODIFY sgf_org_file_name NULL;
-ALTER TABLE STUDYGROUP_FILE MODIFY sgf_stored_file_name NULL;
-ALTER TABLE STUDYGROUP_FILE MODIFY sg_id NULL;
+--/*not null 없앴다.*/
+--ALTER TABLE STUDYGROUP_FILE MODIFY sgf_id NULL;
+--ALTER TABLE STUDYGROUP_FILE MODIFY sgf_org_file_name NULL;
+--ALTER TABLE STUDYGROUP_FILE MODIFY sgf_stored_file_name NULL;
+--ALTER TABLE STUDYGROUP_FILE MODIFY sg_id NULL;
 
 
-INSERT INTO studygroup_file VALUES
-(studygroup_file_seq.nextval, 'aaa', 'aaa',160,1000);
-
-
-SELECT * FROM studygroup_file;
-SELECT * FROM studygroup_file;
+--INSERT INTO studygroup_file VALUES
+--(studygroup_file_seq.nextval, 'aaa', 'aaa',160,1000);
+--
+--
+--SELECT * FROM studygroup_file;
+--SELECT * FROM studygroup_file;
 
 DROP TABLE studygroup_file CASCADE CONSTRAINTS;
 
@@ -333,40 +344,40 @@ ALTER TABLE studygroup_file
 ;
 
 
-SELECT * FROM studygroup;
--- study group dummy insert test
-INSERT INTO studygroup VALUES
-(studygroup_seq.nextval, 'aaa', '안녕하세요', 2, sysdate, 'aaa','https://open.kakao.com/o/szYZxz5c','group571b230b-10a6-4ebb-bfa5-7a2600eaf771.png');
-
-INSERT INTO studygroup VALUES
-(studygroup_seq.nextval, 'bbb', '안녕하세요', 4, sysdate, 'aaa','https://open.kakao.com/o/szYZxz5c');
-
-INSERT INTO studygroup VALUES
-(studygroup_seq.nextval, '수학', '안녕하세요', 4, sysdate, 'aaa','https://open.kakao.com/o/szYZxz5c');
-
-INSERT INTO studygroup VALUES
-(studygroup_seq.nextval, '수학', '안녕하세요', 4, sysdate, '수학','https://open.kakao.com/o/szYZxz5c');
-
-INSERT INTO studygroup VALUES
-(studygroup_seq.nextval, '임시데이터', '안녕하세요', 4, sysdate, '임시데이터','https://open.kakao.com/o/szYZxz5c');
-
-SELECT COUNT(*) FROM studygroup;
-SELECT sg_id,sg_name FROM studygroup ORDER by sg_id DESC;
-
-SELECT * FROM studygroup WHERE ROWNUM<=2 ORDER by sg_id DESC; /*상위 데이터 3개 조회*/
-
-SELECT * FROM studygroup;
-
-
-
-SELECT * FROM studygroup;
-SELECT sg_id id, sg_name name, sg_info info, sg_max max, sg_regdate regdate, sg_tag tag, kko_url kko_url
-		FROM studygroup
-		where sg_id = 1;
-
-SELECT * FROM (
-	SELECT ROWNUM AS RNUM, T.* FROM (SELECT * FROM studygroup ORDER BY sg_id DESC)T) 
-	WHERE RNUM >=1 AND RNUM < 3;
+--SELECT * FROM studygroup;
+---- study group dummy insert test
+--INSERT INTO studygroup VALUES
+--(studygroup_seq.nextval, 'aaa', '안녕하세요', 2, sysdate, 'aaa','https://open.kakao.com/o/szYZxz5c','group571b230b-10a6-4ebb-bfa5-7a2600eaf771.png');
+--
+--INSERT INTO studygroup VALUES
+--(studygroup_seq.nextval, 'bbb', '안녕하세요', 4, sysdate, 'aaa','https://open.kakao.com/o/szYZxz5c');
+--
+--INSERT INTO studygroup VALUES
+--(studygroup_seq.nextval, '수학', '안녕하세요', 4, sysdate, 'aaa','https://open.kakao.com/o/szYZxz5c');
+--
+--INSERT INTO studygroup VALUES
+--(studygroup_seq.nextval, '수학', '안녕하세요', 4, sysdate, '수학','https://open.kakao.com/o/szYZxz5c');
+--
+--INSERT INTO studygroup VALUES
+--(studygroup_seq.nextval, '임시데이터', '안녕하세요', 4, sysdate, '임시데이터','https://open.kakao.com/o/szYZxz5c');
+--
+--SELECT COUNT(*) FROM studygroup;
+--SELECT sg_id,sg_name FROM studygroup ORDER by sg_id DESC;
+--
+--SELECT * FROM studygroup WHERE ROWNUM<=2 ORDER by sg_id DESC; /*상위 데이터 3개 조회*/
+--
+--SELECT * FROM studygroup;
+--
+--
+--
+--SELECT * FROM studygroup;
+--SELECT sg_id id, sg_name name, sg_info info, sg_max max, sg_regdate regdate, sg_tag tag, kko_url kko_url
+--		FROM studygroup
+--		where sg_id = 1;
+--
+--SELECT * FROM (
+--	SELECT ROWNUM AS RNUM, T.* FROM (SELECT * FROM studygroup ORDER BY sg_id DESC)T) 
+--	WHERE RNUM >=1 AND RNUM < 3;
 /*studygroupfile은 관계 없앴다.*/
 /* Create Foreign Keys */
 
@@ -424,5 +435,9 @@ ALTER TABLE memberstudy
 	REFERENCES studygroup (sg_id) ON DELETE SET NULL
 ;
 
-
-
+--DELETE FROM AUTHORITY;
+--DELETE FROM MEMBERS;
+--
+--SELECT m.*, a.auth
+--FROM MEMBERS m, AUTHORITY a
+--WHERE m.id = a.id;

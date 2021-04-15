@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.cogather.domain.UserDAO">
+	<insert id="minsert" flushCache="true"
+		parameterType="com.project.cogather.domain.UserDTO"
+		keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+		INSERT INTO members
+			(id, name, pw, phone, email)
+		VALUES
+			(#{id}, #{name}, #{pw}, #{phone}, #{email})
+	</insert>
+	
+	<insert id="authinsert" flushCache="true"
+		parameterType="com.project.cogather.domain.UserDTO"
+		keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+		INSERT INTO authority
+			(auth, id)
+		VALUES
+			('ROLE_USER', (SELECT m.id FROM MEMBERS m WHERE m.id = #{id}))
+	</insert>
+	
+	<select id="selectByID"
+		resultType="com.project.cogather.domain.UserDTO">
+		SELECT * FROM MEMBERS WHERE id = #{id}
+	</select>
+
+
+
+</mapper>
