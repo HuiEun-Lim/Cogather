@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>방입장 권한 확인</title>
-<script src="${pageContext.request.contextPath }/JS/chat.js"></script>
 </head>
 <body>
 <c:choose>

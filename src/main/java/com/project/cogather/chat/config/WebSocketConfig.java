@@ -14,7 +14,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		// 소켓 통신을 위한 엔드 포인트 지정 소켓 생성시 해당 url을 사용, 모든 오리진에게 허용, 
 		// SockJs는 webSocket을 미지원하는 브라우저에서도 동작할 수 있도록 함
-		registry.addEndpoint("/endpoint").setAllowedOrigins("*").withSockJS();
+		registry.addEndpoint("/endpoint").setAllowedOrigins("*").withSockJS()
+		.setClientLibraryUrl("https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js");// 클라이언트랑 서버의 sockjs 버전을 맞춰봄
 		
 		/*
 		 * withSockJS ()

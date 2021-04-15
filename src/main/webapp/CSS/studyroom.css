@@ -8,7 +8,7 @@ html, body {
 
 @font-face {
 	font-family: 'Gugi-Regular';
-	src: url(/cogather/font/Gugi-Regular.ttf) format('truetype');
+	src: url(../font/Gugi-Regular.ttf) format('truetype');
 }
 
 .pimg {

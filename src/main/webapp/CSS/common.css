@@ -10,7 +10,16 @@
     background-repeat: repeat-y;
 	
 }
+@font-face {
+	font-family: "NanumBarunpenB";
+	src:url("../font/NanumBarunpenB.ttf")format("truetype");
+}
 
+#myNavbar{
+	color: white;
+	font-size:20px;
+	font-family:NanumBarunpenB;
+}
 .login{
 	color:white;
 	

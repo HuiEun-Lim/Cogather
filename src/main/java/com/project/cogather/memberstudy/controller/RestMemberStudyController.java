@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -75,24 +76,31 @@ public class RestMemberStudyController {
 	}
 	
 
-	// memberStudy 에서 studygroup 아이디에 따라 참여하고 있는 멤버데이터를 json으로 반환하는 핸드
+	// memberStudy 에서 studygroup 아이디에 따라 참여하고 있는 멤버데이터를 json으로 반환하는 핸들러
 	@GetMapping("/ms/{sg_id}")
 	public MemberStudyResult getMemberStudy(@PathVariable int sg_id) {
 		MemberStudyResult result = new MemberStudyResult();
 		List<MemberStudyDTO> ms = null;
 		List<MembersDTO> m = null;
-		ms = memberStudyService.select(sg_id);
-		m = memberStudyService.selectMembersBySGId(sg_id);
 		int cnt = 0;
 		String status = "fail";
 		StringBuilder message = new StringBuilder();
-		if (ms == null || ms.size() == 0 || m == null || m.size() == 0) {
-			message.append("StudyGroup data 가져오기 실패");
-		} else {
-			status = "OK";
-			cnt = ms.size();
-		}
+		
+		try {
+			ms = memberStudyService.select(sg_id);
+			m = memberStudyService.selectMembersBySGId(sg_id);
+			
+			if (ms == null || ms.size() == 0 || m == null || m.size() == 0) {
+				message.append("StudyGroup data 가져오기 실패");
+			} else {
+				status = "OK";
+				cnt = ms.size();
+			}
 
+		}catch(Exception e) {
+			message.append(e.getMessage());
+		}
+		System.out.println("들어온 멤버수: "+ cnt);
 		result.setCnt(cnt);
 		result.setMessage(message.toString());
 		result.setStatus(status);
@@ -146,8 +154,8 @@ public class RestMemberStudyController {
 	}
 
 	// 스터디 룸 나가기
-	@GetMapping("ms/roomoutOk")
-	public AjaxResult roomoutOk(int sg_id, String id, Model model) {
+	@PostMapping("ms/roomoutOk")
+	public AjaxResult roomoutOk(Integer sg_id, String id, Model model) {
 		AjaxResult result = new AjaxResult();
 		int cnt = 0;
 		String status = "fail";
@@ -159,11 +167,13 @@ public class RestMemberStudyController {
 		} else {
 			status = "OK";
 		}
-
+		System.out.println("roomout 중 ");
+		
+		
 		result.setCnt(cnt);
 		result.setMessage(message.toString());
 		result.setStatus(status);
-		System.out.println("퇴실중"+status);
+		
 		return result;
 	}
 
