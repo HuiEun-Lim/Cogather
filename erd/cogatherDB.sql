@@ -328,8 +328,8 @@ CREATE TABLE studygroup_file
 --ALTER TABLE STUDYGROUP_FILE MODIFY sg_id NULL;
 
 
---INSERT INTO studygroup_file VALUES
---(studygroup_file_seq.nextval, 'aaa', 'aaa',160,1000);
+INSERT INTO studygroup_file VALUES
+(studygroup_file_seq.nextval, 'aaa', 'aaa',160,1000);
 --
 --
 --SELECT * FROM studygroup_file;
@@ -346,8 +346,8 @@ ALTER TABLE studygroup_file
 
 --SELECT * FROM studygroup;
 ---- study group dummy insert test
---INSERT INTO studygroup VALUES
---(studygroup_seq.nextval, 'aaa', '안녕하세요', 2, sysdate, 'aaa','https://open.kakao.com/o/szYZxz5c','group571b230b-10a6-4ebb-bfa5-7a2600eaf771.png');
+INSERT INTO studygroup VALUES
+(studygroup_seq.nextval, 'aaa', '안녕하세요', 2, sysdate, 'aaa','https://open.kakao.com/o/szYZxz5c','group571b230b-10a6-4ebb-bfa5-7a2600eaf771.png');
 --
 --INSERT INTO studygroup VALUES
 --(studygroup_seq.nextval, 'bbb', '안녕하세요', 4, sysdate, 'aaa','https://open.kakao.com/o/szYZxz5c');
