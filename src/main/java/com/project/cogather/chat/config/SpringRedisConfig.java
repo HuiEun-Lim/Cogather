@@ -19,7 +19,7 @@ public class SpringRedisConfig {
 		RedisStandaloneConfiguration connection = new RedisStandaloneConfiguration();
 		connection.setHostName("localhost");
 		// redis 기본 포트 6379
-		connection.setPort(20000); // docker redis server 외부 포트를 20000으로 설정했음
+		connection.setPort(6379); // docker redis server 외부 포트를 20000으로 설정했음
 		
 		return new JedisConnectionFactory(connection); 
 	}
