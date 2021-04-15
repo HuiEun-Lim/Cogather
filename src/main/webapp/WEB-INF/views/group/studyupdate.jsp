@@ -132,15 +132,21 @@ function chkSubmit(){
 
 <c:forEach var="file" items="${files}">
 </c:forEach> 
-첨부파일:  <input type="file" name="file" required>
+<div class="file_input">
+<label>
+
+첨부파일: &nbsp&nbsp<img src="/cogather/img/group/yellowfile.png" class="search" ><input type="file" style="display:none" name="file" onchange="javascript:document.getElementById('file_route').value=this.value" required>
+<input type="text" name="filetext" readonly="readonly" id="file_route">
+</label>
+</div>
 <div style="border: 1px solid #dbdbdb;">
 			
 			<c:forEach var="file" items="${files}">
-				<a href="#" onclick="fn_fileDown('${file.SG_ID}'); return false;">
+				<a href="#" style="color:#ffd43b" onclick="fn_fileDown('${file.SG_ID}'); return false;">
 				<div id="filelist">
-				(${file.SGF_ID})${file.SGF_ORG_FILE_NAME}</a><br>
-				</div>
-				<button onclick="chkDeleteFile(${file.SGF_ID }); return false;">삭제및 수정</button>
+				(${file.SGF_ID})${file.SGF_ORG_FILE_NAME}</a>
+				<button style="background-color:white;border:0px" onclick="chkDeleteFile(${file.SGF_ID }); return false;"><img src="/cogather/img/group/yellowx.png" class="search" ></button>
+			</div>
 			</c:forEach>
 			
 		<%-- 	<a href="#" onclick="fn_fileDown('${file[0].sg_id}'); return false;">FF${file[0].sg_id}</a>${file[0].sgf_file_size}<br>

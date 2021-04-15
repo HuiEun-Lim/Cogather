@@ -224,9 +224,10 @@ function accept(id){
 			<c:forEach var="file" items="${files}">
 				<a href="#" onclick="fn_fileDown('${file.SGF_ID}'); return false;">
 				<div id ="filelist">
-				(${file.SGF_ID})${file.SGF_ORG_FILE_NAME}</a><br>
+				(${file.SGF_ID})${file.SGF_ORG_FILE_NAME}</a>
+				
+				<button style="background-color:white;border:0px" onclick="chkDeleteFile(${file.SGF_ID })"><img src="/cogather/img/group/yellowx.png" class="search" ></button>
 				</div>
-				<button onclick="chkDeleteFile(${file.SGF_ID })">삭제하기</button>
 			</c:forEach>
 			
 		<%-- 	<a href="#" onclick="fn_fileDown('${file[0].sg_id}'); return false;">FF${file[0].sg_id}</a>${file[0].sgf_file_size}<br>
