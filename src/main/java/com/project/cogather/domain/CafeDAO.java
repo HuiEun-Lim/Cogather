@@ -1,6 +1,12 @@
 package com.project.cogather.domain;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;

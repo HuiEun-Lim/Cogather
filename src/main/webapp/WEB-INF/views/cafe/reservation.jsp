@@ -23,62 +23,6 @@
 <script>
 
 var seatdates;
-function chkSubmit(){
-	frm = document.forms['frm'];
-	
-	var seatid = frm['seat_id'].value.trim();
-	var startd = new Date(frm['startdate'].value.trim());
-	var endd = new Date(frm['enddate'].value.trim());
-	var diffTime = (endd.getTime() - startd.getTime())/(1000 * 60*60);
-		
-	if(seatid == ""){
-		alert("좌석을 반드시 선택해야합니다.");
-		return false;
-		
-	}
-	
-	if(diffTime < 1 || diffTime > 72){
-		alert("시간 확인하세요");
-		return false;
-	}
-	chkdates();
-	
-	function chkdates(){
-		$.ajax({
-			url:"${pageContext.request.contextPath}/studycafe/dateResult?seat_id="+seatid,
-			type: "GET",
-			cache: false,
-			success: function(data, status){
-				if(status == "success"){
-					if(data.status == "success"){
-						seatdates = data;
-						chkrsvdate(data)
-					}
-				}
-			}
-		})
-	}
-	function chkrsvdate(data){
-		for(var i=0; i<data['chkdates'].length;i++){
-			var resdate = (data['chkdates'][i].start_date).split(/[- :]/);
-			var resdate2 = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));
-			alert("예약허쉴");
-			alert(resdate2);
-			if((data['chkdates'][i].start_date).getTime() - startd.getTime() <= 0 &&(data['chkdates'][i].end_date).getTime() - startd.getTime() >= 0){ // 시작 날짜가 같거나 이후다
-				temp = seatdates['chkdates'][i].start_date - startd;
-				alert(temp);
-				return false;
-			}
-		
-			else if((data['chkdates'][i].start_date).getTime() - endd.getTime() <= 0 && (data['chkdates'][i].end_date).getTime() - endd.getTime() >= 0){
-				alert("이미 예약된 자리입니다.");
-				return false;
-			}
-		}
-	}
-	
-	
-}
 </script>
 <body>
 	<!-- Navbar (sit on top) -->
