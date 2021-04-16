@@ -101,7 +101,7 @@ ALTER TABLE content_file
 --INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
 --VALUES (content_seq.nextval, 'id3', 21, '인간이 불행한 이유는 자신이 행복하다는 사실을 모르기 때문이다. 단지 그 뿐이다.', '인간이 불행한 이유는 자신이 행복하다는 사실을 모르기 때문이다. 단지 그 뿐이다.' );
 --
---SELECT * FROM CONTENT;
+SELECT * FROM CONTENT;
 --
 --SELECT * 
 --FROM (SELECT * 
@@ -128,7 +128,10 @@ ALTER TABLE content_file
 --UPDATE CONTENT
 --SET CT_TITLE = '에이시발', CT_CONTENT = '왜 안되는데'
 --WHERE CT_UID = 22 AND ID = 'id1' AND SG_ID = 21; 		
-		
+
+DELETE FROM CONTENT WHERE SG_ID = 4 AND ct_uid= 18;
+SELECT * FROM CONTENT_FILE ;
+DELETE FROM CONTENT_FILE WHERE CF_ID = 2;
 /*회원*/
 CREATE TABLE members
 (
@@ -193,8 +196,8 @@ CREATE TABLE memberstudy
 INSERT INTO memberstudy (ID, sg_id, g_auth)
 VALUES 
 ('qwer', 4, 'captain');
---
---
+UPDATE MEMBERSTUDY SET g_auth='crew', enstatus='out'
+WHERE ID='qwer' AND sg_id = 4;
 ---- 참가자 참여 허락
 --INSERT INTO memberstudy (ID, sg_id, g_auth)
 --VALUES 
@@ -385,6 +388,7 @@ INSERT INTO studygroup VALUES
 ALTER TABLE comments
 	ADD FOREIGN KEY (ct_uid)
 	REFERENCES content (ct_uid)
+	ON DELETE CASCADE
 ;
 
 

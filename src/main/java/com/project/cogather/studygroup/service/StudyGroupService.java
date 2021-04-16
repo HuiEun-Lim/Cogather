@@ -155,8 +155,6 @@ public class StudyGroupService {
 
 	public List<Map<String, Object>> selectFile(int sg_id) {
 		dao = sqlSession.getMapper(StudyGroupDAO.class);
-		System.out.println("sg_id service" + sg_id);
-
 		return dao.selectFile(sg_id);
 	}
 

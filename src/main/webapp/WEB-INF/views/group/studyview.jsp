@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <c:choose>
 	<c:when test="${empty list || fn:length(list) == 0 }">
@@ -91,18 +91,6 @@ lightbox.option({
     fitImagesInViewport:false
 })
 
-function registerRoom(){
-	$.ajax({
-		url: "./MemberStudyRest/ms/${list[0].sg_id}/id2",
-		type: "GET",
-		cache: false,
-		success: function(data, status) {
-			if (status == "success") {
-				alert("가입 신청하였습니다");
-			}
-		}
-	});
-}
 function loadMember(){
 	console.log("지나감");
 	$.ajax({
@@ -160,12 +148,17 @@ function accept(id){
 		}
 	});
 }
+function getCookie(name) {
+	  var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+	  return value? value[2] : null;
+}
 
-
+$(function(){
+	$("[name='id']").val(getCookie('user_id'));
+})
 </script>
 <body>
 <%@ include file="groupcover.jsp" %>
-
 		<br><br>
 	<div id="row" style=" display: -ms-flexbox; /* IE10 */display: flex;-ms-flex-wrap: wrap; /* IE10 */flex-wrap: wrap;">
 		<div id="text_content">
@@ -241,12 +234,17 @@ function accept(id){
 		<button onclick="location.href='studylist'" class="listbutton hover">목록보기</button>
 		<button onclick="chkDelete(${list[0].sg_id })" style="background-color:#ffd43b;border :0;outline:0;color:white;width:100px;height:50px;position:relative;float:right;left:-50%;
 	margin:0 10px 0 0;" class="viewbutton hover">삭제하기</button>
-		
-		<button onclick="registerRoom()" class="enterbutton hover" style="color:white;float:right;background-color:#ffd43b;border :0;
+		<form action="roomenterOk" name="enterRoom" method="post">
+			<input type="hidden" name="sg_id" value="${sg_id }">
+			<input type="hidden" name="id" value="getCookie('user_id')">
+			<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/> 
+			<button type="submit" id="enterRoom" class="enterbutton hover" style="color:white;float:right;background-color:#ffd43b;border :0;
 	outline:0;width:100px;
-	height:50px;">방입장</button> 
+	height:50px;">방입장</button>
+		</form>
+		 
 	</section>
-	
+
 </body>
 </html>
 				

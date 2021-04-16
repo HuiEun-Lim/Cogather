@@ -6,13 +6,10 @@ var contextPath = null;
 var chk = 'abnormal'
 var members = {}; // 타이머를 저장하기 위한 전역 변수 
 var member_profiles = {};
-
 $(document).ready(function() {
 	//js와 html을 분리하기 위해 jstl과 el을 받아야 한다면 html 요소에 숨겨놓고 문서 완성시 그걸 읽어 오는 방식을 해봄
 	// 이렇게 하지 않으면 분리된 javascript 파일은 제일 마지막에 컴파일 되므로 request에 있는 정보들을 받아올 수 없다. 
-	sg_id = $('#sg_id').text();
-	id = $('#id').text();
-	contextPath = $("#contextPath").text();;		
+	setArgs();
 	connect();
 //	getMembers(); // 현제 db에 들어와있는 상태를 가진 유저들 목록을 표시하고 타이머 준비
 	
@@ -143,6 +140,9 @@ function getMembers() {
 		url: contextPath+"/group/MemberStudyRest/ms/" + sg_id,
 		type: "GET",
 		cache: false,
+		beforeSend: function(xhr){
+			xhr.setRequestHeader(header, token);
+		},
 		success: function(data, status) {
 			if (status == "success") {
 				updateMembers(data);
@@ -266,6 +266,9 @@ function storeAcctime() {
 		type: "PUT",
 		data: "sg_id=" + sg_id + "&id=" + id + "&acctime=" + time.toISOString(),
 		cache: false,
+		beforeSend: function(xhr){
+			xhr.setRequestHeader(header, token);
+		},
 		success: function(data, status) {
 			if (status == "success") {
 				if (data.status == "OK") {

@@ -152,14 +152,19 @@ public class RestContentController {
 		int cnt = 0;
 		StringBuffer message = new StringBuffer();
 		String status = "FAIL";
-		
-		cnt = boardService.update(dto);
-		
-		if (cnt == 0) {
-			message.append("트랜잭션 실패: 게시글 수정 실패");
-		} else {
-			status = "OK";
+		try {
+			cnt = boardService.update(dto);
+			if (cnt == 0) {
+				message.append("트랜잭션 실패: 게시글 수정 실패");
+			} else {
+				status = "OK";
+			}
+		}catch(Exception e) {
+			message.append(e.getMessage());
 		}
+		
+		
+		
 		result.setStatus(status);
 		result.setMessage(message.toString());
 		result.setCnt(cnt);
@@ -173,14 +178,18 @@ public class RestContentController {
 		int cnt = 0;
 		StringBuffer message = new StringBuffer();
 		String status = "FAIL";
-		
-		cnt += boardService.deleteFiles(ct_uid, request);
-		cnt += boardService.deleteByUid(sg_id, ct_uid, id);
+		try {
+			cnt += boardService.deleteFiles(ct_uid, request);
+			cnt += boardService.deleteByUid(sg_id, ct_uid, id);
 
-		if (cnt == 0) {
-			message.append("트랜잭션 실패: 게시글 삭제 실패");
-		} else {
-			status = "OK";
+			if (cnt == 0) {
+				message.append("트랜잭션 실패: 게시글 삭제 실패");
+			} else {
+				status = "OK";
+			}
+
+		}catch(Exception e){
+			message.append(e.getMessage());
 		}
 		result.setStatus(status);
 		result.setMessage(message.toString());
@@ -199,6 +208,7 @@ public class RestContentController {
 		String url = null;
 		StringBuffer message = new StringBuffer();
 		ContentFileDTO dto = null;
+		
 		try {
 			dto = boardService.saveBoardFile(ct_uid, mpRequest);
 			if (dto == null) {

@@ -1,17 +1,9 @@
 var page = 1;// 현제 페이지
 var pageRows = 10; // 페이지당 글의 개수
 var viewItem = undefined; // 가장 최근에 view 한 글의 데이터
-var contextPath = undefined; // 컨텍스트 경로
-var username = undefined; // 유저 이름
-var roomId = undefined; // 방 번호
 
 $(function(){
-	contextPath = $("#contextPath").text();
-	username = $("#id").text(); 
-	roomId = $("#sg_id").text();
-	
-	
-	
+	setArgs();
 	loadBoard(page); // 페이지 최초 로딩
 	
 	$(".board-list #btnWrite").click(function(){
@@ -66,9 +58,12 @@ $(function(){
 function loadBoard(page){ // 방 번호와 페이지, 페이지에 표시할 글의 수로 데이터를 받아옴
 	togglePage("list-mode");
 	$.ajax({
-        url : contextPath+"/group/studyboard/"+roomId+"/page/"+page+"/"+pageRows,
+        url : contextPath+"/group/studyboard/"+sg_id+"/page/"+page+"/"+pageRows,
         type : "GET",
         cache : false,
+		beforeSend: function(xhr){
+			xhr.setRequestHeader(header, token);
+		},
         success : function(data, status){
             if(status == "success"){
                 if(updateList(data)){   // application/json 이면 이미 parse 되어 있다.
@@ -200,8 +195,8 @@ function togglePage(mode){
 		$(".btn_group_update #update-cancel").hide(); // write 시 불필요한 버튼 가리기
 		$(".btn_group_update #update-send").hide(); // write 시 불필요한 버튼 가리기
 		$(".comment-list").html(''); // write 시 불필요한 댓글 파트 가리기
+		
 		createTempContent(); // 임시글 생성후 표시
-// 										CKFinder.setupCKEditor(editor);
 	}
 	if(mode == "list-mode"){
 		$("#write-mode").hide(); // 리스트 표기시 불필요한 write 파트 가리기
@@ -240,7 +235,7 @@ function togglePage(mode){
 		$(".btn_group_update #update-cancel").hide(); // 글 상세보기시 불필요한 버튼 가리기
 		$(".btn_group_update #update-send").hide(); // 글 상세보기시 불필요한 버튼 가리기
 		
-		if(viewItem.member[0].id == username){ // 상세보기시 해당 글을 보는 유저와 글쓴이가 동일할 때 수정, 삭제 버튼 활성화 및 보이기
+		if(viewItem.member[0].id == id){ // 상세보기시 해당 글을 보는 유저와 글쓴이가 동일할 때 수정, 삭제 버튼 활성화 및 보이기
 			$(".btn_group_view #view-update").show();
 			$(".btn_group_view #view-delete").show();
 			$(".btn_group_view #view-update").attr("disabled", false);
@@ -300,14 +295,17 @@ function togglePage(mode){
 		
 		$("#write-mode #ct_title").val(viewItem.data[0].ct_title); // 글 제목이 있다면 제목 란에 미리 넣어두기
 		$("#write-mode [name='ct_uid']").val(viewItem.data[0].ct_uid); // 해당 글에 대한 uid 저장해두기
-		
 		CKEDITOR.replace('editor1', // 글작성 에디터 설정 
 		{
 			width:'100%',
 			height: '450px',
 			allowedContent: true,
+			fileTools_requestHeaders:{
+				'X-CSRF-TOKEN' : token
+			},
 			uploadUrl: contextPath+'/group/studyboard/file/'+viewItem.data[0].ct_uid+"?responseType=json" // 에디터에 사진을 끌어다 놓을 시 업로드하게 되는 url 작성
 		});
+		
 		
 		CKEDITOR.instances.editor1.setData(viewItem.data[0].ct_content); // 사용자에게 textarea가 아닌 editor가 보이므로 editor에 원래 내용 넣어주기
 		
@@ -324,6 +322,9 @@ function createTempContent(){
         type : "POST",
         cache : false,
         data : data,  // POST 로 ajax request 할 경우 data 에 parameter 넘기기
+		beforeSend: function(xhr){
+			xhr.setRequestHeader(header, token);
+		},
         success : function(data, status){
             if(status == "success"){
                 if(data.status == "OK"){
@@ -331,16 +332,19 @@ function createTempContent(){
 					$("#frmWrite #editor1").val("");
 					
 					$("#write-mode [name='ct_uid']").val(data.data[0].ct_uid);
-					
 					CKEDITOR.replace('editor1', // 글작성 에디터 설정
 					{
 						width:'100%',
 						height: '450px',
 						allowedContent: true,
-						uploadUrl: contextPath+'/group/studyboard/file/'+$("#write-mode [name='ct_uid']").val()+"?responseType=json" // 에디터에 사진을 끌어다 놓을 시 업로드하게 되는 url 작성
+						fileTools_requestHeaders:{
+							'X-CSRF-TOKEN' : token
+						},
+						uploadUrl: contextPath+'/group/studyboard/file/'+$("#write-mode [name='ct_uid']").val()+"?responseType=json&"+header+"="+token // 에디터에 사진을 끌어다 놓을 시 업로드하게 되는 url 작성
 					
 					});
 					CKEDITOR.instances.editor1.setData("");
+					console.log("임시 작성글 생성")
                 } else {
                     alert("INSERT 실패 " + data.status + " : " + data.message);
                 }
@@ -371,6 +375,9 @@ function addViewEvent(){
 			url: contextPath+"/group/studyboard/"+sg_id+"/detail/" + $(this).attr("data-uid"),
 			type: "GET",
 			cache: false,
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(header, token);
+			},
 			success: function(data, status){
 				if(status == "success"){
 					if(data.status == "OK"){
@@ -391,6 +398,9 @@ function view(ct){
 			url: contextPath+"/group/studyboard/"+sg_id+"/detail/" + ct,
 			type: "GET",
 			cache: false,
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(header, token);
+			},
 			success: function(data, status){
 				if(status == "success"){
 					if(data.status == "OK"){
@@ -407,15 +417,18 @@ function view(ct){
 // 게시글 삭제
 function chkDelete() {
 	var data = {
-		"sg_id": roomId,
+		"sg_id": sg_id,
 		"ct_uid": $("#write-mode [name='ct_uid']").val(),
-		"id": username
+		"id": id
 	}
 	$.ajax({
 		url: contextPath + "/group/studyboard/",    // URL : /board
 		type: "DELETE",
 		data: data,
 		cache: false,
+		beforeSend: function(xhr){
+			xhr.setRequestHeader(header, token);
+		},
 		success: function(data, status) {
 			if (status == "success") {
 				if (data.status == "OK") {
@@ -442,6 +455,9 @@ function chkUpdate(){
         type : "PUT",
         cache : false,
         data : data,  // PUT 로 ajax request 할 경우 data 에 parameter 넘기기
+		beforeSend: function(xhr){
+			xhr.setRequestHeader(header, token);
+		},
         success : function(data, status){
             if(status == "success"){
                 if(data.status == "OK"){
@@ -462,7 +478,7 @@ function chkUpdate(){
 function sendComment(){ // 댓글 작성
 	var data = {
 		'ct_uid':viewItem.data[0].ct_uid, 
-		'id' : username,
+		'id' : id,
 		'reply': $('.comment_content').val()
 		}
 		
@@ -470,7 +486,10 @@ function sendComment(){ // 댓글 작성
         url : contextPath+"/group/studyboard/comments",
         type : "POST",
         cache : false,
-        data : data, 
+        data : data,
+		beforeSend: function(xhr){
+			xhr.setRequestHeader(header, token);
+		}, 
         success : function(data, status){
             if(status == "success"){
                 if(data.status == "OK"){
@@ -492,6 +511,9 @@ function loadComments(ct_uid){
         url : contextPath+"/group/studyboard/comments/"+ct_uid,
         type : "GET",
         cache : false,
+		beforeSend: function(xhr){
+			xhr.setRequestHeader(header, token);
+		},
         success : function(data, status){
             if(status == "success"){
                 if(data.status == "OK"){
@@ -513,8 +535,8 @@ function showComments(jsonObj){
 	}
 	
 	var writer = "";
-	writer += "<img src='"+contextPath+"/"+members[username].pimg_url+"'>";
-	writer += "<div>"+username+"</div>";
+	writer += "<img src='"+contextPath+"/"+members[id].pimg_url+"'>";
+	writer += "<div>"+id+"</div>";
 	$(".comment-writer-info").html(writer);
 	
 	for(var i=0;i <jsonObj.cnt; i++){
@@ -524,7 +546,7 @@ function showComments(jsonObj){
 		result += "<div class='comment-body-wrapper'>"; 
 		result += "<div class='comment-content'>"+jsonObj.data[i].reply+"</div>";	
 		result += "<div class='comment-time'>" + jsonObj.data[i].regdate+"</div>";
-		if(username == jsonObj.data[i].id){ // 댓글 쓴 사람이 지금의 유저면 수정/삭제 버튼 표시
+		if(id == jsonObj.data[i].id){ // 댓글 쓴 사람이 지금의 유저면 수정/삭제 버튼 표시
 			result += "<a id='"+jsonObj.data[i].cm_uid+"fix' class='comment-fix-btn'>수정</a>";
 			result += "<a id='"+jsonObj.data[i].cm_uid+"del' class='comment-del-btn'>삭제</a>";
 			result += "</div>";
@@ -577,13 +599,16 @@ function toggleCommentDialog(v){ // 유튜브 댓글 수정 파트 보고 감명
 function fixCommentByUser(v){
 	var text = $("li[id='"+v+"comment"+"'] .comment_content").val();
 	alert("text: " + text);
-	var data = {'cm_uid':v, 'id': username, 'reply': text};
+	var data = {'cm_uid':v, 'id': id, 'reply': text};
 	
 	$.ajax({
         url : contextPath+"/group/studyboard/comments/",
         type : "PUT",
         cache : false,
 		data : data,
+		beforeSend: function(xhr){
+			xhr.setRequestHeader(header, token);
+		},
         success : function(data, status){
             if(status == "success"){
                 if(data.status == "OK"){
@@ -600,12 +625,15 @@ function fixCommentByUser(v){
 
 // 댓글 삭제
 function delCommentByUser(v){
-	var data = {'cm_uid':v, 'id': username};
+	var data = {'cm_uid':v, 'id': id};
 	$.ajax({
         url : contextPath+"/group/studyboard/comments/",
         type : "DELETE",
         cache : false,
 		data : data,
+		beforeSend: function(xhr){
+			xhr.setRequestHeader(header, token);
+		},
         success : function(data, status){
             if(status == "success"){
                 if(data.status == "OK"){

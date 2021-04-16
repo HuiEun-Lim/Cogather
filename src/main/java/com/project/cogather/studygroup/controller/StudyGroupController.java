@@ -117,7 +117,7 @@ public class StudyGroupController {
 			List<Map<String,Object>> fileList = studygroupservice.selectFile(sg_id);
 			
 			model.addAttribute("files",fileList);
-			
+			model.addAttribute("sg_id", sg_id);
 			return "group/studyview";
 		}
 		@RequestMapping("/studyupdate")
@@ -194,7 +194,7 @@ public class StudyGroupController {
 			return "group/mail";
 		}	
 	// 스터디 룸으로 들어온 상태
-	@RequestMapping("/studyroom")
+	@PostMapping("/studyroom")
 	public String studyroom(int sg_id, String id ,Model model) {
 		model.addAttribute("studyGroupBYSGID", studygroupservice.selectByUid(sg_id));
 		model.addAttribute("sg_id", sg_id);
@@ -208,6 +208,7 @@ public class StudyGroupController {
 		int result = memberStudyService.enterStatus(sg_id, id);
 		model.addAttribute("result", result);
 		List<MemberStudyDTO> temp = memberStudyService.select(sg_id);
+		System.out.println("d: " + id);
 		System.out.println("enter result : " + result);
 		System.out.println(temp.get(0).getEnstatus());
 		model.addAttribute("sg_id", sg_id);
