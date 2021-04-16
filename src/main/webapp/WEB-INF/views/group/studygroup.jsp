@@ -17,7 +17,10 @@
 	<link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon" />
 </head>
 <body>
+<!-- Navbar (sit on top) -->
+
 <%@ include file="groupcover.jsp" %>
+
 
 <script>
 	//Change style of navbar on scroll

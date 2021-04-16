@@ -145,7 +145,7 @@ CREATE TABLE members
 	enabled char(1) DEFAULT 1,
 	PRIMARY KEY (ID)
 );
-
+SELECT * FROM members;
 
 --SELECT * 
 --FROM MEMBERS
@@ -153,9 +153,6 @@ CREATE TABLE members
 --(SELECT ID FROM COMMENTS WHERE CT_UID = 10)
 --;
 --
-INSERT INTO members (ID, NAME, PW, PHONE, EMAIL, PIMG_URL, TAG)
-VALUES 
-('id1', 'name1', 'pw1','010-xxxx-xxxx','oooooooo@naver.com', 'img/member/default.jpg','1,2,4');
 --
 --UPDATE members SET PIMG_URL = 'img/member/default.jpg'
 --WHERE id = 'id1';
@@ -189,15 +186,22 @@ CREATE TABLE memberstudy
 	CONSTRAINT GAUTH_CHECK CHECK(g_auth IN ('captain', 'crew', 'common')),
 	CONSTRAINT ENSTATUS_CHECK CHECK(enstatus IN ('in', 'out'))
 );
---DELETE FROM MEMBERSTUDY WHERE sg_id =337 AND g_auth='crew';
+DELETE FROM MEMBERSTUDY WHERE sg_id =389;
 --SELECT * FROM MEMBERSTUDY
 --
+SELECT * FROM MEMBERSTUDY;
+--아이디  스터디 그룹 조회 
+SELECT MEMBERSTUDY.ID, STUDYGROUP.SG_ID,STUDYGROUP.sg_name,STUDYGROUP.sg_info,STUDYGROUP.sg_max,STUDYGROUP.sg_tag,STUDYGROUP.kko_url,STUDYGROUP.sg_regdate,STUDYGROUP.file_name
+FROM MEMBERSTUDY , STUDYGROUP
+WHERE MEMBERSTUDY.sg_id = studygroup.sg_id AND STUDYGROUP.sg_id=392; 
 ---- 방생성자 방 생성
 INSERT INTO memberstudy (ID, sg_id, g_auth)
 VALUES 
 ('qwer', 4, 'captain');
-UPDATE MEMBERSTUDY SET g_auth='crew', enstatus='out'
-WHERE ID='qwer' AND sg_id = 4;
+
+--
+
+--
 ---- 참가자 참여 허락
 --INSERT INTO memberstudy (ID, sg_id, g_auth)
 --VALUES 
@@ -340,11 +344,6 @@ SELECT * FROM studygroup_file;
 
 DROP TABLE studygroup_file CASCADE CONSTRAINTS;
 
-ALTER TABLE studygroup_file
-	ADD FOREIGN KEY (sg_id)
-	REFERENCES studygroup (sg_id)
-	ON DELETE CASCADE
-;
 
 
 --SELECT * FROM studygroup;
