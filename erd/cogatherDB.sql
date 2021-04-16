@@ -183,14 +183,14 @@ CREATE TABLE memberstudy
 	CONSTRAINT GAUTH_CHECK CHECK(g_auth IN ('captain', 'crew', 'common')),
 	CONSTRAINT ENSTATUS_CHECK CHECK(enstatus IN ('in', 'out'))
 );
---DELETE FROM MEMBERSTUDY WHERE sg_id =337 AND g_auth='crew';
+DELETE FROM MEMBERSTUDY WHERE sg_id =389;
 --SELECT * FROM MEMBERSTUDY
 --
 SELECT * FROM MEMBERSTUDY;
 --아이디  스터디 그룹 조회 
 SELECT MEMBERSTUDY.ID, STUDYGROUP.SG_ID,STUDYGROUP.sg_name,STUDYGROUP.sg_info,STUDYGROUP.sg_max,STUDYGROUP.sg_tag,STUDYGROUP.kko_url,STUDYGROUP.sg_regdate,STUDYGROUP.file_name
 FROM MEMBERSTUDY , STUDYGROUP
-WHERE MEMBERSTUDY.sg_id = studygroup.sg_id; 
+WHERE MEMBERSTUDY.sg_id = studygroup.sg_id AND STUDYGROUP.sg_id=392; 
 ---- 방생성자 방 생성
 INSERT INTO memberstudy (ID, sg_id, g_auth)
 VALUES 

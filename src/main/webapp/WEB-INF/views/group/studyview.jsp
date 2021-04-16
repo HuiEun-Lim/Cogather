@@ -169,14 +169,15 @@ function accept(id){
 		<br><br>
 	<div id="row" style=" display: -ms-flexbox; /* IE10 */display: flex;-ms-flex-wrap: wrap; /* IE10 */flex-wrap: wrap;">
 		<div id="text_content">
-	
+		<b style="color:#ffd43b;float:left;">아이디: ${list[0].id}</b><br>
 		<b id="name_id" style="color:#ffd43b;float:middle;"><br>스터디 이름: </b><b>${list[0].sg_name }</b><br>
 		<b id="name_id" style="color:#ffd43b;float:middle;">스터디 주제 : </b> <b>${list[0].sg_tag }</b><br>
 		<b id="name_id" style="color:#ffd43b;float:middle;">인원수: </b><b>${list[0].sg_max }</b><br> 
+		
 		<b id="name_id" style="color:#ffd43b;float:middle;">스터디 소개: </b><br>
 		
 		<hr>
-		작성자 아이디:${list[0].id }
+		
 		
 		<div>
 		${list[0].sg_info }
@@ -239,13 +240,18 @@ function accept(id){
 
 	
 		<br><br><br><br><br><br><br><br><br>
+		<c:if test="${user_id eq list[0].id}">
 		
 		<button onclick="location.href='studyupdate?sg_id=${list[0].sg_id }'" style="border :0;outline:0;color:white;width:100px;height:50px;position:relative;float:right;left:-50%;
 	margin:0 10px 0 0;" class="viewbutton hover">수정하기</button>
+		</c:if>
+		
 		<button onclick="location.href='studylist'" class="listbutton hover">목록보기</button>
+		<c:if test="${user_id eq list[0].id}">
+		
 		<button onclick="chkDelete(${list[0].sg_id })" style="background-color:#ffd43b;border :0;outline:0;color:white;width:100px;height:50px;position:relative;float:right;left:-50%;
 	margin:0 10px 0 0;" class="viewbutton hover">삭제하기</button>
-		
+		</c:if>
 		<button onclick="registerRoom()" class="enterbutton hover" style="color:white;float:right;background-color:#ffd43b;border :0;
 	outline:0;width:100px;
 	height:50px;">방입장</button> 
