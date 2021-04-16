@@ -9,8 +9,6 @@
 	<bean id="userLoginSuccess" class="com.project.cogather.security.UserLoginSuccessHandler"/>
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
-<!-- 	multipart request 해결 	 -->
-    
 	
 	<!-- 컨테이너의 HTTP security 요소 -->
 	<security:http>

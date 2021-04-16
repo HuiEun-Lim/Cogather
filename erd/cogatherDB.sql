@@ -190,9 +190,9 @@ CREATE TABLE memberstudy
 --SELECT * FROM MEMBERSTUDY
 --
 ---- 방생성자 방 생성
---INSERT INTO memberstudy (ID, sg_id, g_auth)
---VALUES 
---('id1', 21, 'captain');
+INSERT INTO memberstudy (ID, sg_id, g_auth)
+VALUES 
+('qwer', 4, 'captain');
 --
 --
 ---- 참가자 참여 허락
@@ -309,7 +309,7 @@ CREATE TABLE studygroup
 
 
 
---SELECT file_name  FROM studygroup;
+SELECT *  FROM studygroup;
 --SELECT * FROM STUDYGROUP ORDER BY sg_id;
  /*스터디 그룹 이미지 파일*/ 
 CREATE TABLE studygroup_file
@@ -332,7 +332,7 @@ INSERT INTO studygroup_file VALUES
 (studygroup_file_seq.nextval, 'aaa', 'aaa',160,1000);
 --
 --
---SELECT * FROM studygroup_file;
+SELECT * FROM studygroup_file;
 --SELECT * FROM studygroup_file;
 
 DROP TABLE studygroup_file CASCADE CONSTRAINTS;

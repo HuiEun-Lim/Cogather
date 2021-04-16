@@ -164,30 +164,8 @@ function accept(id){
 
 </script>
 <body>
-<div id="wrap">
-<div class="w3-top">
-  <div class="w3-bar" id="myNavbar">
-    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
-      <i class="fa fa-bars"></i>
-    </a>
-    <a href="/cogather/group/studygroup" class="w3-bar-item w3-button">
-    	<img src="/cogather/img/logo_cut.png" class="logo"  >
-    </a>
-    <a href="/cogather/group/studylist" class="w3-bar-item w3-button w3-hide-small">스터디목록</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small">스터디만들기</a>
-    
-    <a href="#" class="w3-bar-item w3-button w3-hide-small">마이페이지</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red login">로그인</a>
-  </div>
+<%@ include file="groupcover.jsp" %>
 
-  <!-- Navbar on small screens -->
-  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
-    <a href="#" class="w3-bar-item w3-button studylist" onclick="toggleFunction()">스터디목록</a>
-    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">스터디만들기</a>
-    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction() login">마이페이지</a>
-  </div>
-</div>
-<img src="/cogather/img/group/studygroupmain.jpg" width="100%" height="300px" >
 		<br><br>
 	<div id="row" style=" display: -ms-flexbox; /* IE10 */display: flex;-ms-flex-wrap: wrap; /* IE10 */flex-wrap: wrap;">
 		<div id="text_content">
@@ -217,16 +195,17 @@ function accept(id){
 		
 			<input type="hidden" id="SG_ID" name="SG_ID" value="">
 			<input type="hidden" id="SGF_ID" name="SGF_ID" value="">
-		
+			<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/> 
 		</form>
 		<div style="border: 1px solid #dbdbdb;">
 			
 			<c:forEach var="file" items="${files}">
 				<a href="#" onclick="fn_fileDown('${file.SGF_ID}'); return false;">
 				<div id ="filelist">
-				(${file.SGF_ID})${file.SGF_ORG_FILE_NAME}</a><br>
+				(${file.SGF_ID})${file.SGF_ORG_FILE_NAME}</a>
+				
+				<button style="background-color:white;border:0px" onclick="chkDeleteFile(${file.SGF_ID })"><img src="/cogather/img/group/yellowx.png" class="search" ></button>
 				</div>
-				<button onclick="chkDeleteFile(${file.SGF_ID })">삭제하기</button>
 			</c:forEach>
 			
 		<%-- 	<a href="#" onclick="fn_fileDown('${file[0].sg_id}'); return false;">FF${file[0].sg_id}</a>${file[0].sgf_file_size}<br>

@@ -17,33 +17,7 @@
 	
 </head>
 <body>
-<!-- Navbar (sit on top) -->
-<div id="wrap">
-<div class="w3-top">
-  <div class="w3-bar" id="myNavbar">
-    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
-      <i class="fa fa-bars"></i>
-    </a>
-    <a href="/cogather/group/studygroup" class="w3-bar-item w3-button">
-    	<img src="/cogather/img/logo_cut.png" class="logo"  >
-    </a>
-    <a href="/cogather/group/studylist" class="w3-bar-item w3-button w3-hide-small">스터디목록</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small">스터디만들기</a>
-    
-    <a href="#" class="w3-bar-item w3-button w3-hide-small">마이페이지</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red login">로그인</a>
-  </div>
-
-  <!-- Navbar on small screens -->
-  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
-    <a href="#" class="w3-bar-item w3-button studylist" onclick="toggleFunction()">스터디목록</a>
-    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">스터디만들기</a>
-    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction() login">마이페이지</a>
-  </div>
-</div>
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-
-<img src="/cogather/img/group/studygroupmain.jpg" width="100%" height="300px" >
+<%@ include file="groupcover.jsp" %>
 
 
 
