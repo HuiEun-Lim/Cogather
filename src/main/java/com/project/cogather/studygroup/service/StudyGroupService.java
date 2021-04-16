@@ -70,13 +70,13 @@ public class StudyGroupService {
 		String sg_tag=mpRequest.getParameter("sg_tag");
 		String kko_url=mpRequest.getParameter("kko_url");
 		int sg_max=Integer.parseInt(mpRequest.getParameter("sg_max"));
-
+		String id=mpRequest.getParameter("id");
 		dto.setSg_info(sg_info);
 		dto.setKko_url(kko_url);
 		dto.setSg_name(sg_name);
 		dto.setSg_tag(sg_tag);
 		dto.setSg_max(sg_max);
-		
+		dto.setId(id);
 		if (!uploadFile.isEmpty()) {
 			String originalFileName = uploadFile.getOriginalFilename();
 
@@ -138,7 +138,8 @@ public class StudyGroupService {
 		System.out.println("생성된 sg_id는 "+dto.getSg_id());
 		
 		//스터디 방 생성 
-		String id="id1";
+		/* String id="id1"; */
+		id = dto.getId();
 		mdao=sqlSession.getMapper(MemberStudyDAO.class);
 		mdao.createCaptain(id,dto.getSg_id());
 		

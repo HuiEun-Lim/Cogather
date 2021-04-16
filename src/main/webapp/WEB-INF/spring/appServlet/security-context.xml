@@ -9,15 +9,6 @@
 	<bean id="userLoginSuccess" class="com.project.cogather.security.UserLoginSuccessHandler"/>
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
-<!-- 	multipart request 해결 	 -->
-     
-<!-- 파일 업로드 설정 -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<!-- 파일 사이즈 설정 가능 byte 단위-->
-		<property name="maxUploadSize" value="1000000000" />
-		<property name="maxInMemorySize" value="1000000000"/> <!-- 100MB-->
-		<property name="defaultEncoding" value="UTF-8" />
-	</bean>
 	
 	<!-- 컨테이너의 HTTP security 요소 -->
 	<security:http>

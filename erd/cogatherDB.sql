@@ -150,9 +150,6 @@ SELECT * FROM members;
 --(SELECT ID FROM COMMENTS WHERE CT_UID = 10)
 --;
 --
-INSERT INTO members (ID, NAME, PW, PHONE, EMAIL, PIMG_URL, TAG)
-VALUES 
-('id1', 'name1', 'pw1','010-xxxx-xxxx','oooooooo@naver.com', 'img/member/default.jpg','1,2,4');
 --
 --UPDATE members SET PIMG_URL = 'img/member/default.jpg'
 --WHERE id = 'id1';
@@ -189,11 +186,17 @@ CREATE TABLE memberstudy
 --DELETE FROM MEMBERSTUDY WHERE sg_id =337 AND g_auth='crew';
 --SELECT * FROM MEMBERSTUDY
 --
+SELECT * FROM MEMBERSTUDY;
+--아이디  스터디 그룹 조회 
+SELECT MEMBERSTUDY.ID, STUDYGROUP.SG_ID,STUDYGROUP.sg_name,STUDYGROUP.sg_info,STUDYGROUP.sg_max,STUDYGROUP.sg_tag,STUDYGROUP.kko_url,STUDYGROUP.sg_regdate,STUDYGROUP.file_name
+FROM MEMBERSTUDY , STUDYGROUP
+WHERE MEMBERSTUDY.sg_id = studygroup.sg_id; 
 ---- 방생성자 방 생성
---INSERT INTO memberstudy (ID, sg_id, g_auth)
---VALUES 
---('id1', 21, 'captain');
+INSERT INTO memberstudy (ID, sg_id, g_auth)
+VALUES 
+('qwer', 4, 'captain');
 --
+
 --
 ---- 참가자 참여 허락
 --INSERT INTO memberstudy (ID, sg_id, g_auth)
@@ -328,8 +331,8 @@ CREATE TABLE studygroup_file
 --ALTER TABLE STUDYGROUP_FILE MODIFY sg_id NULL;
 
 
---INSERT INTO studygroup_file VALUES
---(studygroup_file_seq.nextval, 'aaa', 'aaa',160,1000);
+INSERT INTO studygroup_file VALUES
+(studygroup_file_seq.nextval, 'aaa', 'aaa',160,1000);
 --
 --
 SELECT * FROM studygroup_file;
@@ -337,17 +340,12 @@ SELECT * FROM studygroup_file;
 
 DROP TABLE studygroup_file CASCADE CONSTRAINTS;
 
-ALTER TABLE studygroup_file
-	ADD FOREIGN KEY (sg_id)
-	REFERENCES studygroup (sg_id)
-	ON DELETE CASCADE
-;
 
 
 --SELECT * FROM studygroup;
 ---- study group dummy insert test
---INSERT INTO studygroup VALUES
---(studygroup_seq.nextval, 'aaa', '안녕하세요', 2, sysdate, 'aaa','https://open.kakao.com/o/szYZxz5c','group571b230b-10a6-4ebb-bfa5-7a2600eaf771.png');
+INSERT INTO studygroup VALUES
+(studygroup_seq.nextval, 'aaa', '안녕하세요', 2, sysdate, 'aaa','https://open.kakao.com/o/szYZxz5c','group571b230b-10a6-4ebb-bfa5-7a2600eaf771.png');
 --
 --INSERT INTO studygroup VALUES
 --(studygroup_seq.nextval, 'bbb', '안녕하세요', 4, sysdate, 'aaa','https://open.kakao.com/o/szYZxz5c');

@@ -20,6 +20,7 @@ import com.project.cogather.content.model.ContentDAO;
 import com.project.cogather.content.model.ContentDTO;
 import com.project.cogather.content.model.ContentFileDAO;
 import com.project.cogather.content.model.ContentFileDTO;
+import com.project.cogather.domain.UserDTO;
 
 @Service
 public class BoardService {
@@ -92,6 +93,7 @@ public class BoardService {
 		return cnt;
 	}
 	// 에디터로부터 저장 요청이 들어오면 해당 파일을 저장
+	@Transactional
 	public ContentFileDTO saveBoardFile(int ct_uid, MultipartHttpServletRequest mpRequest) {
 		contentFileDAO = sqlSession.getMapper(ContentFileDAO.class);
 		

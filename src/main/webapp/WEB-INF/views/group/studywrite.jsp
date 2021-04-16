@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>   
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -64,15 +67,16 @@ function chkSubmit(){
 }
 </script>
 <body>
+<%@ include file="groupcover.jsp" %>
 <div id="write_id">
 <h4>글작성</h4><br><br>
 <script src="/cogather/JS/ckeditor/ckeditor.js">
 </script>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
-
 <form name="frm" action="studywriteOk" method="post" enctype="multipart/form-data" onsubmit="return chkSubmit()">
-
+아이디:&nbsp&nbsp
+<input type="text" name="id" style="width:20%;height:30px;" value="${user_id }"><br><br>
 스터디 이름:&nbsp&nbsp
 <input type="text" name="sg_name" style="width:20%;height:30px;" /><br><br>
 제한 인원수:&nbsp&nbsp

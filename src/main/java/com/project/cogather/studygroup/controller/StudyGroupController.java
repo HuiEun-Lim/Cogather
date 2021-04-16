@@ -114,6 +114,7 @@ public class StudyGroupController {
 		public String studyview(int sg_id,Model model) {
 			StudyGroupFileDTO fdto = null;
 			model.addAttribute("list", studygroupservice.viewByUid(sg_id));
+			
 			List<Map<String,Object>> fileList = studygroupservice.selectFile(sg_id);
 			
 			model.addAttribute("files",fileList);

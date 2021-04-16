@@ -12,6 +12,7 @@ public class StudyGroupDTO {
 	private String sg_info;
 	private String sg_name;
 	private int sg_max;
+	private String id;
 	private LocalDateTime sg_regdate;
 	private String sg_tag;
 	private String kko_url;

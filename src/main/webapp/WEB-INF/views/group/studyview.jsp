@@ -164,41 +164,23 @@ function accept(id){
 
 </script>
 <body>
-<div id="wrap">
-<div class="w3-top">
-  <div class="w3-bar" id="myNavbar">
-    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
-      <i class="fa fa-bars"></i>
-    </a>
-    <a href="/cogather/group/studygroup" class="w3-bar-item w3-button">
-    	<img src="/cogather/img/logo_cut.png" class="logo"  >
-    </a>
-    <a href="/cogather/group/studylist" class="w3-bar-item w3-button w3-hide-small">스터디목록</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small">스터디만들기</a>
-    
-    <a href="#" class="w3-bar-item w3-button w3-hide-small">마이페이지</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red login">로그인</a>
-  </div>
+<%@ include file="groupcover.jsp" %>
 
-  <!-- Navbar on small screens -->
-  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
-    <a href="#" class="w3-bar-item w3-button studylist" onclick="toggleFunction()">스터디목록</a>
-    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">스터디만들기</a>
-    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction() login">마이페이지</a>
-  </div>
-</div>
-<img src="/cogather/img/group/studygroupmain.jpg" width="100%" height="300px" >
 		<br><br>
 	<div id="row" style=" display: -ms-flexbox; /* IE10 */display: flex;-ms-flex-wrap: wrap; /* IE10 */flex-wrap: wrap;">
 		<div id="text_content">
+	
 		<b id="name_id" style="color:#ffd43b;float:middle;"><br>스터디 이름: </b><b>${list[0].sg_name }</b><br>
 		<b id="name_id" style="color:#ffd43b;float:middle;">스터디 주제 : </b> <b>${list[0].sg_tag }</b><br>
 		<b id="name_id" style="color:#ffd43b;float:middle;">인원수: </b><b>${list[0].sg_max }</b><br> 
 		<b id="name_id" style="color:#ffd43b;float:middle;">스터디 소개: </b><br>
 		
 		<hr>
+		작성자 아이디:${list[0].id }
+		
 		<div>
 		${list[0].sg_info }
+	
 		</div>
 		<section id="container">
 		<b id="name_id" style="color:#ffd43b;float:middle;">이미지 보기: </b><b> </b><br> 

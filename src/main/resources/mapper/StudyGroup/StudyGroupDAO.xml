@@ -45,11 +45,15 @@
     
     
 	<select id="selectByUid" resultType="com.project.cogather.studygroup.model.StudyGroupDTO">
-		SELECT 
+		<!-- SELECT 
 			*
 		FROM 
 			studygroup 
-		WHERE sg_id= #{param1}
+		WHERE sg_id= #{param1} -->
+		
+		SELECT memberstudy.id, studygroup.sg_id,studygroup.sg_name,studygroup.sg_info,studygroup.sg_max,studygroup.sg_tag,studygroup.kko_url,studygroup.sg_regdate,studygroup.file_name
+		FROM memberstudy,studygroup
+		WHERE memberstudy.sg_id = studygroup.sg_id
 		
 	</select>
 	
