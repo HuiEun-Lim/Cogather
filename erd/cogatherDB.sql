@@ -142,7 +142,7 @@ CREATE TABLE members
 	enabled char(1) DEFAULT 1,
 	PRIMARY KEY (ID)
 );
-
+SELECT * FROM members;
 
 --SELECT * 
 --FROM MEMBERS
