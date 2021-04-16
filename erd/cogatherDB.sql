@@ -190,7 +190,7 @@ SELECT * FROM MEMBERSTUDY;
 --아이디  스터디 그룹 조회 
 SELECT MEMBERSTUDY.ID, STUDYGROUP.SG_ID,STUDYGROUP.sg_name,STUDYGROUP.sg_info,STUDYGROUP.sg_max,STUDYGROUP.sg_tag,STUDYGROUP.kko_url,STUDYGROUP.sg_regdate,STUDYGROUP.file_name
 FROM MEMBERSTUDY , STUDYGROUP
-WHERE MEMBERSTUDY.sg_id = studygroup.sg_id AND STUDYGROUP.sg_id=392; 
+WHERE MEMBERSTUDY.sg_id = studygroup.sg_id; 
 ---- 방생성자 방 생성
 INSERT INTO memberstudy (ID, sg_id, g_auth)
 VALUES 
@@ -313,6 +313,7 @@ CREATE TABLE studygroup
 
 
 SELECT *  FROM studygroup;
+DELETE FROM studygroup WHERE sg_id=394;
 --SELECT * FROM STUDYGROUP ORDER BY sg_id;
  /*스터디 그룹 이미지 파일*/ 
 CREATE TABLE studygroup_file

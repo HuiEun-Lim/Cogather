@@ -18,6 +18,9 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+<!-- default header name is X-CSRF-TOKEN -->
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
 <title>읽기</title>
 </head>
 <script>
@@ -93,7 +96,7 @@ lightbox.option({
 
 function registerRoom(){
 	$.ajax({
-		url: "./MemberStudyRest/ms/${list[0].sg_id}/id2",
+		url: "./MemberStudyRest/ms/${list[0].sg_id}/${list[0].id}",
 		type: "GET",
 		cache: false,
 		success: function(data, status) {
@@ -103,8 +106,10 @@ function registerRoom(){
 		}
 	});
 }
-function loadMember(){
+function loadMember(nowid){
+	
 	console.log("지나감");
+	console.log(nowid);
 	$.ajax({
 		url: "./MemberStudyRest/${list[0].sg_id}",
 		type: "GET",
@@ -124,30 +129,43 @@ function loadMember(){
 
 function updateMemberList(data){
 	var result = "";
-	var id;
-	result += "<h4>현제 가입자</h4>"
+	
+	result += "<h4>현재 가입자</h4>"
 	for(var i =0; i < data.rdata.length; i++){
+		console.log("qqqqqqq");
 		result += "<li>" +"<img class='member-thumbnail'src='${pageContext.request.contextPath }/"+ data.rmember[i].pimg_url+"'>"+"<span class='member-name'>"+data.rdata[i].id+"</span></li>";
 	}
 	result+="<hr>";
 	result += "<h4>가입 신청중</h4>"
+
 	for(var i = 0; i < data.cdata.length; i++){
+		console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
 		id=data.cmember[i].id;
 		result += "<li>" +"<img class='member-thumbnail' src='${pageContext.request.contextPath }/"+ data.cmember[i].pimg_url+"'>"+"<span class='member-name'>"+data.cdata[i].id+"</span>"+
 		"<button btn-id='"+id+"'type='button' onclick='accept(this.btn-id)' class='btn btn-success'>수락</button></li>";
 		
 	}
-	console.log(accept(id));
-	console.log(id);
+	
+	/* accept(id2); */
 	$(".member-list ul").html(result);
 }
 
 function accept(id){
 	/* console.log($(this).attr('btn-id'));
 	console.log($(this).attr('type'));  */
-	console.log("sdfsd"+id);
+	var token = $('meta[name="_csrf"]').attr("content");
+	var header = $('meta[name="_csrf_header"]').attr("content");
+	console.log("보안1"+token);
+	console.log("보안2"+header);
+	console.log("accept()"+id);
+	
 	console.log('지나감222');
 	$.ajax({
+		beforeSend: function(xhr) {
+	        xhr.setRequestHeader("AJAX", true);
+	        //for csrf
+	        xhr.setRequestHeader(header, token);
+	     },
 		url: "./MemberStudyRest/ms/${list[0].sg_id}/"+id,
 		type: "PUT",
 		cache: false,
@@ -223,10 +241,14 @@ function accept(id){
 		
 		</div>
 		
+			
 		<div id="main" class="member-list-container">
-		<button onclick="loadMember()" class="viewbutton hover">참가자목록</button>
+		<button onclick="loadMember('${user_id}')" class="viewbutton hover">참가자목록</button>
 		<div class="member-list">
-			<ul></ul>
+		
+			<ul>
+			
+			</ul>
 		</div>
 		<br><br><br><br>
 			
