@@ -172,7 +172,7 @@ public class RestContentController {
 		return result;
 	}
 
-	@DeleteMapping("")
+	@PostMapping("delete")
 	public AjaxResult deleteByUid(int sg_id, int ct_uid, String id, HttpServletRequest request ) {
 		AjaxResult result = new AjaxResult();
 		int cnt = 0;

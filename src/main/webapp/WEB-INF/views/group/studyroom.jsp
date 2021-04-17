@@ -159,7 +159,7 @@
 						</div>
 
 						<form id="sendMessage" name="sendMessage">
-							<input id="message-input" class="form-control" type="text">
+							<input id="message-input" autocomplete="off" class="form-control" type="text">
 							<button type="submit" class="btn btn-warning message-send" onclick="formSend()">전송</button>
 						</form>
 					</div>
@@ -173,31 +173,41 @@
 	<script>
 		$(function(){
 			setArgs();
-			// 브라우저 새로고침 및 해당 키들에 대한 이벤트 감지
-			$(window).on("beforeunload", function(event){
-				event.preventDefault();
-				console.log("페이지 언로드 전 - 새로고침, 뒤로가기, 브라우저 종료 바로 직전에 확인");
-				console.log(chk);
-				event.returnValue='아무값'; 
-				return '아무값';
+			// 브라우저 새로고침 및 해당 키들에 대한 이벤트 감지하고 경고 문구 날려줌 
+			window.addEventListener('beforeunload', (event) => {
+			  // 표준에 따라 기본 동작 방지
+			  event.preventDefault();
+			  // Chrome에서는 returnValue 설정이 필요함
+			  event.returnValue = '';
 			});
-			$(window).on("unload", function(event){
+			
+			// bfcache(back/forward cache) 브라우저 측에서 최적화하는 방식으로 
+			// 앞으로가기나 뒤로가기가 발생할때 즉시 화면을 보여주는 역할을 함 
+			// unload, beforeunload와 호환해서 동작되지 않음 
+			// bfcache 방식을 보기 가장 좋은 방식은 pageshow, pagehide 이벤트
+			// unload는 bfcache 이전에 발생하기 때문에 bfcache를 쓸경우 쓰면 안됨
+			// visibilitychange의 hidden state를 사용하는 방법도 있다고는 함
+			
+			
+			$(window).on("pagehide", function(event){ 
+				if(currentMode == 'write-mode'){
+					var writeFormData = new FormData();
+					writeFormData.append('sg_id','${sg_id}');
+					writeFormData.append('id','${id}');
+					writeFormData.append('ct_uid',$("#write-mode [name='ct_uid']").val());
+					writeFormData.append('_csrf', token);
+					navigator.sendBeacon(contextPath + '/group/studyboard/delete', writeFormData);
+				}
+				disconnect();
 				var data = new FormData();
-				
 				data.append('sg_id','${sg_id}');
 				data.append('id','${id}');
-				new Promise((resolve,reject) => {
-					disconnect();
-					resolve();
-				})
-				.then(()=>{
-					navigator.sendBeacon("./MemberStudyRest/ms/roomoutOk",data);
-				})
-				;
-				
+				data.append('_csrf', token); // csrf 토큰 값 리퀘스트 파라미터에 담기
+
+				navigator.sendBeacon("./MemberStudyRest/ms/roomoutOk",data)
 				
 			});
-		})
+		}); 	
 		function setArgs(){
 			sg_id = '${sg_id}';
 			id = '${id}';

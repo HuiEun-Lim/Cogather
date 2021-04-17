@@ -1,7 +1,7 @@
 var page = 1;// 현제 페이지
 var pageRows = 10; // 페이지당 글의 개수
 var viewItem = undefined; // 가장 최근에 view 한 글의 데이터
-
+var currentMode = 'list-mode';
 $(function(){
 	setArgs();
 	loadBoard(page); // 페이지 최초 로딩
@@ -89,13 +89,15 @@ function updateList(jsonObj){
 		var datas = jsonObj.data; 
 		
 		for(var i = 0; i<count; i++){
-			result += "<tr>\n";
-			result += "<td>"+ datas[i].ct_uid+"</td>\n";
-			result += "<td><span class='content-title' data-uid='"+datas[i].ct_uid+"'>"+ datas[i].ct_title+"<img src='"+contextPath+"/img/group/comment.png' class='comment-icon'><span>[0]</span>"+"</span></td>\n";
-			result += "<td><span>"+ datas[i].id+"</span></td>\n";
-			result += "<td>"+ datas[i].regdate+"</td>\n";
-			result += "<td><span data-viewcnt='"+datas[i].ct_uid+"'>"+ datas[i].ct_viewcnt+"</span></td>\n";
-			result += "</tr>\n";
+			if(datas[i].ct_title != null){
+				result += "<tr>\n";
+				result += "<td>"+ datas[i].ct_uid+"</td>\n";
+				result += "<td><span class='content-title' data-uid='"+datas[i].ct_uid+"'>"+ datas[i].ct_title+"<img src='"+contextPath+"/img/group/comment.png' class='comment-icon'><span>[0]</span>"+"</span></td>\n";
+				result += "<td><span>"+ datas[i].id+"</span></td>\n";
+				result += "<td>"+ datas[i].regdate+"</td>\n";
+				result += "<td><span data-viewcnt='"+datas[i].ct_uid+"'>"+ datas[i].ct_viewcnt+"</span></td>\n";
+				result += "</tr>\n";	
+			}
 		}
 		$("div.board-list tbody").html(result); // 목록 업데이트
 		
@@ -176,6 +178,8 @@ function changePageRows(){
 
 // 특정 버튼 클릭시 원하는 화면을 구성하기 위해 특정요소를 숨기고 보여줄 요소들을 드러나게 하는 함수
 function togglePage(mode){
+	currentMode = mode;
+	console.log('currentmode : ' + currentMode);
 	if (mode == "write-mode"){
 		$(".board-list").hide(); // 게시글 가리기
 		$("#view-mode").hide(); // view 가리기
@@ -300,8 +304,8 @@ function togglePage(mode){
 			width:'100%',
 			height: '450px',
 			allowedContent: true,
-			fileTools_requestHeaders:{
-				'X-CSRF-TOKEN' : token
+			fileTools_requestHeaders:{ // 헤더에 csrf 토큰 값 담아서 보내기
+				'X-CSRF-TOKEN' : token 
 			},
 			uploadUrl: contextPath+'/group/studyboard/file/'+viewItem.data[0].ct_uid+"?responseType=json" // 에디터에 사진을 끌어다 놓을 시 업로드하게 되는 url 작성
 		});
@@ -344,7 +348,7 @@ function createTempContent(){
 					
 					});
 					CKEDITOR.instances.editor1.setData("");
-					console.log("임시 작성글 생성")
+					console.log("임시 작성글 생성");
                 } else {
                     alert("INSERT 실패 " + data.status + " : " + data.message);
                 }
@@ -422,8 +426,8 @@ function chkDelete() {
 		"id": id
 	}
 	$.ajax({
-		url: contextPath + "/group/studyboard/",    // URL : /board
-		type: "DELETE",
+		url: contextPath + "/group/studyboard/delete",    // URL : /board
+		type: "POST",
 		data: data,
 		cache: false,
 		beforeSend: function(xhr){
@@ -519,7 +523,8 @@ function loadComments(ct_uid){
                 if(data.status == "OK"){
 					showComments(data);
                 } else {
-                    console.log("댓글 없음");
+					console.log("댓글 없음");
+					showComments(data);
                 }
             }
         }
@@ -530,14 +535,10 @@ function loadComments(ct_uid){
 function showComments(jsonObj){
 	var result = "";
 	var members = {};
+	
 	for(var i=0;i<jsonObj.members.length; i++){
 		members[jsonObj.members[i].id] = jsonObj.members[i];
 	}
-	
-	var writer = "";
-	writer += "<img src='"+contextPath+"/"+members[id].pimg_url+"'>";
-	writer += "<div>"+id+"</div>";
-	$(".comment-writer-info").html(writer);
 	
 	for(var i=0;i <jsonObj.cnt; i++){
 		result += "<li id='"+jsonObj.data[i].cm_uid+"comment' class='comment'>";
@@ -555,8 +556,7 @@ function showComments(jsonObj){
 		}else{ // 아니라면 보이지 않기
 			result += "</div>"
 			result += "</li>";	
-		}
-		
+		}	
 	}
 	$("ul.comment-list").html(result);
 	

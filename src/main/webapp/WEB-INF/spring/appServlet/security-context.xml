@@ -15,12 +15,12 @@
 		<!-- 특정 url pattern 요청이 들어올때 인터셉터를 이용해 접근 제한 설정 -->
 		<security:intercept-url pattern="/group/**" access="permitAll"/>
 		<security:intercept-url pattern="/studycafe/**" access="permitAll"/>
-		
+		<security:intercept-url pattern="/roomoutOk/**" access="permitAll"/>
 		
 		<!-- /sample/member 요청은 ROLE_USER 라는 권한이 있는 사용자 만이 접근 가능 -->
 		<security:intercept-url pattern="/cafemypage/*" access="hasRole('ROLE_USER')"/> 
-		<security:intercept-url pattern="/studyroom/*" access="hasRole('ROLE_USER')"/> 
-		<security:intercept-url pattern="/roomenterOk/*" access="hasRole('ROLE_USER')"/> 
+		<security:intercept-url pattern="/studyroom" access="hasRole('ROLE_USER')"/> 
+		<security:intercept-url pattern="/roomenterOk" access="hasRole('ROLE_USER')"/> 
 		
 		
 		<!-- /sample/admin 요청은 ROLE_ADMIN 권한이 있는 사용자 만 접근 가능 -->

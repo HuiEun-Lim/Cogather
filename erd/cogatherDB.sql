@@ -38,12 +38,12 @@ CREATE TABLE authority
 SELECT * FROM AUTHORITY;
 
 /*댓글*/
-CREATE TABLE comments
+CREATE TABLE comments /* on delete set null 시 해당 ID가 not null 이면 삭제시 문제 발생됨 */
 (
 	cm_uid number NOT NULL,/*댓글고유번호*/
-	ID varchar2(50) NOT NULL,/*회원ID*/
+	ID varchar2(50),/*회원ID*/
 	ct_uid number NOT NULL,/*게시글 고유번호*/
-	reply clob NOT NULL,/*댓글 내용*/
+	reply clob ,/*댓글 내용*/
 	regdate date DEFAULT SYSDATE,/*등록날짜*/
 	PRIMARY KEY (cm_uid)
 );
@@ -67,7 +67,7 @@ CREATE TABLE comments
 CREATE TABLE content
 (
 	ct_uid number NOT NULL, /*게시글 고유번호*/
-	ID varchar2(50) NOT NULL,/*회원ID*/
+	ID varchar2(50),/*회원ID*/
 	sg_id number NOT NULL, /*스터디방번호*/
 	ct_title varchar2(500) DEFAULT ' ',/*게시글 제목*/
 	ct_content clob,/*게시글 내용*/
@@ -84,11 +84,6 @@ CREATE TABLE content_file
 	ct_uid NUMBER NOT NULL,
 	PRIMARY KEY (cf_id)
 )
-;
-ALTER TABLE content_file
-	ADD FOREIGN KEY (ct_uid)
-	REFERENCES content (ct_uid)
-	ON DELETE CASCADE -- 참조하는 부모가 삭제되면 같이 삭제되도록
 ;
 --SELECT * FROM content_file;
 --
@@ -198,9 +193,11 @@ WHERE MEMBERSTUDY.sg_id = studygroup.sg_id AND STUDYGROUP.sg_id=392;
 INSERT INTO memberstudy (ID, sg_id, g_auth)
 VALUES 
 ('qwer', 4, 'captain');
-
+INSERT INTO memberstudy (ID, sg_id, g_auth)
+VALUES 
+('asd', 21, 'crew');
 --
-
+UPDATE MEMBERSTUDY SET enstatus = 'out' WHERE id ='qwer' AND sg_id = 21;
 --
 ---- 참가자 참여 허락
 --INSERT INTO memberstudy (ID, sg_id, g_auth)
@@ -383,6 +380,11 @@ INSERT INTO studygroup VALUES
 /*studygroupfile은 관계 없앴다.*/
 /* Create Foreign Keys */
 
+ALTER TABLE content_file
+	ADD FOREIGN KEY (ct_uid)
+	REFERENCES content (ct_uid)
+	ON DELETE CASCADE -- 참조하는 부모가 삭제되면 같이 삭제되도록
+;
 
 ALTER TABLE comments
 	ADD FOREIGN KEY (ct_uid)
@@ -390,18 +392,15 @@ ALTER TABLE comments
 	ON DELETE CASCADE
 ;
 
-
-ALTER TABLE authority
-	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID) ON DELETE SET NULL
-;
-
-
 ALTER TABLE comments
 	ADD FOREIGN KEY (ID)
 	REFERENCES members (ID) ON DELETE SET NULL
 ;
 
+ALTER TABLE authority
+	ADD FOREIGN KEY (ID)
+	REFERENCES members (ID) ON DELETE SET NULL
+;
 
 ALTER TABLE content
 	ADD FOREIGN KEY (ID)

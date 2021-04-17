@@ -123,7 +123,7 @@ public class RestMemberStudyController {
 		}
 
 		if (ms.get(0).getAcctime() == null) {
-			System.out.println("tets");
+			
 			cnt = memberStudyService.updateAcctime(sg_id, id,
 					LocalDateTime.parse(acctime, DateTimeFormatter.ISO_DATE_TIME));
 		} else {

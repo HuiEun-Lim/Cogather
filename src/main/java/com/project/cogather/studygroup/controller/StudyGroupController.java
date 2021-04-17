@@ -209,9 +209,7 @@ public class StudyGroupController {
 		int result = memberStudyService.enterStatus(sg_id, id);
 		model.addAttribute("result", result);
 		List<MemberStudyDTO> temp = memberStudyService.select(sg_id);
-		System.out.println("d: " + id);
-		System.out.println("enter result : " + result);
-		System.out.println(temp.get(0).getEnstatus());
+		
 		model.addAttribute("sg_id", sg_id);
 		model.addAttribute("id", id);
 		
