@@ -23,4 +23,6 @@ public interface CafeDAO {
 	int getprice(String seat_id, CafeDTO dto);
 	
 	List<CafeDTO> selectDate(@Param("seat_id") String seat_id);
+	
+	List<CafeDTO> adminview();
 } //end DAO

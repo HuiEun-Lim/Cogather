@@ -10,24 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.project.cogather.domain.CafeDTO;
 import com.project.cogather.domain.CafeDAO;
 
-// Service 단.
-//   JSP MVC model2 의 Command 역할 비슷
-//           Controller -> Commmand -> DAO
-//   - Transaction 담당
-
-// Spring
-//     @Controller -> @Service -> DAO -> JdbcTemplate
-
 @Service
 public class CafeService {
 
 	CafeDAO dao;
-//	@Autowired
-//	public void setDao(CafeDAO dao) {
-//		this.dao = dao;
-//	}
 	
-	// MyBatis
 	private SqlSession sqlSession;
 	
 	@Autowired
@@ -42,53 +29,35 @@ public class CafeService {
 	}
 	
 	public List<CafeDTO> list(){
-		// MyBatis 가 만들어준 DAO
 		dao = sqlSession.getMapper(CafeDAO.class);
 		return dao.select();
 	}
 	
-	public List<CafeDTO> selectDate(String seat_id){
+	public List<CafeDTO> selectDate(String seat_id){ //각 좌석에대한 예약내역
 		dao = sqlSession.getMapper(CafeDAO.class);
 		return dao.selectDate(seat_id);
 	}
 	
+	public List<CafeDTO> adminview(){
+		dao = sqlSession.getMapper(CafeDAO.class);
+		return dao.adminview();
+	}
+	
 	public int write(CafeDTO dto) {
 		dao = sqlSession.getMapper(CafeDAO.class);
-		//return dao.insert(dto);
 		
 		int result = dao.insert(dto);
 		System.out.println("생성된 uid 는 " + dto.getRes_id());
 		
 		return result;
-		
-		//return dao.insert(dto.getSubject(), dto.getContent(), dto.getName());
-	}
-	
-	//@Transactional
-//	public List<CafeDTO> viewByUid(int uid){
-//		// ※사실, 트랜잭션은 여기서 발생해야 한다.
-//		//  1. 조회수 증가    :   incViewCnt()
-//		//  2. 글 하나 읽어오기 :  selectByUid()
-//		
-//		dao = sqlSession.getMapper(CafeDAO.class); // MyBatis 사용
-//		return dao.selectByUid(uid);
-//	}
-//	
-//	public List<CafeDTO> selectByUid(int uid) {
-//		dao = sqlSession.getMapper(CafeDAO.class); // MyBatis 사용
-//		return dao.selectByUid(uid);  // 1개짜리 List
-//	}
-//	
-//	public int update(CafeDTO dto) {
-//		dao = sqlSession.getMapper(CafeDAO.class); // MyBatis 사용
-//		//return dao.update(dto);
-//		return dao.update(dto.getUid(), dto);
-//	}
+			}
+
 	
 	public int deleteByUid(int uid) {
-		dao = sqlSession.getMapper(CafeDAO.class); // MyBatis 사용
+		dao = sqlSession.getMapper(CafeDAO.class);
 		return dao.deleteByUid(uid);				
 	}
+	
 	@Transactional
 	public int getprice(CafeDTO dto) {
 		dao = sqlSession.getMapper(CafeDAO.class);

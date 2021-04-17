@@ -101,7 +101,6 @@ CREATE TABLE reservation
 	PRIMARY KEY (res_id)
 );
 
-SELECT * FROM reservation;
 
 /*좌석*/
 CREATE TABLE seats
