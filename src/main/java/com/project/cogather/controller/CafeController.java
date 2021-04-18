@@ -141,7 +141,11 @@ public class CafeController {
 		model.addAttribute("list", cafeService.list());
 		return "cafe/adminrsv";
 	}
-
+	
+	@RequestMapping("/adminpage")
+	public String adminpage(Model model) {
+		return "cafe/adminpage";
+	}
 	
 	@GetMapping("/deleteOk.do")
 	public String deleteOk(int res_id, Model model) {

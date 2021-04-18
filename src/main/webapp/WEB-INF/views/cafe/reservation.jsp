@@ -5,6 +5,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.Date"%>
+<c:choose>
+<c:when test="${empty user_id}">
+<script>
+	alert("로그인이 필요한 서비스입니다");
+	location.href="../login";
+</script>
+</c:when>
+<c:otherwise>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -118,18 +126,7 @@ var seatdates;
 			
 			<div id="chkdates">
 			<table>
-				<thead>
-				<tr>
-				<th>시설번호</th>
-				<th>예약시작</th>
-				<th>예약종료</th>
-				</tr>
-				</thead>
-				<tbody>
-				
-				</tbody>
-							
-			</table>
+				<thead><tr><th>시설번호</th><th>예약시작</th><th>예약종료</th></tr></thead><tbody></tbody></table>
 			</div>
 		</div>
 
@@ -201,6 +198,11 @@ function getDates(seat_id){
 					seatdates = data;
 					printRsv(data);
 				}
+				
+				else if(data.status == "fail"){
+					seatdates = data;
+					$('#chkdates tbody').html("다른 예약내역이 없습니다");
+				}
 			}
 		}
 	})
@@ -219,3 +221,5 @@ function printRsv(data){
 
 </body>
 </html>
+</c:otherwise>
+</c:choose>
