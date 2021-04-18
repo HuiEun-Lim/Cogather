@@ -21,7 +21,6 @@
 	<link href="../CSS/app.css" rel="stylesheet">
 	
 	<title>코게더 관리자 페이지</title>
-
 </head>
 
 <body>
@@ -31,7 +30,6 @@
 				<a class="sidebar-brand" href="index.html">
 					<span class="align-middle">코게더 관리자</span>
 				</a>
-
 				<ul class="sidebar-nav">
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="tables-bootstrap.html">
@@ -91,12 +89,9 @@
 								</div>
 							</div>
 						</div>
-
-
 						<div class="col-xl-6 col-xxl-7">
 							<div class="card flex-fill w-100">
 								<div class="card-header">
-
 									<h5 class="card-title mb-0">2021년 월별 매출</h5>
 								</div>
 								<div class="card-body py-3">
@@ -111,7 +106,6 @@
 						<div class="col-12 col-lg-8 col-xxl-12 d-flex">
 							<div class="card flex-fill">
 								<div class="card-header">
-
 									<h5 class="card-title mb-0">오늘 예약</h5>
 								</div>
 								<table class="table table-hover my-0">
@@ -124,7 +118,6 @@
 											<th class="d-none d-xl-table-cell">End Date</th>
 											<th class="d-none d-md-table-cell">결제방법</th>
 											<th class="d-none d-md-table-cell">예약취소</th>
-
 										</tr>
 									</thead>
 									<tbody>
@@ -164,7 +157,6 @@
 			</main>
 		</div>
 	</div>
-
 	<script src="../JS/app.js"></script>
 
 	<script>
@@ -226,8 +218,7 @@
 						}],
 						yAxes: [{
 							ticks: {
-								stepSize: 10
-							},
+								stepSize: 10							},
 							display: true,
 							borderDash: [3, 3],
 							gridLines: {

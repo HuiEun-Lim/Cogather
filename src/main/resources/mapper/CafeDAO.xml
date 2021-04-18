@@ -36,7 +36,6 @@
 	
 	<select id="selectDate" resultType = "com.project.cogather.domain.CafeDTO">
 		SELECT seat_id, start_date, end_date FROM reservation WHERE seat_id = #{seat_id} AND end_date > SYSDATE
-
 	</select>
 	
 	<select id="adminview" resultType="com.project.cogather.domain.CafeDTO">

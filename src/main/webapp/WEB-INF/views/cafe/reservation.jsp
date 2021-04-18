@@ -201,8 +201,7 @@ function getDates(seat_id){
 				
 				else if(data.status == "fail"){
 					seatdates = data;
-					$('#chkdates tbody').html("다른 예약내역이 없습니다");
-				}
+					$('#chkdates tbody').html("다른 예약내역이 없습니다");				}
 			}
 		}
 	})
