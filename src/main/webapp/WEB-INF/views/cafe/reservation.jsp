@@ -18,14 +18,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="/cogather/CSS/cafersv.css">
+<link rel="stylesheet" href="../CSS/cafersv.css">
+<link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script src="https://kit.fontawesome.com/65311e5b1a.js"
 	crossorigin="anonymous"></script>
-<script type="text/javascript" src="/cogather/JS/cafersv.js"></script>
-<script type="text/javascript" src="/cogather/JS/seats.js"></script>
+<script type="text/javascript" src="../JS/cafersv.js"></script>
+<script type="text/javascript" src="../JS/seats.js"></script>
 <title>예약하기</title>
 </head>
 <script>

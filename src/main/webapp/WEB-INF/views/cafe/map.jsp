@@ -10,6 +10,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
    <link rel="stylesheet" href="../CSS/cafemap.css">
+   <link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon" />
    <script src="https://kit.fontawesome.com/65311e5b1a.js" crossorigin="anonymous"></script>
    <script type="text/javascript" src="../JS/cafemap.js"></script>
    <title>오시는길</title>
