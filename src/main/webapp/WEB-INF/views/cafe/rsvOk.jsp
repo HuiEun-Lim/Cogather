@@ -21,7 +21,9 @@
 </head>
 <body>
 	<div class="w3-button" id="apibtn"><img src="/cogather/img/cafe/kakaopaybtn.png"></div>
-
+		<form name="hiddentid" action="test" method="POST">
+			<input type="text" id="rsv_tid" name="rsv_tid" required>
+		</form>
 </body>
 </html>
 	</c:otherwise>

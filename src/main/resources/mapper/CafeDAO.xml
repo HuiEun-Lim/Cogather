@@ -49,4 +49,17 @@
 		resultType="com.project.cogather.domain.CafeDTO">
 	</select>
 	
+	<select id="getlastid" resultType="int">
+		SELECT RES_ID FROM RESERVATION WHERE ROWNUM = 1 ORDER BY RES_ID DESC
+	</select>
+	
+	<insert id="setrsvTid" flushCache="true"
+		parameterType="com.project.cogather.domain.CafeDTO"
+		keyProperty="rsv_tid" useGeneratedKeys="true" keyColumn="rsv_tid">
+		INSERT INTO rsvtid 
+			(res_id, rsv_tid) 
+		VALUES 
+			(#{param1}, #{rsv_tid})
+	</insert>
+		
 </mapper>

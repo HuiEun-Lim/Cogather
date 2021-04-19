@@ -63,6 +63,16 @@ public class CafeService {
 		dao = sqlSession.getMapper(CafeDAO.class);
 		return dao.getprice(dto.getSeat_id(),dto);
 	}
+	
+	public int setrsvTid(int res_id, String rsv_tid) {
+		int result = dao.setrsvTid(res_id, rsv_tid);
+		return result;
+	}
+	
+	public int getlastid() {
+		dao = sqlSession.getMapper(CafeDAO.class);
+		return dao.getlastid();
+	}
 }
 
 

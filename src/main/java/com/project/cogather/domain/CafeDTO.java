@@ -23,7 +23,9 @@ public class CafeDTO {
 	private LocalDateTime end_date;
 	private String payment; //결제 방법
 	private int seat_price;
-	
+	private String rsv_tid;
+
+
 	public CafeDTO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -31,7 +33,7 @@ public class CafeDTO {
 
 
 	public CafeDTO(int res_id, String ID, String seat_id, LocalDateTime start_date, LocalDateTime end_date,
-			String payment, int seat_price) {
+			String payment, int seat_price, String rsv_tid) {
 		super();
 		this.res_id = res_id;
 		this.ID = ID;
@@ -40,6 +42,7 @@ public class CafeDTO {
 		this.end_date = end_date;
 		this.payment = payment;
 		this.seat_price = seat_price;
+		this.rsv_tid = rsv_tid;
 		System.out.printf("CafeDTO(%d, %s, %s, %s, %s, %s) 객체 생성\n", res_id, ID, seat_id, start_date, end_date, payment);
 	}
 
@@ -131,6 +134,14 @@ public class CafeDTO {
 
 	public void setSeat_price(int seat_price) {
 		this.seat_price = seat_price;
+	}
+	public String getRsv_tid() {
+		return rsv_tid;
+	}
+	
+	
+	public void setRsv_tid(String rsv_tid) {
+		this.rsv_tid = rsv_tid;
 	}
 	
 } //end DTO

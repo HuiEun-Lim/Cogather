@@ -11,31 +11,10 @@
 	<link rel="stylesheet" href="/cogather/CSS/cafersv.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://kit.fontawesome.com/65311e5b1a.js" crossorigin="anonymous"></script>
+	
 	<title>예약하기</title>
 </head>
-<!--  
-<script>
-$(document).ready(function(){
-		$.ajax({
-			url:'kakaopay',
-			type: "GET",
-			success:function(data){
-				alertCode(data);
-			}
-		
-		});
-	
-});
-					
 
-function alertCode(jsonObj){
-	var row = JSON.parse(jsonObj);
-	var turl = row.next_redirect_pc_url;
-	window.open(turl);
-}
-</script>
--->
 <body>
-	
 </body>
 </html>

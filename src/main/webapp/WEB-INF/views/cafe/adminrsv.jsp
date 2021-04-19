@@ -51,7 +51,7 @@
 		<div class="w3-light-grey" style="height:2px; margin-bottom: 70px" >
     		<div style="width:10%; height:2px; background-color:#FDBF26"></div>
 		</div>
-		
+		<div class="w3-button" id="apibtn"><img src="/cogather/img/cafe/kakaopaybtn.png"></div>
     	<table class="w3-table w3-bordered w3-centered w3-large w3-card-4">
     	<tr class="w3-amber">
     	<th>예약번호</th>
@@ -113,7 +113,6 @@
 </footer>
     
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7f36e46956483ffffb803d95f128023d"></script>
 <script>
 window.onscroll = function() {myFunction()};
 function myFunction() {
@@ -134,6 +133,16 @@ function toggleFunction() {
         x.className = x.className.replace(" w3-show", "");
     }
 }
+
+$(document).ready(function(){
+	$('#apibtn').click(function(){
+		$.ajax({
+			url:'kakaocancel',
+			type: "GET"
+		
+		});
+	});
+	});
 </script>
 </body>
 </html>

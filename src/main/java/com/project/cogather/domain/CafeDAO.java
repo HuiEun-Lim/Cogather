@@ -25,4 +25,6 @@ public interface CafeDAO {
 	List<CafeDTO> selectDate(@Param("seat_id") String seat_id);
 	
 	List<CafeDTO> adminview();
+	int setrsvTid(int res_id, @Param("rsv_tid") String rsv_tid);
+	int getlastid();
 } //end DAO
