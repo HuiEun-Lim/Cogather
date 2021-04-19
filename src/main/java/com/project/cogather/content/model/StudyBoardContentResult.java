@@ -3,6 +3,7 @@ package com.project.cogather.content.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.project.cogather.comments.model.CommentsCounts;
 import com.project.cogather.common.AjaxResult;
 import com.project.cogather.members.model.MembersDTO;
 
@@ -18,7 +19,7 @@ import lombok.Setter;
 public class StudyBoardContentResult extends AjaxResult {
 	List<ContentDTO> data;
 	List<MembersDTO> member;
-
+	List<CommentsCounts> cmCnt;
 	int page; // 현재 페이지 #
 
 	@JsonProperty("totalpage")

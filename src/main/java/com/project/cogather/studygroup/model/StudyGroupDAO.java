@@ -41,4 +41,7 @@ public abstract List<StudyGroupDTO> select();
 	public int deleteFileByUid(int sg_id);
 	//첨부파일 수정
 	public abstract void updateFile(Map<String,Object>map) throws Exception;
+	
+	// 유저 아이디로 참여한 모든 스터디 쿼리
+	public List<StudyGroupDTO> getStudyByID(@Param("id") String id);
 }	

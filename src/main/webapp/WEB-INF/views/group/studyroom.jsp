@@ -2,33 +2,59 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
-<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>스터디 방</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/CSS/studyroom.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://kit.fontawesome.com/a6e7d7d152.js" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/CSS/studyroom.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://kit.fontawesome.com/a6e7d7d152.js"
+	crossorigin="anonymous"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="/cogather/JS/ckeditor/ckeditor.js"></script>
 <script src="${pageContext.request.contextPath }/JS/studyroomMember.js"></script>
 <script src="${pageContext.request.contextPath }/JS/studyroomBoard.js"></script>
-<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
-<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script
+	src="${pageContext.request.contextPath }/templates/roomAssets/js/jquery.min.js"></script>
+<script
+	src="${pageContext.request.contextPath }/templates/roomAssets/js/jquery.scrolly.min.js"></script>
+<script
+	src="${pageContext.request.contextPath }/templates/roomAssets/js/browser.min.js"></script>
+<script
+	src="${pageContext.request.contextPath }/templates/roomAssets/js/breakpoints.min.js"></script>
+<script
+	src="${pageContext.request.contextPath }/templates/roomAssets/js/util.js"></script>
+<script
+	src="${pageContext.request.contextPath }/templates/roomAssetss/js/main.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/templates/roomAssets/css/main.css" />
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header"
+	th:content="${_csrf.headerName}" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
 </head>
 
-<body>
-	
+<body class="is-preload">
+
 	<div class="room">
 		<nav id="room-menu">
 			<h2 id="room-title">${studyGroupBYSGID[0].sg_name }</h2>
-			<div id="enter-cnt-head">참여인원</div><span id="enter-cnt"></span>
-			<button id="outroom" class="btn btn-danger" >퇴실하기</button>
+			<div id="enter-cnt-head">참여인원</div>
+			<span id="enter-cnt"></span>
+			<button id="outroom" class="btn btn-danger">퇴실하기</button>
 			<div class="clear-both"></div>
 		</nav>
 		<div class="content-body">
@@ -39,44 +65,44 @@
 
 				</div>
 				<div class="clear-both"></div>
-				
+
 				<div class="center">
 					<h2 class="board-title">${studyGroupBYSGID[0].sg_name }</h2>
-						<h2 class="board-subtitle">게시판</h2>
+					<h2 class="board-subtitle">게시판</h2>
 					<div id="board-list" class="board-list">
-					
+
 						<div class="board-option">
-							<div class="ele-left" id="pageinfo"></div>	
-							<div class="ele-right" id="pageRows"></div>	
+							<div class="ele-left" id="pageinfo"></div>
+							<div class="ele-right" id="pageRows"></div>
 						</div>
 						<table class="table">
 							<caption>
 								<span class="blind">게시물 목록</span>
 							</caption>
 							<colgroup>
-								<col style="width:88px">
+								<col style="width: 88px">
 								<col>
-								<col style="width:118px">
-								<col style="width:80px">
-								<col style="width:68px">
+								<col style="width: 118px">
+								<col style="width: 120px">
+								<col style="width: 68px">
 							</colgroup>
 							<thead>
 								<tr id="simpleTableTitle">
-									<th scope="col">  </th>
+									<th scope="col"></th>
 									<th scope="col">제목</th>
-									<th scope="col">작성자</th>								
-									<th scope="col">작성일</th>								
+									<th scope="col">작성자</th>
+									<th scope="col">작성일</th>
 									<th scope="col">조회</th>
 								</tr>
 							</thead>
 							<tbody>
-								
+
 							</tbody>
 						</table>
-						
+
 						<div class="board-list">
 							<div class="ele-right">
-								<button type="button" class="btn btn-warning" id="btnWrite" >글작성</button>
+								<button type="button" class="btn btn-warning" id="btnWrite">글작성</button>
 							</div>
 						</div>
 						<div class="clear-both"></div>
@@ -84,60 +110,72 @@
 						<div class="paging-center">
 							<ul class="pagination" id="pagination"></ul>
 						</div>
-						
-					</div> <!-- board-list end  -->
+
+					</div>
+					<!-- board-list end  -->
 					<div class="clear-both"></div>
-					
+
 					<div id="write-mode">
-						<form id="frmWrite"  method="post" enctype="Multipart/form-data">
+						<form id="frmWrite" method="post" enctype="Multipart/form-data">
 							<div class="container">
-								<input id="content-uid" type="hidden" name="ct_uid" value="0" >
+								<input id="content-uid" type="hidden" name="ct_uid" value="0">
 								<div class="form-group">
-									
-									<label class="col-sm-2" for="title">제목:</label>
-									<input class="form-control" type="text" id="ct_title" placeholder="제목을 입력해주세요" name="ct_title">
+
+									<label class="col-sm-2" for="title">제목:</label> <input
+										class="form-control" type="text" id="ct_title"
+										placeholder="제목을 입력해주세요" name="ct_title">
 								</div>
-									<input type="hidden" id="roomNumber" name="sg_id" value="${sg_id }">
-									<input type="hidden" id="userid" name="id" value="${id }">
-									<label class="control-label col-sm-2" for="ct_content">내용</label>
-									<textarea name="ct_content" id="editor1" style="width:640;height:600;margin:0 0 0 0px;"></textarea><br><br>
-									<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
+								<input type="hidden" id="roomNumber" name="sg_id"
+									value="${sg_id }"> <input type="hidden" id="userid"
+									name="id" value="${id }"> <label
+									class="control-label col-sm-2" for="ct_content">내용</label>
+								<textarea name="ct_content" id="editor1"
+									style="width: 640; height: 600; margin: 0 0 0 0px;"></textarea>
+								<br> <br> <input type="hidden"
+									name="${_csrf.parameterName}" value="${_csrf.token}" />
 								<div class="btn_group_write">
-									<button disabled="disabled" id="write-list" type="button" class="btn btn-secondary ele-left">목록</button>
-									<button disabled="disabled" id="write-send" type="button" class="btn btn-success ele-right">작성</button>
+									<button disabled="disabled" id="write-list" type="button"
+										class="btn btn-secondary ele-left">목록</button>
+									<button disabled="disabled" id="write-send" type="button"
+										class="btn btn-success ele-right">작성</button>
 								</div>
 								<div class="btn_group_update">
-									<button disabled="disabled" id="update-cancel" type="button" class="btn btn-danger ele-left">취소</button>
-									<button disabled="disabled" id="update-send" type="button" class="btn btn-success ele-right">수정</button>
+									<button disabled="disabled" id="update-cancel" type="button"
+										class="btn btn-danger ele-left">취소</button>
+									<button disabled="disabled" id="update-send" type="button"
+										class="btn btn-success ele-right">수정</button>
 								</div>
 							</div>
-							
+
 						</form>
 					</div>
 					<div id="view-mode">
 						<div class="btn_group_view">
-							<button disabled="disabled" id="view-list" type="button" class="btn btn-secondary ele-right">목록</button>
-							<button disabled="disabled" id="view-update" type="button" class="btn btn-secondary ele-right">수정</button>
-							<button disabled="disabled" id="view-delete" type="button" class="btn btn-secondary ele-right">삭제</button>
-							<button disabled="disabled" id="view-write" type="button" class="btn btn-success ele-right">글작성</button>
+							<button disabled="disabled" id="view-list" type="button"
+								class="btn btn-secondary ele-right">목록</button>
+							<button disabled="disabled" id="view-update" type="button"
+								class="btn btn-secondary ele-right">수정</button>
+							<button disabled="disabled" id="view-delete" type="button"
+								class="btn btn-secondary ele-right">삭제</button>
+							<button disabled="disabled" id="view-write" type="button"
+								class="btn btn-success ele-right">글작성</button>
 						</div>
 						<div class="article-header">
-							<h3 class= "view-title"></h3>
+							<h3 class="view-title"></h3>
 							<div class="writer-info"></div>
 						</div>
-						<div class="article-container">
-						
-						</div>
+						<div class="article-container"></div>
 						<div class="comment-info">
 							<div class="box_left">
-								<img src='${pageContext.request.contextPath }/img/group/comment.png'>
+								<img
+									src='${pageContext.request.contextPath }/img/group/comment.png'>
 								<span>0</span>
 							</div>
 						</div>
 						<div class="comment-box">
 							<div class="comment_option">
 								<h3 class="comment_title">댓글</h3>
-									<i class="fas fa-sync-alt fa-spin comment_refresh_button"></i>
+								<i class="fas fa-sync-alt fa-spin comment_refresh_button"></i>
 							</div>
 							<div class="comment-input-container">
 								<div class="comment-writer-info"></div>
@@ -145,11 +183,11 @@
 								<a role="button" id="comment-register" class="comment-register">등록</a>
 							</div>
 							<ul class="comment-list">
-							
+
 							</ul>
 						</div>
 					</div>
-					
+
 				</div>
 
 				<div class="right">
@@ -159,13 +197,15 @@
 						</div>
 
 						<form id="sendMessage" name="sendMessage">
-							<input id="message-input" autocomplete="off" class="form-control" type="text">
-							<button type="submit" class="btn btn-warning message-send" onclick="formSend()">전송</button>
+							<input id="message-input" autocomplete="off" class="form-control"
+								type="text">
+							<button type="submit" class="btn btn-warning message-send"
+								onclick="formSend()">전송</button>
 						</form>
 					</div>
 				</div>
 				<div class="clear-both"></div>
-		
+
 			</div>
 		</div>
 	</div>
@@ -219,6 +259,6 @@
 			console.log("contextPath: " + contextPath);
 		}
 	</script>
-	
+
 </body>
 </html>

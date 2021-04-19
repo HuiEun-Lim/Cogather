@@ -216,5 +216,18 @@ public class StudyGroupController {
 		return "group/roomenterOk";
 	}
 	
+	@RequestMapping("/studymypage")
+	public String myPage(String id, Model model) {
+		List<StudyGroupDTO> data = null;
+		try {
+			data = studygroupservice.getStudyByID(id);
+			
+		}catch(Exception E) {
+			E.printStackTrace();
+		}
+		
+		model.addAttribute("list", data);
+		return "group/studymypage";
+	}
 	
 }

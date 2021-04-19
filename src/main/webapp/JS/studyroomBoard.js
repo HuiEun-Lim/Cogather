@@ -87,12 +87,12 @@ function updateList(jsonObj){
 		window.pageRows = jsonObj.pagerows;
 		
 		var datas = jsonObj.data; 
-		
+		var cmCnt = jsonObj.cmCnt;
 		for(var i = 0; i<count; i++){
 			if(datas[i].ct_title != null){
 				result += "<tr>\n";
 				result += "<td>"+ datas[i].ct_uid+"</td>\n";
-				result += "<td><span class='content-title' data-uid='"+datas[i].ct_uid+"'>"+ datas[i].ct_title+"<img src='"+contextPath+"/img/group/comment.png' class='comment-icon'><span>[0]</span>"+"</span></td>\n";
+				result += "<td><span class='content-title' data-uid='"+datas[i].ct_uid+"'>"+ datas[i].ct_title+"<img src='"+contextPath+"/img/group/comment.png' class='comment-icon'><span>["+cmCnt[i].cnt+"]</span>"+"</span></td>\n";
 				result += "<td><span>"+ datas[i].id+"</span></td>\n";
 				result += "<td>"+ datas[i].regdate+"</td>\n";
 				result += "<td><span data-viewcnt='"+datas[i].ct_uid+"'>"+ datas[i].ct_viewcnt+"</span></td>\n";
@@ -121,7 +121,7 @@ function updateList(jsonObj){
 		$("#pagination").html(pagination);
 		return true; // 목록 업데이트 성공 상태 반환
 	}else{
-		alert("내용이 없음");
+		$("div.board-list tbody").html("<div>내용없음</div>");
 		return false;
 	}
 } // updateList() end

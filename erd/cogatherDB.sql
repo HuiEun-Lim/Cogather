@@ -47,6 +47,23 @@ CREATE TABLE comments /* on delete set null 시 해당 ID가 not null 이면 삭
 	regdate date DEFAULT SYSDATE,/*등록날짜*/
 	PRIMARY KEY (cm_uid)
 );
+
+SELECT a.ct_uid ct_uid,COUNT(C.CT_UID) cnt
+FROM 
+(SELECT *
+	FROM 
+		(SELECT ROWNUM AS RNUM, T.* FROM 
+			(SELECT * FROM CONTENT 
+			WHERE SG_ID = 21
+			ORDER BY ct_uid DESC 
+			) T
+		) 
+	WHERE 
+		RNUM >= 1 AND RNUM < (1 + 10)
+) a LEFT JOIN COMMENTS c ON a.CT_UID = c.CT_UID
+GROUP BY a.CT_UID
+;
+
 --SELECT * 
 --FROM COMMENTS
 --WHERE ct_uid = 20

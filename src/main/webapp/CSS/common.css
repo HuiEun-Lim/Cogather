@@ -14,7 +14,10 @@
 	font-family: "NanumBarunpenB";
 	src:url("../font/NanumBarunpenB.ttf")format("truetype");
 }
-
+@font-face {
+	font-family: 'Gugi-Regular';
+	src: url(../font/Gugi-Regular.ttf) format('truetype');
+}
 #myNavbar{
 	color: white;
 	font-size:20px;
@@ -230,3 +233,10 @@ div #row #main {
 	clear:both;
 }
 
+#cover-img{
+	width:100%;
+	height:300px;
+}
+#mypage-logo{
+	font-family: Gugi-Regular;
+}

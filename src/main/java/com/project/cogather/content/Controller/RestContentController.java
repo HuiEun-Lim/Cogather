@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.project.cogather.comments.model.CommentsCounts;
+import com.project.cogather.comments.service.CommentsService;
 import com.project.cogather.common.AjaxResult;
 import com.project.cogather.common.Common;
 import com.project.cogather.content.model.CKeditorFileError;
@@ -32,6 +34,8 @@ public class RestContentController {
 	private BoardService boardService;
 	@Autowired
 	private MembersService membersService;
+	@Autowired
+	private CommentsService commentsService;
 	// 특정 방의 게시글의 몇 번째 페이지, 페이지당 몇개 씩 보일 것인지
 	@GetMapping("/{sg_id}/page/{page}/{pageRows}")
 	public StudyBoardContentResult list(
@@ -41,6 +45,7 @@ public class RestContentController {
 			) {
 		StudyBoardContentResult result = new StudyBoardContentResult();
 		List<ContentDTO> list = null;
+		List<CommentsCounts> cmCnt = null;
 		StringBuffer message = new StringBuffer();
 		
 		String status = "FAIL";
@@ -56,12 +61,13 @@ public class RestContentController {
 			int from  = (page - 1) * pageRows + 1;
 			
 			list = boardService.list(from, pageRows, sg_id);
-			
+			cmCnt = commentsService.getCommentsCounts(sg_id, from, pageRows);
 			if(list == null) {
 				message.append("데이터 없음");
 			}else {
 				result.setCnt(list.size());
 				result.setData(list);
+				result.setCmCnt(cmCnt);
 				status = "OK";
 			}
 			
@@ -69,6 +75,8 @@ public class RestContentController {
 			message.append("트랜잭션 에러: " + e.getMessage());
 			
 		}
+		System.out.println("test: " + status);
+		System.out.println("test2: " + message.toString());
 		result.setStatus(status);
 		result.setMessage(message.toString());
 		
