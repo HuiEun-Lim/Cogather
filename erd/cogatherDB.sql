@@ -137,7 +137,7 @@ CREATE TABLE members
 	pw varchar2(100) NOT NULL,/*비밀번호*/
 	phone varchar2(15),/*전화번호*/
 	email varchar2(40),/*이메일*/
-	pimg_url varchar2(30),/*프로필 이미지*/
+	pimg_url varchar2(200),/*프로필 이미지*/
 	tag varchar2(50),/*관심주제*/
 	enabled char(1) DEFAULT 1,
 	PRIMARY KEY (ID)

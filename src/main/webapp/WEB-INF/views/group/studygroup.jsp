@@ -26,7 +26,7 @@
       <i class="fa fa-bars"></i>
     </a>
     <a href="#intro" class="w3-bar-item w3-button">
-    	<img src="/cogather/img/logo_cut.png" class="logo"  >
+    	<img src="../img/logo_cut.png" class="logo"  >
     </a>
     <a href="/cogather/group/studylist" class="w3-bar-item w3-button w3-hide-small">스터디목록</a>
     <a href="/cogather/group/studywrite" class="w3-bar-item w3-button w3-hide-small">스터디만들기</a>

@@ -96,15 +96,15 @@
 
   <!-- Full-width images with number and caption text -->
   <div class="mySlides fade">
-    <img src="/cogather/img/cafe/mainback.png" class="slimg">
+    <img src="../img/cafe/mainback.png" class="slimg">
   </div>
 
   <div class="mySlides fade">
-    <img src="/cogather/img/cafe/charger.png" class="slimg">
+    <img src="../img/cafe/charger.png" class="slimg">
   </div>
 
   <div class="mySlides fade">
-    <img src="/cogather/img/cafe/muted.png" class="slimg">
+    <img src="../img/cafe/muted.png" class="slimg">
   </div>
 
   <!-- Next and previous buttons -->

@@ -44,3 +44,5 @@ input {
 	content:" *";
     color: red;
 }
+
+.select_img img { margin: 20px 0;}

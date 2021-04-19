@@ -23,6 +23,7 @@
 	<resources mapping="/img/**" location="/img/" />
 	<resources mapping="/font/**" location="/font/" />
 	<resources mapping="/boardupload/**" location="/boardupload/" />
+	<resources mapping="/pimgupload/**" location="/pimgupload/" />
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -80,4 +81,11 @@
 	
 	<!-- json 데이터를 특정 클래스 데이터로 변환하기 위한 bean -->
 	<beans:bean name="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"></beans:bean>
+	
+	<!-- 업로드 패스 설정 --> 
+<beans:bean class="java.lang.String" id="uploadPath">
+ <beans:constructor-arg value="" />
+</beans:bean>
+
+
 </beans:beans>
