@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -30,6 +31,7 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
 		});
 		
 		System.out.println("ROLE NAMES : " + roleNames);
+		
 		
 		// 만약 사용자가 ROLE_ADMIN 권한을 가졌다면 로그인 후 곧바로 /sample/admin 으로 이동
 //		if(roleNames.contains("ROLE_ADMIN")) {
@@ -67,7 +69,11 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
 		} else if (prevPage != null && !prevPage.equals("")) {
 			uri = prevPage;
 		}
-
+		
+		// 유저 이름 쿠키에 담기
+		Cookie userCookie = new Cookie("user_id", authentication.getName());
+		userCookie.setMaxAge(15*60); // 쿠키 15분 유지
+		response.addCookie(userCookie);
 		// 세 가지 케이스에 따른 URI 주소로 리다이렉트
 		response.sendRedirect(uri);
 		

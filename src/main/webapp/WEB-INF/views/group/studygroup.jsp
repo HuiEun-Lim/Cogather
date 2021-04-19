@@ -58,27 +58,27 @@
 				<c:forEach var="dto" items="${list}">
 				<ul id="myUl" class="row">
 				<li class="column">
-   					 
+   					 <img src="/cogather/img/group/upload/${dto.file_name}" width="20%" height="50px" onerror="this.src='/cogather/img/logo.png'">
     				 <p>방번호:${dto.sg_id}</p>
-    				 <p>스터디명:${dto.sg_tag}</p>
+    				<p><a href="/cogather/group/studyview?sg_id=${dto.sg_id}">스터디주제:${dto.sg_tag}</a></p>
   				</li>
   				
 				</c:forEach>
+				<c:if test="${user_id ne null}">
 				<li class="column new_div">
    					 <h5 style="text-align:center">신규 스터디 생성</h5>
-   					 <button style="border:none;class="button_add"><img src="/cogather/img/group/add.png" class="add"onclick="location.href='/cogather/group/studywrite'" ></button>
+   					 <button style="border:none;float:right;
+	left:-40%; position:relative;class="button_add"><img src="/cogather/img/group/add.png" class="add"onclick="location.href='/cogather/group/studywrite'" ></button>
 				  	<p></p>
 				  	
   				</li>
+  			
 				</ul>
-				
+					</c:if>
 			</c:otherwise>
 		</c:choose>
 </div>
 <br><br><br>
 
-<button onclick="location.href='roomenterOk?sg_id=4&id=qwer'">스터디 화면 테스트(qwer,sg4)</button>
-<button onclick="location.href='roomenterOk?sg_id=21&id=id2'">스터디 화면 테스트(id2,sg21)</button>
-<button onclick="location.href='roomenterOk?sg_id=21&id=id3'">스터디 화면 테스트(id3,sg21)</button>
 </body>
 </html>

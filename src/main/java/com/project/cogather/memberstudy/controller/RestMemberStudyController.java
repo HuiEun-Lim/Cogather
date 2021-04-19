@@ -223,7 +223,7 @@ public class RestMemberStudyController {
 			return result;
 		}
 		
-		@PutMapping("/ms/{sg_id}/{id}")
+		@PutMapping(value="/ms/{sg_id}/{id}")
 		public AjaxResult UpdateCrew(@PathVariable String id,@PathVariable int sg_id){
 			AjaxResult result = new AjaxResult();
 			

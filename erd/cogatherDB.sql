@@ -101,7 +101,7 @@ ALTER TABLE content_file
 --INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
 --VALUES (content_seq.nextval, 'id3', 21, '인간이 불행한 이유는 자신이 행복하다는 사실을 모르기 때문이다. 단지 그 뿐이다.', '인간이 불행한 이유는 자신이 행복하다는 사실을 모르기 때문이다. 단지 그 뿐이다.' );
 --
---SELECT * FROM CONTENT;
+SELECT * FROM CONTENT;
 --
 --SELECT * 
 --FROM (SELECT * 
@@ -128,7 +128,10 @@ ALTER TABLE content_file
 --UPDATE CONTENT
 --SET CT_TITLE = '에이시발', CT_CONTENT = '왜 안되는데'
 --WHERE CT_UID = 22 AND ID = 'id1' AND SG_ID = 21; 		
-		
+
+DELETE FROM CONTENT WHERE SG_ID = 4 AND ct_uid= 18;
+SELECT * FROM CONTENT_FILE ;
+DELETE FROM CONTENT_FILE WHERE CF_ID = 2;
 /*회원*/
 CREATE TABLE members
 (
@@ -183,20 +186,27 @@ CREATE TABLE memberstudy
 	CONSTRAINT GAUTH_CHECK CHECK(g_auth IN ('captain', 'crew', 'common')),
 	CONSTRAINT ENSTATUS_CHECK CHECK(enstatus IN ('in', 'out'))
 );
-DELETE FROM MEMBERSTUDY WHERE sg_id =389;
+DELETE FROM MEMBERSTUDY WHERE sg_id =405;
+DELETE FROM STUDYGROUP WHERE sg_id =435;
+
 --SELECT * FROM MEMBERSTUDY
---
-SELECT * FROM MEMBERSTUDY;
+--방 접속자 숫자 
+SELECT * FROM MEMBERSTUDY ORDER BY sg_id asc;
+SELECT count(ID)
+	FROM MEMBERSTUDY
+	WHERE SG_ID = 441 and (g_auth = 'captain' OR g_auth = 'crew');
 --아이디  스터디 그룹 조회 
-SELECT MEMBERSTUDY.ID, STUDYGROUP.SG_ID,STUDYGROUP.sg_name,STUDYGROUP.sg_info,STUDYGROUP.sg_max,STUDYGROUP.sg_tag,STUDYGROUP.kko_url,STUDYGROUP.sg_regdate,STUDYGROUP.file_name
-FROM MEMBERSTUDY , STUDYGROUP
-WHERE MEMBERSTUDY.sg_id = studygroup.sg_id; 
+SELECT memberstudy.g_auth, memberstudy.id, studygroup.sg_id,studygroup.sg_name,studygroup.sg_info,studygroup.sg_max,studygroup.sg_tag,studygroup.kko_url,studygroup.sg_regdate,studygroup.file_name
+FROM MEMBERSTUDY,studygroup
+WHERE memberstudy.sg_id = studygroup.sg_id AND studygroup.sg_id = 404 AND memberstudy.G_AUTH='captain'; 
 ---- 방생성자 방 생성
 INSERT INTO memberstudy (ID, sg_id, g_auth)
 VALUES 
 ('qwer', 4, 'captain');
---
 
+--
+SELECT * FROM MEMBERSTUDY;
+UPDATE MEMBERSTUDY  SET g_auth='common' WHERE sg_id=405 AND id='kisunghoon11';
 --
 ---- 참가자 참여 허락
 --INSERT INTO memberstudy (ID, sg_id, g_auth)
@@ -384,6 +394,7 @@ INSERT INTO studygroup VALUES
 ALTER TABLE comments
 	ADD FOREIGN KEY (ct_uid)
 	REFERENCES content (ct_uid)
+	ON DELETE CASCADE
 ;
 
 

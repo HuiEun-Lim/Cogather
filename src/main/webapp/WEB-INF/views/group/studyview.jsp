@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <c:choose>
 	<c:when test="${empty list || fn:length(list) == 0 }">
@@ -31,8 +31,7 @@
 	function openMail(){
 		location.href = 'mailSending';
 	}
-	
-	
+
 </script>
 <link rel="stylesheet" href="/cogather/CSS/common.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -45,7 +44,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox.min.js"></script>
 
 <script>
-
+var staticid;
 function chkDelete(sg_id){
 	// 삭제 여부, 다시 확인 하고 진행하기
 	var r = confirm("삭제하시겠습니까?");
@@ -94,9 +93,11 @@ lightbox.option({
     fitImagesInViewport:false
 })
 
-function registerRoom(){
+
+function registerRoom(nowid){
+	
 	$.ajax({
-		url: "./MemberStudyRest/ms/${list[0].sg_id}/${list[0].id}",
+		url: "./MemberStudyRest/ms/${list[0].sg_id}/"+nowid,
 		type: "GET",
 		cache: false,
 		success: function(data, status) {
@@ -106,18 +107,46 @@ function registerRoom(){
 		}
 	});
 }
+
+function UpdateCrew(){
+	console.log("sdfsdfsdfwerwe"+staticid);
+	var token = $('meta[name="_csrf"]').attr("content");
+	var header = $('meta[name="_csrf_header"]').attr("content");
+	$.ajax({
+		url: "./MemberStudyRest/ms/${list[0].sg_id}/"+staticid,
+		type: "PUT",
+		beforeSend: function(xhr) {
+	        xhr.setRequestHeader("AJAX", true);
+
+	        xhr.setRequestHeader(header, token);
+	     },
+		cache: false,
+		success: function(data, status) {
+			if (status == "success") {
+				alert("스터디원  수락");
+			}
+		}
+	});
+}
+
 function loadMember(nowid){
-	
 	console.log("지나감");
 	console.log(nowid);
+	var token = $('meta[name="_csrf"]').attr("content");
+	var header = $('meta[name="_csrf_header"]').attr("content");
 	$.ajax({
 		url: "./MemberStudyRest/${list[0].sg_id}",
 		type: "GET",
+		beforeSend: function(xhr) {
+	        xhr.setRequestHeader("AJAX", true);
+
+	        xhr.setRequestHeader(header, token);
+	     },
 		cache: false,
 		success: function(data, status) {
 			if (status == "success") {
 				if(data.status == "OK"){
-					updateMemberList(data);	
+					updateMemberList(data,nowid);	
 				}
 				
 			}
@@ -127,32 +156,37 @@ function loadMember(nowid){
 
 
 
-function updateMemberList(data){
+function updateMemberList(data,id){
 	var result = "";
+
+	console.log("updatemember"+id);
 	
-	result += "<h4>현재 가입자</h4>"
+	result += "<h4>현재 가입자</h4>";
+
+	
 	for(var i =0; i < data.rdata.length; i++){
 		console.log("qqqqqqq");
 		result += "<li>" +"<img class='member-thumbnail'src='${pageContext.request.contextPath }/"+ data.rmember[i].pimg_url+"'>"+"<span class='member-name'>"+data.rdata[i].id+"</span></li>";
 	}
 	result+="<hr>";
 	result += "<h4>가입 신청중</h4>"
-
+	
 	for(var i = 0; i < data.cdata.length; i++){
-		console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+		console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq"+id);
 		id=data.cmember[i].id;
-		result += "<li>" +"<img class='member-thumbnail' src='${pageContext.request.contextPath }/"+ data.cmember[i].pimg_url+"'>"+"<span class='member-name'>"+data.cdata[i].id+"</span>"+
-		"<button btn-id='"+id+"'type='button' onclick='accept(this.btn-id)' class='btn btn-success'>수락</button></li>";
 		
+		 result += "<li>" +"<img class='member-thumbnail' src='${pageContext.request.contextPath }/"+ data.cmember[i].pimg_url+"'>"+"<span class='member-name'>"+data.cdata[i].id+"</span></li>";
+ 		 accept(id);
+		 
 	}
 	
-	/* accept(id2); */
 	$(".member-list ul").html(result);
 }
-
+ 
 function accept(id){
 	/* console.log($(this).attr('btn-id'));
 	console.log($(this).attr('type'));  */
+	
 	var token = $('meta[name="_csrf"]').attr("content");
 	var header = $('meta[name="_csrf_header"]').attr("content");
 	console.log("보안1"+token);
@@ -160,34 +194,47 @@ function accept(id){
 	console.log("accept()"+id);
 	
 	console.log('지나감222');
-	$.ajax({
+	staticid = id;
+	console.log('전역'+staticid);
+	/* UpdateCrew(); */
+	/*  $.ajax({
 		beforeSend: function(xhr) {
 	        xhr.setRequestHeader("AJAX", true);
 	        //for csrf
 	        xhr.setRequestHeader(header, token);
 	     },
 		url: "./MemberStudyRest/ms/${list[0].sg_id}/"+id,
-		type: "PUT",
+		type: "GET",
 		cache: false,
 		success: function(data, status) {
 			if (status == "success") {
 				if(data.status=="OK"){
 					alert("가입승인 완료");
 				}
-			}
+			} 
 		}
-	});
+	}); */
 }
+
+ 
+function getCookie(name) {
+	  var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+	  return value? value[2] : null;
+}
+
+$(function(){
+	$("[name='id']").val(getCookie('user_id'));
+})
+
 
 
 </script>
 <body>
 <%@ include file="groupcover.jsp" %>
-
 		<br><br>
 	<div id="row" style=" display: -ms-flexbox; /* IE10 */display: flex;-ms-flex-wrap: wrap; /* IE10 */flex-wrap: wrap;">
 		<div id="text_content">
-		<b style="color:#ffd43b;float:left;">아이디: ${list[0].id}</b><br>
+		 <b style="color:#ffd43b;float:left;">방장: ${list[0].id}</b><br> 
 		<b id="name_id" style="color:#ffd43b;float:middle;"><br>스터디 이름: </b><b>${list[0].sg_name }</b><br>
 		<b id="name_id" style="color:#ffd43b;float:middle;">스터디 주제 : </b> <b>${list[0].sg_tag }</b><br>
 		<b id="name_id" style="color:#ffd43b;float:middle;">인원수: </b><b>${list[0].sg_max }</b><br> 
@@ -237,13 +284,18 @@ function accept(id){
 		
 		<br><!-- location.href='${list[0].kko_url} -->
 		<button type="submit" onclick="openWin();" style="background-color:white;border:0px"><img src="/cogather/img/group/kakao.png"></button>
-		<button type="submit"  onclick="openMail()" style="background-color:white;border:0px"><img src="/cogather/img/group/mail.png"></button>
-		
+		<button type="submit"  onclick="openMail()" style="background-color:white;border:0px"><img src="/cogather/img/group/mail.png"></button><br>
+		<c:if test="${user_id eq list[0].id}">
+		<button onclick="UpdateCrew()" class="viewbutton hover" style="color:white;float:right;background-color:#ffd43b;border :0;
+	outline:0;width:150px;
+	height:30px;">스터디원 수락</button> 
+		</c:if>
 		</div>
-		
+	
 			
 		<div id="main" class="member-list-container">
-		<button onclick="loadMember('${user_id}')" class="viewbutton hover">참가자목록</button>
+	 <button onclick="loadMember('${user_id}')" class="viewbutton hover">참가자목록</button> 
+		
 		<div class="member-list">
 		
 			<ul>
@@ -273,12 +325,29 @@ function accept(id){
 		
 		<button onclick="chkDelete(${list[0].sg_id })" style="background-color:#ffd43b;border :0;outline:0;color:white;width:100px;height:50px;position:relative;float:right;left:-50%;
 	margin:0 10px 0 0;" class="viewbutton hover">삭제하기</button>
-		</c:if>
-		<button onclick="registerRoom()" class="enterbutton hover" style="color:white;float:right;background-color:#ffd43b;border :0;
-	outline:0;width:100px;
-	height:50px;">방입장</button> 
-	</section>
 	
+		</c:if>
+		<c:if test="${user_id ne list[0].id}">
+		<c:if test="${user_id ne null}">
+		<button onclick="registerRoom('${user_id}')" class="viewbutton hover" style="color:white;float:right;background-color:#ffd43b;border :0;
+	outline:0;width:100px;
+	height:50px;">방입장 신청</button> 
+	</c:if>
+		</c:if>
+	
+	
+	
+		<form action="roomenterOk" name="enterRoom" method="post">
+			<input type="hidden" name="sg_id" value="${sg_id }">
+			<input type="hidden" name="id" value="getCookie('user_id')">
+			<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/> 
+			<c:if test="${user_id ne null}">
+			<button type="submit" id="enterRoom" class="enterbutton hover" style="color:white;float:right;background-color:#ffd43b;border :0;
+			outline:0;width:100px;height:50px;">방입장</button>
+			</c:if>
+		</form>
+	</section>
+
 </body>
 </html>
 				

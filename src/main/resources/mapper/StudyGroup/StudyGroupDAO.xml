@@ -53,7 +53,7 @@
 		
 		SELECT memberstudy.id, studygroup.sg_id,studygroup.sg_name,studygroup.sg_info,studygroup.sg_max,studygroup.sg_tag,studygroup.kko_url,studygroup.sg_regdate,studygroup.file_name
 		FROM memberstudy,studygroup
-		WHERE memberstudy.sg_id = studygroup.sg_id  AND studygroup.sg_id =#{param1} 
+		WHERE memberstudy.sg_id = studygroup.sg_id  AND studygroup.sg_id =#{param1} AND memberstudy.G_AUTH='captain'
 		
 	</select>
 	
@@ -78,7 +78,7 @@
 		INSERT INTO studygroup_file
 			 (sgf_id,sgf_org_file_name,sgf_stored_file_name,sg_id,sgf_file_size) 
 		VALUES
-			(studygroup_file_seq.nextval,#{sgf_org_file_name, jdbcType=VARCHAR}, #{sgf_stored_file_name, jdbcType=VARCHAR},#{sg_id},#{sgf_file_size})
+			(studygroup_file_seq.nextval,#{sgf_org_file_name, jdbcType=VARCHAR}, #{sgf_stored_file_name, jdbcType=VARCHAR},#{sg_id, jdbcType=VARCHAR},#{sgf_file_size, jdbcType=VARCHAR})
 	</insert>
 	
 	
@@ -99,7 +99,7 @@
 	<update id="update" flushCache="true" 
 		parameterType="com.project.cogather.studygroup.model.StudyGroupDTO">
 		UPDATE studygroup 
-		SET sg_info = #{a.sg_info},sg_name=#{a.sg_name},sg_tag=#{a.sg_tag},kko_url=#{a.kko_url},file_name=#{a.file_name}
+		SET sg_info = #{a.sg_info},sg_name=#{a.sg_name},sg_tag=#{a.sg_tag},kko_url=#{a.kko_url},file_name=#{a.file_name, jdbcType=VARCHAR}
 		WHERE sg_id = #{param1}
 	</update>
 	
@@ -110,4 +110,6 @@
 	<delete id="deleteFileByUid" flushCache="true">
 		DELETE FROM studygroup_file WHERE sgf_id = #{sgf_id, jdbcType=INTEGER}
 	</delete>
+	
+	
 </mapper>

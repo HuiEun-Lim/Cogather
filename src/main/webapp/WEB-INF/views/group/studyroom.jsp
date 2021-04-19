@@ -2,8 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>스터디 방</title>
@@ -16,8 +17,9 @@
 <script src="/cogather/JS/ckeditor/ckeditor.js"></script>
 <script src="${pageContext.request.contextPath }/JS/studyroomMember.js"></script>
 <script src="${pageContext.request.contextPath }/JS/studyroomBoard.js"></script>
-
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
@@ -99,7 +101,7 @@
 									<input type="hidden" id="userid" name="id" value="${id }">
 									<label class="control-label col-sm-2" for="ct_content">내용</label>
 									<textarea name="ct_content" id="editor1" style="width:640;height:600;margin:0 0 0 0px;"></textarea><br><br>
-								
+									<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
 								<div class="btn_group_write">
 									<button disabled="disabled" id="write-list" type="button" class="btn btn-secondary ele-left">목록</button>
 									<button disabled="disabled" id="write-send" type="button" class="btn btn-success ele-right">작성</button>
@@ -161,20 +163,16 @@
 							<button type="submit" class="btn btn-warning message-send" onclick="formSend()">전송</button>
 						</form>
 					</div>
-
-
 				</div>
 				<div class="clear-both"></div>
-
-				<div id="sg_id">${sg_id }</div>
-				<div id="id">${id }</div>
-				<div id="contextPath">${pageContext.request.contextPath }</div>
+		
 			</div>
 		</div>
 	</div>
 
 	<script>
 		$(function(){
+			setArgs();
 			// 브라우저 새로고침 및 해당 키들에 대한 이벤트 감지
 			$(window).on("beforeunload", function(event){
 				event.preventDefault();
@@ -200,7 +198,16 @@
 				
 			});
 		})
-		
+		function setArgs(){
+			sg_id = '${sg_id}';
+			id = '${id}';
+			contextPath = '${pageContext.request.contextPath }';
+			token = $("meta[name='_csrf']").attr("th:content");
+			header = $("meta[name='_csrf_header']").attr("th:content");
+			console.log("sg_id: " + sg_id)
+			console.log("id: " + id)
+			console.log("contextPath: " + contextPath);
+		}
 	</script>
 	
 </body>

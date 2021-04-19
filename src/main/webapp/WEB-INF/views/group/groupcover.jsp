@@ -51,6 +51,7 @@
 							<a href="adminrsv"
 								class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">관리자페이지</a>
 						</sec:authorize>
+						
 						<div id="user_id" class="w3-bar-item w3-right">안녕하세요.
 							${user_id }님</div>
 					</form>

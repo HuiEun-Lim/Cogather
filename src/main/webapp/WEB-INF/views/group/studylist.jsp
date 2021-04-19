@@ -4,7 +4,7 @@
 <%@ taglib  prefix="spring" uri="http://www.springframework.org/tags" %> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
-   
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="ko">
 <html>
@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="../CSS/common.css">
 	<link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <!-- Navbar (sit on top) -->
@@ -99,11 +100,7 @@
 				
 				<li class="column">
 				
-	
-				
-				
-
-					<img src="/cogather/img/group/upload/${dto.file_name}" width="20%" height="50px" >
+					<img src="/cogather/img/group/upload/${dto.file_name}" width="20%" height="50px" onerror="this.src='/cogather/img/logo.png'">
 					  <p>방번호:${dto.sg_id}</p>
     				 <p><a href="/cogather/group/studyview?sg_id=${dto.sg_id}">스터디주제:${dto.sg_tag}</a></p>
     				 
@@ -135,8 +132,9 @@
 			<a href="/cogather/group/studylist?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
 		</c:if>
 	</div>
+<c:if test="${user_id ne null}">
 <button onclick="location.href='/cogather/group/studywrite'" class="writebutton hover">글작성</button>
-
+</c:if>
 <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="스터디주제 검색" href="#" class="#" style="border: 2px solid #ffd43b;">
  -->	<!-- 지울 내용들 테스트중 -->
 	<div class="form-group row justify-content-center">
