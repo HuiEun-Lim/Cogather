@@ -14,8 +14,7 @@
 	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
 	<meta name="author" content="AdminKit">
 	<link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon" />
-	<meta name="keywords"
-		content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link href="../CSS/app.css" rel="stylesheet">
@@ -38,8 +37,18 @@
 						</a>
 					</li>
 					<li class="sidebar-item">
+						<a class="sidebar-link" href="main">
+							<i class="align-middle" data-feather="book"></i> <span class="align-middle">스터디카페 바로가기</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="main">
+							<i class="align-middle" data-feather="users"></i> <span class="align-middle">스터디그룹 바로가기</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
 						<a class="sidebar-link" href="pages-profile.html">
-							<i class="align-middle" data-feather="user"></i> <span class="align-middle">로그아웃</span>
+							<i class="align-middle" data-feather="log-out"></i> <span class="align-middle">로그아웃</span>
 						</a>
 					</li>
 				</ul>

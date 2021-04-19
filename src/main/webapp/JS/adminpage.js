@@ -123,12 +123,11 @@ document.addEventListener("DOMContentLoaded", function () { //월별매출 차�
 
 function todayrsvs(data){
 	var result="";
-	var today = '2021-04-15';
+	var today = new Date();
 	var todayfmt = to_date(today);
 	for(var i=0; i<data['adminrsvs'].length; i++){
-		var startfmt = to_date(data['adminrsvs'][i].start_date);
+		var startfmt = to_date3(data['adminrsvs'][i].start_date);
 		if(todayfmt.getTime() == startfmt.getTime()){
-			cancelid = data['adminrsvs'][i].res_id;
 			result += "<tr><td>"+data['adminrsvs'][i].res_id;
 			result += "</td><td class='d-md-table-cell'>"+data['adminrsvs'][i].seat_id;
 			result += "</td><td class='d-xl-table-cell'>"+data['adminrsvs'][i].id;
@@ -140,11 +139,26 @@ function todayrsvs(data){
 	$('#todayrsvtable tbody').html(result);
 }
 
-function to_date(date_str){ //날짜 바꿔주는 함수
+function to_date(tdate){ //오늘 날짜 바꿔주는 함수
+		var tdd = tdate.getDate();
+		var tmm = tdate.getMonth();
+		var tyy = tdate.getFullYear();
+		if(tdd<10){
+			tdd = '0' + tdd;
+		}
+		if(tmm<10){
+			tmm = '0' + tmm;
+		}
+		tdate = new Date(Number(tyy),Number(tmm),Number(tdd));
+	    return tdate;
+	}
+	
+function to_date3(date_str){ //날짜 바꿔주는 함수
 	    var yyyyMMdd = String(date_str);
 	    var sYear = yyyyMMdd.substring(0,4);
 	    var sMonth = yyyyMMdd.substring(5,7);
 	    var sDate = yyyyMMdd.substring(8,10);
+	
 	    return new Date(Number(sYear), Number(sMonth)-1, Number(sDate));
 	}
 function chkDelete(res_id){
