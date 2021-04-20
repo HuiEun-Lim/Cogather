@@ -43,3 +43,40 @@ img.logo {
 	margin-right: 22px;
 	margin-bottom: 22px;
 }
+
+.letters {
+	font-size: 16px;
+}
+
+#pickSeat{
+	margin-top:20px;
+}
+
+#onsitebtn{
+	background-color: white;
+	transition-duration: 0.3s;
+	padding: 10px 30px 10px 30px;
+	font-size: 15px;
+	border: 3px solid #e7e7e7;
+	border-radius : 10px;
+	font-weight: bold;
+}
+
+#onsitebtn:hover{
+	background-color: #e7e7e7;
+}
+
+#kakaopaybtn{
+	background-color: white;
+	transition-duration: 0.3s;
+	padding: 10px 30px 10px 30px;
+	font-size: 15px;
+	border: 3px solid #3c1e1e;
+	border-radius : 10px;
+	color: #3c1e1e;
+	font-weight: bold;
+}
+
+#kakaopaybtn:hover{
+	background-color: #faff00;
+}

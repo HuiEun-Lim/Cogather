@@ -106,6 +106,7 @@ public class CafeController {
 		model.addAttribute("result", cafeService.write(dto));
 		ID = request.getParameter("ID");
 		seat_id = request.getParameter("seat_id");
+		System.out.println(request.getParameter("startdate")+"날짜입니다");
 		start_date = dto.getStart_date();
 		end_date = dto.getEnd_date();
 		Duration duration = Duration.between(start_date, end_date);
@@ -115,16 +116,22 @@ public class CafeController {
 		return "cafe/rsvOk";
 	}
 	
+	@RequestMapping("/onsitersvOk")
+	public String onsitersvOk(CafeDTO dto, Model model, HttpServletRequest request) {
+		model.addAttribute("result", cafeService.write(dto));
+		return "cafe/onsitersvOk";
+	}
+	
 	@RequestMapping("/adminrsv")
 	public String list(Model model) {
 		model.addAttribute("list", cafeService.list());
 		return "cafe/adminrsv";
 	}
 	
-//	@RequestMapping("/test")
-//	public String test(Model model) {
-//		return "cafe/test";
-//	}
+	@RequestMapping("/test")
+	public String test(Model model) {
+		return "cafe/test";
+	}
 	
 	@GetMapping("/deleteOk.do")
 	public String deleteOk(int res_id, Model model) {
@@ -170,13 +177,13 @@ public class CafeController {
 		return "{\"result\":\"NO\"}";
 	}
 	
-	@RequestMapping(value="/test", produces="text/html;charset=UTF-8")
-	@ResponseBody
-	public String getTidtest(HttpServletRequest request) {
-		String rsv_tid = request.getParameter("rsv_tid");
-		System.out.println(rsv_tid+"tid임");
-		int thisres_id = cafeService.getlastid();
-		cafeService.setrsvTid(thisres_id, rsv_tid);
-		return "카카오페이 결제를 완료하고 해당 창을 닫아주세요";
-	}
+//	@RequestMapping(value="/test", produces="text/html;charset=UTF-8")
+//	@ResponseBody
+//	public String getTidtest(HttpServletRequest request) {
+//		String rsv_tid = request.getParameter("rsv_tid");
+//		System.out.println(rsv_tid+"tid임");
+//		int thisres_id = cafeService.getlastid();
+//		cafeService.setrsvTid(thisres_id, rsv_tid);
+//		return "카카오페이 결제를 완료하고 해당 창을 닫아주세요";
+//	}
 }

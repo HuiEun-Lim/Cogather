@@ -4,7 +4,6 @@ $(document).ready(function(){
 			url:'kakaopay',
 			type: "GET",
 			success:function(data){
-				setTid(data);
 				payrsvkkao(data);
 			}
 		
@@ -56,14 +55,10 @@ $(document).ready(function(){
 	document.getElementById("enddate").setAttribute("min", emin);
 });
 				
-function setTid(jsonObj){
-	var row = JSON.parse(jsonObj);
-	$('#rsv_tid').val(row.tid);
-}	
+
 function payrsvkkao(jsonObj){
 	var row = JSON.parse(jsonObj);
 	var turl = row.next_redirect_pc_url;
-	document.hiddentid.submit();
 	window.open(turl);
 	
 }

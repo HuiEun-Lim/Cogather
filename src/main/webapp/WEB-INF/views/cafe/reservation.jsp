@@ -109,20 +109,28 @@ function chkSubmit(){
 				<div style="width: 10%; height: 2px; background-color: #FDBF26"></div>
 			</div>
 			<div class="optitle">시설선택</div><br>
-			<input type="radio" id="room" name="seats"
+			<input class="w3-radio" type="radio" id="room" name="seats"
 				value="4000" onclick="checkroom()" required>
 				<label for="room" class = "optent">스터디룸</label>
-			<input type="radio" id="private" name="seats" value="1600"
+			<input class="w3-radio" type="radio" id="private" name="seats" value="1600"
 				onclick="checkprivate()">
 				<label for="private" class = "optent">개인좌석</label>
-			<form name="frm" action="rsvOk.do" method="post"
-				onsubmit="return chkSubmit()">
+			<form name="frm" method="post" onsubmit="return chkSubmit()">
 				<div id="pickSeat">
 				</div>
 				<br><br>
 				<span id = "chkseatagain"></span>
-				<br>선택하신 좌석은 예약후에는 변경하실 수 없습니다. 
-				<br><input type="text" id="ID" name="ID" value="t1">
+				<div class="letters">
+				<br>&#42;선택하신 좌석은 예약 후에는 변경하실 수 없습니다.
+				아래는 해당 좌석의 예약내역입니다.&#42;<br><br></div>
+				<div id="chkdates">
+				<table class="w3-table w3-bordered w3-round-xlarge w3-centered w3-card" style="width: 50%">
+				<tbody>
+				</tbody>
+							
+			</table>
+			</div>
+				<br><input type="text" id="ID" name="ID" value="t1" style="visibility:hidden" required>
 				<input type="text" id="seat_id" name="seat_id" style="visibility : hidden" required>
 
 				<div class="optitle">날짜선택</div><br>
@@ -130,26 +138,13 @@ function chkSubmit(){
 				<input type="datetime-local" id="startdate"	name="startdate" required><br>
 				<label class = "optent">종료 날짜</label> <input
 					type="datetime-local" id="enddate" name="enddate" required>
-				<div class="optitle">결제방법선택</div><br>
-				<input type="text" id="kakaopay" name="payment" value="카카오페이" readonly><br><br>
-				<input type="submit" value="예약하기">
+				<div class="optitle">결제방법선택</div>
+				<div class="letters">&#42;결제방법 선택시 예약이 자동으로 완료가 됩니다&#42;</div><br>
+				<input id="kakaopaybtn" type="submit" name = "payment" value="카카오페이" formaction="rsvOk.do">
+				<input id="onsitebtn" type="submit" name = "payment" value="현장결제" formaction="onsitersvOk.do">
 			</form>
 			
-			<div id="chkdates">
-			<table>
-				<thead>
-				<tr>
-				<th>시설번호</th>
-				<th>예약시작</th>
-				<th>예약종료</th>
-				</tr>
-				</thead>
-				<tbody>
-				
-				</tbody>
-							
-			</table>
-			</div>
+			
 		</div>
 
 
@@ -220,17 +215,20 @@ function getDates(seat_id){
 					seatdates = data;
 					printRsv(data);
 				}
+				else if(data.status == "fail"){
+					$('#chkdates table').html("<tr><td>해당 좌석에대한 다른 예약내역이 없습니다. 자유롭게 예약하세요</td></tr>");
+				}
 			}
 		}
 	})
 }
 
 function printRsv(data){
-	var result = "";
+	var result = "<thead><tr class='w3-pale-yellow'><th>시설번호</th><th>예약시작날짜</th><th>예약종료날짜</th></tr></thead>";
 	for(var i=0; i<data['chkdates'].length;i++){
 		result += "<tr><td>"+data['chkdates'][i].seat_id+"</td><td>"+data['chkdates'][i].start_date+"</td><td>"+data['chkdates'][i].end_date+"</td></tr>";
 	}
-	$('#chkdates tbody').html(result);
+	$('#chkdates table').html(result);
 }
 
 
