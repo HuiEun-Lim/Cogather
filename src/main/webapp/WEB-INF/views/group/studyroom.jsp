@@ -14,30 +14,7 @@
 	href="${pageContext.request.contextPath }/CSS/studyroom.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://kit.fontawesome.com/a6e7d7d152.js"
-	crossorigin="anonymous"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<script src="/cogather/JS/ckeditor/ckeditor.js"></script>
-<script src="${pageContext.request.contextPath }/JS/studyroomMember.js"></script>
-<script src="${pageContext.request.contextPath }/JS/studyroomBoard.js"></script>
 
-<script
-	src="${pageContext.request.contextPath }/templates/roomAssets/js/jquery.min.js"></script>
-<script
-	src="${pageContext.request.contextPath }/templates/roomAssets/js/jquery.scrolly.min.js"></script>
-<script
-	src="${pageContext.request.contextPath }/templates/roomAssets/js/browser.min.js"></script>
-<script
-	src="${pageContext.request.contextPath }/templates/roomAssets/js/breakpoints.min.js"></script>
-<script
-	src="${pageContext.request.contextPath }/templates/roomAssets/js/util.js"></script>
-<script
-	src="${pageContext.request.contextPath }/templates/roomAssetss/js/main.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/templates/roomAssets/css/main.css" />
 <meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
@@ -210,7 +187,22 @@
 		</div>
 	</div>
 
-	<script>
+<script src="https://kit.fontawesome.com/a6e7d7d152.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/cogather/JS/ckeditor/ckeditor.js"></script>
+<script src="${pageContext.request.contextPath }/JS/studyroomMember.js"></script>
+<script src="${pageContext.request.contextPath }/JS/studyroomBoard.js"></script>
+
+<script src="${pageContext.request.contextPath }/templates/roomAssets/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath }/templates/roomAssets/js/jquery.scrolly.min.js"></script>
+<script src="${pageContext.request.contextPath }/templates/roomAssets/js/browser.min.js"></script>
+<script src="${pageContext.request.contextPath }/templates/roomAssets/js/breakpoints.min.js"></script>
+<script src="${pageContext.request.contextPath }/templates/roomAssets/js/util.js"></script>
+<script src="${pageContext.request.contextPath }/templates/roomAssetss/js/main.js"></script>
+
+<script>
 		$(function(){
 			setArgs();
 			// 브라우저 새로고침 및 해당 키들에 대한 이벤트 감지하고 경고 문구 날려줌 
@@ -259,6 +251,5 @@
 			console.log("contextPath: " + contextPath);
 		}
 	</script>
-
 </body>
 </html>

@@ -15,6 +15,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="../CSS/common.css">
+<link rel="stylesheet" href="../templates/groupMypageAsset/style.css">
 <link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon" />
 </head>
 <body>
@@ -22,20 +23,18 @@
 	<div id="wrap">
 		<div class="w3-top">
 			<div class="w3-bar" id="myNavbar">
-				<a
-					class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right"
-					href="javascript:void(0);" onclick="toggleFunction()"
+				<a class="w3-bar-item w3-button w3-hover-black  w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()"
 					title="Toggle Navigation Menu"> <i class="fa fa-bars"></i>
-				</a> <a href="/cogather/group/studygroup" class="w3-bar-item w3-button">
+				</a> 
+				<a href="${pageContext.request.contextPath}/group/studygroup" class="w3-bar-item w3-button">
 					<img src="/cogather/img/logo_cut.png" class="logo">
-				</a> <a href="/cogather/group/studylist"
-					class="w3-bar-item w3-button w3-hide-small">스터디목록</a> <a
-					href="/cogather/group/studywrite"
-					class="w3-bar-item w3-button w3-hide-small">스터디만들기</a>
+				</a> 
+				<a href="${pageContext.request.contextPath}/group/studylist" class="w3-bar-item w3-button w3-hide-medium w3-hide-small">스터디목록</a> 
+				<a href="${pageContext.request.contextPath}/group/studywrite" class="w3-bar-item w3-button w3-hide-medium w3-hide-small">스터디만들기</a>
 
 				<sec:authorize access="isAnonymous()">
 					<a href="../login"
-						class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
+						class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-right w3-hover-red">로그인</a>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<form action="${pageContext.request.contextPath}/logout"
@@ -43,14 +42,14 @@
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" />
 						<button
-							class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그아웃</button>
+							class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-right w3-hover-red">로그아웃</button>
 						<sec:authentication property="principal.username" var="user_id" />
 						<a
 							href="${pageContext.request.contextPath}/group/studymypage?id=${user_id }"
-							class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">마이페이지</a>
+							class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-right w3-hover-red">마이페이지</a>
 						<sec:authorize access="hasRole('ROLE_ADMIN')">
 							<a href="adminrsv"
-								class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">관리자페이지</a>
+								class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-right w3-hover-red">관리자페이지</a>
 						</sec:authorize>
 
 						<div id="user_id" class="w3-bar-item w3-right">안녕하세요.
@@ -60,18 +59,30 @@
 			</div>
 
 			<!-- Navbar on small screens -->
-			<div id="navDemo"
-				class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
-				<a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">스터디목록</a>
-				<a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">스터디만들기</a>
-				<a href="#" class="w3-bar-item w3-button"
-					onclick="toggleFunction() login">마이페이지</a>
+			<div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large">
+				<a href="${pageContext.request.contextPath}/group/studylist" class="w3-bar-item w3-button mypage" onclick="toggleFunction()">스터디목록</a>
+				<a href="${pageContext.request.contextPath}/group/studywrite" class="w3-bar-item w3-button mypage" onclick="toggleFunction()">스터디만들기</a>
+				<sec:authorize access="isAnonymous()">
+			    <a href="../login" class="w3-bar-item w3-button mypage" onclick="toggleFunction()">로그인</a>
+			    </sec:authorize>
+			    <sec:authorize access="isAuthenticated()">
+			    <a href="${pageContext.request.contextPath}/group/studymypage?id=${user_id }" class="w3-bar-item w3-button mypage" onclick="toggleFunction()">마이페이지</a>
+			    <form action="${pageContext.request.contextPath}/logout" method='post'>
+					<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
+					<button class="w3-bar-item w3-button mypage" onclick="toggleFunction()">로그아웃</button>
+			    </form>
+			    </sec:authorize>
+			    <sec:authorize access="hasRole('ROLE_ADMIN')">
+			    <a href="#" class="w3-bar-item w3-button mypage" onclick="toggleFunction()">관리자페이지</a>
+				</sec:authorize>
 			</div>
 		</div>
-
-		<img id='cover-img' src="/cogather/img/group/studygroupmain.jpg">
-		
+		<div class="cover-background">
+			<img id='cover-img' src="${pageContext.request.contextPath}/img/group/studygroupmain.jpg">
+		</div>
 	</div>
+	
+	<script src="https://kit.fontawesome.com/65311e5b1a.js" crossorigin="anonymous"></script>
 	<script>
 	//Change style of navbar on scroll
 	window.onscroll = function() {myFunction()};

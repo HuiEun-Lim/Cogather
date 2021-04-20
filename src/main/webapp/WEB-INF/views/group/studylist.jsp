@@ -26,39 +26,6 @@
 
 
 
-
-
-
-<script>
-	//Change style of navbar on scroll
-	window.onscroll = function() {myFunction()};
-	function myFunction() {
-	    var navbar = document.getElementById("myNavbar");
-	    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-	        navbar.className = "w3-bar" + " w3-card-2" + " w3-animate-top" + " w3-white" + " w3-hover-light-gray";
-	    } else {
-	        navbar.className = navbar.className.replace(" w3-card-2 w3-animate-top w3-white w3-hover-light-gray", "");
-	    }
-	}
-
-	// Used to toggle the menu on small screens when clicking on the menu button
-	function toggleFunction() {
-	    var x = document.getElementById("navDemo");
-	    if (x.className.indexOf("w3-show") == -1) {
-	        x.className += " w3-show";
-	    } else {
-	        x.className = x.className.replace(" w3-show", "");
-	    }
-	}
-	
-	$(document).keypress(function (event) {
-	    if (event.keyCode === 13) {
-	        $("#btnSearch").click();
-	    }
-	})
-</script>
-<br><br>
-
 <script>
 
    // 생략	
@@ -104,9 +71,9 @@
 				
 				
 
-					<img src="/cogather/img/group/upload/${dto.file_name}" width="20%" height="50px" >
+					<img src="../img/group/upload/${dto.file_name}" width="20%" height="50px" >
 					  <p>방번호:${dto.sg_id}</p>
-    				 <p><a href="/cogather/group/studyview?sg_id=${dto.sg_id}">스터디주제:${dto.sg_tag}</a></p>
+    				 <p><a href="../group/studyview?sg_id=${dto.sg_id}">스터디주제:${dto.sg_tag}</a></p>
     				 
   				</li>
   				

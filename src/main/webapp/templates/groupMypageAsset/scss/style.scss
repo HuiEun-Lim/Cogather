@@ -49,10 +49,6 @@
     padding: 0;
 }
 
-body {
-    font-family: $helvetica-medium;
-    background-color: $color-white;
-}
 
 h1,
 h2,
@@ -71,23 +67,6 @@ p {
     font-size: 14px;
     line-height: 1.4;
     font-family: $helvetica-medium;
-}
-
-a {
-    @include trans-duration(500ms);
-    text-decoration: none;
-    outline: none;
-    font-size: 14px;
-    font-family: $helvetica-medium;
-    color: #4f4d4d;
-    &:hover,
-    &:focus {
-        font-family: $helvetica-medium;
-        @include trans-duration(500ms);
-        text-decoration: none;
-        outline: none;
-        font-size: 14px;
-    }
 }
 
 #preloader {

@@ -87,6 +87,10 @@ public class MemberStudyService {
 		return memberStudyDAO.updateCrew(id,sg_id);
 	}
 	
-	
+	// 회원 아이디와 관련된 모든 memberstudy 행 가져오기
+	public List<MemberStudyDTO> getMemberStudyByID(String id){
+		memberStudyDAO = sqlsession.getMapper(MemberStudyDAO.class);
+		return memberStudyDAO.getMemberStudyByID(id);
+	}
 	
 }

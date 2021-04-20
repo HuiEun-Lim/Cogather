@@ -31,9 +31,6 @@
   margin: 0;
   padding: 0; }
 
-body {
-  font-family: "helveticaneuemedium";
-  background-color: #ffffff; }
 
 h1,
 h2,
@@ -57,8 +54,6 @@ a {
   transition-duration: 500ms;
   text-decoration: none;
   outline: none;
-  font-size: 14px;
-  font-family: "helveticaneuemedium";
   color: #4f4d4d; }
   a:hover, a:focus {
     font-family: "helveticaneuemedium";

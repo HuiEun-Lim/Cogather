@@ -130,15 +130,17 @@ public class RestMemberStudyController {
 			LocalDateTime temp = ms.get(0).getAcctime();
 
 			LocalDateTime time = LocalDateTime.parse(acctime, DateTimeFormatter.ISO_DATE_TIME);
-			LocalDateTime baseTime = LocalDateTime.of(1900, 1, 1, 15, 32, 8); 
-			// var time = new Date(0, 0, 2, temp[0], temp[1], temp[2]);
+//			LocalDateTime baseTime = LocalDateTime.of(1900, 1, 1, 15, 32, 8); 
+			LocalDateTime baseTime = LocalDateTime.of(1900, 1, 1, 0, 0, 0);
+//			System.out.println("time:"+time);
+//			System.out.println("basetime:"+baseTime);
+//			System.out.println("acctime:"+acctime);
+			// var time = new Date(0, 0, 1, temp[0], temp[1], temp[2]);
 			// javascript 에서 위의 기준으로 맞춘 시간이 baseTime 기준 시간임.
 
-			temp = temp.plusSeconds(time.minusSeconds(baseTime.getSecond()).getSecond());
+//			temp = temp.plusSeconds(time.minusSeconds(baseTime.getSecond()).getSecond());
 			temp = temp.plusMinutes(time.minusMinutes(baseTime.getMinute()).getMinute());
-			temp = temp.plusHours(time.minusHours(baseTime.getHour()).getHour());
-			temp = temp.plusMonths(time.minusMonths(baseTime.getMonthValue()).getMonthValue());
-			temp = temp.plusYears(time.minusYears(baseTime.getYear()).getYear());
+			temp = temp.plusHours(time.minusHours(baseTime.getHour()).getHour());	
 			cnt = memberStudyService.updateAcctime(sg_id, id, temp);
 		}
 

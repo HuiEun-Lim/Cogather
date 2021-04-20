@@ -1,5 +1,9 @@
 package com.project.cogather.controller;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project.cogather.domain.UserDTO;
 import com.project.cogather.service.UserService;
+import com.project.cogather.util.UploadFileUtils;
 
 @Controller
 public class UserController {
@@ -19,6 +25,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@Resource(name="uploadPath")
+	private String uploadPath;
 	
 	@GetMapping("/accessError")
 	public String accessDenied(Authentication auth, Model model) {
@@ -34,7 +42,21 @@ public class UserController {
 	}
 	
 	@RequestMapping("/signupOk")
-	public String cafeSignupOk(UserDTO dto, Model model) {
+	public String cafeSignupOk(UserDTO dto, MultipartFile file, Model model, HttpServletRequest request) throws IOException, Exception {
+		
+//		String imgUploadPath = uploadPath + File.separator + "pimgUpload";
+		String imgUploadPath = request.getSession().getServletContext().getRealPath("img/member/pimgUpload");
+		String fileName = null;
+		System.out.println(file.getSize());
+		if(file.getSize() != 0) {
+			System.out.println("test1");
+		 fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes());
+		 dto.setPimg_url("img/member/pimgUpload" + File.separator + fileName);
+		} else {
+			System.out.println("test2");
+		 dto.setPimg_url("img/member/default.png");
+		}
+
 		model.addAttribute("result", userService.signup(dto));
 		return "user/signupOk";
 	}
@@ -52,7 +74,7 @@ public class UserController {
 		// 요청 시점의 사용자 URI 정보를 Session의 Attribute에 담아서 전달(잘 지워줘야 함)
 				// 로그인이 틀려서 다시 하면 요청 시점의 URI가 로그인 페이지가 되므로 조건문 설정
 				String uri = request.getHeader("Referer");
-				if (!uri.contains("/loginView")) {
+				if (!uri.contains("/login")) {
 					request.getSession().setAttribute("prevPage",
 							request.getHeader("Referer"));
 				}
@@ -62,7 +84,6 @@ public class UserController {
 	@GetMapping("/logout")
 	public String logoutGET() {
 		System.out.println("GET: custom logout");
-		
 		return "user/logout";
 	}
 	
@@ -73,9 +94,14 @@ public class UserController {
 	
 	@GetMapping("/cafemypage")
 	public String view(String id, Model model) {
-		model.addAttribute("list", userService.selectByID(id));
+		model.addAttribute("dto", userService.selectByID(id));
+		model.addAttribute("list", userService.myrsvID(id));
+		UserDTO temp = userService.selectByID(id);
+		System.out.println("test pimg url: " + temp.getPimg_url());
 		return "user/cafemypage";
 	}
+	
+	
 	
 	
 }

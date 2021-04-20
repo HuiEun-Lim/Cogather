@@ -8,6 +8,7 @@
 	<bean id="userAccessDenied" class="com.project.cogather.security.UserAccessDeniedHandler"/>
 	<bean id="userLoginSuccess" class="com.project.cogather.security.UserLoginSuccessHandler"/>
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	<bean id="logoutSuccessHandler" class="com.project.cogather.security.UserLogoutSuccessHandler"/>
 
 	
 	<!-- 컨테이너의 HTTP security 요소 -->
@@ -21,6 +22,7 @@
 		<security:intercept-url pattern="/cafemypage/*" access="hasRole('ROLE_USER')"/> 
 		<security:intercept-url pattern="/studyroom" access="hasRole('ROLE_USER')"/> 
 		<security:intercept-url pattern="/roomenterOk" access="hasRole('ROLE_USER')"/> 
+		<security:intercept-url pattern="/studymypage" access="hasRole('ROLE_USER')"/> 
 		
 		
 		<!-- /sample/admin 요청은 ROLE_ADMIN 권한이 있는 사용자 만 접근 가능 -->
@@ -34,7 +36,7 @@
 		 <security:access-denied-handler ref="userAccessDenied"/>
 		
 		<!-- 로그아웃, 아래 url 로 POST requeszt 하면 로그아웃 처리된다. -->
-		<security:logout logout-url="/logout" invalidate-session="true"/>
+		<security:logout logout-url="/logout" success-handler-ref="logoutSuccessHandler" invalidate-session="true"/>
 		
 	</security:http>
 	

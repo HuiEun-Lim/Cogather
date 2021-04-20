@@ -218,15 +218,7 @@ public class StudyGroupController {
 	
 	@RequestMapping("/studymypage")
 	public String myPage(String id, Model model) {
-		List<StudyGroupDTO> data = null;
-		try {
-			data = studygroupservice.getStudyByID(id);
-			
-		}catch(Exception E) {
-			E.printStackTrace();
-		}
-		
-		model.addAttribute("list", data);
+		model.addAttribute("id", id);
 		return "group/studymypage";
 	}
 	

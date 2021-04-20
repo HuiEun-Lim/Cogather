@@ -287,8 +287,8 @@ function outroom() {
 // 타이머 시간 누적시간으로 저장 요청
 function storeAcctime() {
 	var temp = members[id]['time'].split(':');
-	var time = new Date(0, 0, 2, temp[0], temp[1], temp[2]);
-
+	var time = new Date(Date.UTC(0, 0, 1, temp[0], temp[1], temp[2]));
+	console.log(time);
 	$.ajax({
 		url: "./MemberStudyRest/ms/acctime",
 		type: "PUT",

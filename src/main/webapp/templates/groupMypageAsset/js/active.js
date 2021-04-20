@@ -1,6 +1,10 @@
 (function ($) {
     'use strict';
+    active();
 
+})(jQuery);
+
+function banner_active(){
     var $window = $(window);
 
     // :: Preloader Active Code
@@ -138,5 +142,4 @@
     if ($window.width() > 767) {
         new WOW().init();
     }
-
-})(jQuery);
+}

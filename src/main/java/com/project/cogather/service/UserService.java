@@ -1,5 +1,7 @@
 package com.project.cogather.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.project.cogather.domain.CafeDTO;
 import com.project.cogather.domain.UserDAO;
 import com.project.cogather.domain.UserDTO;
 
@@ -39,6 +42,11 @@ public class UserService {
 	public UserDTO selectByID(String id) {
 		dao = sqlSession.getMapper(UserDAO.class); // MyBatis 사용
 		return dao.selectByID(id);
+	}
+	
+	public List<CafeDTO> myrsvID(String id) {
+		dao = sqlSession.getMapper(UserDAO.class);
+		return dao.myrsvID(id);
 	}
 	
 }
