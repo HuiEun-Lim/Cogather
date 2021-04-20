@@ -6,14 +6,21 @@ html, body {
 	margin: 0;
 }
 table{
-	font-size: small;
+	font-size: medium;
 }
 
 @font-face {
 	font-family: 'Gugi-Regular';
 	src: url(../font/Gugi-Regular.ttf) format('truetype');
 }
-
+@font-face {
+	font-family: 'SingleDay';
+	src: url(../font/SingleDay-Regular.ttf) format('truetype');
+}
+@font-face {
+	font-family: 'GamjaFlower';
+	src: url(../font/GamjaFlower-Regular.ttf) format('truetype');
+}
 .pimg {
 	width: 80px;
 	height: 80px;
@@ -38,7 +45,7 @@ table{
 	width:100%;
 }
 .chat-content{
-	font-size:14px;
+	font-size:20px;
 	word-break: break-all;
 }
 .chatting-section {
@@ -161,6 +168,7 @@ nav#room-menu {
 .comment_refresh_button{
 	float:right;
 	margin-bottom: 5px;
+	margin-right: 5px;
 }
 .article-container{
 	margin-top: 40px;
@@ -168,6 +176,10 @@ nav#room-menu {
 }
 .other-member{
 	float:left;
+}
+.chat-sender-info span{
+	font-family: GamjaFlower;
+	font-size: 23px;
 }
 .chat {
 	list-style: none;
@@ -216,12 +228,27 @@ nav#room-menu {
 .userName{
 	font-family: Gugi-Regular;
 }
+.profile-info{
+	font-family: SingleDay;
+	font-size:22px;
+}
 .timer-title{
 	font-family: Gugi-Regular;
+}
+.comment-writer-info div{
+	font-family: SingleDay;
+	font-size:22px;
+}
+.comment-writer{
+	font-family: SingleDay;
+	font-size:22px;
 }
 .comment-icon{
 	width:20px;
 	margin-left:10px;
+}
+.comment-content{
+	word-break: break-all;
 }
 .write-btn{
 	color: #ffffff;

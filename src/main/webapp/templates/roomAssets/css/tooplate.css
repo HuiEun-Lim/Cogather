@@ -449,7 +449,7 @@ footer {
 @media ( max-width : 991px) {
 	.tm-col-big, .tm-col-small, .tm-col-middle {
 		width: 100%;
-		min-height: 383px;
+		min-height: 600px;
 		height: auto;
 	}
 	.tm-block {

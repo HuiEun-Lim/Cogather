@@ -107,6 +107,7 @@ function showChat(msg){ // 메시지 타입에 따라 바꿔서 보여줌
 		// 퇴장시 subscriber들이 해당 메시지를 받으면 멤버 리스트를 업데이트함
 		// 바로 업데이트 하지 않는 이유는 해당멤버의 입출 상태가 메시지 전달 보다 먼저 발생되게 되어 있음
 	}
+	$('.chatting-section').scrollTop($('.chatting-section').prop('scrollHeight'));
 }
 
 function sendChat(){ // 메시지 보내기
