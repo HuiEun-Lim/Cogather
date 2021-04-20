@@ -100,12 +100,11 @@ public class StudyGroupController {
 		@RequestMapping(value="/studywriteOk")
 		public String studywriteOk(StudyGroupDTO dto,MultipartHttpServletRequest mpRequest,Model model) throws Exception {
 
-			//1.상대경로 바꾸기 2.물리적인 파일 같이 삭제하기  
-			//첨부파일 썸네일 하나의 함수로 
+			
 			//memberstudy captain 자격으로  
 			model.addAttribute("result", studygroupservice.write(mpRequest));
 			
-		//	memberStudyService.createCaptain('id1')
+	
 			
 			return "group/studywriteOk";
 		}

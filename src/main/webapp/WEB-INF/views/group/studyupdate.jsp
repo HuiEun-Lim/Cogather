@@ -94,7 +94,7 @@ function chkSubmit(){
 
 </script>
 썸네일 업로드:&nbsp
-<input type="file" name="uploadFile" id="uploadFile" value="${list[0].file_name}" required/>
+<input type="file" name="uploadFile" id="uploadFile" value="${list[0].file_name}"/>
 
 <div class="select_img"><img src=""></div>
  <script>
@@ -130,12 +130,11 @@ function chkSubmit(){
 <input type="text" name="kko_url" style="width:20%;height:30px;" value="${list[0].kko_url}"/><br><br>
 <input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/> 
 
-<c:forEach var="file" items="${files}">
-</c:forEach> 
+
 <div class="file_input">
 <label>
 
-첨부파일: &nbsp&nbsp<img src="/cogather/img/group/yellowfile.png" class="search" ><input type="file" style="display:none" name="file" onchange="javascript:document.getElementById('file_route').value=this.value" required>
+첨부파일: &nbsp&nbsp<img src="/cogather/img/group/yellowfile.png" class="search" ><input type="file" style="display:none" name="file" onchange="javascript:document.getElementById('file_route').value=this.value">
 <input type="text" name="filetext" readonly="readonly" id="file_route">
 </label>
 </div>

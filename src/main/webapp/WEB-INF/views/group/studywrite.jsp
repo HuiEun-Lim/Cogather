@@ -101,7 +101,8 @@ function chkSubmit(){
 카톡방 주소:&nbsp&nbsp
 <input type="text" name="kko_url" style="width:20%;height:30px;"/><br><br>
 썸네일 업로드:&nbsp
-<input type="file" name="uploadFile" id="uploadFile" required/>
+<input type="file" name="uploadFile" id="uploadFile"/>
+
 <div class="select_img"><img src=""></div>
  <script>
   $("#uploadFile").change(function(){
@@ -119,7 +120,9 @@ function chkSubmit(){
 		
 </div>
 <br><br><br><br><br><br><br>
+
 <input type="submit" value="생성" class="createbutton hover"/>
+
 <input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/> 
 </form>
 

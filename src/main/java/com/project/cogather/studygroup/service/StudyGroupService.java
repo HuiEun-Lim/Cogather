@@ -92,15 +92,16 @@ public class StudyGroupService {
 
 
 		}
+		
 
 		dto.setFile_name(file_name);
 
 		// insert
 		int result = dao.insert(dto);
-
+		
 		//첨부파일 업로드 
 		List<Map<String,Object>> list =  fileUtils.parseInsertFileInfo(dto, mpRequest); 
-
+		if(!list.isEmpty()) { 
 		String sgf_org_file_name = null;
 		String sgf_stored_file_name = null;
 		int sgf_file_size;
@@ -134,7 +135,9 @@ public class StudyGroupService {
 		} else {
 			System.out.println("파일없어요");
 		}
+		}
 
+		
 		System.out.println("생성된 sg_id는 "+dto.getSg_id());
 		
 		//스터디 방 생성 
@@ -177,7 +180,7 @@ public class StudyGroupService {
 	
 	public int update(StudyGroupDTO dto,MultipartHttpServletRequest mpRequest) throws Exception {
 		dao = sqlSession.getMapper(StudyGroupDAO.class);
-		MultipartFile uploadFile = mpRequest.getFile("uploadFile"); // 정희꺼
+		MultipartFile uploadFile = mpRequest.getFile("uploadFile"); 
 		String file_name=null;
 		if (!uploadFile.isEmpty()) {
 			String originalFileName = uploadFile.getOriginalFilename();
@@ -192,7 +195,7 @@ public class StudyGroupService {
 		
 		//첨부파일 업로드 
 				List<Map<String,Object>> list =  fileUtils.parseInsertFileInfo(dto, mpRequest); 
-
+				if(!list.isEmpty()) { 
 				String sgf_org_file_name = null;
 				String sgf_stored_file_name = null;
 				int sgf_file_size;
@@ -224,6 +227,7 @@ public class StudyGroupService {
 					dao.insertFile(list.get(1));
 				} else {
 					System.out.println("파일없어요");
+				}
 				}
 
 		

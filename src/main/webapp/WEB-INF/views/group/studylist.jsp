@@ -67,11 +67,9 @@
 				
 				<li class="column">
 				
-	
-				
-				
-
+<<<<<<< HEAD
 					<img src="../img/group/upload/${dto.file_name}" width="20%" height="50px" >
+
 					  <p>방번호:${dto.sg_id}</p>
     				 <p><a href="../group/studyview?sg_id=${dto.sg_id}">스터디주제:${dto.sg_tag}</a></p>
     				 
@@ -84,7 +82,7 @@
  <div class="clear"></div>
  <div style="display: block; text-align: center;">		
 		<c:if test="${paging.startPage != 1 }">
-			<a href="/cogather/group/studylist?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+			<a href="../group/studylist?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
 		</c:if>
 		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 			<c:choose>
@@ -92,7 +90,7 @@
 					<b style="display: inline;border: 1px solid #FFFFFF; ;margin:0 5px 0 0;background-color:#ffd43b;padding:5px">${p}</b>
 				</c:when>
 				<c:when test="${p != paging.nowPage }">
-					<a href="/cogather/group/studylist?nowPage=${p}&cntPerPage=${paging.cntPerPage}&keyword=${paging.keyword}">${p}</a>
+					<a href="../group/studylist?nowPage=${p}&cntPerPage=${paging.cntPerPage}&keyword=${paging.keyword}">${p}</a>
 				</c:when>
 			</c:choose>
 			
@@ -100,11 +98,12 @@
 		
 		
 		<c:if test="${paging.endPage != paging.lastPage}">
-			<a href="/cogather/group/studylist?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+			<a href="../group/studylist?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
 		</c:if>
 	</div>
-<button onclick="location.href='/cogather/group/studywrite'" class="writebutton hover">글작성</button>
-
+<c:if test="${user_id ne null}">
+<button onclick="location.href='../group/studywrite'" class="writebutton hover">글작성</button>
+</c:if>
 <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="스터디주제 검색" href="#" class="#" style="border: 2px solid #ffd43b;">
  -->	<!-- 지울 내용들 테스트중 -->
 	<div class="form-group row justify-content-center">
@@ -116,7 +115,7 @@
 
 
 				<button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch" style="background:white;border:none;">
-					<img src="/cogather/img/group/search.png" class="search"  >
+					<img src="../img/group/search.png" class="search"  >
 				</button>
 			</div>
 		</div>

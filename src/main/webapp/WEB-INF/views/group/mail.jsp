@@ -9,6 +9,7 @@
 <body>
 <h4>메일 보내기</h4>
     <form action="mailSending.do" method="post">
+    <input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/> 
     <div>
       <!--   <input type="text" name="frommail" size="120"
         style="width: 100%" placeholder="자신의 이메일"

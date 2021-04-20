@@ -103,4 +103,5 @@ WHERE SG_ID = #{param1} and ID = #{param2} AND (g_auth = 'captain' or g_auth = '
 	WHERE id = #{id}
 	ORDER BY sg_id DESC
 </select>
+
 </mapper>
