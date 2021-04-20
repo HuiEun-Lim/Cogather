@@ -67,7 +67,6 @@
 				
 				<li class="column">
 				
-<<<<<<< HEAD
 					<img src="../img/group/upload/${dto.file_name}" width="20%" height="50px" >
 
 					  <p>방번호:${dto.sg_id}</p>

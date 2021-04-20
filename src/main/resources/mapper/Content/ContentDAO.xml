@@ -44,8 +44,8 @@
 	</select>
 	
 	<insert id="insert" flushCache="true">
-		INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
-		VALUES (content_seq.nextval, #{id}, #{sg_id}, #{ct_title}, #{ct_content} )
+		INSERT INTO content(ct_uid,id,sg_id)
+		VALUES (content_seq.nextval, #{id}, #{sg_id})
 	</insert>
 	
 	<update id="update" flushCache="true">

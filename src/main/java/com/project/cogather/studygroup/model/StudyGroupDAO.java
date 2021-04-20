@@ -44,4 +44,7 @@ public abstract List<StudyGroupDTO> select();
 	
 	// 유저 아이디로 참여한 모든 스터디 쿼리
 	public List<StudyGroupDTO> getStudyByID(@Param("id") String id);
+	
+	// 방 아이디로 해당 방의 정보 가져오기
+	public List<StudyGroupDTO> getStudyBySgID(@Param("sg_id") Integer sg_id);
 }	
