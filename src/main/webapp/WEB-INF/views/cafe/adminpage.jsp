@@ -27,7 +27,7 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="index.html">
+				<a class="sidebar-brand" href="adminpage">
 					<span class="align-middle">코게더 관리자</span>
 				</a>
 				<ul class="sidebar-nav">
@@ -42,12 +42,12 @@
 						</a>
 					</li>
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="main">
-							<i class="align-middle" data-feather="users"></i> <span class="align-middle">스터디그룹 바로가기</span>
+						<a class="sidebar-link" href="${pageContext.request.contextPath}/group/studygroup">
+							<i class="align-middle" data-feather="users"></i> <span class="align-middle">스터디그룹 관리자페이지 바로가기</span>
 						</a>
 					</li>
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-profile.html">
+						<a class="sidebar-link" href="">
 							<i class="align-middle" data-feather="log-out"></i> <span class="align-middle">로그아웃</span>
 						</a>
 					</li>

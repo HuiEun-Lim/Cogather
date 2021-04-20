@@ -109,7 +109,15 @@ var seatdates;
 				</div>
 				<br><br>
 				<span id = "chkseatagain"></span>
-				<br>선택하신 좌석은 예약후에는 변경하실 수 없습니다.
+				<div class="letters">
+				<br>&#42;선택하신 좌석은 예약 후에는 변경하실 수 없습니다.
+				아래는 해당 좌석의 예약내역입니다.&#42;<br><br></div>
+				<div id="chkdates">
+					<table class="w3-table w3-bordered w3-round-xlarge w3-centered w3-card" style="width: 50%">
+						<tbody>
+						</tbody>	
+					</table>
+				</div>
 				<sec:authentication property="principal.username" var="user_id" />
 				<br><input type="text" id="ID" name="ID" value="${user_id }" readonly>
 				<input type="text" id="seat_id" name="seat_id" style="visibility : hidden" required>
@@ -120,18 +128,12 @@ var seatdates;
 				<label class = "optent">종료 날짜</label> <input
 					type="datetime-local" id="enddate" name="enddate" required>
 				<div class="optitle">결제방법선택</div><br>
-				<input type="text" id="kakaopay" name="payment" value="카카오페이" readonly><br><br>
-				<input type="submit" value="예약하기">
+				<div class="letters">&#42;결제방법 선택시 예약이 자동으로 완료가 됩니다&#42;</div><br>
+				<input id="kakaopaybtn" type="submit" name = "payment" value="카카오페이" formaction="rsvOk.do">
+				<input id="onsitebtn" type="submit" name = "payment" value="현장결제" formaction="onsitersvOk.do">
 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
 			</form>
-			
-			<div id="chkdates">
-			<table>
-				<thead><tr><th>시설번호</th><th>예약시작</th><th>예약종료</th></tr></thead><tbody></tbody></table>
-			</div>
 		</div>
-
-
 	</div>
 	<!-- Footer -->
 	<footer class="w3-center w3-black w3-padding-64">
@@ -215,7 +217,6 @@ function printRsv(data){
 	}
 	$('#chkdates tbody').html(result);
 }
-
 
 </script>
 

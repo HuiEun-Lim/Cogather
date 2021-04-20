@@ -91,7 +91,7 @@
             <div class="w3-light-grey" style="height:2px; margin-bottom: 30px" ></div>
             <table class="tinfo">
             <tr>
-            <td class="tabledata"><img src="/cogather/img/cafe/placeholder.png" class="timg">위치</td>
+            <td class="tabledata"><img src="../img/cafe/placeholder.png" class="timg">위치</td>
             <td class="tabledata">역삼역 3번출구</td>
             </tr>
             <tr>
@@ -102,19 +102,19 @@
             <div class="w3-light-grey" style="height:2px; margin-bottom: 30px" ></div>
             <table class="tinfo">
             <tr>
-            <td class="tabledata"><img src="/cogather/img/cafe/phone-call.png" class="timg">전화번호</td>
+            <td class="tabledata"><img src="../img/cafe/phone-call.png" class="timg">전화번호</td>
             <td class="tabledata">010-1234-5678</td>
             </tr>
             </table>
             <div class="w3-light-grey" style="height:2px; margin-bottom: 30px" ></div>
             <table class="tinfo">
             <tr>
-            <td class="tabledata"><img src="/cogather/img/cafe/bus.png" class="timg">대중교통</td>
-            <td class="tabledata"><img src="/cogather/img/cafe/bus-stop.png" class="timg">3600 146 </td>
+            <td class="tabledata"><img src="../img/cafe/bus.png" class="timg">대중교통</td>
+            <td class="tabledata"><img src="../img/cafe/bus-stop.png" class="timg">3600 146 </td>
             </tr>
             <tr>
             <td></td>
-            <td class="tabledata"><img src="/cogather/img/cafe/train.png" class="timg">2호선</td>
+            <td class="tabledata"><img src="../img/cafe/train.png" class="timg">2호선</td>
             </tr>
             </table>
             <div class="w3-light-grey" style="height:2px; margin-bottom: 30px" ></div>

@@ -21,7 +21,7 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="index.html">
+				<a class="sidebar-brand" href="adminpage">
 					<span class="align-middle">코게더 관리자</span>
 				</a>
 				<ul class="sidebar-nav">
@@ -58,7 +58,7 @@
 			<main class="content">
 				<div class="container-fluid p-0">
 				<div class="row">
-						<div class="col-12 col-lg-8 col-xxl-12 d-flex">
+						<div class="col-12 col-lg-12 col-xxl-12 d-flex">
 							<div class="card flex-fill">
 								<div class="card-header">
 									<h5 class="card-title mb-0">전체예약내역</h5>

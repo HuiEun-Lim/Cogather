@@ -1,11 +1,11 @@
 @font-face {
 	font-family: "a시네마L.ttf";
-	src:url("/cogather/CSS/a시네마L.ttf")format("truetype");
+	src:url("../font/a시네마L.ttf")format("truetype");
 }
 
 @font-face {
 	font-family: "NanumBarunpenB";
-	src:url("../CSS/NanumBarunpenB.ttf")format("truetype");
+	src:url("../font/NanumBarunpenB.ttf")format("truetype");
 }
 
 #myNavbar {
@@ -24,7 +24,6 @@
 #myNavbar{
 	color: #595959;
 	font-size:20px;
-
 }
 
 img.logo{
