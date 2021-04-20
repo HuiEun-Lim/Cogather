@@ -32,6 +32,8 @@
 					class="w3-bar-item w3-button w3-hide-small">스터디목록</a> <a
 					href="/cogather/group/studywrite"
 					class="w3-bar-item w3-button w3-hide-small">스터디만들기</a>
+					
+					
 
 				<sec:authorize access="isAnonymous()">
 					<a href="../login"
