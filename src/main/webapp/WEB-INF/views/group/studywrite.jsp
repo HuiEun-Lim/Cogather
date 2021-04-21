@@ -67,7 +67,12 @@ function chkSubmit(){
 }
 </script>
 <body>
-<%@ include file="groupcover.jsp" %>
+<%@ include file="kigroupcover.jsp" %>
+<c:if test="${user_id eq null}">
+
+    <script>alert('잘못된 접근입니다. 로그인 하세요.');location.href='../login';</script>
+    
+</c:if>
 <div id="write_id">
 <h4>글작성</h4><br><br>
 <script src="/cogather/JS/ckeditor/ckeditor.js">

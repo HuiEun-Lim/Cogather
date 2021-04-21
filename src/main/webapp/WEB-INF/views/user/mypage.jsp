@@ -179,12 +179,11 @@ function chkDelete(id){
 			<th>그룹ID</th>
 			<th>그룹명</th>
 			<th>권한</th>
-			<th>참여시간</th>
 		</tr>
 
 		<c:choose>
 		<c:when test="${empty group || fn:length(group) == 0 }">
-		<tr><td colspan="4">가입한 그룹 없음</td></tr>
+		<tr><td colspan="3">가입한 그룹 없음</td></tr>
 		</c:when>
 		<c:otherwise>
 			<c:forEach var="i" begin="0" end= "${fn:length(group) }" step="1" >
@@ -193,7 +192,6 @@ function chkDelete(id){
 					<td>${group[i].sg_id }</td>
 					<td>${sgroup[i].sg_name }</td>
 					<td>${group[i].g_auth }</td>
-					<td>${group[i].entime }</td>
 				</tr>			
 			</c:forEach>
 		</c:otherwise>

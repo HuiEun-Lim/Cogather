@@ -9,7 +9,7 @@
 <sec:authorize access="isAnonymous()">
     	<script>
     		alert("로그인이 필요한 서비스입니다.");
-    		history.back();
+    		location.href="${pageContext.request.contextPath}";
     	</script>
 </sec:authorize>
 <sec:authorize access="isAuthenticated()">

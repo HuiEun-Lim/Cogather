@@ -22,7 +22,7 @@
 <!-- Navbar (sit on top) -->
 
 
-<%@ include file="groupcover.jsp" %>
+<%@ include file="kigroupcover.jsp" %> 
 
 
 
@@ -35,7 +35,7 @@
 		e.preventDefault();
 
 	
-		var url="/cogather/group/studylist";
+		var url="../group/studylist";
 		
 		
 		url = url+"?nowPage=${paging.startPage }&cntPerPage=${paging.cntPerPage}";
@@ -50,12 +50,16 @@
 		console.log(url);
 
 	});	
-
+	$(document).keypress(function (event) {
+	    if (event.keyCode === 13) {
+	        $("#btnSearch").click();
+	    }
+	})
 </script>
 
  
 
-<br>스터디 목록들<br>
+
 <b>스터디 방 총 개수 :${paging.total }</b>
   	<c:choose>
 			<c:when test="${ empty list || fn:length(list)==0 }">
@@ -67,15 +71,20 @@
 				
 				<li class="column">
 				
-					<img src="../img/group/upload/${dto.file_name}" width="20%" height="50px" >
+				
+					<a href="../group/studyview?sg_id=${dto.sg_id}" style="text-decoration:none;"><img src="/cogather/img/group/upload/${dto.file_name}" style="float:right;
+	left:-40%; position:relative;border: 2px solid #ddd;background: url(/cogather/img/borderdesign.jpg); border-radius: 50px;padding: 5px;" width="20%" height="50px" onerror="this.src='/cogather/img/logo.png'">
+					</a></div><br><br>
+					  <p><a href="../group/studyview?sg_id=${dto.sg_id}" style="text-decoration:none;float:right;
+	left:-40%; position:relative;">방번호:${dto.sg_id}</a></p><br>
+    				 <p><a href="../group/studyview?sg_id=${dto.sg_id}" style="text-decoration:none;float:right;
+	left:-40%; position:relative;">주제:${dto.sg_tag}</a></p>
 
-					  <p>방번호:${dto.sg_id}</p>
-    				 <p><a href="../group/studyview?sg_id=${dto.sg_id}">스터디주제:${dto.sg_tag}</a></p>
     				 
   				</li>
   				
 				</c:forEach>
-				</div>
+				
 			</c:otherwise>
 		</c:choose> 
  <div class="clear"></div>
@@ -108,7 +117,7 @@
 	<div class="form-group row justify-content-center">
 			<div class="w300" style="padding-right:10px">
 
-				<input type="text" class="form-control form-control-sm" placeholder="스터디 주제 검색 또는 방번호 검색" name="keyword" id="keyword" style="border: 2px solid #ffd43b;margin:0 0 0 50px;width:30%;height:40px;">
+				<input type="text" class="form-control form-control-sm" placeholder="스터디 주제 검색 또는 방번호 검색" name="keyword" id="keyword" style="border: 2px solid #ffd43b;margin:0 0 0 10px;width:30%;height:40px;">
 
 
 

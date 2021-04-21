@@ -125,4 +125,5 @@
 		FROM STUDYGROUP
 		WHERE sg_id = #{sg_id}
 	</select>
+
 </mapper>

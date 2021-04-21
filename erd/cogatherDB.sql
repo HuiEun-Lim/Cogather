@@ -157,7 +157,7 @@ CREATE TABLE members
 	enabled char(1) DEFAULT 1,
 	PRIMARY KEY (ID)
 );
---SELECT * FROM members;
+SELECT * FROM members;
 
 --SELECT * 
 --FROM MEMBERS
@@ -198,6 +198,8 @@ CREATE TABLE memberstudy
 	CONSTRAINT GAUTH_CHECK CHECK(g_auth IN ('captain', 'crew', 'common')),
 	CONSTRAINT ENSTATUS_CHECK CHECK(enstatus IN ('in', 'out'))
 );
+
+
 --DELETE FROM MEMBERSTUDY WHERE sg_id =389;
 --SELECT * FROM MEMBERSTUDY
 --
@@ -215,6 +217,7 @@ CREATE TABLE memberstudy
 --('asd', 21, 'crew');
 ----
 --UPDATE MEMBERSTUDY SET enstatus = 'out' WHERE id ='qwer' AND sg_id = 21;
+
 DELETE FROM MEMBERSTUDY WHERE sg_id =405;
 DELETE FROM STUDYGROUP WHERE sg_id =435;
 
@@ -349,6 +352,9 @@ CREATE TABLE studygroup
 	PRIMARY KEY (sg_id)
 );
 
+
+SELECT *  FROM studygroup;
+DELETE FROM studygroup WHERE sg_id=394;
 
 --SELECT * FROM STUDYGROUP ORDER BY sg_id;
  /*스터디 그룹 이미지 파일*/ 

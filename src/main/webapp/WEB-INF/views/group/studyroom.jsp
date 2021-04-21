@@ -23,7 +23,13 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 </head>
-
+<sec:authorize access="isAnonymous()">
+	<script>
+		alert("로그인이 필요합니다.")
+		location.href = "../group/studyview?sg_id=${sg_id}";
+	</script>
+</sec:authorize>
+<sec:authorize access="isAuthenticated()">
 <body>
 	<div class="container">
 		<div class="row">
@@ -271,5 +277,7 @@
 			console.log("contextPath: " + contextPath);
 		}
 	</script>
-</body>
+</body>		
+</sec:authorize>
+
 </html>
