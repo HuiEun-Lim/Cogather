@@ -72,7 +72,7 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
 		
 		// 유저 이름 쿠키에 담기
 		Cookie userCookie = new Cookie("user_id", authentication.getName());
-		userCookie.setMaxAge(15*60); // 쿠키 15분 유지
+		userCookie.setMaxAge(3*60*60); // 쿠키 3시간 유지
 		response.addCookie(userCookie);
 		// 세 가지 케이스에 따른 URI 주소로 리다이렉트
 		response.sendRedirect(uri);

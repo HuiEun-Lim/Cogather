@@ -17,7 +17,6 @@ function chkSubmit(){
 	var id = frm['id'].value.trim();
 	var pw = frm['pw'].value.trim();
 	var pw2 = frm['pw2'].value.trim();
-	var phone = frm['phone'].value.trim();
 
 	
 	if(id == ""){
@@ -47,11 +46,6 @@ function chkSubmit(){
 		return false;
 	}
 	
-	if(phone == ""){
-		alert("전화번호는 반드시 작성해야 합니다");
-        frm['phone'].focus();
-        return false;
-	}
 	
 	return true;
 }
@@ -65,7 +59,7 @@ function chkSubmit(){
 </div>
 
 <div id="wrap2">
-<form name="frm" action="signupOk" method="post" onsubmit="return chkSubmit()">
+<form name="frm" action="signupOk" method="post" onsubmit="return chkSubmit()" enctype="multipart/form-data">
 <br>
 <h5 class="required">아이디</h5>
 <input type="text" name="id"/><br><br>
@@ -81,6 +75,24 @@ function chkSubmit(){
 <input type="text" name="email"/><br><br>
 <h5>관심태그</h5>
 <input type="text" name="tag"/><br><br>
+<div class="inputArea">
+<h5>프로필 이미지</h5>
+<input type="file" id="pimg" name="file" />
+<div class="select_img"><img src="" /></div>
+ 
+ <script>
+  $("#pimg").change(function(){
+   if(this.files && this.files[0]) {
+    var reader = new FileReader;
+    reader.onload = function(data) {
+     $(".select_img img").attr("src", data.target.result).width(500);        
+    }
+    reader.readAsDataURL(this.files[0]);
+   }
+  });
+ </script>
+ <%=request.getRealPath("/") %>
+</div>
 <br>
 <input type="submit" class="btn" value="가입하기" />
 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>

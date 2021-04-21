@@ -22,42 +22,9 @@
 <!-- Navbar (sit on top) -->
 
 
-<%@ include file="groupcover.jsp" %>
+<%@ include file="kigroupcover.jsp" %> 
 
 
-
-
-
-
-<script>
-	//Change style of navbar on scroll
-	window.onscroll = function() {myFunction()};
-	function myFunction() {
-	    var navbar = document.getElementById("myNavbar");
-	    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-	        navbar.className = "w3-bar" + " w3-card-2" + " w3-animate-top" + " w3-white" + " w3-hover-light-gray";
-	    } else {
-	        navbar.className = navbar.className.replace(" w3-card-2 w3-animate-top w3-white w3-hover-light-gray", "");
-	    }
-	}
-
-	// Used to toggle the menu on small screens when clicking on the menu button
-	function toggleFunction() {
-	    var x = document.getElementById("navDemo");
-	    if (x.className.indexOf("w3-show") == -1) {
-	        x.className += " w3-show";
-	    } else {
-	        x.className = x.className.replace(" w3-show", "");
-	    }
-	}
-	
-	$(document).keypress(function (event) {
-	    if (event.keyCode === 13) {
-	        $("#btnSearch").click();
-	    }
-	})
-</script>
-<br><br>
 
 <script>
 
@@ -68,7 +35,7 @@
 		e.preventDefault();
 
 	
-		var url="/cogather/group/studylist";
+		var url="../group/studylist";
 		
 		
 		url = url+"?nowPage=${paging.startPage }&cntPerPage=${paging.cntPerPage}";
@@ -83,12 +50,16 @@
 		console.log(url);
 
 	});	
-
+	$(document).keypress(function (event) {
+	    if (event.keyCode === 13) {
+	        $("#btnSearch").click();
+	    }
+	})
 </script>
 
  
 
-<br>스터디 목록들<br>
+
 <b>스터디 방 총 개수 :${paging.total }</b>
   	<c:choose>
 			<c:when test="${ empty list || fn:length(list)==0 }">
@@ -100,20 +71,25 @@
 				
 				<li class="column">
 				
-					<img src="/cogather/img/group/upload/${dto.file_name}" width="20%" height="50px" onerror="this.src='/cogather/img/logo.png'">
-					  <p>방번호:${dto.sg_id}</p>
-    				 <p><a href="/cogather/group/studyview?sg_id=${dto.sg_id}">스터디주제:${dto.sg_tag}</a></p>
+				
+					<a href="../group/studyview?sg_id=${dto.sg_id}" style="text-decoration:none;"><img src="/cogather/img/group/upload/${dto.file_name}" style="float:right;
+	left:-40%; position:relative;border: 2px solid #ddd;background: url(/cogather/img/borderdesign.jpg); border-radius: 50px;padding: 5px;" width="20%" height="50px" onerror="this.src='/cogather/img/logo.png'">
+					</a></div><br><br>
+					  <p><a href="../group/studyview?sg_id=${dto.sg_id}" style="text-decoration:none;float:right;
+	left:-40%; position:relative;">방번호:${dto.sg_id}</a></p><br>
+    				 <p><a href="../group/studyview?sg_id=${dto.sg_id}" style="text-decoration:none;float:right;
+	left:-40%; position:relative;">주제:${dto.sg_tag}</a></p>
     				 
   				</li>
   				
 				</c:forEach>
-				</div>
+				
 			</c:otherwise>
 		</c:choose> 
  <div class="clear"></div>
  <div style="display: block; text-align: center;">		
 		<c:if test="${paging.startPage != 1 }">
-			<a href="/cogather/group/studylist?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+			<a href="../group/studylist?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
 		</c:if>
 		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 			<c:choose>
@@ -121,7 +97,7 @@
 					<b style="display: inline;border: 1px solid #FFFFFF; ;margin:0 5px 0 0;background-color:#ffd43b;padding:5px">${p}</b>
 				</c:when>
 				<c:when test="${p != paging.nowPage }">
-					<a href="/cogather/group/studylist?nowPage=${p}&cntPerPage=${paging.cntPerPage}&keyword=${paging.keyword}">${p}</a>
+					<a href="../group/studylist?nowPage=${p}&cntPerPage=${paging.cntPerPage}&keyword=${paging.keyword}">${p}</a>
 				</c:when>
 			</c:choose>
 			
@@ -133,20 +109,20 @@
 		</c:if>
 	</div>
 <c:if test="${user_id ne null}">
-<button onclick="location.href='/cogather/group/studywrite'" class="writebutton hover">글작성</button>
+<button onclick="location.href='../group/studywrite'" class="writebutton hover">글작성</button>
 </c:if>
 <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="스터디주제 검색" href="#" class="#" style="border: 2px solid #ffd43b;">
  -->	<!-- 지울 내용들 테스트중 -->
 	<div class="form-group row justify-content-center">
 			<div class="w300" style="padding-right:10px">
 
-				<input type="text" class="form-control form-control-sm" placeholder="스터디 주제 검색 또는 방번호 검색" name="keyword" id="keyword" style="border: 2px solid #ffd43b;margin:0 0 0 50px;width:30%;height:40px;">
+				<input type="text" class="form-control form-control-sm" placeholder="스터디 주제 검색 또는 방번호 검색" name="keyword" id="keyword" style="border: 2px solid #ffd43b;margin:0 0 0 10px;width:30%;height:40px;">
 
 
 
 
 				<button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch" style="background:white;border:none;">
-					<img src="/cogather/img/group/search.png" class="search"  >
+					<img src="../img/group/search.png" class="search"  >
 				</button>
 			</div>
 		</div>

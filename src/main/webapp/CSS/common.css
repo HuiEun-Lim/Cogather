@@ -14,11 +14,14 @@
 	font-family: "NanumBarunpenB";
 	src:url("../font/NanumBarunpenB.ttf")format("truetype");
 }
-
+@font-face {
+	font-family: 'Gugi-Regular';
+	src: url(../font/Gugi-Regular.ttf) format('truetype');
+}
 #myNavbar{
-	color: white;
-	font-size:20px;
-	font-family:NanumBarunpenB;
+	color: white ;
+	font-size:20px !important;
+	font-family:NanumBarunpenB !important;
 }
 .login{
 	color:white;
@@ -159,7 +162,7 @@ ul li.column button {
 	list-style-type:none;
 }
 div#write_id{
-	border: 1px solid black;
+
 	text-align:center;
 }
 div#text_content{
@@ -230,3 +233,23 @@ div #row #main {
 	clear:both;
 }
 
+#cover-img{
+	width:100%;
+	height:300px;
+}
+.sub-title{
+	font-family: Gugi-Regular;
+}
+
+.mypage {
+	color: black;
+	font-size:20px;
+	font-family:NanumBarunpenB;
+}
+.acctime-view{
+	color: white;
+	background-color: black;
+}
+.mypage-list-txt{
+	font-family:Gugi-Regular;
+}

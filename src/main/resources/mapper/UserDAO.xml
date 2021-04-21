@@ -5,9 +5,9 @@
 		parameterType="com.project.cogather.domain.UserDTO"
 		keyProperty="id" useGeneratedKeys="true" keyColumn="id">
 		INSERT INTO members
-			(id, name, pw, phone, email)
+			(id, name, pw, phone, email, tag, pimg_url)
 		VALUES
-			(#{id}, #{name}, #{pw}, #{phone}, #{email})
+			(#{id}, #{name}, #{pw}, #{phone}, #{email}, #{tag}, #{pimg_url})
 	</insert>
 	
 	<insert id="authinsert" flushCache="true"
@@ -22,6 +22,11 @@
 	<select id="selectByID"
 		resultType="com.project.cogather.domain.UserDTO">
 		SELECT * FROM MEMBERS WHERE id = #{id}
+	</select>
+	
+	<select id="myrsvID"
+		resultType="com.project.cogather.domain.CafeDTO">
+		SELECT * FROM reservation WHERE ID = #{id}
 	</select>
 
 

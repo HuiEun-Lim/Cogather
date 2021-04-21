@@ -43,4 +43,7 @@ public interface MemberStudyDAO {
 	public List<MembersDTO> selectCommonMemberBySGId(@Param("sg_id")int sg_id);
 	
 	public List<MembersDTO> selectRegisterMemberBySGId(@Param("sg_id")int sg_id);
+	
+	// 회원 아이디와 관련된 모든 memberstudy 행 가져오기
+	public List<MemberStudyDTO> getMemberStudyByID(@Param("id") String id);
 }

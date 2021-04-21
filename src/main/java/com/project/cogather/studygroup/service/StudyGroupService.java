@@ -263,5 +263,11 @@ public class StudyGroupService {
 		return dao.selectBoard(sp);
 	}
 	
+	// 유저 아이디로 참여한 스터디들 가져오기
+	public List<StudyGroupDTO> getStudyByID(String id){
+		dao = sqlSession.getMapper(StudyGroupDAO.class);
+		return dao.getStudyByID(id);
+	}
+	
 	
 }

@@ -3,16 +3,14 @@
 var stompClient = null;
 var contextPath = null;
 
-var chk = 'abnormal'
+var chk = 'abnormal';
 var members = {}; // 타이머를 저장하기 위한 전역 변수 
 var member_profiles = {};
 $(document).ready(function() {
 	//js와 html을 분리하기 위해 jstl과 el을 받아야 한다면 html 요소에 숨겨놓고 문서 완성시 그걸 읽어 오는 방식을 해봄
 	// 이렇게 하지 않으면 분리된 javascript 파일은 제일 마지막에 컴파일 되므로 request에 있는 정보들을 받아올 수 없다. 
 	setArgs();
-	connect();
-//	getMembers(); // 현제 db에 들어와있는 상태를 가진 유저들 목록을 표시하고 타이머 준비
-	
+	getMembers(); // 현제 db에 들어와있는 상태를 가진 유저들 목록을 표시하고 타이머 준비
 	
 	$("form").on('submit', function(e){
 		e.preventDefault(); // submit 이벤트듣 이벤트 발생시 창이 새로고침되면서 실행되는데 이를 막아줌
@@ -99,10 +97,15 @@ function showChat(msg){ // 메시지 타입에 따라 바꿔서 보여줌
 			"<li class='chat chat-center'> "+ msg.sender+" 퇴장 </li>"+
 			"<div class='clear-both'></div>"
 		);
-		clearInterval(members[msg.sender]['timerId']); // 나가는 사람의 타이머 종료
-		clearInterval(members[msg.sender]['acc']); // 나가는 사람의 1분 간격 타이머 저장 종료
-		delete members[msg.sender]; // 유저의 타이머 정보를 관리하는 부분에서 해당 유저 삭제
-		getMembers(); // 퇴장시 subscriber들이 해당 메시지를 받으면 멤버 리스트를 업데이트함
+		if(members[msg.sender] != null){
+			clearInterval(members[msg.sender]['timerId']); // 나가는 사람의 타이머 종료
+			clearInterval(members[msg.sender]['acc']); // 나가는 사람의 1분 간격 타이머 저장 종료
+			delete members[msg.sender]; // 유저의 타이머 정보를 관리하는 부분에서 해당 유저 삭제	
+		}
+		getMembers();
+//		setTimeout(getMembers,1000);
+		// 퇴장시 subscriber들이 해당 메시지를 받으면 멤버 리스트를 업데이트함
+		// 바로 업데이트 하지 않는 이유는 해당멤버의 입출 상태가 메시지 전달 보다 먼저 발생되게 되어 있음
 	}
 }
 
@@ -116,16 +119,17 @@ function sendChat(){ // 메시지 보내기
 }
 
 function disconnect(){ // stompClient 종료하기전 메시지 보내고 죽음
-	stompClient.send("/pub/chat/"+sg_id,{},JSON.stringify({
+	if(stompClient != null){
+		stompClient.send("/pub/chat/"+sg_id,{},JSON.stringify({
 		'type':'LEAVE',
 		'roomId': sg_id,
 		'sender': id
-	}));
-	if(stompClient !== null){
+		}));
+		
 		stompClient.disconnect();
 	}
-	alert("?????");
 	console.log(id+"의 메시지 전송 소켓 종료");
+	return true;
 }
 function formSend(){ 
 	sendChat();
@@ -146,6 +150,7 @@ function getMembers() {
 		success: function(data, status) {
 			if (status == "success") {
 				updateMembers(data);
+				
 				for(var i = 0; i<data['mdata'].length;i++){
 					member_profiles[data['mdata'][i].id] = data['mdata'][i];
 				}
@@ -168,7 +173,9 @@ function updateMembers(jsonObj) {
 		for (var i = 0; i < msData.length; i++) {
 			if (msData[i].id == userId) {
 				check = true;
-				
+				if(stompClient == null){
+					connect();
+				}
 				if (members[msData[i].id] == null) {
 					setTimer(msData[i].entime, msData[i].id);
 				}
@@ -182,6 +189,12 @@ function updateMembers(jsonObj) {
 					"</div>"+
 					"<br><br>"
 					;
+					
+				var writer = "";
+				writer += "<img src='"+contextPath+"/"+mData[i].pimg_url+"'>";
+				writer += "<div>"+msData[i].id+"</div>";
+				$(".comment-writer-info").html(writer);
+				
 				break;
 			}
 
@@ -247,20 +260,35 @@ function updateTime() {
 		$("div#timer-" + i + " h3").text(members[i]['time']);
 	}
 }
-// 방나가기 - 타이머 시간을 누적시간으로 변환 
+// 방나가기
 function outroom() {
-	if(chk == 'normal'){
-		location.href = contextPath+ '/group/studygroup';	
-	}else{
-		alert("tt 2");
-		location.href = contextPath+'/group/roomenterOk?sg_id='+sg_id+'&id='+id;
+	if(chk == 'normal'){// 정상 종료
+		history.back();	
+	}else{ // chk abnormal 비정상 종료 - 새로고침, 뒤로가기, 브라우저 종료
+		const XHR =new XMLHttpRequest();
+		var form = new FormData();
+		form.append('sg_id',sg_id);
+		form.append('id',id);
+		form.append('_csrf', token);
+		
+		XHR.open('POST', contextPath+'/group/roomenterOk'); // 어디로 보낼지
+		XHR.send(form); // 데이터 싣고 출발
+		
+		XHR.addEventListener('load', function(event){ // form 제출 성공시
+			console.log('새로 접속');
+			getMembers();
+		});
+		
+		XHR.addEventListener('error', function(event){ // form 제출 실패시
+			console.log('접속 실패');
+		})	
 	}
 }
 // 타이머 시간 누적시간으로 저장 요청
 function storeAcctime() {
 	var temp = members[id]['time'].split(':');
-	var time = new Date(0, 0, 2, temp[0], temp[1], temp[2]);
-
+	var time = new Date(Date.UTC(0, 0, 1, temp[0], temp[1], temp[2]));
+	console.log(time);
 	$.ajax({
 		url: "./MemberStudyRest/ms/acctime",
 		type: "PUT",

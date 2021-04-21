@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.cogather.comments.model.CommentsCounts;
 import com.project.cogather.comments.model.CommentsDAO;
 import com.project.cogather.comments.model.CommentsDTO;
 
@@ -33,5 +34,11 @@ public class CommentsService {
 	public int deleteComments(int cm_uid, String id) {
 		commentsDAO = sqlSession.getMapper(CommentsDAO.class);
 		return commentsDAO.deleteComments(cm_uid, id);
+	}
+	
+	// 댓글 개수 세기
+	public List<CommentsCounts> getCommentsCounts(Integer sg_id, Integer page, Integer pageRows){
+		commentsDAO = sqlSession.getMapper(CommentsDAO.class);
+		return commentsDAO.getCommentsCounts(sg_id, page, pageRows);
 	}
 }

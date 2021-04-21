@@ -10,7 +10,7 @@ DROP TABLE reservation CASCADE CONSTRAINTS;
 DROP TABLE members CASCADE CONSTRAINTS;
 DROP TABLE seats CASCADE CONSTRAINTS;
 DROP TABLE studygroup CASCADE CONSTRAINTS;
-
+DROP TABLE studygroup_file CASCADE CONSTRAINTS;
 -- sequnce 생성
 CREATE SEQUENCE comments_seq;
 CREATE SEQUENCE content_seq;
@@ -24,29 +24,46 @@ DROP SEQUENCE comments_seq;
 DROP SEQUENCE content_seq;
 DROP SEQUENCE reservation_seq;
 DROP SEQUENCE studygroup_seq;
-
+DROP SEQUENCE studygroup_file_seq;
 /* Create Tables */
 /*권한*/
 CREATE TABLE authority
 (
 	auth varchar2(20) DEFAULT 'ROLE_USER' NOT NULL, /*권한명*/
-	ID varchar2(20) NOT NULL,/*회원ID*/
+	ID varchar2(100) NOT NULL,/*회원ID*/
 	PRIMARY KEY (auth, ID),
 	CONSTRAINT ROLECK CHECK(auth IN ('ROLE_USER' , 'ROLE_ADMIN')) 
 );
 
-SELECT * FROM AUTHORITY;
+--SELECT * FROM AUTHORITY;
 
 /*댓글*/
-CREATE TABLE comments
+CREATE TABLE comments /* on delete set null 시 해당 ID가 not null 이면 삭제시 문제 발생됨 */
 (
 	cm_uid number NOT NULL,/*댓글고유번호*/
-	ID varchar2(50) NOT NULL,/*회원ID*/
+	ID varchar2(100),/*회원ID*/
 	ct_uid number NOT NULL,/*게시글 고유번호*/
-	reply clob NOT NULL,/*댓글 내용*/
+	reply clob ,/*댓글 내용*/
 	regdate date DEFAULT SYSDATE,/*등록날짜*/
 	PRIMARY KEY (cm_uid)
 );
+
+--SELECT a.ct_uid ct_uid,COUNT(C.CT_UID) cnt
+--FROM 
+--(SELECT *
+--	FROM 
+--		(SELECT ROWNUM AS RNUM, T.* FROM 
+--			(SELECT * FROM CONTENT 
+--			WHERE SG_ID = 21
+--			ORDER BY ct_uid DESC 
+--			) T
+--		) 
+--	WHERE 
+--		RNUM >= 1 AND RNUM < (1 + 10)
+--) a LEFT JOIN COMMENTS c ON a.CT_UID = c.CT_UID
+--GROUP BY a.CT_UID
+--;
+
 --SELECT * 
 --FROM COMMENTS
 --WHERE ct_uid = 20
@@ -67,7 +84,7 @@ CREATE TABLE comments
 CREATE TABLE content
 (
 	ct_uid number NOT NULL, /*게시글 고유번호*/
-	ID varchar2(50) NOT NULL,/*회원ID*/
+	ID varchar2(100),/*회원ID*/
 	sg_id number NOT NULL, /*스터디방번호*/
 	ct_title varchar2(500) DEFAULT ' ',/*게시글 제목*/
 	ct_content clob,/*게시글 내용*/
@@ -85,11 +102,6 @@ CREATE TABLE content_file
 	PRIMARY KEY (cf_id)
 )
 ;
-ALTER TABLE content_file
-	ADD FOREIGN KEY (ct_uid)
-	REFERENCES content (ct_uid)
-	ON DELETE CASCADE -- 참조하는 부모가 삭제되면 같이 삭제되도록
-;
 --SELECT * FROM content_file;
 --
 --INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
@@ -101,7 +113,7 @@ ALTER TABLE content_file
 --INSERT INTO content(ct_uid,id,sg_id,ct_title,ct_content)
 --VALUES (content_seq.nextval, 'id3', 21, '인간이 불행한 이유는 자신이 행복하다는 사실을 모르기 때문이다. 단지 그 뿐이다.', '인간이 불행한 이유는 자신이 행복하다는 사실을 모르기 때문이다. 단지 그 뿐이다.' );
 --
-SELECT * FROM CONTENT;
+--SELECT * FROM CONTENT;
 --
 --SELECT * 
 --FROM (SELECT * 
@@ -129,23 +141,23 @@ SELECT * FROM CONTENT;
 --SET CT_TITLE = '에이시발', CT_CONTENT = '왜 안되는데'
 --WHERE CT_UID = 22 AND ID = 'id1' AND SG_ID = 21; 		
 
-DELETE FROM CONTENT WHERE SG_ID = 4 AND ct_uid= 18;
-SELECT * FROM CONTENT_FILE ;
-DELETE FROM CONTENT_FILE WHERE CF_ID = 2;
+--DELETE FROM CONTENT WHERE SG_ID = 4 AND ct_uid= 18;
+--SELECT * FROM CONTENT_FILE ;
+--DELETE FROM CONTENT_FILE WHERE CF_ID = 2;
 /*회원*/
 CREATE TABLE members
 (
-	ID varchar2(20) NOT NULL,/*회원id*/
-	name varchar2(20) NOT NULL,/*이름*/
+	ID varchar2(100) NOT NULL,/*회원id*/
+	name varchar2(100) NOT NULL,/*이름*/
 	pw varchar2(100) NOT NULL,/*비밀번호*/
 	phone varchar2(15),/*전화번호*/
-	email varchar2(40),/*이메일*/
-	pimg_url varchar2(30),/*프로필 이미지*/
+	email varchar2(100),/*이메일*/
+	pimg_url varchar2(200) DEFAULT 'img/member/default.png',/*프로필 이미지*/
 	tag varchar2(50),/*관심주제*/
 	enabled char(1) DEFAULT 1,
 	PRIMARY KEY (ID)
 );
-SELECT * FROM members;
+--SELECT * FROM members;
 
 --SELECT * 
 --FROM MEMBERS
@@ -174,8 +186,8 @@ SELECT * FROM members;
 /*개인 스터디 관리*/
 CREATE TABLE memberstudy
 (
-	ID varchar2(20) NOT NULL,/*회원id*/
-	sg_id number NOT NULL,/*스터디그룹 고유번호*/
+	ID varchar2(100),/*회원id*/
+	sg_id number,/*스터디그룹 고유번호*/
 	acctime date,/*오늘 공부시간*/
 	curtime date,/*누적공부시간*/
 	g_auth varchar2(20) DEFAULT 'common',/*스터디 권한*/
@@ -186,6 +198,7 @@ CREATE TABLE memberstudy
 	CONSTRAINT GAUTH_CHECK CHECK(g_auth IN ('captain', 'crew', 'common')),
 	CONSTRAINT ENSTATUS_CHECK CHECK(enstatus IN ('in', 'out'))
 );
+<<<<<<< HEAD
 DELETE FROM MEMBERSTUDY WHERE sg_id =405;
 DELETE FROM STUDYGROUP WHERE sg_id =435;
 
@@ -207,6 +220,25 @@ VALUES
 --
 SELECT * FROM MEMBERSTUDY;
 UPDATE MEMBERSTUDY  SET g_auth='common' WHERE sg_id=405 AND id='kisunghoon11';
+=======
+--DELETE FROM MEMBERSTUDY WHERE sg_id =389;
+--SELECT * FROM MEMBERSTUDY
+--
+--SELECT * FROM MEMBERSTUDY;
+--아이디  스터디 그룹 조회 
+--SELECT MEMBERSTUDY.ID, STUDYGROUP.SG_ID,STUDYGROUP.sg_name,STUDYGROUP.sg_info,STUDYGROUP.sg_max,STUDYGROUP.sg_tag,STUDYGROUP.kko_url,STUDYGROUP.sg_regdate,STUDYGROUP.file_name
+--FROM MEMBERSTUDY , STUDYGROUP
+--WHERE MEMBERSTUDY.sg_id = studygroup.sg_id AND STUDYGROUP.sg_id=392; 
+---- 방생성자 방 생성
+--INSERT INTO memberstudy (ID, sg_id, g_auth)
+--VALUES 
+--('qwer', 4, 'captain');
+--INSERT INTO memberstudy (ID, sg_id, g_auth)
+--VALUES 
+--('asd', 21, 'crew');
+----
+--UPDATE MEMBERSTUDY SET enstatus = 'out' WHERE id ='qwer' AND sg_id = 21;
+>>>>>>> bbd97e75ec9589424cd1554928ba235990f9871b
 --
 ---- 참가자 참여 허락
 --INSERT INTO memberstudy (ID, sg_id, g_auth)
@@ -240,7 +272,7 @@ UPDATE MEMBERSTUDY  SET g_auth='common' WHERE sg_id=405 AND id='kisunghoon11';
 --FROM MEMBERSTUDY
 --WHERE SG_ID = 336
 --;
---UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'id1';
+--UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'asd';
 --UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'id2';
 --UPDATE MEMBERSTUDY SET ACCTIME = NULL WHERE ID = 'id3';
 --
@@ -274,7 +306,7 @@ UPDATE MEMBERSTUDY  SET g_auth='common' WHERE sg_id=405 AND id='kisunghoon11';
 CREATE TABLE reservation
 (
 	res_id number NOT NULL,/*예약번호*/
-	ID varchar2(20) NOT NULL,/*회원id*/
+	ID varchar2(100) NOT NULL,/*회원id*/
 	seat_id varchar2(20) NOT NULL,/*시설번호*/
 	start_date date NOT NULL,/*예약시작날짜*/
 	end_date date NOT NULL,/*예약종료날짜*/
@@ -310,7 +342,7 @@ CREATE TABLE seats
 CREATE TABLE studygroup
 (
 	sg_id number NOT NULL,/*스터디그룹고유번호*/
-	sg_name varchar2(60) NOT NULL,/*스터디그룹이름*/
+	sg_name varchar2(300) NOT NULL,/*스터디그룹이름*/
 	sg_info clob,/*스터디그룹정보*/
 	sg_max number,/*스터디그룹제한인원수*/
 	sg_regdate date DEFAULT SYSDATE,/*스터디그룹생성날짜*/
@@ -320,10 +352,14 @@ CREATE TABLE studygroup
 	PRIMARY KEY (sg_id)
 );
 
+<<<<<<< HEAD
 
 
 SELECT *  FROM studygroup;
 DELETE FROM studygroup WHERE sg_id=394;
+=======
+--SELECT *  FROM studygroup;
+>>>>>>> bbd97e75ec9589424cd1554928ba235990f9871b
 --SELECT * FROM STUDYGROUP ORDER BY sg_id;
  /*스터디 그룹 이미지 파일*/ 
 CREATE TABLE studygroup_file
@@ -342,21 +378,20 @@ CREATE TABLE studygroup_file
 --ALTER TABLE STUDYGROUP_FILE MODIFY sg_id NULL;
 
 
-INSERT INTO studygroup_file VALUES
-(studygroup_file_seq.nextval, 'aaa', 'aaa',160,1000);
+--INSERT INTO studygroup_file VALUES
+--(studygroup_file_seq.nextval, 'aaa', 'aaa',160,1000);
 --
 --
 SELECT * FROM studygroup_file;
 --SELECT * FROM studygroup_file;
 
-DROP TABLE studygroup_file CASCADE CONSTRAINTS;
 
 
 
 --SELECT * FROM studygroup;
 ---- study group dummy insert test
-INSERT INTO studygroup VALUES
-(studygroup_seq.nextval, 'aaa', '안녕하세요', 2, sysdate, 'aaa','https://open.kakao.com/o/szYZxz5c','group571b230b-10a6-4ebb-bfa5-7a2600eaf771.png');
+--INSERT INTO studygroup VALUES
+--(studygroup_seq.nextval, 'aaa', '안녕하세요', 2, sysdate, 'aaa','https://open.kakao.com/o/szYZxz5c','group571b230b-10a6-4ebb-bfa5-7a2600eaf771.png');
 --
 --INSERT INTO studygroup VALUES
 --(studygroup_seq.nextval, 'bbb', '안녕하세요', 4, sysdate, 'aaa','https://open.kakao.com/o/szYZxz5c');
@@ -390,6 +425,11 @@ INSERT INTO studygroup VALUES
 /*studygroupfile은 관계 없앴다.*/
 /* Create Foreign Keys */
 
+ALTER TABLE content_file
+	ADD FOREIGN KEY (ct_uid)
+	REFERENCES content (ct_uid)
+	ON DELETE CASCADE -- 참조하는 부모가 삭제되면 같이 삭제되도록
+;
 
 ALTER TABLE comments
 	ADD FOREIGN KEY (ct_uid)
@@ -397,18 +437,15 @@ ALTER TABLE comments
 	ON DELETE CASCADE
 ;
 
-
-ALTER TABLE authority
-	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID) ON DELETE SET NULL
-;
-
-
 ALTER TABLE comments
 	ADD FOREIGN KEY (ID)
 	REFERENCES members (ID) ON DELETE SET NULL
 ;
 
+ALTER TABLE authority
+	ADD FOREIGN KEY (ID)
+	REFERENCES members (ID) ON DELETE SET NULL
+;
 
 ALTER TABLE content
 	ADD FOREIGN KEY (ID)

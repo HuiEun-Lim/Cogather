@@ -20,4 +20,22 @@
 		DELETE FROM COMMENTS
 		WHERE CM_UID = #{cm_uid} and id=#{id} 
 	</delete>
+	<select id="getCommentsCounts" resultType="com.project.cogather.comments.model.CommentsCounts">
+	<![CDATA[
+	SELECT a.ct_uid ct_uid,COUNT(C.CT_UID) cnt
+	FROM 
+	(SELECT *
+		FROM 
+			(SELECT ROWNUM AS RNUM, T.* FROM 
+				(SELECT * FROM CONTENT 
+				WHERE SG_ID = #{sg_id}
+				ORDER BY ct_uid DESC 
+				) T
+			) 
+		WHERE 
+			RNUM >= #{page} AND RNUM < (#{page} + #{pageRows})
+	) a LEFT JOIN COMMENTS c ON a.CT_UID = c.CT_UID
+	GROUP BY a.CT_UID
+	]]>
+	</select>
 </mapper>

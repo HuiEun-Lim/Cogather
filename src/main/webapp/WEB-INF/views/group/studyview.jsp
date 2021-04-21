@@ -40,6 +40,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/CSS/studyview.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox.min.js"></script>
 
@@ -80,7 +81,7 @@ function chkDeleteFile(sgf_id){
 function fn_fileDown(sgf_id){
 	var formObj = $("form[name='readForm']");
 	$("#SGF_ID").attr("value", sgf_id);
-	formObj.attr("action", "/cogather/group/fileDown");
+	formObj.attr("action", "../group/fileDown");
 	formObj.submit();  
 //	location.href = '/cogather/group/fileDown';
 	
@@ -234,14 +235,15 @@ $(function(){
 		<br><br>
 	<div id="row" style=" display: -ms-flexbox; /* IE10 */display: flex;-ms-flex-wrap: wrap; /* IE10 */flex-wrap: wrap;">
 		<div id="text_content">
-		 <b style="color:#ffd43b;float:left;">방장: ${list[0].id}</b><br> 
-		<b id="name_id" style="color:#ffd43b;float:middle;"><br>스터디 이름: </b><b>${list[0].sg_name }</b><br>
-		<b id="name_id" style="color:#ffd43b;float:middle;">스터디 주제 : </b> <b>${list[0].sg_tag }</b><br>
+		<img src="/cogather/img/group/crown.png" class="search"><b style="color:#ffd43b;float:left;">방장: ${list[0].id}</b><br> 
+		<b id="name_id" style="color:#ffd43b;float:middle;"><br>스터디 이름: </b><b>${list[0].sg_name }</b>
+		<b id="name_id" style="color:#ffd43b;float:middle;">스터디 주제 : </b> <b>${list[0].sg_tag }</b>
 		<b id="name_id" style="color:#ffd43b;float:middle;">인원수: </b><b>${list[0].sg_max }</b><br> 
-		
+		<hr>
 		<b id="name_id" style="color:#ffd43b;float:middle;">스터디 소개: </b><br>
 		
-		<hr>
+		
+		
 		
 		
 		<div>
@@ -249,12 +251,13 @@ $(function(){
 	
 		</div>
 		<section id="container">
+		<hr>
 		<b id="name_id" style="color:#ffd43b;float:middle;">이미지 보기: </b><b> </b><br> 
 		<!-- light box2  제이쿼리 -->
-		<hr>
+		
 		<c:if test="${list[0].file_name ne null}" >
 		<a href="/cogather/img/group/upload/${list[0].file_name}" data-lightbox="example-set">
-			<img src="/cogather/img/group/upload/${list[0].file_name}" width="20%" height="50px">(이미지 클릭시 확대)
+			<img src="/cogather/img/group/upload/${list[0].file_name}" width="20%" height="50px" title='(이미지 클릭시 확대)'>
 			</a>
 		
 	 			<%-- ${list[0].fileName}
@@ -267,7 +270,7 @@ $(function(){
 			<input type="hidden" id="SGF_ID" name="SGF_ID" value="">
 			<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/> 
 		</form>
-		<div style="border: 1px solid #dbdbdb;">
+		<div style="border: 1px solid #ffd43b;">
 			
 			<c:forEach var="file" items="${files}">
 				<a href="#" onclick="fn_fileDown('${file.SGF_ID}'); return false;">
@@ -284,17 +287,18 @@ $(function(){
 		
 		<br><!-- location.href='${list[0].kko_url} -->
 		<button type="submit" onclick="openWin();" style="background-color:white;border:0px"><img src="/cogather/img/group/kakao.png"></button>
-		<button type="submit"  onclick="openMail()" style="background-color:white;border:0px"><img src="/cogather/img/group/mail.png"></button><br>
+		<button type="submit"  onclick="openMail()" style="background-color:white;border:0px"><img src="/cogather/img/group/mail.png"></button>
 		<c:if test="${user_id eq list[0].id}">
-		<button onclick="UpdateCrew()" class="viewbutton hover" style="color:white;float:right;background-color:#ffd43b;border :0;
-	outline:0;width:150px;
-	height:30px;">스터디원 수락</button> 
+		<button onclick="UpdateCrew()" style="color:white;float:center;background-color:#ffd43b;width:100px;
+	height:60px;border:0px">Study with Me</button> 
 		</c:if>
 		</div>
 	
 			
 		<div id="main" class="member-list-container">
-	 <button onclick="loadMember('${user_id}')" class="viewbutton hover">참가자목록</button> 
+	 <button onclick="loadMember('${user_id}')" class="viewbutton hover" style="color:white;float:center;background-color:#ffd43b;border :0;
+	outline:0;width:180px;
+	height:30px;"><i class="fa fa-refresh fa-spin"></i> 참가자 목록</button> 
 		
 		<div class="member-list">
 		
