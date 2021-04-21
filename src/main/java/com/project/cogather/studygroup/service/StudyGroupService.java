@@ -153,7 +153,7 @@ public class StudyGroupService {
 	public List<StudyGroupDTO> viewByUid(int sg_id) {
 		dao = sqlSession.getMapper(StudyGroupDAO.class);
 		selectFile(sg_id);
-
+		selectCountRegisterId(sg_id);
 		return dao.selectByUid(sg_id);
 	}
 
@@ -177,6 +177,11 @@ public class StudyGroupService {
 		return dao.selectByUid(sg_id);
 	}
 
+	public List<StudyGroupDTO> selectCountRegisterId(int sg_id) {
+		mdao = sqlSession.getMapper(MemberStudyDAO.class);
+
+		return mdao.selectCountRegisterId(sg_id);
+	}
 	
 	public int update(StudyGroupDTO dto,MultipartHttpServletRequest mpRequest) throws Exception {
 		dao = sqlSession.getMapper(StudyGroupDAO.class);

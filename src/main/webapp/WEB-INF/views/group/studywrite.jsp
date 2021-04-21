@@ -80,8 +80,8 @@ function chkSubmit(){
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
 <form name="frm" action="studywriteOk" method="post" enctype="multipart/form-data" onsubmit="return chkSubmit()">
-아이디:&nbsp&nbsp
-<input type="text" name="id" style="width:20%;height:30px;" value="${user_id }"><br><br>
+<!-- 아이디:&nbsp&nbsp -->
+<input  type="hidden" name="id" style="width:20%;height:30px;" value="${user_id }"><br><br>
 스터디 이름:&nbsp&nbsp
 <input type="text" name="sg_name" style="width:20%;height:30px;" /><br><br>
 제한 인원수:&nbsp&nbsp

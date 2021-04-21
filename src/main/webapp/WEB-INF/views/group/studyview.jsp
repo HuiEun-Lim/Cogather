@@ -248,7 +248,6 @@ $(function(){
 		
 		<div>
 		${list[0].sg_info }
-	
 		</div>
 		<section id="container">
 		<hr>
