@@ -2,6 +2,7 @@ package com.project.cogather.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.project.cogather.domain.UserDTO;
 import com.project.cogather.service.UserService;
+import com.project.cogather.studygroup.model.StudyGroupDTO;
 import com.project.cogather.util.UploadFileUtils;
 
 @Controller
@@ -97,8 +99,6 @@ public class UserController {
 		model.addAttribute("list", userService.myrsvID(id));
 		model.addAttribute("group", userService.mygroupID(id));
 		model.addAttribute("sgroup", userService.mygroupName(id));
-		UserDTO temp = userService.selectByID(id);
-		System.out.println("test pimg url: " + temp.getPimg_url());
 		return "user/mypage";
 	}
 	

@@ -10,6 +10,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="../CSS/cafeinfo.css">
+	<link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon" />
 	<script src="https://kit.fontawesome.com/65311e5b1a.js" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="../JS/cafeinfo.js"></script>
 	<title>시설소개</title>
@@ -108,24 +109,25 @@
 		<tr>
 		<td>
 		<div class="img-magnifier-container" style="margin-bottom:100px">
-  			<img id="myimage" src="/cogather/img/cafe/room.jpg" width="500" height="300" alt="room">
+  			<img id="myimage" src="../img/cafe/info_room2.jpg" width="500" height="300" alt="room">
 				</div>
 		</td>
-		<td class="expln">
-			<div><h3>스터디룸</h3>
-			스터디룸은 최대 5인까지 입장가능하며 빔프로젝터, 화이트보드, 공기청정기, 시스템 에어컨이 설치되어 있습니다.			
+		<td valign="top" class="expln">
+			<div><h2>스터디룸</h2><br><br>
+			스터디룸은 최대 5인까지 입장가능합니다.<br>빔프로젝터, 화이트보드, 공기청정기, 시스템 에어컨이 설치되어 있습니다.<br>
+			조명의 밝기를 조절할 수 있습니다.
 			</div>
 		</td>
 		</tr>
 		<tr>
 		<td>
 		<div class="img-magnifier-container" style="margin-bottom:100px">
-  			<img id="myimage2" src="/cogather/img/cafe/room.jpg" width="500" height="300" alt="person">
+  			<img id="myimage2" src="../img/cafe/info_seats.jpg" width="500" height="300" alt="person">
 				</div>
 		</td>
-		<td class="expln">
-			<div><h3>개인좌석</h3>
-				개인좌석은 총 30석 정도 있으면 전자기기 충전을 할수있는 콘센트가 함께있습니다. 개인이 조절가능한 스탠드도 있습니다.
+		<td valign="top" class="expln">
+			<div><h2>개인좌석</h2><br><br>
+				개인좌석은 총 24석 있으며 전자기기 충전을 할수있는 콘센트가 함께있습니다. 개인이 조절가능한 스탠드도 있습니다.
 			</div>
 						
 		</td>

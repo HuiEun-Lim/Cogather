@@ -36,7 +36,7 @@
 	
 	<select id="mygroupName"
 		resultType="com.project.cogather.studygroup.model.StudyGroupDTO">
-		SELECT sg.sg_name FROM memberstudy ms, studygroup sg  WHERE ms.ID = #{id}
+		SELECT sg.sg_name FROM memberstudy ms, studygroup sg  WHERE ms.sg_id = sg.sg_id AND ms.ID = #{id}
 	</select>
 	
 	

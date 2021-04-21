@@ -10,7 +10,6 @@
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	<bean id="logoutSuccessHandler" class="com.project.cogather.security.UserLogoutSuccessHandler"/>
 
-	
 	<!-- 컨테이너의 HTTP security 요소 -->
 	<security:http>
 		<!-- 특정 url pattern 요청이 들어올때 인터셉터를 이용해 접근 제한 설정 -->

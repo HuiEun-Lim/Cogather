@@ -5,19 +5,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.Date"%>
+
+<sec:authorize access="isAnonymous()">
+    	<script>
+    		alert("로그인이 필요한 서비스입니다.");
+    		history.back();
+    	</script>
+</sec:authorize>
+<sec:authorize access="isAuthenticated()">
+    
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="/cogather/CSS/cafersv.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="../CSS/cafersv.css">
+<link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script src="https://kit.fontawesome.com/65311e5b1a.js"
 	crossorigin="anonymous"></script>
-<script type="text/javascript" src="/cogather/JS/cafersv.js"></script>
-<script type="text/javascript" src="/cogather/JS/seats.js"></script>
+<script type="text/javascript" src="../JS/cafersv.js"></script>
+<script type="text/javascript" src="../JS/seats.js"></script>
 <title>예약하기</title>
 </head>
 <script>
@@ -100,9 +109,17 @@ var seatdates;
 				</div>
 				<br><br>
 				<span id = "chkseatagain"></span>
-				<br>선택하신 좌석은 예약후에는 변경하실 수 없습니다.
+				<div class="letters">
+				<br>&#42;선택하신 좌석은 예약 후에는 변경하실 수 없습니다.
+				아래는 해당 좌석의 예약내역입니다.&#42;<br><br></div>
+				<div id="chkdates">
+					<table class="w3-table w3-bordered w3-round-xlarge w3-centered w3-card" style="width: 50%">
+						<tbody>
+						</tbody>	
+					</table>
+				</div>
 				<sec:authentication property="principal.username" var="user_id" />
-				<br><input type="text" id="ID" name="ID" value="${user_id }" readonly>
+				<br><input type="hidden" id="ID" name="ID" value="${user_id }" readonly>
 				<input type="text" id="seat_id" name="seat_id" style="visibility : hidden" required>
 
 				<div class="optitle">날짜선택</div><br>
@@ -111,29 +128,12 @@ var seatdates;
 				<label class = "optent">종료 날짜</label> <input
 					type="datetime-local" id="enddate" name="enddate" required>
 				<div class="optitle">결제방법선택</div><br>
-				<input type="text" id="kakaopay" name="payment" value="카카오페이" readonly><br><br>
-				<input type="submit" value="예약하기">
+				<div class="letters">&#42;결제방법 선택시 예약이 자동으로 완료가 됩니다&#42;</div><br>
+				<input id="kakaopaybtn" type="submit" name = "payment" value="카카오페이" formaction="rsvOk.do">
+				<input id="onsitebtn" type="submit" name = "payment" value="현장결제" formaction="onsitersvOk.do">
 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
 			</form>
-			
-			<div id="chkdates">
-			<table>
-				<thead>
-				<tr>
-				<th>시설번호</th>
-				<th>예약시작</th>
-				<th>예약종료</th>
-				</tr>
-				</thead>
-				<tbody>
-				
-				</tbody>
-							
-			</table>
-			</div>
 		</div>
-
-
 	</div>
 	<!-- Footer -->
 	<footer class="w3-center w3-black w3-padding-64">
@@ -201,6 +201,10 @@ function getDates(seat_id){
 					seatdates = data;
 					printRsv(data);
 				}
+				
+				else if(data.status == "fail"){
+					seatdates = data;
+					$('#chkdates tbody').html("다른 예약내역이 없습니다");				}
 			}
 		}
 	})
@@ -214,8 +218,8 @@ function printRsv(data){
 	$('#chkdates tbody').html(result);
 }
 
-
 </script>
 
 </body>
 </html>
+</sec:authorize>

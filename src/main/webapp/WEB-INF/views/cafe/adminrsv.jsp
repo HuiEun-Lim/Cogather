@@ -9,78 +9,104 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<link rel="stylesheet" href="../CSS/cafeinfo.css">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script type="text/javascript" src="../JS/adminrsv.js"></script>
+	<link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon" />
+	<link href="../CSS/app.css" rel="stylesheet">
+	<script type="text/javascript" src="../JS/adminrsv.js"></script>
 	<script src="https://kit.fontawesome.com/65311e5b1a.js" crossorigin="anonymous"></script>
 	<title>예약현황</title>
 </head>
 <body>
-	<!-- Navbar (sit on top) -->
-	<div class="w3-top w3-border-bottom w3-border-light-gray">
-	    <div class="w3-bar" id="myNavbar">
-		    <div class="choice">
-		      <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
-		        <i class="fa fa-bars"></i>
-		      </a>
-		     </div>
-	      <a href="#" class="w3-bar-item w3-button w3-hover-none" style="margin-top:0; margin-right:5px">
-	          <img src="/cogather/img/logo_cut.png" class="logo"  >
-	      </a>
-	      <div class="choice">
-		      <a href="main" class="w3-bar-item w3-button">HOME</a>
-		      <a href="info" class="w3-bar-item w3-button w3-hide-small">시설소개</a>
-		      <a href="reservation" class="w3-bar-item w3-button w3-hide-small">예약하기</a>
-		      <a href="map" class="w3-bar-item w3-button w3-hide-small">오시는 길</a>
-		      <a href="adminrsv" class="w3-bar-item w3-button w3-hide-small w3-border-bottom w3-border-amber">예약현황</a>
-		      <a href="../login" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
-		   </div>
-	    </div>	  
-	    <!-- Navbar on small screens -->
-	    <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium">
-	      <a href="info" class="w3-bar-item w3-button" onclick="toggleFunction()">시설소개</a>
-	      <a href="reservation" class="w3-bar-item w3-button" onclick="toggleFunction()">예약하기</a>
-	      <a href="map" class="w3-bar-item w3-button" onclick="toggleFunction()">오시는 길</a>
-	      <a href="../login" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
-	    </div>
-    </div>
+	<div class="wrapper">
+		<nav id="sidebar" class="sidebar">
+			<div class="sidebar-content js-simplebar">
+				<a class="sidebar-brand" href="adminpage">
+					<span class="align-middle">코게더 관리자</span>
+				</a>
+				<ul class="sidebar-nav">
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="adminrsv">
+							<i class="align-middle" data-feather="list"></i> <span class="align-middle">전체 예약 내역</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="main">
+							<i class="align-middle" data-feather="book"></i> <span class="align-middle">스터디카페 바로가기</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="${pageContext.request.contextPath}/group/studygroup">
+							<i class="align-middle" data-feather="users"></i> <span class="align-middle">스터디그룹 바로가기</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="${pageContext.request.contextPath}/group/studygroup">
+							<i class="align-middle" data-feather="settings"></i> <span class="align-middle">스터디그룹 관리자페이지</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="">
+							<i class="align-middle" data-feather="log-out"></i> <span class="align-middle">로그아웃</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
     
-    <div id="wrap">
-    	<div class="w3-padding-64" style="margin-top:90px">
-    	<h3>예약 현황 </h3>
-		<div class="w3-light-grey" style="height:2px; margin-bottom: 70px" >
-    		<div style="width:10%; height:2px; background-color:#FDBF26"></div>
-		</div>
-		
-    	<table class="w3-table w3-bordered w3-centered w3-large w3-card-4">
-    	<tr class="w3-amber">
-    	<th>예약번호</th>
-    	<th>회원ID</th>
-    	<th>좌석번호</th>
-    	<th>시작시간</th>
-    	<th>종료시간</th>
-    	<th>결제방법</th>
-    	<th>예약취소</th>
-    	</tr>
-    	
-    	<c:choose>
-    	<c:when test="${empty list || fn:length(list) == 0 }">
-    	</c:when>
-    	<c:otherwise>
-    		<c:forEach var="dto" items="${list }">
-    		<tr>
-    		<td>${dto.res_id }</td>
-    		<td>${dto.ID} </td>
-    		<td>${dto.seat_id} </td>
-    		<td>${dto.getStart_dateTime()} </td>
-    		<td>${dto.getEnd_dateTime()} </td>
-    		<td>${dto.payment} </td>
-    		<td><button class="w3-red w3-text-light-grey" onclick="chkDelete(${dto.res_id })">예약취소</button></td>
-    		</tr>
-    		</c:forEach>
-    	</c:otherwise>
-    	</c:choose>
-    	</table>
+    	<div class="main">
+			<nav class="navbar navbar-expand navbar-light navbar-bg">
+				<a class="sidebar-toggle d-flex">
+					<i class="hamburger align-self-center"></i>
+				</a>
+			</nav>
+			<main class="content">
+				<div class="container-fluid p-0">
+				<div class="row">
+						<div class="col-12 col-lg-12 col-xxl-12 d-flex">
+							<div class="card flex-fill">
+								<div class="card-header">
+									<h5 class="card-title mb-0">전체예약내역</h5>
+									        <input type="text" id="search" class="w3-right" placeholder="search..">
+									
+								</div>
+								<table class="table table-hover my-0" id="alltable">
+									<thead>
+										<tr>
+											<th>예약번호</th>
+									    	<th>회원ID</th>
+									    	<th>좌석번호</th>
+									    	<th>시작시간</th>
+									    	<th>종료시간</th>
+									    	<th>결제방법</th>
+									    	<th>예약취소</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:choose>
+								    	<c:when test="${empty list || fn:length(list) == 0 }">
+								    	</c:when>
+								    	<c:otherwise>
+								    		<c:forEach var="dto" items="${list }">
+								    		<tr>
+								    		<td>${dto.res_id }</td>
+								    		<td>${dto.ID} </td>
+								    		<td>${dto.seat_id} </td>
+								    		<td>${dto.getStart_dateTime()} </td>
+								    		<td>${dto.getEnd_dateTime()} </td>
+								    		<td>${dto.payment} </td>
+								    		<td><button class="w3-red w3-text-light-grey" onclick="chkDelete(${dto.res_id })">예약취소</button></td>
+								    		</tr>
+								    		</c:forEach>
+								    	</c:otherwise>
+								    	</c:choose>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
     	</div>
 	 </div>
     <!-- Footer -->
@@ -113,7 +139,7 @@
 </footer>
     
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7f36e46956483ffffb803d95f128023d"></script>
+<script src="../JS/app.js"></script>
 <script>
 window.onscroll = function() {myFunction()};
 function myFunction() {
@@ -134,6 +160,20 @@ function toggleFunction() {
         x.className = x.className.replace(" w3-show", "");
     }
 }
+</script>
+<script>
+    var $rows = $('#alltable tr');
+	$('#search').keyup(function() {
+	    
+	    var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+	        reg = RegExp(val, 'i'),
+	        text;
+	    
+	    $rows.show().filter(function() {
+	        text = $(this).text().replace(/\s+/g, ' ');
+	        return !reg.test(text);
+	    }).hide();
+	});
 </script>
 </body>
 </html>

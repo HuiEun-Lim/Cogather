@@ -10,17 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.project.cogather.domain.CafeDTO;
 import com.project.cogather.domain.CafeDAO;
 
-
 @Service
 public class CafeService {
 
 	CafeDAO dao;
-//	@Autowired
-//	public void setDao(CafeDAO dao) {
-//		this.dao = dao;
-//	}
 	
-	// MyBatis
 	private SqlSession sqlSession;
 	
 	@Autowired
@@ -35,37 +29,38 @@ public class CafeService {
 	}
 	
 	public List<CafeDTO> list(){
-		// MyBatis 가 만들어준 DAO
 		dao = sqlSession.getMapper(CafeDAO.class);
 		return dao.select();
 	}
 	
-	public List<CafeDTO> selectDate(String seat_id){
+	public List<CafeDTO> selectDate(String seat_id){ //각 좌석에대한 예약내역
 		dao = sqlSession.getMapper(CafeDAO.class);
 		return dao.selectDate(seat_id);
 	}
 	
+	public List<CafeDTO> adminview(){ //관리자 페이지에서 예약내역
+		dao = sqlSession.getMapper(CafeDAO.class);
+		return dao.adminview();
+	}
+	
 	public int write(CafeDTO dto) {
 		dao = sqlSession.getMapper(CafeDAO.class);
-		//return dao.insert(dto);
 		
 		int result = dao.insert(dto);
 		System.out.println("생성된 uid 는 " + dto.getRes_id());
 		
 		return result;
-		
-		//return dao.insert(dto.getSubject(), dto.getContent(), dto.getName());
-	}
-	
+			}
+
 	
 	public int deleteByUid(int uid) {
-		dao = sqlSession.getMapper(CafeDAO.class); // MyBatis 사용
+		dao = sqlSession.getMapper(CafeDAO.class);
 		return dao.deleteByUid(uid);				
 	}
+	
 	@Transactional
 	public int getprice(CafeDTO dto) {
 		dao = sqlSession.getMapper(CafeDAO.class);
 		return dao.getprice(dto.getSeat_id(),dto);
 	}
 }
-

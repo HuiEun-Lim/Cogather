@@ -96,15 +96,16 @@
 
   <!-- Full-width images with number and caption text -->
   <div class="mySlides fade">
-    <img src="../img/cafe/mainback.png" class="slimg">
+
+    <img src="../img/cafe/main_lobby.jpg" class="slimg">
   </div>
 
   <div class="mySlides fade">
-    <img src="../img/cafe/charger.png" class="slimg">
+    <img src="../img/cafe/main_seats.jpg" class="slimg">
   </div>
 
   <div class="mySlides fade">
-    <img src="../img/cafe/muted.png" class="slimg">
+    <img src="../img/cafe/main_room.jpg" class="slimg">
   </div>
 
   <!-- Next and previous buttons -->

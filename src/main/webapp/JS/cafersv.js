@@ -91,7 +91,7 @@ function chkSubmit(){
 	}
 	
 	if(ifcheck == false){
-		alert("이미 예약된 좌석입니다아아아아아." + ifcheck);
+		alert("이미 예약된 좌석입니다");
 		return false;
 	}
 }

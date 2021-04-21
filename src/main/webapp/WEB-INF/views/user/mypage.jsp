@@ -187,12 +187,13 @@ function chkDelete(id){
 		<tr><td colspan="4">가입한 그룹 없음</td></tr>
 		</c:when>
 		<c:otherwise>
-			<c:forEach var="group" items="${group}">
+			<c:forEach var="i" begin="0" end= "${fn:length(group) }" step="1" >
+			
 				<tr>
-					<td>${group.sg_id }</td>
-					<td>${sgroup.sg_name }</td>
-					<td>${group.g_auth }</td>
-					<td>${group.entime }</td>
+					<td>${group[i].sg_id }</td>
+					<td>${sgroup[i].sg_name }</td>
+					<td>${group[i].g_auth }</td>
+					<td>${group[i].entime }</td>
 				</tr>			
 			</c:forEach>
 		</c:otherwise>

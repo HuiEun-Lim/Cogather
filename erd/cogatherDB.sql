@@ -330,8 +330,7 @@ CREATE TABLE seats
 
 --INSERT INTO seats
 --(seat_id, SEAT_PRICE) 
---VALUES 
---('room08',4000);
+--VALUES ('room08',4000);
 --
 --
 --SELECT * FROM seats;
@@ -476,3 +475,5 @@ ALTER TABLE memberstudy
 SELECT m.*, a.auth
 FROM MEMBERS m, AUTHORITY a
 WHERE m.id = a.id;
+
+SELECT sg.sg_name FROM memberstudy ms, studygroup sg  WHERE ms.sg_id = sg.sg_id AND ms.ID = 'user8';
