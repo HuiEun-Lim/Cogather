@@ -37,19 +37,19 @@ $(document).ready(function(){
 			total = Math.floor(total/100) * 100;
 			}
 		}
-		/*
+		
 		monthsale[0] = 100000; monthsale[1] = 2000000;
 		monthsale[2] = 100200;
 		monthsale[4] = 150000; monthsale[5] = 1000000;
 		monthsale[6] = 600000; monthsale[7] = 2030000;
 		monthsale[8] = 120300; monthsale[9] = 3020100;
-		monthsale[10] = 90000; monthsale[11] = 980000;*/
+		monthsale[10] = 90000; monthsale[11] = 980000;
 		
-		$('#totalsales').html(total+"원");
+		$('#totalsales').html(total.toLocaleString()+"원");
 		$('#totalcnt').html(adminDates.cnt+"건");
-		$('#thismonthsales').html(monthsale[thismonth]+"원");
+		$('#thismonthsales').html(monthsale[thismonth].toLocaleString()+"원");
 		$('#thismonthcnt').html(thiscnt+"건");
-		
+
 	});
 	function to_date2(date_str){ //날짜 바꿔주는 함수
 	    var yyyyMMdd = String(date_str);

@@ -43,7 +43,12 @@
 					</li>
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="${pageContext.request.contextPath}/group/studygroup">
-							<i class="align-middle" data-feather="users"></i> <span class="align-middle">스터디그룹 관리자페이지 바로가기</span>
+							<i class="align-middle" data-feather="users"></i> <span class="align-middle">스터디그룹 바로가기</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="${pageContext.request.contextPath}/group/studygroup">
+							<i class="align-middle" data-feather="settings"></i> <span class="align-middle">스터디그룹 관리자페이지</span>
 						</a>
 					</li>
 					<li class="sidebar-item">
