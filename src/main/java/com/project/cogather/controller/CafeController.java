@@ -92,7 +92,7 @@ public class CafeController {
 			conn.setRequestProperty("Authorization", "KakaoAK 0d8ab7645584e6e849e393632311ab22");
 			conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 			conn.setDoOutput(true);
-			String param="cid=TC0ONETIME&partner_order_id=cogather&partner_user_id=user&item_name="+seat_id+"&quantity=1&total_amount="+price+"&tax_free_amount=0&approval_url=http://localhost:8090/cogather/studycafe/map&cancel_url=http://localhost:8080/cogather/studycafe/info&fail_url=http://localhost:80890/cogather/studycafe/reservation";
+			String param="cid=TC0ONETIME&partner_order_id=cogather&partner_user_id="+ID+"&item_name="+seat_id+"&quantity=1&total_amount="+price+"&tax_free_amount=0&approval_url=http://localhost:8090/cogather/studycafe/map&cancel_url=http://localhost:8090/cogather/studycafe/info&fail_url=http://localhost:8090/cogather/studycafe/reservation";
 			OutputStream out = conn.getOutputStream();
 			DataOutputStream dout = new DataOutputStream(out);
 			dout.writeBytes(param);

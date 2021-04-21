@@ -4,7 +4,7 @@ $(document).ready(function(){
 			url:'kakaopay',
 			type: "GET",
 			success:function(data){
-				alertCode(data);
+				payrsvkkao(data);
 			}
 		
 		});
@@ -56,7 +56,7 @@ $(document).ready(function(){
 });
 					
 
-function alertCode(jsonObj){
+function payrsvkkao(jsonObj){
 	var row = JSON.parse(jsonObj);
 	var turl = row.next_redirect_pc_url;
 	window.open(turl);
@@ -70,11 +70,21 @@ function chkSubmit(){
 	var seatid = frm['seat_id'].value.trim();
 	var startd = new Date(frm['startdate'].value.trim());
 	var endd = new Date(frm['enddate'].value.trim());
-
+	var diffTime = (endd.getTime() - startd.getTime())/(1000 * 60*60);
 	if(seatid == ""){
 		alert("좌석을 반드시 선택해야합니다.");
 		return false;
 		
+	}
+	
+	if(startd.getTime()-endd.getTime()>=0){
+		alert("시작시간과 예약시간을 다시 확인해주세요");
+		return false;
+	}
+	
+	if(diffTime < 1 ){
+		alert("최소 1시간 이상 예약하셔야합니다");
+		return false;
 	}
 	
 	for(var i=0; i<seatdates['chkdates'].length;i++){
