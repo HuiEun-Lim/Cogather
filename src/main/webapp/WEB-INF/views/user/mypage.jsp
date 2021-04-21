@@ -17,6 +17,18 @@
 </head>
 
 <body>
+<script>
+
+function chkDelete(id){
+	// 삭제 여부, 다시 확인 하고 진행하기
+	var r = confirm("정말 탈퇴하시겠습니까?");
+	
+	if(r){
+		location.href = 'deleteOk?id=' + id;
+	}
+} // chkDelete
+
+</script>
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
   <div class="w3-bar w3-white" id="myNavbar">
@@ -84,44 +96,36 @@
 			<div class="col-md-4 col-xl-3">
 				<div class="card mb-3">
 					<div class="card-header">
-						<h4 class="card-title mb-0">Profile</h5>
+						<h4 class="card-title mb-0">Profile</h4>
 					</div>
 					<div class="card-body text-center">
-						<img src="<%=request.getContextPath() %>/${dto.pimg_url}" class="img-fluid rounded-circle mb-2" style="width:128px; height:128px" />
+						<img src="<%=request.getContextPath() %>/${dto.pimg_url}" class="w3-center img-fluid rounded-circle mb-2" style="object-fit: cover; width:128px; height:128px" />
 						<h5 class="card-title mb-0">${dto.id}</h5>
 						<div class="text-muted mb-2">${dto.name}</div>
 						<br>
 						<div>
-						<button>정보 수정하기</button>
-						<button>탈퇴하기</button>
+						<button onclick="location.href='userEdit?id=${dto.id}'">정보 수정하기</button>
+						<button onclick="chkDelete('${dto.id}')">탈퇴하기</button>
 						</div>
 					</div>
 					<br>
 					<hr class="my-0" />
 					<div class="card-body">
 						<h4 class="h6 card-title">Info</h4>	
-						<table class="info">
-						<tr>
-							<td><i class="fas fa-mobile-alt"></i></td>
-							<td> 전화번호</td>
-							<td><c:choose>
+						<h5><i class="fas fa-mobile-alt"></i>&nbsp; 전화번호</h5>
+							<c:choose>
 								<c:when test="${dto.phone == null}">정보 없음</c:when>
 								<c:when test="${dto.phone != null}">${dto.phone }</c:when>
 								</c:choose>
-							</td>
-						</tr>
-						<tr><td><i class="fas fa-envelope-open-text"></i></td>
-							<td> e-mail</td>
-							<td><c:choose>
+							<h5><i class="fas fa-envelope-open-text"></i>&nbsp; e-mail</h5>
+							<c:choose>
 							<c:when test="${dto.email eq null}">정보 없음</c:when>
 							<c:when test="${dto.email != null}">${dto.email }</c:when>
-							</c:choose>
-							</td></tr>
-						</table>
+							</c:choose><br>
 					</div>
 					<hr class="my-0" />
 					<div class="card-body">
-						<h4 class="h6 card-title">관심태그</h4>
+						<h4 class="h6 card-title">관심태그</h4><br>
 						<c:choose>
 							<c:when test="${dto.tag eq null}">정보 없음</c:when>
 							<c:when test="${dto.tag != null}">${dto.tag }</c:when>
@@ -141,11 +145,12 @@
 			<th>예약좌석</th>
 			<th>예약시작날짜</th>
 			<th>예약종료날짜</th>
+			<th>결제방법</th>
 		</tr>
 
 		<c:choose>
 		<c:when test="${empty list || fn:length(list) == 0 }">
-		<tr><td>예약 정보 없음</tr></td>
+		<tr><td colspan="5">예약 정보 없음</td></tr>
 		</c:when>
 		<c:otherwise>
 			<c:forEach var="list" items="${list }">
@@ -154,21 +159,56 @@
 					<td>${list.seat_id }</td>
 					<td>${list.getStart_dateTime() }</td>
 					<td>${list.getEnd_dateTime() }</td>
+					<td>${list.payment }</td>
 				</tr>			
 			</c:forEach>
 		</c:otherwise>
 		</c:choose>
 	</table>
+	<br><br>
+					</div>
+				</div>
+
+				<div class="card">
+					<div class="card-header">
+						<h5 class="card-title mb-0">가입한 그룹</h5>
+					</div>
+					<div class="card-body h-100">
+		<table class="w3-table w3-bordered w3-centered w3-large w3-card-4">
+		<tr class="w3-amber">
+			<th>그룹ID</th>
+			<th>그룹명</th>
+			<th>권한</th>
+			<th>참여시간</th>
+		</tr>
+
+		<c:choose>
+		<c:when test="${empty group || fn:length(group) == 0 }">
+		<tr><td colspan="4">가입한 그룹 없음</td></tr>
+		</c:when>
+		<c:otherwise>
+			<c:forEach var="group" items="${group}">
+				<tr>
+					<td>${group.sg_id }</td>
+					<td>${sgroup.sg_name }</td>
+					<td>${group.g_auth }</td>
+					<td>${group.entime }</td>
+				</tr>			
+			</c:forEach>
+		</c:otherwise>
+		</c:choose>
+	</table>
+	<br><br>
 					</div>
 				</div>
 			</div>
+			
+			
 		</div>
 	</div>
 	</div>
 	</main>
 </div>
-
-
 
 <script>
 

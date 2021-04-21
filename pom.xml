@@ -371,6 +371,16 @@
 					<mainClass>org.test.int1.Main</mainClass>
 				</configuration>
 			</plugin>
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-surefire-plugin</artifactId>
+			    <configuration>
+			     <junitArtifactName>junit:junit</junitArtifactName>
+			     <excludes>
+			     	<exclude>**/*_Roo_*</exclude>
+			     </excludes>
+			    </configuration>
+		    </plugin>
 		</plugins>
 	</build>
 </project>

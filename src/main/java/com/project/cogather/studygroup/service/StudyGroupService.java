@@ -109,6 +109,7 @@ public class StudyGroupService {
 		int size = list.size();
 
 		int sg_id = dto.getSg_id();
+		
 		int sgf_id = fdto.getSgf_id();
 		System.out.println("고유번호:  " + sg_id);
 		System.out.println("파일고유번호:  " + sgf_id);

@@ -151,8 +151,8 @@ CREATE TABLE members
 	name varchar2(100) NOT NULL,/*이름*/
 	pw varchar2(100) NOT NULL,/*비밀번호*/
 	phone varchar2(15),/*전화번호*/
-	email varchar2(100),/*이메일*/
-	pimg_url varchar2(200) DEFAULT 'img/member/default.png',/*프로필 이미지*/
+	email varchar2(40),/*이메일*/
+	pimg_url varchar2(200) DEFAULT 'img/member/default.jpg',/*프로필 이미지*/
 	tag varchar2(50),/*관심주제*/
 	enabled char(1) DEFAULT 1,
 	PRIMARY KEY (ID)
@@ -473,6 +473,6 @@ ALTER TABLE memberstudy
 --DELETE FROM AUTHORITY;
 --DELETE FROM MEMBERS;
 --
---SELECT m.*, a.auth
---FROM MEMBERS m, AUTHORITY a
---WHERE m.id = a.id;
+SELECT m.*, a.auth
+FROM MEMBERS m, AUTHORITY a
+WHERE m.id = a.id;

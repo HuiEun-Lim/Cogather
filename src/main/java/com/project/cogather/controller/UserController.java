@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +26,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@Resource(name="uploadPath")
-	private String uploadPath;
 	
 	@GetMapping("/accessError")
 	public String accessDenied(Authentication auth, Model model) {
@@ -54,7 +53,7 @@ public class UserController {
 		 dto.setPimg_url("img/member/pimgUpload" + File.separator + fileName);
 		} else {
 			System.out.println("test2");
-		 dto.setPimg_url("img/member/default.png");
+		 dto.setPimg_url("img/member/default.jpg");
 		}
 
 		model.addAttribute("result", userService.signup(dto));
@@ -92,15 +91,36 @@ public class UserController {
 		System.out.println("POST: custom logout");
 	}
 	
-	@GetMapping("/cafemypage")
+	@GetMapping("/mypage")
 	public String view(String id, Model model) {
 		model.addAttribute("dto", userService.selectByID(id));
 		model.addAttribute("list", userService.myrsvID(id));
+		model.addAttribute("group", userService.mygroupID(id));
+		model.addAttribute("sgroup", userService.mygroupName(id));
 		UserDTO temp = userService.selectByID(id);
 		System.out.println("test pimg url: " + temp.getPimg_url());
-		return "user/cafemypage";
+		return "user/mypage";
 	}
 	
+	@RequestMapping("/userEdit")
+	public String update(String id, Model model) {
+		model.addAttribute("dto", userService.selectByID(id));
+		return "user/userUpdate";
+	}
+	
+	@PostMapping("/updateOk")
+	public String updateOk(UserDTO dto, Model model) {
+		model.addAttribute("result", userService.update(dto));
+		return "user/updateOk";
+	}
+	
+	@GetMapping("/deleteOk")
+	public String deleteOk(String id, Model model) {
+		model.addAttribute("result", userService.deleteAuth(id));
+		model.addAttribute("result", userService.deleteById(id));
+		SecurityContextHolder.clearContext();
+		return "user/deleteOk";
+	}
 	
 	
 	
