@@ -64,6 +64,7 @@ public class UserService {
 	public int update(UserDTO dto) {
 		dao = sqlSession.getMapper(UserDAO.class); // MyBatis 사용
 		dto.setPw(pwdEncoder.encode(dto.getPw()));
+		System.out.println("id: " +dto.getId());
 		return dao.update(dto.getId(), dto);
 	}
 	

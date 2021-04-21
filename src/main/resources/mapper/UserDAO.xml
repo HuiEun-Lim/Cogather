@@ -44,7 +44,7 @@
 		parameterType="com.project.cogather.domain.CafeDTO">
 		UPDATE MEMBERS
 		SET name = #{a.name}, pw = #{a.pw}, phone = #{a.phone}, email = #{a.email}, tag = #{a.tag}
-		WHERE id = #{param1}
+		WHERE id = #{id}
 	</update>
 	
 	<delete id="deleteAuth" flushCache="true">

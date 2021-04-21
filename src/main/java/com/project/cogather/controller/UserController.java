@@ -111,6 +111,7 @@ public class UserController {
 	@PostMapping("/updateOk")
 	public String updateOk(UserDTO dto, Model model) {
 		model.addAttribute("result", userService.update(dto));
+		model.addAttribute("dto", dto.getId());
 		return "user/updateOk";
 	}
 	

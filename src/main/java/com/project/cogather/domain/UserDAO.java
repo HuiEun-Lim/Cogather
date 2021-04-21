@@ -24,7 +24,7 @@ public interface UserDAO {
 		UserDTO selectByID(String id);
 		
 		int update(UserDTO dto);
-		int update(String id, @Param("a") UserDTO dto);
+		int update(@Param("id") String id, @Param("a") UserDTO dto);
 		
 		int deleteById(String id);
 		int deleteAuth(String id);

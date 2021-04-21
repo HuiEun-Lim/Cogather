@@ -12,7 +12,7 @@
 	<c:otherwise>
 		<script>
 			alert("회원정보수정 성공~\n새로운 마음가짐으로 화이팅!!");
-			location.href = "${pageContext.request.contextPath}/mypage";
+			location.href = "${pageContext.request.contextPath}/mypage?id=${dto}";
 		</script>
 	</c:otherwise>
 </c:choose>
