@@ -129,7 +129,6 @@ public class CafeController {
 		end_date = dto.getEnd_date();
 		Duration duration = Duration.between(start_date, end_date);
 		hours = (duration.toMinutes()/60);
-		System.out.println(hours+"시간 걸림");
 		price = (cafeService.getprice(dto)) * hours;
 		return "cafe/rsvOk";
 	}
