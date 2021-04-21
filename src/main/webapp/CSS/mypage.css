@@ -49,6 +49,20 @@ img.logo{
 	border:none;
 }
 
+.move {
+	color:#595959;
+	text-align:center!important
+}
+
+.move a:hover {
+	color:#FDBF26;
+}
+
+.yellow {
+	color:#FDBF26;
+}
+
+
 .col-md-4{flex:0 0 auto;width:33.33333%}
 .col-md-8{flex:0 0 auto;width:66.66667%}
 .col-xl-3{flex:0 0 auto;width:25%}
@@ -62,10 +76,13 @@ img.logo{
 
 .row{--bs-gutter-x:24px;--bs-gutter-y:0;display:flex;flex:1 0 100%;flex-wrap:wrap;margin-top:calc(var(--bs-gutter-y)*-1);margin-right:calc(var(--bs-gutter-x)/-2);margin-left:calc(var(--bs-gutter-x)/-2)}
 
-.card{position:relative;display:flex;flex-direction:column;min-width:0;word-wrap:break-word;background-color:#fff;background-clip:initial;border:solid rgba(253, 191, 38, .2);border-radius:.6rem;margin:3px;margin-bottom:10px;}
+.card{position:relative;display:flex;flex-direction:column;min-width:0;word-wrap:break-word;background-color:#fff;background-clip:initial;border:solid rgba(253, 191, 38, 1);border-radius:.6rem;margin:3px;margin-bottom:10px;}
 .card>hr{margin-right:0;margin-left:0}
 .card-body{flex:1 1 auto;padding:1.25rem}
 .card-title{margin-bottom:.5rem}
+.text-center{text-align:center!important}
+
+.btn-primary{color:black;background-color:#FDBF26;border-color:#FDBF26}
 
 .card-header{padding:1rem 1.25rem;margin-bottom:0;background-color:#fff;border-bottom:0 solid;}
 .card-header:first-child{border-radius:.25rem .25rem 0 0}

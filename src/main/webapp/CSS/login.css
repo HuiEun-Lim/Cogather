@@ -1,5 +1,15 @@
 @charset "UTF-8";
 
+#myNavbar{
+	font-size:20px;
+	position:fixed;
+}
+
+img.logo{
+	width: 80px;
+	margin-left:10px;	
+}
+
 #wrap {
     width: 600px;
     margin: 0;
