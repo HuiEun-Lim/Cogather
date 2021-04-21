@@ -98,7 +98,7 @@
 		<img id="picket" src="../img/arrow-right.png">
 	</div>
 	
-	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://kit.fontawesome.com/65311e5b1a.js" crossorigin="anonymous"></script>
 	<script>
 	// 피켓 버튼 애니메이션
