@@ -38,7 +38,7 @@
 		<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
 		<button class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그아웃</button>
 		<sec:authentication property="principal.username" var="user_id" />
-    	<a href="../cafemypage?id=${user_id }" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">마이페이지</a>
+    	<a href="../mypage?id=${user_id }" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">마이페이지</a>
     	<sec:authorize access="hasRole('ROLE_ADMIN')">
     	<a href="adminrsv" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">관리자페이지</a>
 		</sec:authorize>
