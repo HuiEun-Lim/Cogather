@@ -22,17 +22,17 @@
 	<span class="w3-padding-large w3-xxlarge w3-text-white w3-wide w3-animate-opacity" >함께 꿈을 모으는 곳</span>
 	</div>
 </div>
-<div class="picket-wrapper">
-		<div class="where"></div>
-		<img id="picket" src="../img/arrow-right.png">
-	</div>
+
 <div id="wrap">
 	<div class="w3-row-padding w3-padding-top-64">
 	     <div class="w3-col s4 w3-center"><p class="info"><img src="../img/cafe/24.png" class="infoimg"><br>24시간 영업<br>언제나 이용 가능</p></div>   
 	     <div class="w3-col s4 w3-center"><p class="info"><img src="../img/cafe/muted.png" class="infoimg"><br>조용한 공간<br>집중하기 좋은 장소</p></div>
 	     <div class="w3-col s4 w3-center"><p class="info"><img src="../img/cafe/charger.png" class="infoimg"><br>충전기, 독서대 등<br>편의물품 무료제공</p></div>
 	</div>
-	
+<div class="picket-wrapper">
+		<div class="where"></div>
+		<img id="picket" src="../img/arrow-right.png">
+	</div>	
 
 <div class="w3-paddig-64" style="margin-top:90px" >
 <h3> 매장 둘러보기 </h3>

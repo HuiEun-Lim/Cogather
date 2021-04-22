@@ -40,7 +40,10 @@ img.logo{
 }
 
 .picket-wrapper{
-	height:150px;
+	position: fixed; /* 고정화 */
+    top: 300px;
+    left: 10px;
+    height: 150px;
 }
 #picket{
 	position: absolute;
@@ -51,7 +54,7 @@ img.logo{
 }
 .where{
 	height: 40px;
-	font-size: 30px;
+	font-size: 20px;
 	font-family:'a시네마L'; 
 	overflow: hidden; /* Ensures the content is not revealed until the animation */
 	
