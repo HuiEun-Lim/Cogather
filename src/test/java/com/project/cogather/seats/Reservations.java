@@ -1,4 +1,4 @@
-package com.project.cogather.security;
+package com.project.cogather.seats;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
