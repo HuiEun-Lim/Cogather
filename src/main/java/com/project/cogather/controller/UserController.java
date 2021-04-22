@@ -119,6 +119,7 @@ public class UserController {
 	public String deleteOk(String id, Model model) {
 		model.addAttribute("result", userService.deleteAuth(id));
 		model.addAttribute("result", userService.deleteById(id));
+		model.addAttribute("result", userService.deleteMemberStudy(id));
 		SecurityContextHolder.clearContext();
 		return "user/deleteOk";
 	}

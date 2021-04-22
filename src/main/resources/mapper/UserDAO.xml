@@ -54,6 +54,10 @@
 	<delete id="deleteById" flushCache="true">
 		DELETE FROM MEMBERS WHERE id = #{id}
 	</delete>
+	
+	<delete id="deleteMemberStudy" flushCache="true">
+		DELETE FROM MEMBERSTUDY WHERE id = #{id}
+	</delete>
 
 
 

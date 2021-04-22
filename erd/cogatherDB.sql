@@ -448,7 +448,7 @@ ALTER TABLE content
 
 ALTER TABLE memberstudy
 	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID) ON DELETE SET NULL
+	REFERENCES members (ID) ON DELETE CASCADE;
 ;
 
 
@@ -472,7 +472,7 @@ ALTER TABLE content
 
 ALTER TABLE memberstudy
 	ADD FOREIGN KEY (sg_id)
-	REFERENCES studygroup (sg_id) ON DELETE SET NULL
+	REFERENCES studygroup (sg_id) ON DELETE Cascade;
 ;
 
 --DELETE FROM AUTHORITY;

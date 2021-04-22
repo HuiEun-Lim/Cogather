@@ -28,5 +28,6 @@ public interface UserDAO {
 		
 		int deleteById(String id);
 		int deleteAuth(String id);
+		int deleteMemberStudy(String id);
 		
 }
