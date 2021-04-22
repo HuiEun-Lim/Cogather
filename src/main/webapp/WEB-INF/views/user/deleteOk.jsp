@@ -6,7 +6,7 @@
 	<c:when test="${result == 0 }">
 		<script>
 			alert("이건 아니야!!\n가지마세요!!ㅠㅠ");
-			hisotry.back();
+			locatioin.href= "${pageContext.request.contextPath}";
 		</script>
 	</c:when>
 	<c:otherwise>

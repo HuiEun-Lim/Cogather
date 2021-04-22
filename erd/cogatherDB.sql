@@ -351,7 +351,11 @@ CREATE TABLE studygroup
 	file_name varchar2(300),/*썸네일*/
 	PRIMARY KEY (sg_id)
 );
-
+--DELETE FROM STUDYGROUP 
+--WHERE sg_id IN 
+--(SELECT s.sg_id 
+--FROM STUDYGROUP s, MEMBERSTUDY m 
+--WHERE s.sg_id = m.sg_id AND m.ID = 'user6' AND m.G_AUTH = 'captain');
 
 SELECT *  FROM studygroup;
 DELETE FROM studygroup WHERE sg_id=394;
@@ -432,7 +436,7 @@ ALTER TABLE comments
 
 ALTER TABLE comments
 	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID) ON DELETE SET NULL
+	REFERENCES members (ID) ON DELETE CASCADE
 ;
 
 ALTER TABLE authority
@@ -442,7 +446,7 @@ ALTER TABLE authority
 
 ALTER TABLE content
 	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID) ON DELETE SET NULL
+	REFERENCES members (ID) ON DELETE CASCADE
 ;
 
 
@@ -454,7 +458,7 @@ ALTER TABLE memberstudy
 
 ALTER TABLE reservation
 	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID) ON DELETE SET NULL
+	REFERENCES members (ID) ON DELETE CASCADE;
 ;
 
 
@@ -466,7 +470,7 @@ ALTER TABLE reservation
 
 ALTER TABLE content
 	ADD FOREIGN KEY (sg_id)
-	REFERENCES studygroup (sg_id) ON DELETE SET NULL
+	REFERENCES studygroup (sg_id) ON DELETE CASCADE
 ;
 
 

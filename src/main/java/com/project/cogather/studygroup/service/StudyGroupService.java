@@ -276,4 +276,9 @@ public class StudyGroupService {
 		return dao.getStudyBySgID(sg_id);
 	}
 	
+	public int deleteSGByID(String id) {
+		dao = sqlSession.getMapper(StudyGroupDAO.class);
+		return dao.deleteSGByID(id);
+	}
+	
 }

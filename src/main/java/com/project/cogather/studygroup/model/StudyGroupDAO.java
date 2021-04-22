@@ -47,4 +47,6 @@ public abstract List<StudyGroupDTO> select();
 	
 	// 방 아이디로 해당 방의 정보 가져오기
 	public List<StudyGroupDTO> getStudyBySgID(@Param("sg_id") Integer sg_id);
+	
+	public int deleteSGByID(@Param("id") String id);
 }	
