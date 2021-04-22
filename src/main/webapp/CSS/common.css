@@ -23,6 +23,24 @@
 	font-size:20px !important;
 	font-family:NanumBarunpenB !important;
 }
+.picket-wrapper{
+	height:150px;
+}
+#picket{
+	position: absolute;
+	width: 140px;
+	height: 100px;
+	margin-top: 15px;
+	left: -60px;
+}
+.where{
+	height: 40px;
+	font-size: 30px;
+	font-family:'Gugi-Regular'; 
+	overflow: hidden; /* Ensures the content is not revealed until the animation */
+	
+}
+
 .login{
 	color:white;
 	

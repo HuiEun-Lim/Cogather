@@ -3,10 +3,16 @@ package com.project.cogather.content.Controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,9 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.project.cogather.comments.model.CommentsCounts;
+import com.project.cogather.comments.model.CommentsValitator;
 import com.project.cogather.comments.service.CommentsService;
 import com.project.cogather.common.AjaxResult;
 import com.project.cogather.common.Common;
+import com.project.cogather.content.model.BoardValidator;
 import com.project.cogather.content.model.CKeditorFileError;
 import com.project.cogather.content.model.CKeditorFileResult;
 import com.project.cogather.content.model.ContentDTO;
@@ -39,9 +47,9 @@ public class RestContentController {
 	// 특정 방의 게시글의 몇 번째 페이지, 페이지당 몇개 씩 보일 것인지
 	@GetMapping("/{sg_id}/page/{page}/{pageRows}")
 	public StudyBoardContentResult list(
-				@PathVariable int sg_id,	
-				@PathVariable int page,
-				@PathVariable int pageRows
+				@NotNull @Positive @PathVariable Integer sg_id,	
+				@NotNull @Positive @PathVariable Integer page,
+				@NotNull @Positive @PathVariable Integer pageRows
 			) {
 		StudyBoardContentResult result = new StudyBoardContentResult();
 		List<ContentDTO> list = null;
@@ -75,8 +83,7 @@ public class RestContentController {
 			message.append("트랜잭션 에러: " + e.getMessage());
 			
 		}
-		System.out.println("test: " + status);
-		System.out.println("test2: " + message.toString());
+		
 		result.setStatus(status);
 		result.setMessage(message.toString());
 		
@@ -91,7 +98,9 @@ public class RestContentController {
 
 	// 특정 방의 특정 게시글 보기
 	@GetMapping("/{sg_id}/detail/{ct_uid}")
-	public StudyBoardContentResult detail(@PathVariable int sg_id, @PathVariable int ct_uid) {
+	public StudyBoardContentResult detail(
+			@NotNull @Positive @PathVariable Integer sg_id, 
+			@NotNull @Positive @PathVariable Integer ct_uid) {
 		StudyBoardContentResult result = new StudyBoardContentResult();
 		List<ContentDTO> list = null;
 		List<MembersDTO> member = null;
@@ -128,8 +137,13 @@ public class RestContentController {
 	
 	// 임시 게시글 생성 및 임시 게시글 id 반환
 	@PostMapping("")
-	public StudyBoardContentResult write(ContentDTO dto) {
+	public StudyBoardContentResult write(
+			@NotNull @Pattern(regexp = "^[0-9a-zA-Z가-힣]*$") String id, 
+			@NotNull @Positive Integer sg_id) {
 		StudyBoardContentResult result = new StudyBoardContentResult();
+		ContentDTO dto = new ContentDTO();
+		dto.setSg_id(sg_id);
+		dto.setId(id);
 		int cnt = 0;
 		StringBuffer message = new StringBuffer();
 		String status = "FAIL";
@@ -155,7 +169,7 @@ public class RestContentController {
 	}
 
 	@PutMapping("")
-	public AjaxResult update(ContentDTO dto) {
+	public AjaxResult update(@Valid ContentDTO dto) {
 		AjaxResult result = new AjaxResult();
 		int cnt = 0;
 		StringBuffer message = new StringBuffer();
@@ -181,7 +195,11 @@ public class RestContentController {
 	}
 
 	@PostMapping("delete")
-	public AjaxResult deleteByUid(int sg_id, int ct_uid, String id, HttpServletRequest request ) {
+	public AjaxResult deleteByUid(
+			@NotNull @Positive Integer sg_id, 
+			@NotNull @Positive Integer ct_uid, 
+			@NotNull @Pattern(regexp = "^[0-9a-zA-Z가-힣]*$") String id, 
+			HttpServletRequest request ) {
 		AjaxResult result = new AjaxResult();
 		int cnt = 0;
 		StringBuffer message = new StringBuffer();
@@ -207,7 +225,9 @@ public class RestContentController {
 	}
 	
 	@PostMapping("/file/{ct_uid}")
-	public CKeditorFileResult contentFileUpload(@PathVariable int ct_uid, MultipartHttpServletRequest mpRequest) {
+	public CKeditorFileResult contentFileUpload(
+			@NotNull @Positive @PathVariable Integer ct_uid, 
+			MultipartHttpServletRequest mpRequest) {
 		CKeditorFileResult result = new CKeditorFileResult();
 		CKeditorFileError error = new CKeditorFileError();
 		
@@ -238,4 +258,10 @@ public class RestContentController {
 		result.setUploaded(uploaded);
 		return result;
 	}
+	
+	// 이 컨트롤러 클래스의 handler 에서 폼 데이터를 바인딩 할 때 검증하는 객체 지정
+			@InitBinder
+			public void initBinder(WebDataBinder binder) {
+				binder.setValidator(new BoardValidator());
+			}
 }

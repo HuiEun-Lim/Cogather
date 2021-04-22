@@ -49,7 +49,7 @@ function showChat(msg){ // 메시지 타입에 따라 바꿔서 보여줌
 	var time_str = t.getHours()+":" +t.getMinutes();
 	if(msg.type == 'JOIN'){
 		$('#msgArea').append(
-			"<li class='chat chat-center''> "+ msg.sender+" 입장 </li>"+
+			"<li class='chat chat-center''> "+ msg.sender+" 님이 들어왔습니다. </li>"+
 			"<div class='clear-both'></div>"
 		);
 		
@@ -94,7 +94,7 @@ function showChat(msg){ // 메시지 타입에 따라 바꿔서 보여줌
 		
 	}else if(msg.type = 'LEAVE'){
 		$('#msgArea').append(
-			"<li class='chat chat-center'> "+ msg.sender+" 퇴장 </li>"+
+			"<li class='chat chat-center'> "+ msg.sender+" 님이 나갔습니다. </li>"+
 			"<div class='clear-both'></div>"
 		);
 		if(members[msg.sender] != null){
@@ -102,20 +102,28 @@ function showChat(msg){ // 메시지 타입에 따라 바꿔서 보여줌
 			clearInterval(members[msg.sender]['acc']); // 나가는 사람의 1분 간격 타이머 저장 종료
 			delete members[msg.sender]; // 유저의 타이머 정보를 관리하는 부분에서 해당 유저 삭제	
 		}
-		getMembers();
-//		setTimeout(getMembers,1000);
+//		getMembers();
+		setTimeout(getMembers,1000);
 		// 퇴장시 subscriber들이 해당 메시지를 받으면 멤버 리스트를 업데이트함
 		// 바로 업데이트 하지 않는 이유는 해당멤버의 입출 상태가 메시지 전달 보다 먼저 발생되게 되어 있음
 	}
+	$('.chatting-section').scrollTop($('.chatting-section').prop('scrollHeight'));
 }
 
 function sendChat(){ // 메시지 보내기
-	stompClient.send("/pub/chat/"+sg_id,{},JSON.stringify({
+	var msg =$('textarea#message-input').val().trim();
+	msg = msg.replace(/(?:\r\n|\r|\n)/g, '<br />');
+	if( msg == ''){
+		console.log('빈칸임');
+	}else{
+		stompClient.send("/pub/chat/"+sg_id,{},JSON.stringify({
 		'type':'TALK',
 		'roomId': sg_id,
 		'sender': id,
-		'content': $('form#sendMessage input').val()
-	}));
+		'content': msg
+		}));	
+	}
+	
 }
 
 function disconnect(){ // stompClient 종료하기전 메시지 보내고 죽음
@@ -133,7 +141,7 @@ function disconnect(){ // stompClient 종료하기전 메시지 보내고 죽음
 }
 function formSend(){ 
 	sendChat();
-	$('form#sendMessage input').val(''); // 메시지보내고 나서 inputbox 비우기
+	$('form#sendMessage textarea').val(''); // 메시지보내고 나서 inputbox 비우기
 	
 }
 
@@ -149,6 +157,8 @@ function getMembers() {
 		},
 		success: function(data, status) {
 			if (status == "success") {
+				var background = data['study'][0]['file_name'];
+				$("body").css({'background-image':"url(../img/group/upload/"+background+")"});
 				updateMembers(data);
 				
 				for(var i = 0; i<data['mdata'].length;i++){
@@ -182,12 +192,11 @@ function updateMembers(jsonObj) {
 				result += 
 					"<h2 class='left-title'>스터디원</h2>"+
 					"<h3 class='left-title-sub'>나<h3>"+
-					"<div id='"+msData[i].id+"-user'>" +
+					"<div class='me' id='"+msData[i].id+"-user'>" +
 					"<img class='pimg' src='"+contextPath+"/" + mData[i].pimg_url + "'>" +
 					"<div class='userName'> " + msData[i].id + " </div>" +
-					"<div class='timer-title' id='timer-" + msData[i].id + "'> 타이머:" + "<h3>" + members[msData[i].id]['time'] + "</h3>" + "</div>" +
-					"</div>"+
-					"<br><br>"
+					"<div class='timer-title' id='timer-" + msData[i].id + "'> 타이머" + "<h3>" + members[msData[i].id]['time'] + "</h3>" + "</div>" +
+					"</div>"
 					;
 					
 				var writer = "";
@@ -208,10 +217,10 @@ function updateMembers(jsonObj) {
 						setTimer(msData[i].entime, msData[i].id);
 					}
 					result = result +
-						"<div>" +
+						"<div class='other-member'>" +
 						"<img class='pimg' src='/cogather/" + mData[i].pimg_url + "'>" +
 						"<div> " + msData[i].id + " </div>" +
-						"<div class='timer-title' id='timer-" + msData[i].id + "'> 타이머:" + "<h3>" + members[msData[i].id]['time'] + "</h3>" + "</div>" +
+						"<div class='timer-title' id='timer-" + msData[i].id + "'> 타이머" + "<h3>" + members[msData[i].id]['time'] + "</h3>" + "</div>" +
 						"</div>"
 						;
 				}
@@ -219,7 +228,7 @@ function updateMembers(jsonObj) {
 		}
 		
 		$("#enter-cnt").html(msData.length + " 명");
-		$("div.left .user-list").html(result);
+		$(".user-list").html(result);
 		
 	} 
 	else {
@@ -263,7 +272,7 @@ function updateTime() {
 // 방나가기
 function outroom() {
 	if(chk == 'normal'){// 정상 종료
-		history.back();	
+		location.href='../group/studyview?sg_id='+sg_id;	
 	}else{ // chk abnormal 비정상 종료 - 새로고침, 뒤로가기, 브라우저 종료
 		const XHR =new XMLHttpRequest();
 		var form = new FormData();
@@ -288,7 +297,6 @@ function outroom() {
 function storeAcctime() {
 	var temp = members[id]['time'].split(':');
 	var time = new Date(Date.UTC(0, 0, 1, temp[0], temp[1], temp[2]));
-	console.log(time);
 	$.ajax({
 		url: "./MemberStudyRest/ms/acctime",
 		type: "PUT",

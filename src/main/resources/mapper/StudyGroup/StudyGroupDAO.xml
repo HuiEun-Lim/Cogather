@@ -111,9 +111,6 @@
 		DELETE FROM studygroup_file WHERE sgf_id = #{sgf_id, jdbcType=INTEGER}
 	</delete>
 	
-
-	
-
 	<select id="getStudyByID" resultType="com.project.cogather.studygroup.model.StudyGroupDTO">
 		SELECT * FROM STUDYGROUP
 		WHERE sg_id IN 
@@ -122,4 +119,11 @@
 			WHERE id = #{id} and (g_auth = 'captain' or g_auth = 'crew') )
 		ORDER BY sg_id DESC
 	</select>
+	
+	<select id="getStudyBySgID" resultType="com.project.cogather.studygroup.model.StudyGroupDTO">
+		SELECT *
+		FROM STUDYGROUP
+		WHERE sg_id = #{sg_id}
+	</select>
+
 </mapper>

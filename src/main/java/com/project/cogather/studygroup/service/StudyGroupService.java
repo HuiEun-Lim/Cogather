@@ -109,6 +109,7 @@ public class StudyGroupService {
 		int size = list.size();
 
 		int sg_id = dto.getSg_id();
+		
 		int sgf_id = fdto.getSgf_id();
 		System.out.println("고유번호:  " + sg_id);
 		System.out.println("파일고유번호:  " + sgf_id);
@@ -177,7 +178,7 @@ public class StudyGroupService {
 		return dao.selectByUid(sg_id);
 	}
 
-	public List<StudyGroupDTO> selectCountRegisterId(int sg_id) {
+	public int selectCountRegisterId(int sg_id) {
 		mdao = sqlSession.getMapper(MemberStudyDAO.class);
 
 		return mdao.selectCountRegisterId(sg_id);
@@ -274,5 +275,10 @@ public class StudyGroupService {
 		return dao.getStudyByID(id);
 	}
 	
+	// 방 번호로 방 정보 가져오기
+	public List<StudyGroupDTO> getStudyBySgID(Integer sg_id){
+		dao = sqlSession.getMapper(StudyGroupDAO.class);
+		return dao.getStudyBySgID(sg_id);
+	}
 	
 }

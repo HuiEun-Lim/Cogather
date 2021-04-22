@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +23,8 @@ import com.project.cogather.memberstudy.model.MemberStudyDTO;
 import com.project.cogather.memberstudy.model.MemberStudyResult;
 import com.project.cogather.memberstudy.model.MemberStudyUserResult;
 import com.project.cogather.memberstudy.service.MemberStudyService;
+import com.project.cogather.studygroup.model.StudyGroupDTO;
+import com.project.cogather.studygroup.service.StudyGroupService;
 
 @RestController
 @RequestMapping("/group/MemberStudyRest")
@@ -27,8 +33,12 @@ public class RestMemberStudyController {
 	@Autowired
 	MemberStudyService memberStudyService;
 
+	@Autowired
+	StudyGroupService studyGroupService;
+	
 	@GetMapping("/{sg_id}")
-	public MemberStudyUserResult getUserList(@PathVariable int sg_id) {
+	public MemberStudyUserResult getUserList(
+			@NotNull @Positive @PathVariable Integer sg_id) {
 		MemberStudyUserResult result = new MemberStudyUserResult();
 		List<MemberStudyDTO> rdata = null;
 		List<MembersDTO> rmember = null;
@@ -78,10 +88,12 @@ public class RestMemberStudyController {
 
 	// memberStudy 에서 studygroup 아이디에 따라 참여하고 있는 멤버데이터를 json으로 반환하는 핸들러
 	@GetMapping("/ms/{sg_id}")
-	public MemberStudyResult getMemberStudy(@PathVariable int sg_id) {
+	public MemberStudyResult getMemberStudy(
+			@NotNull @Positive @PathVariable Integer sg_id) {
 		MemberStudyResult result = new MemberStudyResult();
 		List<MemberStudyDTO> ms = null;
 		List<MembersDTO> m = null;
+		List<StudyGroupDTO> study = null;
 		int cnt = 0;
 		String status = "fail";
 		StringBuilder message = new StringBuilder();
@@ -89,8 +101,8 @@ public class RestMemberStudyController {
 		try {
 			ms = memberStudyService.select(sg_id);
 			m = memberStudyService.selectMembersBySGId(sg_id);
-			
-			if (ms == null || ms.size() == 0 || m == null || m.size() == 0) {
+			study = studyGroupService.getStudyBySgID(sg_id);
+			if (ms == null || ms.size() == 0 || m == null || m.size() == 0 || study == null || study.size() ==0 ) {
 				message.append("StudyGroup data 가져오기 실패");
 			} else {
 				status = "OK";
@@ -106,12 +118,16 @@ public class RestMemberStudyController {
 		result.setStatus(status);
 		result.setMSdata(ms);
 		result.setMdata(m);
+		result.setStudy(study);
 		return result;
 	}
 
 	// 방번호와 유저 아이디를 통해 누적시간 저장
 	@PutMapping("/ms/acctime")
-	public AjaxResult updateAcctime(int sg_id, String id, String acctime) {
+	public AjaxResult updateAcctime(
+			@NotNull @Positive Integer sg_id, 
+			@NotNull @Pattern(regexp = "^[0-9a-zA-Z가-힣]*$") String id, 
+			@NotNull String acctime) {
 		AjaxResult result = new AjaxResult();
 		int cnt = 0;
 		String status = "fail";
@@ -157,7 +173,10 @@ public class RestMemberStudyController {
 
 	// 스터디 룸 나가기
 	@PostMapping("ms/roomoutOk")
-	public AjaxResult roomoutOk(Integer sg_id, String id, Model model) {
+	public AjaxResult roomoutOk(
+			@NotNull @Positive Integer sg_id, 
+			@NotNull @Pattern(regexp = "^[0-9a-zA-Z가-힣]*$") String id, 
+			Model model) {
 		AjaxResult result = new AjaxResult();
 		int cnt = 0;
 		String status = "fail";
@@ -181,7 +200,10 @@ public class RestMemberStudyController {
 
 	// 스터디 룸 들어오기
 	@GetMapping("ms/roomenter")
-	public AjaxResult roomenter(int sg_id, String id, Model model) {
+	public AjaxResult roomenter(
+			@NotNull @Positive Integer sg_id, 
+			@NotNull @Pattern(regexp = "^[0-9a-zA-Z가-힣]*$") String id, 
+			Model model) {
 		AjaxResult result = new AjaxResult();
 		int cnt = 0;
 		String status = "fail";
@@ -202,7 +224,9 @@ public class RestMemberStudyController {
 
 		//스터디 신청
 		@GetMapping("/ms/{sg_id}/{id}")
-		public AjaxResult RegisterRoom(@PathVariable String id,@PathVariable int sg_id){
+		public AjaxResult RegisterRoom(
+				@NotNull @Pattern(regexp = "^[0-9a-zA-Z가-힣]*$") @PathVariable String id,
+				@NotNull @Positive @PathVariable Integer sg_id){
 			AjaxResult result = new AjaxResult();
 			
 			
@@ -226,7 +250,9 @@ public class RestMemberStudyController {
 		}
 		
 		@PutMapping(value="/ms/{sg_id}/{id}")
-		public AjaxResult UpdateCrew(@PathVariable String id,@PathVariable int sg_id){
+		public AjaxResult UpdateCrew(
+				@NotNull @Pattern(regexp = "^[0-9a-zA-Z가-힣]*$") @PathVariable String id,
+				@NotNull @Positive @PathVariable Integer sg_id){
 			AjaxResult result = new AjaxResult();
 			
 			

@@ -60,17 +60,12 @@
 						<a
 							href="${pageContext.request.contextPath}/group/studymypage?id=${user_id }"
 							class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-right w3-hover-red">마이페이지</a>
-						<sec:authorize access="hasRole('ROLE_ADMIN')">
-							<a href="adminrsv"
-								class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-right w3-hover-red">관리자페이지</a>
-						</sec:authorize>
+			
 
 						<div id="user_id" class="w3-bar-item w3-right">안녕하세요.
 							${user_id }님</div>
 					</form>
 				</sec:authorize>
-				
-				
 				
 			</div>
 
@@ -97,9 +92,46 @@
 			<img id='cover-img' src="${pageContext.request.contextPath}/img/group/studygroupmain.jpg">
 		</div>
 	</div>
+<!-- 	피켓 버튼  -->
+	<div class="picket-wrapper">
+		<div class="where"></div>
+		<img id="picket" src="../img/arrow-right.png">
+	</div>
 	
 	<script src="https://kit.fontawesome.com/65311e5b1a.js" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
 	<script>
+// 	피켓 버튼 애니메이션
+	var txt = "스터디 카페"
+	var i = 0;
+	var speed = 100;
+	$(function(){
+		
+		$("#picket").on({
+			mouseenter: function(){
+				typeWriter();
+				$(this).css("cursor", "pointer");
+				$(this).animate({left: '0px'},1000);
+			},
+			mouseleave: function(){
+				$("div.where").html("");
+				i = 0;
+				$(this).animate({left: '-60px'},1000);
+			},
+			click: function(){
+				location.href= "../studycafe/main";
+			}
+			
+		})
+	});
+	function typeWriter(){
+		if (i < txt.length){
+			$(".where").html($(".where").html() + txt.charAt(i));
+			i++;
+			setTimeout(typeWriter, speed);
+		}
+	}
 	//Change style of navbar on scroll
 	window.onscroll = function() {myFunction()};
 	function myFunction() {

@@ -47,5 +47,5 @@ public interface MemberStudyDAO {
 	
 	// 회원 아이디와 관련된 모든 memberstudy 행 가져오기
 	public List<MemberStudyDTO> getMemberStudyByID(@Param("id") String id);
-	public List<StudyGroupDTO> selectCountRegisterId(int sg_id);
+	public int selectCountRegisterId(int sg_id);
 }

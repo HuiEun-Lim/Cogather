@@ -2,6 +2,9 @@ package com.project.cogather.members.controller;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +22,7 @@ public class RestMembersController {
 	MembersService membersService;
 	
 	@GetMapping("/{id}")
-	public MembersResult selectMemberById(@PathVariable String id) {
+	public MembersResult selectMemberById(@NotNull @Pattern(regexp = "^[0-9a-zA-Z가-힣]*$") @PathVariable String id) {
 		MembersResult result = new MembersResult();
 		String status = "FAIL";
 		StringBuffer message = new StringBuffer();

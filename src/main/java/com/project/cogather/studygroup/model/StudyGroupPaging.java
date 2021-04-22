@@ -6,7 +6,7 @@ public class StudyGroupPaging {
 	private int cntPage = 5;
 	private String searchType;
 	private String keyword;
-	
+	private int ctotal;
 	public StudyGroupPaging() {
 	
 	}
@@ -20,6 +20,9 @@ public class StudyGroupPaging {
 		pageInfo(nowPage,cntPerPage,total);
 	}
 	
+	public StudyGroupPaging(int ctotal) {
+		this.ctotal = ctotal;
+	}
 	
 	
 	// 제일 마지막 페이지 계산
@@ -125,6 +128,13 @@ public class StudyGroupPaging {
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
+	public int getCtotal() {
+		return ctotal;
+	}
+	public void setCtotal(int ctotal) {
+		this.ctotal = ctotal;
+	}
+	
 	
 	
 	

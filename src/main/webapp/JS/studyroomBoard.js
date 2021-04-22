@@ -91,10 +91,9 @@ function updateList(jsonObj){
 		for(var i = 0; i<count; i++){
 			if(datas[i].ct_title != null){
 				result += "<tr>\n";
-				result += "<td>"+ datas[i].ct_uid+"</td>\n";
-				result += "<td><span class='content-title' data-uid='"+datas[i].ct_uid+"'>"+ datas[i].ct_title+"<img src='"+contextPath+"/img/group/comment.png' class='comment-icon'><span>["+cmCnt[i].cnt+"]</span>"+"</span></td>\n";
-				result += "<td><span>"+ datas[i].id+"</span></td>\n";
-				result += "<td>"+ datas[i].regdate+"</td>\n";
+				result += "<td><span class='content-title' data-uid='"+datas[i].ct_uid+"'>"+ datas[i].ct_title+
+						  "<img src='"+contextPath+"/img/group/comment.png' class='comment-icon'><span>["+cmCnt[i].cnt+"]</span>"+
+						  "</span><div class='content-sub-info'><span>"+ datas[i].id+"</span><span>"+datas[i].regdate+"</span></td>\n";
 				result += "<td><span data-viewcnt='"+datas[i].ct_uid+"'>"+ datas[i].ct_viewcnt+"</span></td>\n";
 				result += "</tr>\n";	
 			}
@@ -264,9 +263,9 @@ function togglePage(mode){
 					"<span>"+
 						viewItem.data[0].regdate+
 					"</span>"+
-					"<span>"+
+					"<div>"+
 						"조회 "+viewItem.data[0].ct_viewcnt+
-					"</span>"+
+					"</div>"+
 				"</div>"+
 			"</div>"
 			;
@@ -451,7 +450,10 @@ function chkDelete() {
 
 // 게시글 수정
 function chkUpdate(){
-	CKupdate();
+	if($("#ct_title").val().trim() == ''){
+		alert("제목을 입력해주세요..");
+	}else{
+		CKupdate();
     var data = $("#frmWrite").serialize();
 	var ct = $("#write-mode [name='ct_uid']").val();
     $.ajax({
@@ -465,7 +467,7 @@ function chkUpdate(){
         success : function(data, status){
             if(status == "success"){
                 if(data.status == "OK"){
-                    alert("update 성공 " + data.cnt + "개:" + data.status);
+                  
 					$("#frmWrite #ct_title").val("");
 					$("#frmWrite #editor1").val("");
 					CKEDITOR.instances.editor1.setData(""); // 게시글 작성 완료후 에디터에 남아 있는 값 날리기
@@ -477,16 +479,22 @@ function chkUpdate(){
         }
 
     });  // end $ajax() 
+	
+	}
 }
 
 function sendComment(){ // 댓글 작성
+	var reply = $('.comment_content').val().trim();
+	reply = reply.replace(/(?:\r\n|\r|\n)/g, '<br/>');
 	var data = {
 		'ct_uid':viewItem.data[0].ct_uid, 
 		'id' : id,
-		'reply': $('.comment_content').val()
+		'reply': reply
 		}
-		
-	$.ajax({
+	if(reply == ''){
+		alert("댓글이 빈칸입니다.");
+	}else{
+		$.ajax({
         url : contextPath+"/group/studyboard/comments",
         type : "POST",
         cache : false,
@@ -497,16 +505,16 @@ function sendComment(){ // 댓글 작성
         success : function(data, status){
             if(status == "success"){
                 if(data.status == "OK"){
-                    alert("댓글 작성 완료");
 					loadComments(viewItem.data[0].ct_uid);
 					$('.comment_content').val('');
+					console.log("댓글 작성 완료");
                 } else {
                     alert("INSERT 실패 " + data.status + " : " + data.message);
                 }
             }
         }
-
-    });  // end $ajax() 
+    	});  // end $ajax() 	
+	}
 }
 
 // 댓글 데이터 불러오기
@@ -560,7 +568,7 @@ function showComments(jsonObj){
 	}
 	$("ul.comment-list").html(result);
 	
-	$(".comment-info span").text(jsonObj.cnt);
+	$(".comment_title span").text(jsonObj.cnt);
 	$(".comment a.comment-del-btn").click(function(event){ // 댓글 삭제 버튼 클릭시 
 		event.preventDefault();
 		var v = $(this).attr('id').split('del');
@@ -638,6 +646,7 @@ function delCommentByUser(v){
             if(status == "success"){
                 if(data.status == "OK"){
 					loadComments(viewItem.data[0].ct_uid);
+					console.log("글 삭제 완료");
                 } else {
                     alert("댓글 삭제 실패 " + data.status + " : " + data.message);
                 }

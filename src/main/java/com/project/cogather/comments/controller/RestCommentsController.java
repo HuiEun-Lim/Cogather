@@ -2,8 +2,15 @@ package com.project.cogather.comments.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.cogather.comments.model.CommentsDTO;
 import com.project.cogather.comments.model.CommentsResult;
+import com.project.cogather.comments.model.CommentsValitator;
 import com.project.cogather.comments.service.CommentsService;
 import com.project.cogather.common.AjaxResult;
 import com.project.cogather.members.model.MembersDTO;
@@ -26,7 +34,7 @@ public class RestCommentsController {
 	MembersService membersService;
 	
 	@RequestMapping("/group/studyboard/comments/{ct_uid}")
-	public CommentsResult selectComments(@PathVariable Integer ct_uid) {
+	public CommentsResult selectComments(@NotNull @Positive @PathVariable Integer ct_uid) {
 		CommentsResult result = new CommentsResult();
 		
 		String status ="fail";
@@ -34,6 +42,7 @@ public class RestCommentsController {
 		int cnt = 0;
 		List<CommentsDTO> data = null;
 		List<MembersDTO> members = null;
+		
 		
 		try {
 			data = commentsService.selectAllCommentsByCTUID(ct_uid);
@@ -57,7 +66,7 @@ public class RestCommentsController {
 	}
 	
 	@PostMapping("/group/studyboard/comments")
-	public AjaxResult insertComment(CommentsDTO dto) {
+	public AjaxResult insertComment(@Valid CommentsDTO dto) {
 		AjaxResult result = new AjaxResult();
 		String status ="fail";
 		StringBuffer message = new StringBuffer();
@@ -82,7 +91,7 @@ public class RestCommentsController {
 	}
 	
 	@PutMapping("/group/studyboard/comments")
-	public AjaxResult updateComment(CommentsDTO dto) {
+	public AjaxResult updateComment(@Valid CommentsDTO dto) {
 		AjaxResult result = new AjaxResult();
 		String status ="fail";
 		StringBuffer message = new StringBuffer();
@@ -105,7 +114,9 @@ public class RestCommentsController {
 		return result;
 	}
 	@DeleteMapping("/group/studyboard/comments/")
-	public AjaxResult deleteComment(Integer cm_uid, String id) {
+	public AjaxResult deleteComment(
+			@NotNull @Positive Integer cm_uid, 
+			@NotNull @Pattern(regexp = "^[0-9a-zA-Z가-힣]*$") String id) {
 		AjaxResult result = new AjaxResult();
 		String status ="fail";
 		StringBuffer message = new StringBuffer();
@@ -127,5 +138,9 @@ public class RestCommentsController {
 		return result;
 	}
 	
-	
+	// 이 컨트롤러 클래스의 handler 에서 폼 데이터를 바인딩 할 때 검증하는 객체 지정
+		@InitBinder
+		public void initBinder(WebDataBinder binder) {
+			binder.setValidator(new CommentsValitator());
+		}
 }

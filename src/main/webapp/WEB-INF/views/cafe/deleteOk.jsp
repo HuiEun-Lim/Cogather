@@ -12,7 +12,7 @@
 	<c:otherwise>
 		<script>
 			alert("삭제 성공");
-			location.href = "adminrsv"; <%-- 삭제후에는 list 로 가자 --%>
+			history.back(); <%-- 삭제후에는 list 로 가자 --%>
 		</script>
 	</c:otherwise>
 </c:choose>

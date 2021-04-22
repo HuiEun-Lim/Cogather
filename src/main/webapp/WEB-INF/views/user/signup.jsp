@@ -91,7 +91,6 @@ function chkSubmit(){
    }
   });
  </script>
- <%=request.getRealPath("/") %>
 </div>
 <br>
 <input type="submit" class="btn" value="가입하기" />

@@ -28,6 +28,32 @@
 		resultType="com.project.cogather.domain.CafeDTO">
 		SELECT * FROM reservation WHERE ID = #{id}
 	</select>
+	
+	<select id="mygroupID"
+		resultType="com.project.cogather.memberstudy.model.MemberStudyDTO">
+		SELECT * FROM memberstudy  WHERE ID = #{id}
+	</select>
+	
+	<select id="mygroupName"
+		resultType="com.project.cogather.studygroup.model.StudyGroupDTO">
+		SELECT sg.sg_name FROM memberstudy ms, studygroup sg  WHERE ms.sg_id = sg.sg_id AND ms.ID = #{id}
+	</select>
+	
+	
+	<update id="update" flushCache="true"
+		parameterType="com.project.cogather.domain.CafeDTO">
+		UPDATE MEMBERS
+		SET name = #{a.name}, pw = #{a.pw}, phone = #{a.phone}, email = #{a.email}, tag = #{a.tag}
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteAuth" flushCache="true">
+		DELETE FROM authority WHERE id = #{id}
+	</delete>
+	
+	<delete id="deleteById" flushCache="true">
+		DELETE FROM MEMBERS WHERE id = #{id}
+	</delete>
 
 
 
