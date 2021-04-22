@@ -62,7 +62,6 @@ function payrsvkkao(jsonObj){
 	window.open(turl);
 }
 
-var ifcheck = true;
 
 function chkSubmit(){
 	frm = document.forms['frm'];
@@ -88,6 +87,7 @@ function chkSubmit(){
 	}
 	
 	for(var i=0; i<seatdates['chkdates'].length;i++){
+		var ifcheck = true;
 		var startRSV = to_date2(seatdates['chkdates'][i].start_date);
 		var endRSV = to_date2(seatdates['chkdates'][i].end_date);
 		

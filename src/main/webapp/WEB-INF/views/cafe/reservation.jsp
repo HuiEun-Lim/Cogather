@@ -60,7 +60,7 @@ var seatdates;
 				<br>&#42;선택하신 좌석은 예약 후에는 변경하실 수 없습니다.
 				아래는 해당 좌석의 예약내역입니다.&#42;<br><br></div>
 				<div id="chkdates">
-					<table class="w3-table w3-bordered w3-round-xlarge w3-centered w3-card" style="width: 50%">
+					<table class="w3-table w3-bordered w3-round-xlarge w3-centered w3-card" style="width: 378px">
 						<tbody>
 						</tbody>	
 					</table>
@@ -108,7 +108,6 @@ function toggleFunction() {
 }
 
 function getDates(seat_id){
-
 	$.ajax({
 		url:"${pageContext.request.contextPath}/studycafe/dateResult?seat_id="+seat_id,
 		type: "GET",
