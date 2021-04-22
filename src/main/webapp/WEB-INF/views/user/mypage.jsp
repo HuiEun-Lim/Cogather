@@ -55,7 +55,7 @@ function chkDelete(id){
 		<sec:authentication property="principal.username" var="user_id" />
     	<a href="cafemypage?id=${user_id }" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red w3-border-bottom w3-border-amber">마이페이지</a>
     	<sec:authorize access="hasRole('ROLE_ADMIN')">
-    	<a href="./studycafe/adminrsv" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">관리자페이지</a>
+    	<a href="./studycafe/adminpage" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">관리자페이지</a>
 		</sec:authorize>
         <div id="user_id" class="w3-bar-item w3-right">안녕하세요. ${user_id }님</div>
     	</form>
@@ -80,7 +80,7 @@ function chkDelete(id){
     </form>
     </sec:authorize>
     <sec:authorize access="hasRole('ROLE_ADMIN')">
-    <a href="./studycafe/adminrsv" class="w3-bar-item w3-button" onclick="toggleFunction()">관리자페이지</a>
+    <a href="./studycafe/adminpage" class="w3-bar-item w3-button" onclick="toggleFunction()">관리자페이지</a>
 	</sec:authorize>
   </div>
 </div>
