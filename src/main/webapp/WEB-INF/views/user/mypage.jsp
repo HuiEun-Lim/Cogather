@@ -37,7 +37,7 @@ function chkDelete(id){
       <i class="fa fa-bars"></i>
     </a>
    </div>
-    <a href="#" class="w3-bar-item w3-button w3-hover-none" style="margin-top:0; margin-right:5px">
+    <a href="${pageContext.request.contextPath}" class="w3-bar-item w3-button w3-hover-none" style="margin-top:0; margin-right:5px">
     	<img src="./img/logo_cut.png" class="logo"  >
     </a>
     <div class="choice">
@@ -99,13 +99,13 @@ function chkDelete(id){
 						<h4 class="card-title mb-0">Profile</h4>
 					</div>
 					<div class="card-body text-center">
-						<img src="<%=request.getContextPath() %>/${dto.pimg_url}" class="w3-center img-fluid rounded-circle mb-2" style="object-fit: cover; width:128px; height:128px" />
+						<img src="<%=request.getContextPath() %>/${dto.pimg_url}" class="img-fluid rounded-circle mb-2" style="object-fit: cover; width:128px; height:128px" />
 						<h5 class="card-title mb-0">${dto.id}</h5>
 						<div class="text-muted mb-2">${dto.name}</div>
 						<br>
 						<div>
-						<button onclick="location.href='userEdit?id=${dto.id}'">정보 수정하기</button>
-						<button onclick="chkDelete('${dto.id}')">탈퇴하기</button>
+						<button onclick="location.href='userEdit?id=${dto.id}'" class="btn-primary">정보 수정하기</button>
+						<button onclick="chkDelete('${dto.id}')" class="btn-primary">탈퇴하기</button>
 						</div>
 					</div>
 					<br>
@@ -136,7 +136,7 @@ function chkDelete(id){
 			<div class="col-md-8 col-xl-9">
 				<div class="card">
 					<div class="card-header">
-						<h5 class="card-title mb-0">예약 정보</h5>
+						<h5 class="card-title mb-0"><i class="far fa-calendar-check"></i>&nbsp; 예약 정보</h5>
 					</div>
 					<div class="card-body h-100">
 		<table class="w3-table w3-bordered w3-centered w3-large w3-card-4">
@@ -164,14 +164,17 @@ function chkDelete(id){
 			</c:forEach>
 		</c:otherwise>
 		</c:choose>
-	</table>
-	<br><br>
+	</table><br><br>
+	<div class="move">
+	<p><i class="fas fa-check"></i>&nbsp;같이 공부할 공간을 찾고 싶다면 <a href="./studycafe/reservation">코게더 스터디 카페 예약으로 가기</a></p>
+	</div>
+	<br>
 					</div>
 				</div>
 
 				<div class="card">
 					<div class="card-header">
-						<h5 class="card-title mb-0">가입한 그룹</h5>
+						<h5 class="card-title mb-0"><i class="fas fa-users"></i>&nbsp;가입한 그룹</h5>
 					</div>
 					<div class="card-body h-100">
 		<table class="w3-table w3-bordered w3-centered w3-large w3-card-4">
@@ -198,6 +201,10 @@ function chkDelete(id){
 		</c:choose>
 	</table>
 	<br><br>
+	<div class="move">
+	<p><i class="fas fa-check"></i>&nbsp;같이 공부할 사람들 찾고 싶다면 <a href="${pageContext.request.contextPath}/group/studygroup">코게더 스터디 그룹으로 가기</a></p>
+	</div>
+	<br>
 					</div>
 				</div>
 			</div>

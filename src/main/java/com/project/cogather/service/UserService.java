@@ -78,4 +78,10 @@ public class UserService {
 		return dao.deleteAuth(id);				
 	}
 	
+	public int deleteMemberStudy(String id) {
+		dao = sqlSession.getMapper(UserDAO.class); // MyBatis 사용
+		return dao.deleteMemberStudy(id);				
+	}
+	
+	
 }
