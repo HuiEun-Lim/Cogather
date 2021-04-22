@@ -220,7 +220,7 @@ VALUES
 --
 SELECT * FROM MEMBERSTUDY;
 UPDATE MEMBERSTUDY  SET g_auth='common' WHERE sg_id=478 AND id='kisunghoon22';
-=======
+
 --DELETE FROM MEMBERSTUDY WHERE sg_id =389;
 --SELECT * FROM MEMBERSTUDY
 --
@@ -361,7 +361,6 @@ CREATE TABLE studygroup
 
 SELECT *  FROM studygroup;
 DELETE FROM studygroup WHERE sg_id=394;
-=======
 --SELECT *  FROM studygroup;
 
 --SELECT * FROM STUDYGROUP ORDER BY sg_id;
