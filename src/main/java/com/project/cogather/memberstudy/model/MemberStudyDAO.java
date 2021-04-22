@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.project.cogather.members.model.MembersDTO;
+import com.project.cogather.studygroup.model.StudyGroupDTO;
 
 public interface MemberStudyDAO {
 	// 스터디그룹id를 통해 특정 스터디그룹과 연관된 memberstudy 항목을 가져오는 쿼리
@@ -46,4 +47,5 @@ public interface MemberStudyDAO {
 	
 	// 회원 아이디와 관련된 모든 memberstudy 행 가져오기
 	public List<MemberStudyDTO> getMemberStudyByID(@Param("id") String id);
+	public int selectCountRegisterId(int sg_id);
 }

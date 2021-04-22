@@ -115,7 +115,11 @@ public class StudyGroupController {
 			model.addAttribute("list", studygroupservice.viewByUid(sg_id));
 			
 			List<Map<String,Object>> fileList = studygroupservice.selectFile(sg_id);
-			
+			int ctotal = studygroupservice.selectCountRegisterId(sg_id);
+			System.out.println(ctotal);
+			StudyGroupPaging sp = new StudyGroupPaging(ctotal);
+			sp.setCtotal(ctotal);
+			model.addAttribute("countpage", sp);
 			model.addAttribute("files",fileList);
 			model.addAttribute("sg_id", sg_id);
 			return "group/studyview";

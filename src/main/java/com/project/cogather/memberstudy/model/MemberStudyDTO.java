@@ -39,6 +39,7 @@ public class MemberStudyDTO {
 	private LocalDateTime entime;
 	private String enstatus;
 	
+	
 }
 
 

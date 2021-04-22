@@ -19,4 +19,5 @@ public class StudyGroupDTO {
 	private String file_name;
 	private MultipartFile uploadFile;
 	private boolean isImage;
+
 }

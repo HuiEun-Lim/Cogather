@@ -151,13 +151,13 @@ CREATE TABLE members
 	name varchar2(100) NOT NULL,/*이름*/
 	pw varchar2(100) NOT NULL,/*비밀번호*/
 	phone varchar2(15),/*전화번호*/
-	email varchar2(40),/*이메일*/
-	pimg_url varchar2(200) DEFAULT 'img/member/default.jpg',/*프로필 이미지*/
+	email varchar2(100),/*이메일*/
+	pimg_url varchar2(200) DEFAULT 'img/member/default.png',/*프로필 이미지*/
 	tag varchar2(50),/*관심주제*/
 	enabled char(1) DEFAULT 1,
 	PRIMARY KEY (ID)
 );
-SELECT * FROM members;
+--SELECT * FROM members;
 
 --SELECT * 
 --FROM MEMBERS
@@ -199,7 +199,28 @@ CREATE TABLE memberstudy
 	CONSTRAINT ENSTATUS_CHECK CHECK(enstatus IN ('in', 'out'))
 );
 
+DELETE FROM MEMBERSTUDY WHERE sg_id =405;
+DELETE FROM STUDYGROUP WHERE sg_id =476;
+SELECT * FROM STUDYGROUP WHERE sg_id=387;
+--SELECT * FROM MEMBERSTUDY
+--방 접속자 숫자 
+SELECT * FROM MEMBERSTUDY ORDER BY sg_id asc;
+SELECT count(*)
+	FROM MEMBERSTUDY
+	WHERE SG_ID = 474 and (g_auth = 'captain' OR g_auth = 'crew');
+--아이디  스터디 그룹 조회 
+SELECT memberstudy.g_auth, memberstudy.id, studygroup.sg_id,studygroup.sg_name,studygroup.sg_info,studygroup.sg_max,studygroup.sg_tag,studygroup.kko_url,studygroup.sg_regdate,studygroup.file_name
+FROM MEMBERSTUDY,studygroup
+WHERE memberstudy.sg_id = studygroup.sg_id AND studygroup.sg_id = 476 AND memberstudy.G_AUTH='captain'; 
+---- 방생성자 방 생성
+INSERT INTO memberstudy (ID, sg_id, g_auth)
+VALUES 
+('qwer', 4, 'captain');
 
+--
+SELECT * FROM MEMBERSTUDY;
+UPDATE MEMBERSTUDY  SET g_auth='common' WHERE sg_id=478 AND id='kisunghoon22';
+=======
 --DELETE FROM MEMBERSTUDY WHERE sg_id =389;
 --SELECT * FROM MEMBERSTUDY
 --
@@ -217,28 +238,6 @@ CREATE TABLE memberstudy
 --('asd', 21, 'crew');
 ----
 --UPDATE MEMBERSTUDY SET enstatus = 'out' WHERE id ='qwer' AND sg_id = 21;
-
-DELETE FROM MEMBERSTUDY WHERE sg_id =405;
-DELETE FROM STUDYGROUP WHERE sg_id =435;
-
---SELECT * FROM MEMBERSTUDY
---방 접속자 숫자 
---SELECT * FROM MEMBERSTUDY ORDER BY sg_id asc;
---SELECT count(ID)
---	FROM MEMBERSTUDY
---	WHERE SG_ID = 441 and (g_auth = 'captain' OR g_auth = 'crew');
-----아이디  스터디 그룹 조회 
---SELECT memberstudy.g_auth, memberstudy.id, studygroup.sg_id,studygroup.sg_name,studygroup.sg_info,studygroup.sg_max,studygroup.sg_tag,studygroup.kko_url,studygroup.sg_regdate,studygroup.file_name
---FROM MEMBERSTUDY,studygroup
---WHERE memberstudy.sg_id = studygroup.sg_id AND studygroup.sg_id = 404 AND memberstudy.G_AUTH='captain'; 
------- 방생성자 방 생성
---INSERT INTO memberstudy (ID, sg_id, g_auth)
---VALUES 
---('qwer', 4, 'captain');
---
-----
---SELECT * FROM MEMBERSTUDY;
---UPDATE MEMBERSTUDY  SET g_auth='common' WHERE sg_id=405 AND id='kisunghoon11';
 
 --
 ---- 참가자 참여 허락
@@ -333,7 +332,8 @@ CREATE TABLE seats
 
 --INSERT INTO seats
 --(seat_id, SEAT_PRICE) 
---VALUES ('room08',4000);
+--VALUES 
+--('room08',4000);
 --
 --
 --SELECT * FROM seats;
@@ -357,8 +357,12 @@ CREATE TABLE studygroup
 --FROM STUDYGROUP s, MEMBERSTUDY m 
 --WHERE s.sg_id = m.sg_id AND m.ID = 'user6' AND m.G_AUTH = 'captain');
 
+
+
 SELECT *  FROM studygroup;
 DELETE FROM studygroup WHERE sg_id=394;
+=======
+--SELECT *  FROM studygroup;
 
 --SELECT * FROM STUDYGROUP ORDER BY sg_id;
  /*스터디 그룹 이미지 파일*/ 
@@ -384,6 +388,9 @@ CREATE TABLE studygroup_file
 --
 SELECT * FROM studygroup_file;
 --SELECT * FROM studygroup_file;
+
+
+
 
 --SELECT * FROM studygroup;
 ---- study group dummy insert test
@@ -482,8 +489,6 @@ ALTER TABLE memberstudy
 --DELETE FROM AUTHORITY;
 --DELETE FROM MEMBERS;
 --
-SELECT m.*, a.auth
-FROM MEMBERS m, AUTHORITY a
-WHERE m.id = a.id;
-
-SELECT sg.sg_name FROM memberstudy ms, studygroup sg  WHERE ms.sg_id = sg.sg_id AND ms.ID = 'user8';
+--SELECT m.*, a.auth
+--FROM MEMBERS m, AUTHORITY a
+--WHERE m.id = a.id;
