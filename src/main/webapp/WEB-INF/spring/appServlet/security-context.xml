@@ -25,7 +25,8 @@
 		
 		
 		<!-- /sample/admin 요청은 ROLE_ADMIN 권한이 있는 사용자 만 접근 가능 -->
-		<!--<security:intercept-url pattern="/home" access="hasRole('ROLE_ADMIN')"/>-->
+		<security:intercept-url pattern="/studycafe/adminpage" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/studycafe/adminrsv" access="hasRole('ROLE_ADMIN')"/>
 	
 		<!--  <security:form-login/> -->  <!-- 스프링 시큐리티에서 제공하는 기본 로그인 페이지 -->
 		<security:form-login login-page="/login"

@@ -3,7 +3,7 @@
 <%@ page session="false" %>
 <%@ taglib  prefix="spring" uri="http://www.springframework.org/tags" %>   
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
-<html>
+<html lang="ko">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,61 +14,7 @@
 	<title>Main</title>
 </head>
 <body>
-<!-- Navbar (sit on top) -->
-<div class="w3-top">
-  <div class="w3-bar" id="myNavbar">
-  <div class="choice">
-    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
-      <i class="fa fa-bars"></i>
-    </a>
-   </div>
-    <a href="#" class="w3-bar-item w3-button w3-hover-none" style="margin-top:0; margin-right:5px">
-    	<img src="../img/logo_cut.png" class="logo"  >
-    </a>
-    <div class="choice">
-    <a href="#home" class="w3-bar-item w3-button w3-hide-small">HOME</a>
-    <a href="info" class="w3-bar-item w3-button w3-hide-small">시설소개</a>
-    <a href="reservation" class="w3-bar-item w3-button w3-hide-small">예약하기</a>
-    <a href="map" class="w3-bar-item w3-button w3-hide-small">오시는 길</a>
-    <sec:authorize access="isAnonymous()">
-    	<a href="../login" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그인</a>
-    </sec:authorize>
-    <sec:authorize access="isAuthenticated()">
-    	<form action="${pageContext.request.contextPath}/logout" method='post'>
-		<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
-		<button class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">로그아웃</button>
-		<sec:authentication property="principal.username" var="user_id" />
-    	<a href="../mypage?id=${user_id }" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">마이페이지</a>
-    	<sec:authorize access="hasRole('ROLE_ADMIN')">
-    	<a href="adminrsv" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">관리자페이지</a>
-		</sec:authorize>
-        <div id="user_id" class="w3-bar-item w3-right">안녕하세요. ${user_id }님</div>
-    	</form>
-   	</sec:authorize>
-  </div>
-  </div>
-
-  <!-- Navbar on small screens -->
-  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
-  <a href="main" class="w3-bar-item w3-button" onclick="toggleFunction()">HOME</a>
-    <a href="info" class="w3-bar-item w3-button" onclick="toggleFunction()">시설소개</a>
-    <a href="reservation" class="w3-bar-item w3-button" onclick="toggleFunction()">예약하기</a>
-    <a href="map" class="w3-bar-item w3-button" onclick="toggleFunction()">오시는 길</a>
-    <sec:authorize access="isAnonymous()">
-    <a href="../login" class="w3-bar-item w3-button" onclick="toggleFunction()">로그인</a>
-    </sec:authorize>
-    <sec:authorize access="isAuthenticated()">
-    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">마이페이지</a>
-    <form action="${pageContext.request.contextPath}/logout" method='post'>
-		<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
-		<button class="w3-bar-item w3-button" onclick="toggleFunction()">로그아웃</button>
-    </form>
-    </sec:authorize>
-    <sec:authorize access="hasRole('ROLE_ADMIN')">
-    <a href="adminrsv" class="w3-bar-item w3-button" onclick="toggleFunction()">관리자페이지</a>
-	</sec:authorize>
-  </div>
-</div>
+<%@ include file="../cafe/navbar.jsp"%>
 
 <div class="bgimg w3-display-container " id="home">
 	<div class="w3-display-middle w3-center" style="white-space:nowrap;">
@@ -76,6 +22,10 @@
 	<span class="w3-padding-large w3-xxlarge w3-text-white w3-wide w3-animate-opacity" >함께 꿈을 모으는 곳</span>
 	</div>
 </div>
+<div class="picket-wrapper">
+		<div class="where"></div>
+		<img id="picket" src="../img/arrow-right.png">
+	</div>
 <div id="wrap">
 	<div class="w3-row-padding w3-padding-top-64">
 	     <div class="w3-col s4 w3-center"><p class="info"><img src="../img/cafe/24.png" class="infoimg"><br>24시간 영업<br>언제나 이용 가능</p></div>   
@@ -121,37 +71,9 @@
   <span class="dot" onclick="currentSlide(3)"></span>
 </div>
 </div>
-
 <br><br><br><br><br><br><br><br><br><br>
 
-
-<!-- Footer -->
-<footer class="w3-center w3-black w3-padding-64">
-  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
-  <div class="w3-xlarge w3-section w3-center">
-    <table style="color:white">
-    <tr>
-    <th>대표자 정보</th>
-    <th style="width:10px"></th>
-    <th>코게더 정보</th>
-    </tr>
-    <tr>
-    <td>코게더팀장</td>
-    <td></td>
-    <td>코게더 스터디카페</td>
-    </tr>
-    <tr>
-    <td>p.h. 010-1234-5678</td>
-    <td></td>
-    <td>서울특별시 강남구 역삼로?</td>
-    </tr>
-    <td>cogather@gmail.com</td>
-    <td></td>
-    <td>스터디그룹 http:.....</td>
-    </tr>
-    </table>
-  </div>
-</footer>
+<%@ include file="../cafe/footer.jsp"%>
 
 <script>
 	//Change style of navbar on scroll
@@ -159,9 +81,9 @@
 	function myFunction() {
 	    var navbar = document.getElementById("myNavbar");
 	    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-	        navbar.className = "w3-bar" + " w3-card-2" + " w3-animate-top" + " w3-white" + " w3-hover-light-gray";
+	        navbar.className = "w3-bar" + " w3-card-2" + " w3-animate-top" + " w3-black" + " w3-hover-light-gray";
 	    } else {
-	        navbar.className = navbar.className.replace(" w3-card-2 w3-animate-top w3-white w3-hover-light-gray", "");
+	        navbar.className = navbar.className.replace(" w3-card-2 w3-animate-top w3-black w3-hover-light-gray", "");
 	    }
 	}
 
@@ -203,7 +125,36 @@
 	  slides[slideIndex-1].style.display = "block";
 	  dots[slideIndex-1].className += " active";
 	}
-	
+	// 피켓 버튼 애니메이션
+	var txt = "스터디그룹"
+	var i = 0;
+	var speed = 100;
+	$(function(){
+		
+		$("#picket").on({
+			mouseenter: function(){
+				typeWriter();
+				$(this).css("cursor", "pointer");
+				$(this).animate({left: '0px'},1000);
+			},
+			mouseleave: function(){
+				$("div.where").html("");
+				i = 0;
+				$(this).animate({left: '-60px'},1000);
+			},
+			click: function(){
+				location.href= "../group/studygroup";
+			}
+			
+		})
+	});
+	function typeWriter(){
+		if (i < txt.length){
+			$(".where").html($(".where").html() + txt.charAt(i));
+			i++;
+			setTimeout(typeWriter, speed);
+		}
+	}
 </script>
 
 </body>
