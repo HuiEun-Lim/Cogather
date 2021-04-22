@@ -7,8 +7,8 @@
 <c:choose>
 	<c:when test="${empty list || fn:length(list) == 0 }">
 		<script>
-			alert("해당 정보가 삭제되거나 없습니다");
-			history.back();
+			/* alert("해당 정보가 삭제되거나 없습니다");
+			history.back(); */
 		</script>
 	</c:when>
 	
@@ -109,8 +109,14 @@ function registerRoom(nowid){
 	});
 }
 
-function UpdateCrew(){
+function UpdateCrew(countstu){
+	
+	console.log("count"+countstu);
+
+	console.log("인원수"+${list[0].sg_max });
+	var countmax=${list[0].sg_max };
 	console.log("sdfsdfsdfwerwe"+staticid);
+	if(countmax >countstu){
 	var token = $('meta[name="_csrf"]').attr("content");
 	var header = $('meta[name="_csrf_header"]').attr("content");
 	$.ajax({
@@ -128,6 +134,11 @@ function UpdateCrew(){
 			}
 		}
 	});
+	}else if(countmax <=countstu){
+		alert("스터디원  초과");
+		return -1;
+	}
+	
 }
 
 function loadMember(nowid){
@@ -231,7 +242,7 @@ $(function(){
 
 </script>
 <body>
-<%@ include file="groupcover.jsp" %>
+<%@ include file="kigroupcover.jsp" %>
 		<br><br>
 	<div id="row" style=" display: -ms-flexbox; /* IE10 */display: flex;-ms-flex-wrap: wrap; /* IE10 */flex-wrap: wrap;">
 		<div id="text_content">
@@ -248,7 +259,7 @@ $(function(){
 		
 		<div>
 		${list[0].sg_info }
-	
+		<%-- ${countpage.ctotal } --%>
 		</div>
 		<section id="container">
 		<hr>
@@ -289,7 +300,7 @@ $(function(){
 		<button type="submit" onclick="openWin();" style="background-color:white;border:0px"><img src="/cogather/img/group/kakao.png"></button>
 		<button type="submit"  onclick="openMail()" style="background-color:white;border:0px"><img src="/cogather/img/group/mail.png"></button>
 		<c:if test="${user_id eq list[0].id}">
-		<button onclick="UpdateCrew()" style="color:white;float:center;background-color:#ffd43b;width:100px;
+		<button onclick="UpdateCrew('${countpage.ctotal }')" style="color:white;float:center;background-color:#ffd43b;width:100px;
 	height:60px;border:0px">Study with Me</button> 
 		</c:if>
 		</div>

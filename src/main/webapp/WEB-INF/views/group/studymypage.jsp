@@ -28,7 +28,12 @@
                 <div class="row h-100 align-items-center">
                     <div class="col-12">
                         <h1 class='sub-title'>마이페이지</h1>
+                        <div class="move">
+							<p><i class="fas fa-check"></i>&nbsp;프로필 수정은 이곳에서 <a href="../mypage?id=${id }">코게더 프로필 수정하러 가기</a></p>
+						</div>
                     </div>
+                    
+                    
                 </div>
             </div>
         </div>

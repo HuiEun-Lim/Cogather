@@ -606,7 +606,7 @@ function toggleCommentDialog(v){ // 유튜브 댓글 수정 파트 보고 감명
 // 댓글 창에 있는 내용을 가져다가 수정 요청 보냄
 function fixCommentByUser(v){
 	var text = $("li[id='"+v+"comment"+"'] .comment_content").val();
-	alert("text: " + text);
+	
 	var data = {'cm_uid':v, 'id': id, 'reply': text};
 	
 	$.ajax({

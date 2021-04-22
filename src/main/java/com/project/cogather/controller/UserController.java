@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.project.cogather.domain.UserDTO;
 import com.project.cogather.service.UserService;
 import com.project.cogather.studygroup.model.StudyGroupDTO;
+import com.project.cogather.studygroup.service.StudyGroupService;
 import com.project.cogather.util.UploadFileUtils;
 
 @Controller
@@ -28,6 +29,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private StudyGroupService studygroupService;
 	
 	@GetMapping("/accessError")
 	public String accessDenied(Authentication auth, Model model) {
@@ -117,9 +120,12 @@ public class UserController {
 	
 	@GetMapping("/deleteOk")
 	public String deleteOk(String id, Model model) {
+		studygroupService.deleteSGByID(id);
 		model.addAttribute("result", userService.deleteAuth(id));
 		model.addAttribute("result", userService.deleteById(id));
-		model.addAttribute("result", userService.deleteMemberStudy(id));
+		
+//		model.addAttribute("result", userService.deleteMemberStudy(id));
+		
 		SecurityContextHolder.clearContext();
 		return "user/deleteOk";
 	}

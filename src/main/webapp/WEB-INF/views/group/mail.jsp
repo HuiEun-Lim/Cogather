@@ -35,7 +35,9 @@
           </div>
         <p>
       <div align="center">
-        <input type="submit" value="메일 보내기" class="btn btn-warning">
+        <input type="submit" value="메일 보내기" class="btn btn-warning" style="color:white;float:center;background-color:#ffd43b;border :0;
+	outline:0;width:180px;
+	height:30px;">
       </div>
     </form>
 </body>

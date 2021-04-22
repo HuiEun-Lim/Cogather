@@ -107,7 +107,8 @@ public class RestContentController {
 		StringBuffer message = new StringBuffer();
 
 		String status = "FAIL";
-
+		System.out.println("sg_id: " +sg_id);
+		System.out.println("ct_uid: " + ct_uid);
 		try {
 			list = boardService.viewByUid(sg_id, ct_uid);
 			

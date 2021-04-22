@@ -53,7 +53,7 @@
 		
 		SELECT memberstudy.id, studygroup.sg_id,studygroup.sg_name,studygroup.sg_info,studygroup.sg_max,studygroup.sg_tag,studygroup.kko_url,studygroup.sg_regdate,studygroup.file_name
 		FROM memberstudy,studygroup
-		WHERE memberstudy.sg_id = studygroup.sg_id  AND studygroup.sg_id =#{param1} AND memberstudy.G_AUTH='captain'
+		WHERE memberstudy.sg_id = studygroup.sg_id AND studygroup.sg_id =#{param1} AND memberstudy.G_AUTH='captain'
 		
 	</select>
 	
@@ -126,4 +126,11 @@
 		WHERE sg_id = #{sg_id}
 	</select>
 
+	<delete id="deleteSGByID">
+		DELETE FROM STUDYGROUP 
+		WHERE sg_id IN 
+		(SELECT s.sg_id 
+		FROM STUDYGROUP s, MEMBERSTUDY m 
+		WHERE s.sg_id = m.sg_id AND m.ID = #{id} AND m.G_AUTH = 'captain')
+	</delete>
 </mapper>

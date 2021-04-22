@@ -10,6 +10,10 @@
     background-repeat: repeat-y;
 	
 }
+.move {
+    color: #595959;
+    text-align: center!important;
+}
 @font-face {
 	font-family: "NanumBarunpenB";
 	src:url("../font/NanumBarunpenB.ttf")format("truetype");

@@ -35,14 +35,14 @@
 			로그인을 부탁 드립니다.
 		</c:if>
 <c:if test="${user_id ne null}">
-<h5 style="text-align: left; margin: 10px 0 0 50px">최근 스터디</h5>
+<h5 style="text-align: left; margin: 10px 0 0 50px">최근에 생성된 스터디</h5>
 			<c:forEach var="dto" items="${list}">
 				<ul id="myUl" class="row">
-					<li class="column"><a
+					<li class="column" style="word-break: break-all;overflow:auto"><a
 						href="../group/studyview?sg_id=${dto.sg_id}"
-						style="text-decoration: none;"><img
+						style="text-decoration: none;word-break: break-all;"><img
 							src="/cogather/img/group/upload/${dto.file_name}"
-							style="float: right; left: -40%; position: relative; border: 2px solid #ddd; background: url(/cogather/img/borderdesign.jpg); border-radius: 50px; padding: 5px;"
+							style="float: right; left: -40%; position: relative; border: 2px solid #ddd; background: url(/cogather/img/borderdesign.jpg); border-radius: 50px; padding: 5px;word-break: break-all;"
 							width="20%" height="50px"
 							onerror="this.src='/cogather/img/logo.png'"> </a>
 					</div>
@@ -50,16 +50,16 @@
 					<br>
 						<p>
 							<a href="../group/studyview?sg_id=${dto.sg_id}"
-								style="text-decoration: none; float: right; left: -40%; position: relative;">방번호:${dto.sg_id}</a>
+								style="text-decoration: none; float: right; left: -40%; position: relative;word-break: break-all;">방번호:${dto.sg_id}</a>
 						</p>
 						<br>
 						<p>
 							<a href="../group/studyview?sg_id=${dto.sg_id}"
-								style="text-decoration: none; float: right; left: -40%; position: relative;">주제:${dto.sg_tag}</a>
+								style="text-decoration: none; float: right; left: -40%; position: relative;word-break: break-all;">주제:${dto.sg_tag}</a>
 						</p></li>
 			</c:forEach>
 			
-				<li class="column new_div">
+				<li class="column new_div" style="word-break: break-all;overflow:auto">
 					<h5 style="text-align: center;">신규 스터디 생성</h5>
 					<button
 						style="border: none; float: right; left: -40%; position: relative;class="button_add">
