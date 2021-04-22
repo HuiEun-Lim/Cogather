@@ -59,7 +59,7 @@
 	
 	<select id="select_recent" resultType="com.project.cogather.studygroup.model.StudyGroupDTO">
 		<![CDATA[
-		 SELECT * FROM studygroup WHERE ROWNUM <=2 ORDER by sg_id DESC
+			SELECT sg_id FROM STUDYGROUP WHERE ROWNUM <=2 ORDER BY sg_id desc
 		]]>
 	</select>
 	
