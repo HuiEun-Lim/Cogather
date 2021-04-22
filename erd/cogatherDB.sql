@@ -36,6 +36,7 @@ CREATE TABLE authority
 );
 
 --SELECT * FROM AUTHORITY;
+ SELECT * FROM studygroup WHERE ROWNUM <=3 ORDER by sg_id desc;
 
 /*댓글*/
 CREATE TABLE comments /* on delete set null 시 해당 ID가 not null 이면 삭제시 문제 발생됨 */
@@ -337,7 +338,7 @@ CREATE TABLE seats
 --
 --
 --SELECT * FROM seats;
-
+SELECT sg_id FROM STUDYGROUP WHERE ROWNUM <=2 ORDER BY sg_id desc;
 /*스터디 그룹*/
 CREATE TABLE studygroup
 (

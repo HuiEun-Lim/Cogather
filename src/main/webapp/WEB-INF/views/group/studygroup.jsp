@@ -54,8 +54,8 @@
 						</p>
 						<br>
 						<p>
-							<a href="../group/studyview?sg_id=${dto.sg_id}"
-								style="text-decoration: none; float: right; left: -40%; position: relative;word-break: break-all;">주제:${dto.sg_tag}</a>
+							<%-- <a href="../group/studyview?sg_id=${dto.sg_id}"
+								style="text-decoration: none; float: right; left: -40%; position: relative;word-break: break-all;">주제:${dto.sg_tag}</a> --%>
 						</p></li>
 			</c:forEach>
 			
