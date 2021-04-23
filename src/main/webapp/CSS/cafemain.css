@@ -40,7 +40,10 @@ img.logo{
 }
 
 .picket-wrapper{
-	height:150px;
+	position: fixed; /* 고정화 */
+    top: 300px;
+    left: 10px;
+    height: 150px;
 }
 #picket{
 	position: absolute;
