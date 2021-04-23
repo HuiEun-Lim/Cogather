@@ -59,7 +59,7 @@ $(document).ready(function(){
 function payrsvkkao(jsonObj){
 	var row = JSON.parse(jsonObj);
 	var turl = row.next_redirect_pc_url;
-	window.open(turl);
+	location.href=turl;
 }
 
 
