@@ -6,8 +6,11 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  
+ 
 <style>
+.clear{
+	clear:both;
+}
 .social-links {
     float: none;
     text-align: center;
@@ -41,6 +44,7 @@ img{vertical-align: middle;}
 </head>
 
 <body>
+
 <div class="footer">
 
     <div class="container">
@@ -54,7 +58,7 @@ img{vertical-align: middle;}
             <div class="col-sm-2">
                 <div class="social-links">
                     <a href="https://github.com/HuiEun-Lim/Cogather">
-                    <img class="social-link" src="../img/cafe/git.png"/> </a>
+                    <img class="social-link" src="../img/cafe/git.png"/></a>
                 </div>
             </div>
         </div>

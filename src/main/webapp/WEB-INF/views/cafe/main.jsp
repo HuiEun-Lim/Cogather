@@ -45,16 +45,16 @@
 <div class="slideshow-container w3-padding-top-64">
 
   <!-- Full-width images with number and caption text -->
-  <div class="mySlides fade">
+  <div class="mySlides fadeout">
 
     <img src="../img/cafe/main_lobby.jpg" class="slimg">
   </div>
 
-  <div class="mySlides fade">
+  <div class="mySlides fadeout">
     <img src="../img/cafe/main_seats.jpg" class="slimg">
   </div>
 
-  <div class="mySlides fade">
+  <div class="mySlides fadeout">
     <img src="../img/cafe/main_room.jpg" class="slimg">
   </div>
 
