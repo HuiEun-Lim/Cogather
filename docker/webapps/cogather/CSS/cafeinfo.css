@@ -1,0 +1,80 @@
+@font-face {
+	font-family: "a시네마L.ttf";
+	src:url("../font/a시네마L.ttf")format("truetype");
+}
+
+@font-face {
+	font-family: "NanumBarunpenB";
+	src:url("../font/NanumBarunpenB.ttf")format("truetype");
+}
+
+#myNavbar {
+	color: white;
+	font-size:20px;
+	font-family:NanumBarunpenB;
+}
+
+.user_id {
+	color: white;
+	font-size:20px;
+	font-family:NanumBarunpenB;
+}
+
+
+#myNavbar{
+	color: #595959;
+	font-size:20px;
+
+}
+
+img.logo{
+	width: 80px;
+	margin-left:10px;	
+}
+
+.choice{
+	padding-top:6px;
+}
+
+.tgbar {
+	margin-top:50px;
+}
+
+#home, #navDemo {
+	font-family: a시네마L;
+}
+
+
+#wrap {
+    width: 1000px;
+    margin: 0;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: left;
+}
+
+#wraptitle{
+	margin-top:90px;
+	margin-bottom:90px
+}
+
+* {box-sizing: border-box;}
+
+.img-magnifier-container {
+  position: relative;
+}
+
+.img-magnifier-glass {
+  position: absolute;
+  border: 3px solid #000;
+  border-radius: 50%;
+  cursor: none;
+  /*Set the size of the magnifier glass:*/
+  width: 100px;
+  height: 100px;
+}
+
+.expln {
+	font-size: 20px;
+	padding-left: 14px;
+}

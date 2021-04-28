@@ -1,0 +1,32 @@
+version: '3'
+services:
+  web:
+    image: tomcat:latest
+    environment:
+      JDBC_URL: jdbc:oracle:thin:@db:12345:XE
+      JDBC_USER: system
+      JDBC_PASS: oracle
+    ports:
+      - "8090:8080"
+    volumes:
+      - ./webapps:/usr/local/tomcat/webapps
+    links:
+      - db
+      - redis-chat
+    restart: always
+  db:
+    image: oracleinanutshell/oracle-xe-11g
+    container_name: oracle11g
+    ports:
+      - "12345:1521"
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+    restart: always
+
+  redis-chat:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    restart: always
+  
+ 

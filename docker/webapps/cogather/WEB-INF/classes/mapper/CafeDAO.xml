@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.cogather.domain.CafeDAO">
+	<insert id="insert" flushCache="true"
+		parameterType="com.project.cogather.domain.CafeDTO"
+		keyProperty="res_id" useGeneratedKeys="true" keyColumn="res_id">
+		INSERT INTO reservation 
+			(res_id, ID, seat_id, start_date, end_date, payment) 
+		VALUES
+			(reservation_seq.nextval, #{ID}, #{seat_id}, #{start_date}, #{end_date}, #{payment})
+	</insert>
+	
+	<select id="select" resultType="com.project.cogather.domain.CafeDTO">
+		SELECT 
+			res_id, 
+			ID, 
+			seat_id, 
+			start_date, 
+			end_date, 
+			payment 
+		FROM 
+			reservation 
+		ORDER BY 
+			res_id DESC
+	</select>
+	
+	<delete id="deleteByUid" flushCache="true">
+		DELETE FROM reservation WHERE res_id = #{res_id}
+	</delete>
+	
+	<select id="getprice" resultType="int">
+		SELECT seat_price FROM seats WHERE seat_id = #{param1}
+	</select>
+	
+	<select id="selectDate" resultType = "com.project.cogather.domain.CafeDTO">
+		SELECT seat_id, start_date, end_date FROM reservation WHERE seat_id = #{seat_id} AND end_date > SYSDATE
+	</select>
+	
+	<select id="adminview" resultType="com.project.cogather.domain.CafeDTO">
+		SELECT r.res_id, r.seat_id, r.ID, r.start_date, r.end_date, s.seat_price, r.payment 
+		FROM RESERVATION r, SEATS s 
+		WHERE r.SEAT_ID = s.SEAT_ID
+		ORDER BY r.res_id DESC
+	</select>
+	
+	<select id="searchBySubject"
+		resultType="com.project.cogather.domain.CafeDTO">
+	</select>
+	
+</mapper>

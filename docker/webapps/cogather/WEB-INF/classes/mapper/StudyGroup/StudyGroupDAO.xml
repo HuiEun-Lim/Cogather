@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.cogather.studygroup.model.StudyGroupDAO">
+	<select id="select" resultType="com.project.cogather.studygroup.model.StudyGroupDTO">
+		SELECT 
+			*
+		FROM 
+			studygroup 
+		ORDER by sg_id DESC
+		
+	</select>
+	
+	<select id="countBoard" resultType="int">
+		 SELECT COUNT(*) FROM studygroup WHERE sg_tag LIKE '%' || #{keyword, jdbcType=VARCHAR}
+		
+	</select>
+	
+	<select id="selectBoard" resultType="com.project.cogather.studygroup.model.StudyGroupDTO">
+		<![CDATA[ SELECT * FROM (
+	SELECT ROWNUM AS RNUM, T.* 
+	FROM (SELECT * FROM studygroup where sg_tag like '%'||#{keyword, jdbcType=VARCHAR} ||'%' or sg_id like '%'||#{keyword, jdbcType=VARCHAR}  ORDER BY sg_id DESC) T) 
+	
+	
+	WHERE
+	 RNUM >=#{start} AND RNUM < #{end}
+	]]>
+
+		
+	</select>
+	
+	
+	 <sql id="search">
+        <choose>
+            <when test="search_option == 'all' ">
+                where  
+                      user_id like '%'||#{keyword}||'%'
+                      or content like '%' || #{keyword}||'%'
+                      or title like '%'||#{keyword}||'%'   
+            </when>
+            <otherwise>
+                where ${search_option} like '%'||#{keyword}||'%'
+            </otherwise>
+        </choose>
+    </sql>
+    
+    
+	<select id="selectByUid" resultType="com.project.cogather.studygroup.model.StudyGroupDTO">
+		<!-- SELECT 
+			*
+		FROM 
+			studygroup 
+		WHERE sg_id= #{param1} -->
+		
+		SELECT memberstudy.id, studygroup.sg_id,studygroup.sg_name,studygroup.sg_info,studygroup.sg_max,studygroup.sg_tag,studygroup.kko_url,studygroup.sg_regdate,studygroup.file_name
+		FROM memberstudy,studygroup
+		WHERE memberstudy.sg_id = studygroup.sg_id AND studygroup.sg_id =#{param1} AND memberstudy.G_AUTH='captain'
+		
+	</select>
+	
+	<select id="select_recent" resultType="com.project.cogather.studygroup.model.StudyGroupDTO">
+		<![CDATA[
+			SELECT sg_id FROM STUDYGROUP WHERE ROWNUM <=2 ORDER BY sg_id desc
+		]]>
+	</select>
+	
+	 <insert id="insert" flushCache="true" 
+	parameterType="com.project.cogather.studygroup.model.StudyGroupDTO"
+	keyProperty="sg_id" useGeneratedKeys="true" keyColumn="sg_id">
+		
+		INSERT INTO studygroup
+			 (sg_id,sg_info,sg_name,sg_max,sg_regdate,sg_tag,kko_url,file_name) 
+		VALUES
+			(studygroup_seq.nextval,#{sg_info}, #{sg_name},#{sg_max},SYSDATE,#{sg_tag},#{kko_url},#{file_name, jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="insertFile" parameterType="hashMap" keyProperty="sgf_id" useGeneratedKeys="true" keyColumn="sgf_id">
+		
+		INSERT INTO studygroup_file
+			 (sgf_id,sgf_org_file_name,sgf_stored_file_name,sg_id,sgf_file_size) 
+		VALUES
+			(studygroup_file_seq.nextval,#{sgf_org_file_name, jdbcType=VARCHAR}, #{sgf_stored_file_name, jdbcType=VARCHAR},#{sg_id, jdbcType=VARCHAR},#{sgf_file_size, jdbcType=VARCHAR})
+	</insert>
+	
+	
+	
+	<select id="selectFile" parameterType="com.project.cogather.studygroup.model.StudyGroupFileDTO" resultType="hashMap">
+			SELECT *
+			FROM studygroup_file 
+			WHERE sg_id=#{sg_id, jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectFileInfo" parameterType="hashMap" resultType="hashMap">
+			SELECT sgf_org_file_name,sgf_stored_file_name,sgf_id
+			FROM studygroup_file 
+			WHERE sgf_id=#{SGF_ID, jdbcType=VARCHAR}
+	</select>
+	
+	
+	<update id="update" flushCache="true" 
+		parameterType="com.project.cogather.studygroup.model.StudyGroupDTO">
+		UPDATE studygroup 
+		SET sg_info = #{a.sg_info},sg_name=#{a.sg_name},sg_tag=#{a.sg_tag},kko_url=#{a.kko_url},file_name=#{a.file_name, jdbcType=VARCHAR}
+		WHERE sg_id = #{param1}
+	</update>
+	
+	<delete id="deleteByUid" flushCache="true">
+		DELETE FROM studygroup WHERE sg_id = #{sg_id}
+	</delete>
+	
+	<delete id="deleteFileByUid" flushCache="true">
+		DELETE FROM studygroup_file WHERE sgf_id = #{sgf_id, jdbcType=INTEGER}
+	</delete>
+	
+	<select id="getStudyByID" resultType="com.project.cogather.studygroup.model.StudyGroupDTO">
+		SELECT * FROM STUDYGROUP
+		WHERE sg_id IN 
+			(SELECT SG_ID 
+			FROM MEMBERSTUDY 
+			WHERE id = #{id} and (g_auth = 'captain' or g_auth = 'crew') )
+		ORDER BY sg_id DESC
+	</select>
+	
+	<select id="getStudyBySgID" resultType="com.project.cogather.studygroup.model.StudyGroupDTO">
+		SELECT *
+		FROM STUDYGROUP
+		WHERE sg_id = #{sg_id}
+	</select>
+
+	<delete id="deleteSGByID">
+		DELETE FROM STUDYGROUP 
+		WHERE sg_id IN 
+		(SELECT s.sg_id 
+		FROM STUDYGROUP s, MEMBERSTUDY m 
+		WHERE s.sg_id = m.sg_id AND m.ID = #{id} AND m.G_AUTH = 'captain')
+	</delete>
+</mapper>

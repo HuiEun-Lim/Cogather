@@ -1,0 +1,168 @@
+@font-face {
+	font-family: "a시네마L";
+	src:url("../font/a시네마L.ttf")format("truetype");
+}
+
+@font-face {
+	font-family: "NanumBarunpenB";
+	src:url("../font/NanumBarunpenB.ttf")format("truetype");
+}
+
+
+.bgimg {
+	
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('../img/cafe/mainback.png');
+    min-height: 370px;
+}
+
+#myNavbar{
+	color: white;
+	font-size:20px;
+	font-family:NanumBarunpenB;
+}
+
+.user_id {
+	color: white;
+	font-size:20px;
+	font-family:NanumBarunpenB;
+}
+
+img.logo{
+	width: 80px;
+	margin-left:10px;	
+}
+
+.choice{
+	padding-top:6px;
+}
+
+.picket-wrapper{
+	position: fixed; /* 고정화 */
+    top: 300px;
+    left: 10px;
+    height: 150px;
+}
+#picket{
+	position: absolute;
+	width: 140px;
+	height: 100px;
+	margin-top: 15px;
+	left: -60px;
+}
+.where{
+	height: 40px;
+	font-size: 30px;
+	font-family:'a시네마L'; 
+	overflow: hidden; /* Ensures the content is not revealed until the animation */
+	
+}
+
+.tgbar {
+	margin-top:50px;
+}
+
+#home, #navDemo {
+	font-family: a시네마L;
+}
+
+#wrap {
+    width: 1000px;
+    margin: 0;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: left;
+}
+
+
+.info {
+	color:#595959;
+}
+
+.infoimg {
+	width: 80px;
+	padding-bottom: 13px;
+}
+
+* {box-sizing:border-box}
+
+/* Slideshow container */
+.slideshow-container {
+  width: 700px;
+  min-height: 300px;
+  position: relative;
+  margin: auto;
+}
+
+.slimg {
+	width:700px;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fadeout {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}

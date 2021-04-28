@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.cogather.domain.UserDAO">
+	<insert id="minsert" flushCache="true"
+		parameterType="com.project.cogather.domain.UserDTO"
+		keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+		INSERT INTO members
+			(id, name, pw, phone, email, tag, pimg_url)
+		VALUES
+			(#{id}, #{name}, #{pw}, #{phone}, #{email}, #{tag}, #{pimg_url})
+	</insert>
+	
+	<insert id="authinsert" flushCache="true"
+		parameterType="com.project.cogather.domain.UserDTO"
+		keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+		INSERT INTO authority
+			(auth, id)
+		VALUES
+			('ROLE_USER', (SELECT m.id FROM MEMBERS m WHERE m.id = #{id}))
+	</insert>
+	
+	<select id="selectByID"
+		resultType="com.project.cogather.domain.UserDTO">
+		SELECT * FROM MEMBERS WHERE id = #{id}
+	</select>
+	
+	<select id="myrsvID"
+		resultType="com.project.cogather.domain.CafeDTO">
+		SELECT * FROM reservation WHERE ID = #{id}
+	</select>
+	
+	<select id="mygroupID"
+		resultType="com.project.cogather.memberstudy.model.MemberStudyDTO">
+		SELECT * FROM memberstudy  WHERE ID = #{id}
+	</select>
+	
+	<select id="mygroupName"
+		resultType="com.project.cogather.studygroup.model.StudyGroupDTO">
+		SELECT sg.sg_name FROM memberstudy ms, studygroup sg  WHERE ms.sg_id = sg.sg_id AND ms.ID = #{id}
+	</select>
+	
+	
+	<update id="update" flushCache="true"
+		parameterType="com.project.cogather.domain.CafeDTO">
+		UPDATE MEMBERS
+		SET name = #{a.name}, pw = #{a.pw}, phone = #{a.phone}, email = #{a.email}, tag = #{a.tag}
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteAuth" flushCache="true">
+		DELETE FROM authority WHERE id = #{id}
+	</delete>
+	
+	<delete id="deleteById" flushCache="true">
+		DELETE FROM MEMBERS WHERE id = #{id}
+	</delete>
+	
+	<delete id="deleteMemberStudy" flushCache="true">
+		DELETE FROM MEMBERSTUDY WHERE id = #{id}
+	</delete>
+
+
+
+</mapper>

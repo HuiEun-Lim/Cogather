@@ -48,17 +48,17 @@ public class StudyGroupPaging {
 		
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = 1;
-			cntPerPage = 8;
+			cntPerPage = 9;
 		} else if (nowPage ==null) {
-			nowPage = 8;
+			nowPage = 9;
 		} else if (cntPerPage == null) { 
-			cntPerPage = 8;
+			cntPerPage = 9;
 		}
 	}
 	// DB 쿼리에서 사용할 start, end값 계산
 	public void calcStartEnd(int nowPage, int cntPerPage) {
 		setEnd(nowPage * cntPerPage);
-		setStart(getEnd() - cntPerPage);
+		setStart(getEnd() - cntPerPage+1);
 	}
 	
 	public int getNowPage() {

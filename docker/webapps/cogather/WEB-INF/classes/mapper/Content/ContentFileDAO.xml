@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.cogather.content.model.ContentFileDAO">
+	<insert id="saveFile" flushCache="true">
+		INSERT INTO CONTENT_FILE (cf_id, cf_source, cf_file, ct_uid)
+		VALUES (content_file_seq.nextval, #{cf_source}, #{cf_file}, #{ct_uid})
+	</insert>
+	
+	<select id="getFileInfosByCTUID" resultType="com.project.cogather.content.model.ContentFileDTO">
+		SELECT *
+		FROM CONTENT_FILE
+		WHERE ct_uid = #{ct_uid}
+	</select>
+</mapper>

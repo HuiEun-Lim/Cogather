@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.project.cogather.common.Common;
 import com.project.cogather.memberstudy.model.MemberStudyDAO;
 import com.project.cogather.memberstudy.model.MemberStudyDTO;
 import com.project.cogather.studygroup.model.StudyGroupDAO;
@@ -88,7 +89,7 @@ public class StudyGroupService {
 	//		uploadFile.transferTo(new File(pdfPath+file_name));
 			//uploadFile.transferTo(new File("upload"+file_name));
 		//	uploadFile.transferTo(new File("D:\\DevRoot\\Dropbox\\App04\\CoGather\\Cogather\\src\\main\\webapp\\img\\group\\upload\\"+file_name));
-			uploadFile.transferTo(new File("C:\\tomcat\\upload\\"+file_name));
+			uploadFile.transferTo(new File(mpRequest.getSession().getServletContext().getRealPath(Common.STUDYFILEPATH)+"/"+file_name));
 
 
 		}
@@ -193,7 +194,7 @@ public class StudyGroupService {
 			String ext = FilenameUtils.getExtension(originalFileName);	//확장자 구하기
 			UUID uuid = UUID.randomUUID();	//UUID 구하기
 			file_name=uuid+"."+ext;
-			uploadFile.transferTo(new File("C:\\tomcat\\upload\\"+file_name));
+			uploadFile.transferTo(new File(mpRequest.getSession().getServletContext().getRealPath(Common.STUDYFILEPATH)+file_name));
 				
 		}
 		

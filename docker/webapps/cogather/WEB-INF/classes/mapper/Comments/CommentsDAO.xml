@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.cogather.comments.model.CommentsDAO">
+	<select id="selectAllCommentsByCTUID" resultType="com.project.cogather.comments.model.CommentsDTO">
+		SELECT * 
+		FROM COMMENTS
+		WHERE ct_uid = #{ct_uid}
+		ORDER BY CM_UID DESC
+	</select>
+	<insert id="insertComments">
+		INSERT INTO COMMENTS (CM_UID, ID, CT_UID, REPLY)
+		VALUES (comments_seq.nextval, #{id}, #{ct_uid},#{reply})
+	</insert>
+	<update id="updateComments">
+		UPDATE COMMENTS 
+		SET REPLY = #{reply}, REGDATE = SYSDATE
+		WHERE CM_UID = #{cm_uid} AND ID = #{id}
+	</update>
+	<delete id="deleteComments">
+		DELETE FROM COMMENTS
+		WHERE CM_UID = #{cm_uid} and id=#{id} 
+	</delete>
+	<select id="getCommentsCounts" resultType="com.project.cogather.comments.model.CommentsCounts">
+	<![CDATA[
+	SELECT a.ct_uid ct_uid,COUNT(C.CT_UID) cnt
+	FROM 
+	(SELECT *
+		FROM 
+			(SELECT ROWNUM AS RNUM, T.* FROM 
+				(SELECT * FROM CONTENT 
+				WHERE SG_ID = #{sg_id}
+				ORDER BY ct_uid DESC 
+				) T
+			) 
+		WHERE 
+			RNUM >= #{page} AND RNUM < (#{page} + #{pageRows})
+	) a LEFT JOIN COMMENTS c ON a.CT_UID = c.CT_UID
+	GROUP BY a.CT_UID
+	]]>
+	</select>
+</mapper>

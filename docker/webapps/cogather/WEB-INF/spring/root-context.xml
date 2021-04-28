@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd">	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	
+	
+	
+<!-- gmail -->
+ 
+  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    <property name="host" value="smtp.gmail.com" />
+    <property name="port" value="587" />
+    <property name="username" value="cogather12@gmail.com" />
+    <property name="password" value="zhrpej12" />
+    <property name="javaMailProperties">
+    <props>
+      <prop key="mail.smtp.auth">true</prop>
+      <prop key="mail.smtp.starttls.enable">true</prop>
+    </props>
+    </property>
+  </bean>
+
+	<beans:bean name="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName"
+			value="oracle.jdbc.driver.OracleDriver"></beans:property>
+		<beans:property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:XE"></beans:property>
+		<beans:property name="username" value="cogather"></beans:property>
+		<beans:property name="password" value="1234"></beans:property>
+	</beans:bean>
+
+     
+    <bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+       <beans:property name="maxUploadSize" value="1000000000" />
+		<beans:property name="maxInMemorySize" value="1000000000"/> <!-- 100MB-->
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>
+
+</beans>
