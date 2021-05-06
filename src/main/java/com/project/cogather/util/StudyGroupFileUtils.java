@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.project.cogather.common.Common;
 import com.project.cogather.studygroup.controller.StudyGroupController;
 
 import com.project.cogather.studygroup.model.StudyGroupFileDTO;
@@ -21,7 +22,7 @@ import com.project.cogather.studygroup.model.StudyGroupDTO;
 @Component
 public class StudyGroupFileUtils {
 
-	private static final String FILEPATH="C:\\tomcat\\upload";
+	private static final String FILEPATH="img/group/upload";
 	String sgf_org_file_name = null;
 	String originalFileExtension = null;
 	String sgf_stored_file_name = null;
@@ -51,14 +52,15 @@ public class StudyGroupFileUtils {
 		originalFileExtension = null;
 		sgf_stored_file_name = null;
 		sgf_file_size=0;
-		
+		String realPath = mpRequest.getSession().getServletContext().getRealPath(Common.STUDYFILEPATH);
+		System.out.println(realPath);
 		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
 
 		Map<String,Object> listMap = null;
 		int sg_id = dto.getSg_id();
-		File file = new File(FILEPATH);
+		File file = new File(realPath);
 		if(file.exists() == false) {
-			file.mkdir();
+			file.mkdirs();
 		}
 		
 		while(iterator.hasNext()) {
@@ -69,7 +71,7 @@ public class StudyGroupFileUtils {
 				sgf_org_file_name = multipartFile.getOriginalFilename();
 				originalFileExtension = sgf_org_file_name.substring(sgf_org_file_name.lastIndexOf("."));
 				sgf_stored_file_name = getRandomString() + originalFileExtension;
-				file = new File(FILEPATH + sgf_stored_file_name);
+				file = new File(realPath +"/"+ sgf_stored_file_name);
 				
 				multipartFile.transferTo(file);
 				listMap = new HashMap<String, Object>();

@@ -1,32 +1,43 @@
 version: '3'
 services:
   web:
-    image: tomcat:latest
-    environment:
-      JDBC_URL: jdbc:oracle:thin:@db:12345:XE
-      JDBC_USER: system
-      JDBC_PASS: oracle
+#    build:
+#      context: ./tomcat
+#      dockerfile: Dockerfile # Dockerfile로 image를 빌드하고 사용하는 것인데 느려서 컨테이너를 따로 빌드하고 사용
+    image: qhxmaoflr/cogather-tomcat
+    container_name: cogather # 컨테이너 별칭
+    networks: # docker에서 만든 별도의 private network
+      - cogather-network
     ports:
-      - "8090:8080"
+      - "80:8080" # web server port : 컨테이너 내부 포트
+    environment:
+      - TZ="Asia/Seoul" # 시간에 대한 환경변수
     volumes:
-      - ./webapps:/usr/local/tomcat/webapps
-    links:
-      - db
+      - ./webapps:/usr/local/tomcat/webapps # 배포할 파일을 두는 곳 volumes로 매핑해두어 파일만 갈아 끼울 수 있게 함
+    depends_on: # 아래의 종속된 컨테이너가 실행된뒤에 실행됨
+      - oracle-db
       - redis-chat
     restart: always
-  db:
-    image: oracleinanutshell/oracle-xe-11g
-    container_name: oracle11g
+  oracle-db: # oracle db container 별칭
+    image: wnameless/oracle-xe-11g-r2
+    container_name: oracle-db
+    networks:
+      - cogather-network
     ports:
       - "12345:1521"
     volumes:
-      - ./db:/docker-entrypoint-initdb.d
+      - ./db:/docker-entrypoint-initdb.d # oracle 컨테이너가 실행될시 처음 실행하게 되는 초기화 부분으로 초기 테이블 생성과 같은 쿼리문을 두면 됨
+    environment:
+      - TZ="Asia/Seoul"
+      - ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe # 컨테이너 내부에서 해당 환경변수가 세팅이 안되어 있어서 리스터 확인하기가 안되서 세팅해줌
     restart: always
-
-  redis-chat:
+  redis-chat: # redis server container 별칭
     image: redis:latest
-    ports:
+    container_name: redis-chat
+    networks:
+      - cogather-network
+    ports: 
       - "6379:6379"
     restart: always
-  
- 
+networks: # 네트워크 생성 -여러 가지 설정이 가능하지만 일단은 기본으로 둠
+  cogather-network:

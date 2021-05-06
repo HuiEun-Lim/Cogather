@@ -37,13 +37,7 @@
 	<context:component-scan base-package="com.project.cogather" />
 	<beans:bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
 	
-		<!-- DataSource 객체 -->
-	<beans:bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-		<beans:property name="url" value="jdbc:oracle:thin:@db:1521:XE"/>
-		<beans:property name="username" value="system"/>
-		<beans:property name="password" value="oracle"/>
-	</beans:bean>
+	
 	
 	<!-- JdbcTemplate -->
 	

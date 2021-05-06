@@ -25,14 +25,12 @@
     </property>
   </bean>
 
-	<beans:bean name="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<beans:property name="driverClassName"
-			value="oracle.jdbc.driver.OracleDriver"></beans:property>
-		<beans:property name="url"
-			value="jdbc:oracle:thin:@localhost:1521:XE"></beans:property>
-		<beans:property name="username" value="cogather"></beans:property>
-		<beans:property name="password" value="1234"></beans:property>
+		<!-- DataSource 객체 -->
+	<beans:bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<beans:property name="url" value="jdbc:oracle:thin:@oracle-db:1521:XE"/>
+		<beans:property name="username" value="cogather"/>
+		<beans:property name="password" value="1234"/>
 	</beans:bean>
 
      

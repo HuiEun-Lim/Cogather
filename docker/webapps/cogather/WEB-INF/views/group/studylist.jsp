@@ -72,7 +72,7 @@
 				<li class="column" style="word-break: break-all;overflow:auto">
 				
 				
-					<a href="../group/studyview?sg_id=${dto.sg_id}" style="text-decoration:none;"><img src="/cogather/img/group/upload/${dto.file_name}" style="float:right;
+					<a href="../group/studyview?sg_id=${dto.sg_id}" style="text-decoration:none;"><img src="../img/group/${dto.file_name}" style="float:right;
 	left:-40%; position:relative;border: 2px solid #ddd;background: url(/cogather/img/borderdesign.jpg); border-radius: 50px;padding: 5px;" width="20%" height="50px" onerror="this.src='/cogather/img/logo.png'">
 					</a></div><br><br>
 					  <p><a href="../group/studyview?sg_id=${dto.sg_id}" style="text-decoration:none;float:left;

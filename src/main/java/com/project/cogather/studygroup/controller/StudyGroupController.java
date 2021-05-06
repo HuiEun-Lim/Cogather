@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.project.cogather.chat.service.RedisService;
+import com.project.cogather.common.Common;
 import com.project.cogather.studygroup.model.StudyGroupFileDTO;
 import com.project.cogather.studygroup.model.StudyGroupPaging;
 import com.project.cogather.members.service.MembersService;
@@ -150,16 +151,16 @@ public class StudyGroupController {
 		}
 		
 		@RequestMapping(value="/fileDown")
-		public void fileDown(@RequestParam Map<String, Object> map, HttpServletResponse response,Model model) throws Exception{
+		public void fileDown(@RequestParam Map<String, Object> map, HttpServletResponse response,HttpServletRequest request, Model model) throws Exception{
 			
 			Map<String, Object> resultMap=studygroupservice.selectFileInfo(map);
 			model.addAttribute("rmap",resultMap);
 			System.out.println("fdfdfssdfd"+resultMap.toString());	
 			String storedFileName = (String) resultMap.get("SGF_STORED_FILE_NAME");
 			String originalFileName = (String) resultMap.get("SGF_ORG_FILE_NAME");
-			
+			String realPath = request.getSession().getServletContext().getRealPath(Common.STUDYFILEPATH);
 			// 파일을 저장했던 위치에서 첨부파일을 읽어 byte[]형식으로 변환한다.
-			byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\\\tomcat\\"+"upload"+storedFileName));
+			byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File(realPath+"/"+storedFileName));
 			
 			response.setContentType("application/octet-stream");
 			response.setContentLength(fileByte.length);

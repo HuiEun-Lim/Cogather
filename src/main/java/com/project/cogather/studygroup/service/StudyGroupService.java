@@ -84,12 +84,8 @@ public class StudyGroupService {
 			String ext = FilenameUtils.getExtension(originalFileName);	//확장자 구하기
 			UUID uuid = UUID.randomUUID();	//UUID 구하기
 			file_name=uuid+"."+ext;
-	//		String pdfPath = mpRequest.getSession().getServletContext().getRealPath("/img/group/");
-	//		System.out.println(new File(pdfPath));	
-	//		uploadFile.transferTo(new File(pdfPath+file_name));
-			//uploadFile.transferTo(new File("upload"+file_name));
-		//	uploadFile.transferTo(new File("D:\\DevRoot\\Dropbox\\App04\\CoGather\\Cogather\\src\\main\\webapp\\img\\group\\upload\\"+file_name));
-			uploadFile.transferTo(new File(mpRequest.getSession().getServletContext().getRealPath(Common.STUDYFILEPATH)+"/"+file_name));
+			System.out.println("실제 경로: " + mpRequest.getSession().getServletContext().getRealPath(Common.STUDYFILEPATH)+"\\"+file_name);
+			uploadFile.transferTo(new File(mpRequest.getSession().getServletContext().getRealPath(Common.STUDYFILEPATH)+"\\"+file_name));
 
 
 		}

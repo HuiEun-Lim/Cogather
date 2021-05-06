@@ -267,8 +267,8 @@ $(function(){
 		<!-- light box2  제이쿼리 -->
 		
 		<c:if test="${list[0].file_name ne null}" >
-		<a href="/cogather/img/group/upload/${list[0].file_name}" data-lightbox="example-set">
-			<img src="/cogather/img/group/upload/${list[0].file_name}" width="20%" height="50px" title='(이미지 클릭시 확대)'>
+		<a href="../img/group/${list[0].file_name}" data-lightbox="example-set">
+			<img src="../img/group/${list[0].file_name}" width="20%" height="50px" title='(이미지 클릭시 확대)'>
 			</a>
 		
 	 			<%-- ${list[0].fileName}

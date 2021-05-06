@@ -1,16 +1,11 @@
+show USER;
+ALTER SESSION SET TIME_ZONE = 'Asia/Seoul';
+ALTER DATABASE SET TIME_ZONE = '+09:00';
+CREATE USER cogather IDENTIFIED BY 1234;
+GRANT connect, resource, create view, create procedure, select any table to cogather;
+CONNECT cogather/1234;
+show USER;
 
-/* Drop Tables */
-
--- sequnce 생성
-CREATE SEQUENCE comments_seq;
-CREATE SEQUENCE content_seq;
-CREATE SEQUENCE reservation_seq;
-CREATE SEQUENCE studygroup_seq;
-CREATE SEQUENCE studygroup_file_seq;
-CREATE SEQUENCE content_file_seq;
-
-/* Create Tables */
-/*권한*/
 CREATE TABLE authority
 (
 	auth varchar2(20) DEFAULT 'ROLE_USER' NOT NULL, /*권한명*/
@@ -18,9 +13,6 @@ CREATE TABLE authority
 	PRIMARY KEY (auth, ID),
 	CONSTRAINT ROLECK CHECK(auth IN ('ROLE_USER' , 'ROLE_ADMIN')) 
 );
-
-
-/*댓글*/
 CREATE TABLE comments /* on delete set null 시 해당 ID가 not null 이면 삭제시 문제 발생됨 */
 (
 	cm_uid number NOT NULL,/*댓글고유번호*/
@@ -30,8 +22,6 @@ CREATE TABLE comments /* on delete set null 시 해당 ID가 not null 이면 삭
 	regdate date DEFAULT SYSDATE,/*등록날짜*/
 	PRIMARY KEY (cm_uid)
 );
-
-/*스터디 그룹 게시글*/
 CREATE TABLE content
 (
 	ct_uid number NOT NULL, /*게시글 고유번호*/
@@ -43,7 +33,6 @@ CREATE TABLE content
 	regdate date DEFAULT SYSDATE,/*둥록날짜*/
 	PRIMARY KEY (ct_uid)
 );
-/* 스터디 그룹 게시글 파일 테이블 */
 CREATE TABLE content_file
 (
 	cf_id NUMBER NOT NULL,
@@ -53,22 +42,18 @@ CREATE TABLE content_file
 	PRIMARY KEY (cf_id)
 )
 ;
-
-/*회원*/
 CREATE TABLE members
 (
 	ID varchar2(100) NOT NULL,/*회원id*/
 	name varchar2(100) NOT NULL,/*이름*/
 	pw varchar2(100) NOT NULL,/*비밀번호*/
 	phone varchar2(15),/*전화번호*/
-	email varchar2(100),/*이메일*/
-	pimg_url varchar2(200) DEFAULT 'img/member/default.png',/*프로필 이미지*/
+	email varchar2(40),/*이메일*/
+	pimg_url varchar2(200) DEFAULT 'img/member/default.jpg',/*프로필 이미지*/
 	tag varchar2(50),/*관심주제*/
 	enabled char(1) DEFAULT 1,
 	PRIMARY KEY (ID)
 );
-
-/*개인 스터디 관리*/
 CREATE TABLE memberstudy
 (
 	ID varchar2(100),/*회원id*/
@@ -85,7 +70,6 @@ CREATE TABLE memberstudy
 );
 
 
-/*예약*/
 CREATE TABLE reservation
 (
 	res_id number NOT NULL,/*예약번호*/
@@ -96,9 +80,6 @@ CREATE TABLE reservation
 	payment varchar2(30),/*결제방법*/
 	PRIMARY KEY (res_id)
 );
-
-
-/*좌석*/
 CREATE TABLE seats
 (
 	seat_id varchar2(20) NOT NULL,/*시설명*/
@@ -106,8 +87,6 @@ CREATE TABLE seats
 	PRIMARY KEY (seat_id)
 );
 
-
-/*스터디 그룹*/
 CREATE TABLE studygroup
 (
 	sg_id number NOT NULL,/*스터디그룹고유번호*/
@@ -120,12 +99,6 @@ CREATE TABLE studygroup
 	file_name varchar2(300),/*썸네일*/
 	PRIMARY KEY (sg_id)
 );
-
-
-
-
-
- /*스터디 그룹 이미지 파일*/ 
 CREATE TABLE studygroup_file
 (
 	sgf_id NUMBER ,   /*파일 번호*/
@@ -135,65 +108,96 @@ CREATE TABLE studygroup_file
 	sgf_file_size NUMBER,  /*파일 크기*/
 	PRIMARY KEY (sgf_id)  
 );
-
-
-
-
-/* Create Foreign Keys */
-
 ALTER TABLE content_file
 	ADD FOREIGN KEY (ct_uid)
 	REFERENCES content (ct_uid)
 	ON DELETE CASCADE -- 참조하는 부모가 삭제되면 같이 삭제되도록
 ;
-
 ALTER TABLE comments
 	ADD FOREIGN KEY (ct_uid)
 	REFERENCES content (ct_uid)
 	ON DELETE CASCADE
 ;
-
 ALTER TABLE comments
 	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID) ON DELETE CASCADE
+	REFERENCES members (ID) ON DELETE SET NULL
 ;
-
 ALTER TABLE authority
 	ADD FOREIGN KEY (ID)
 	REFERENCES members (ID) ON DELETE SET NULL
 ;
-
 ALTER TABLE content
 	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID) ON DELETE CASCADE
+	REFERENCES members (ID) ON DELETE SET NULL
 ;
-
-
 ALTER TABLE memberstudy
 	ADD FOREIGN KEY (ID)
 	REFERENCES members (ID) ON DELETE CASCADE;
 ;
-
-
 ALTER TABLE reservation
 	ADD FOREIGN KEY (ID)
-	REFERENCES members (ID) ON DELETE CASCADE;
+	REFERENCES members (ID) ON DELETE SET NULL
 ;
-
-
 ALTER TABLE reservation
 	ADD FOREIGN KEY (seat_id)
 	REFERENCES seats (seat_id)
 ;
-
-
 ALTER TABLE content
 	ADD FOREIGN KEY (sg_id)
-	REFERENCES studygroup (sg_id) ON DELETE CASCADE
+	REFERENCES studygroup (sg_id) ON DELETE SET NULL
 ;
-
-
 ALTER TABLE memberstudy
 	ADD FOREIGN KEY (sg_id)
 	REFERENCES studygroup (sg_id) ON DELETE Cascade;
 ;
+CREATE SEQUENCE comments_seq;
+CREATE SEQUENCE content_seq;
+CREATE SEQUENCE reservation_seq;
+CREATE SEQUENCE studygroup_seq;
+CREATE SEQUENCE studygroup_file_seq;
+CREATE SEQUENCE content_file_seq;
+
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat1', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat2', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat3', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat4', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat5', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat6', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat7', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat8', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat9', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat10', 1600);
+
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat11', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat12', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat13', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat14', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat15', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat16', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat17', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat18', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat19', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat20', 1600);
+
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat21', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat22', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat23', 1600);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('seat24', 1600);
+
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('room1', 4000);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('room2', 4000);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('room3', 4000);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('room4', 4000);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('room5', 4000);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('room6', 4000);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('room7', 4000);
+INSERT INTO SEATS(seat_id, seat_price) VALUES ('room8', 4000);
+
+INSERT INTO MEMBERS(id, pw, name) VALUES ('user1','pw1','user1');
+INSERT INTO authority (id, auth) VALUES ('user1','ROLE_USER');
+
+INSERT INTO MEMBERS(id, pw, name) VALUES ('user2','pw2','user2');
+INSERT INTO authority (id, auth) VALUES ('user2','ROLE_USER');
+
+INSERT INTO MEMBERS(id, pw, name) VALUES ('admin1','pw1','admin1');
+INSERT INTO authority (id, auth) VALUES ('admin1','ROLE_ADMIN');
