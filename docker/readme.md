@@ -115,6 +115,7 @@ eclipse IDE에서 로컬로 개발되었기 때문에 host 명이나 기타 포�
 
 -> 도커 컨테이너 실행시 해당 war파일을 읽어서 tomcat에 올려줌
 
+---
 5. tomcat 컨테이너 만들기
 *.docker/tomcat/Dockerfile*
 
