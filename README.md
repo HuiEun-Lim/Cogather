@@ -20,7 +20,7 @@ co : 코딩 + gather : 모으다 → 코딩을 모으다 <br>
   - 기성훈: 스터디 모집 게시글 CRUD ,첨부파일 및 업로드 CRUD , 게시글 검색,  페이징구현, 스터디방 참가인원 수락기능 구현, 메일 기능, 첨부파일 다운로드 구현
 
 ## 사용기술 : 
-HTML5, CSS3, JavaScript, jQuery, JSON, Jackson, Ajax, BootStrap4.0, Java11, Spring4, Spring Security, Maven, JSTL, EL, JDBC, MyBatis, Oracle 11g, Apache Tomcat9.0, Chart.js, DatePicker, lombok, commons  library, 카카오맵 api, 카카오페이 api, JAVAMAIL API,  CKEDITOR , websocket, stomp, docker, redis, w3.css, JUnit, Hibernate
+HTML5, CSS3, JavaScript, jQuery, JSON, Jackson, Ajax, BootStrap4.0, Java11, SpringFramework4, Spring Security, Maven, JSTL, EL, JDBC, MyBatis, Oracle 11g, Apache Tomcat9.0, Chart.js, DatePicker, lombok, commons  library, 카카오맵 api, 카카오페이 api, JAVAMAIL API,  CKEDITOR , websocket, stomp, docker, redis, w3.css, JUnit, Hibernate
 
 ## 버전관리 : Git-Hub / Source Tree 
 - https://github.com/HuiEun-Lim/Cogather
