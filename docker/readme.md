@@ -104,12 +104,17 @@ eclipse IDE에서 로컬로 개발되었기 때문에 host 명이나 기타 포�
 ```
 ---
 3. 테이블을 세팅할 sql문을 써놓음
-4. 
+ 
 *./docker/db/cogatherDB.sql* 
 
 추후 컴포즈에서 volumes로 연결하여 읽어감
 
 --- 
+4. ./webapps 폴더에 배포 파일 넣기
+*./webapps* 폴더에 프로젝트 배포파일인 war 파일 넣어주기
+
+-> 도커 컨테이너 실행시 해당 war파일을 읽어서 tomcat에 올려줌
+
 5. tomcat 컨테이너 만들기
 *.docker/tomcat/Dockerfile*
 
@@ -127,7 +132,7 @@ cogather\docker\tomcat> compose up -d
 ```
 
 클라우드에 올리고 싶다면 클라우드 서버에 docker를 설치하고 
-해당 프로젝트 폴더를 받아서 *compose up -d*를 하면 된다.
+해당 프로젝트 폴더를 받아서 *compose up -d*를 하면 된다. (위에서 변경한 설정은 반영되어 있지 않으니 변경하고 배포파일로 만든 뒤에 진행하면 된다.)
 
 ### 4. 배포중 만난 문제들
 1. 절대 경로 문제 
